@@ -1,0 +1,39 @@
+name: Vale Linting
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    paths:
+      - 'docs/**'
+      - 'README.md'
+      - '.vale.ini'
+      - '.github/styles/**'
+
+jobs:
+  vale:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Vale Linter
+        uses: errata-ai/vale-action@v2
+        continue-on-error: true
+        with:
+          files: '["README.md", "docs"]'
+          fail_on_error: false
+          filter_mode: nofilter
+          level: error
+          
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Upload Vale results
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: vale-results
+          path: __vale_output.json

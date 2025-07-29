@@ -1,0 +1,10 @@
+# Rejected terms for Silhouette documentation
+silhouette
+hypercore
+hyperevm
+Hyper Core
+Hyper EVM
+silhouettte
+hyperliqiud
+tee
+Tee

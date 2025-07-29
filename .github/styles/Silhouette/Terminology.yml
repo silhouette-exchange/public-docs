@@ -1,0 +1,14 @@
+extends: substitution
+message: "Use '%s' instead of '%s' for consistency."
+level: error
+ignorecase: false
+swap:
+  'silhouette': 'Silhouette'
+  'hypercore': 'HyperCore'
+  'hyperevm': 'HyperEVM'
+  'Hyper Core': 'HyperCore'
+  'Hyper EVM': 'HyperEVM'
+  'tee': 'TEE'
+  'Tee': 'TEE'
+  'on-chain': 'onchain'
+  'On-chain': 'Onchain'

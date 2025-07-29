@@ -1,0 +1,13 @@
+extends: existence
+message: "Consider rewriting '%s' for clarity."
+level: suggestion
+ignorecase: true
+tokens:
+  - utilize
+  - leverage
+  - implement
+  - execute
+  - perform
+  - conduct
+  - facilitate
+  - enable

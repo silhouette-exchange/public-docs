@@ -1,0 +1,18 @@
+extends: existence
+message: "Avoid using '%s' in technical documentation."
+level: warning
+ignorecase: true
+tokens:
+  - very
+  - really
+  - quite
+  - just
+  - simply
+  - actually
+  - basically
+  - obviously
+  - clearly
+  - in order to
+  - note that
+  - the fact that
+  - it should be noted that

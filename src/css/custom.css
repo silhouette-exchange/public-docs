@@ -1,0 +1,262 @@
+/**
+ * Any CSS included here will be global. The classic template
+ * bundles Infima by default. Infima is a CSS framework designed to
+ * work well for content-centric websites.
+ */
+
+/* You can override the default Infima variables here. */
+:root {
+  /* Silhouette variables */
+  --hero-gradient: linear-gradient(180deg, #D0E7EB 6.41%, #F7F8FF16 100%);
+
+  /* Colors */
+  --gray-50: #f7fbff;
+  --gray-100: #e6ebf5;
+  --gray-200: #d1d9e9;
+  --gray-300: #c4cddb;
+  --gray-400: #a0a9b8;
+  --gray-500: #6e7788;
+  --gray-600: #4b5768;
+  --gray-700: #374151;
+  --gray-800: #1f2937;
+  --gray-900: #111827;
+  --brand-teal-50: #ebfffe;
+  --brand-teal-100: #d9fffd;
+  --brand-teal-200: #c2fffc;
+  --brand-teal-300: #99fffa;
+  --brand-teal-400: #70fff8;
+  --brand-teal-500: #00fff2;
+  --brand-teal-600: #00e5da;
+  --brand-teal-700: #00b8ae;
+  --brand-teal-800: #008f88;
+  --brand-teal-900: #006661;
+  --brand-teal-1000: #003d3a;
+  --brand-teal-1200: #002624;
+  --brand-pink-50: #ffebff;
+  --brand-pink-100: #fed9ff;
+  --brand-pink-200: #fec2ff;
+  --brand-pink-300: #fd99ff;
+  --brand-pink-400: #fc70ff;
+  --brand-pink-500: #fa00ff;
+  --brand-pink-600: #e100e5;
+  --brand-pink-700: #b400b8;
+  --brand-pink-800: #8c008f;
+  --brand-pink-900: #640066;
+  --brand-pink-1000: #3c003d;
+  --brand-pink-1200: #260026;
+  --white-white100: #ffffff;
+  --white-white80: #ffffff;
+  --white-white64: #ffffff;
+  --white-white56: #ffffff;
+  --white-white40: #ffffff;
+  --white-white24: #ffffff;
+  --white-white16: #ffffff;
+  --white-white8: #ffffff;
+  --white-white4: #ffffff;
+  --white-white0: #ffffff;
+  --white-white72: #ffffff;
+  --ui-pink-screen: var(--brand-pink-500);
+  --ui-teal-screen: var(--brand-teal-500);
+  --white-white2: #ffffff;
+  --gray-1000: #0e0e1a;
+  --ui-card-bg: var(--white-white2);
+  --ui-card-stroke: var(--white-white8);
+  --gray-1200: #07070f;
+  --bg-blackk: #060606;
+  --bg-cool-grey: #1c1b1b;
+  --bg-light: var(--gray-50);
+
+  /* Effects */
+  --blur-background-100: 4px;
+  --blur-background-200: 8px;
+  --blur-background-300: 12px;
+  --blur-background-400: 16px;
+  --blur-background-500: 24px;
+  --blur-background-600: 32px;
+  --blur-background-700: 40px;
+  --blur-background-800: 64px;
+  --blur-layer-100: 4px;
+  --blur-layer-200: 8px;
+  --blur-layer-300: 12px;
+  --blur-layer-400: 16px;
+  --blur-layer-500: 24px;
+  --blur-layer-600: 32px;
+  --blur-layer-700: 40px;
+  --blur-layer-800: 64px;
+
+  /* Border radius */
+  --border-radius-xl: 24px;
+  --border-radius-m: 12px;
+  --border-radius-s: 8px;
+  --border-radius-2xl: 32px;
+  --border-radius-l: 16px;
+  --border-radius-3xl: 48px;
+  --border-radius-xs: 4px;
+  --border-radius-xxs: 2px;
+  --border-radius-none: 0px;
+  --border-radius-full: 10000px;
+
+  /* Screen size */
+  --width-mobile-width: 360px;
+  --width-tablet-width: 768px;
+  --width-desktop-width: 1440px;
+  --width-desktop-xl-width: 1920px;
+  --height-mobile-height: 760px;
+  --height-tablet-height: 1024px;
+  --height-desktop-height: 900px;
+  --height-desktop-xl-height: 1200px;
+  --width-xs-mobile-width: 320px;
+  --height-xs-mobile-height: 568px;
+
+  /* Spacing */
+  --0: 0px;
+  --2: 2px;
+  --4: 4px;
+  --8: 8px;
+  --12: 12px;
+  --16: 16px;
+  --24: 24px;
+  --32: 32px;
+  --40: 40px;
+  --48: 48px;
+  --56: 56px;
+  --64: 64px;
+  --72: 72px;
+  --80: 80px;
+  --96: 96px;
+  --104: 104px;
+
+  /* Opacity */
+  --opacity-opacity-0: 0px;
+  --opacity-opacity-5: 5px;
+  --opacity-opacity-10: 10px;
+  --opacity-opacity-20: 20px;
+  --opacity-opacity-25: 25px;
+  --opacity-opacity-30: 30px;
+  --opacity-opacity-40: 40px;
+  --opacity-opacity-50: 50px;
+  --opacity-opacity-60: 60px;
+  --opacity-opacity-70: 70px;
+  --opacity-opacity-80: 80px;
+  --opacity-opacity-90: 90px;
+  --opacity-opacity-95: 95px;
+  --opacity-opacity-100: 100px;
+  --opacity-opacity-15: 15px;
+  --opacity-opacity-35: 35px;
+  --opacity-opacity-45: 45px;
+  --opacity-opacity-55: 55px;
+  --opacity-opacity-65: 65px;
+  --opacity-opacity-75: 75px;
+  --opacity-opacity-85: 85px;
+
+  /* Docusaurus variables */
+  --ifm-color-primary: var(--gray-1200);
+  --ifm-heading-color: var(--gray-1200);
+  --ifm-background-color: var(--white-white100);
+  --ifm-font-color-base: var(--gray-700);
+  --ifm-font-color-base-inverse: var(--gray-700);
+  --ifm-code-font-size: 95%;
+  --ifm-hero-text-color: var(--ifm-font-color-base);
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+  --ifm-font-family-base: "Inter", system-ui, sans-serif;
+  --ifm-heading-font-family: "Inter", system-ui, sans-serif;
+
+
+  --ifm-h1-font-size:                                                    28px;
+  --ifm-h2-font-size:                                                  22px;
+  --ifm-h3-font-size:                                                 1.25rem;
+  --ifm-h4-font-size:                                                    1rem;
+  --ifm-h5-font-size:                                                0.875rem;
+  --ifm-h6-font-size:                                                 0.85rem;
+}
+
+/* For readability concerns, you should choose a lighter palette in dark mode. */
+[data-theme='dark'] {
+  --ifm-color-primary: #F7F8FF;
+  --ifm-font-color-base: #F7F8FF;
+  --ifm-font-color-base-inverse: #F7F8FF;
+  --ifm-hero-text-color: var(--ifm-font-color-base);
+  --ifm-heading-color: #F7F8FF;
+  --ifm-background-color: #07070F;
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+
+  /* Silhouette variables */
+  --hero-gradient: linear-gradient(180deg, rgba(28, 27, 27, 0.00) 0%, var(--Bg-cool-grey, #1C1B1B) 100%);
+}
+
+::selection {
+  background-color: #00FFF2;
+  color: #07070F;
+}
+
+
+h1, h2, h3 {
+  font-family: var(--ifm-font-family-base);
+  font-style: normal;
+  font-weight: 400;
+}
+
+h1 {
+  font-size: 28px !important;
+  line-height: 40px !important;
+  letter-spacing: 0.64px !important;
+}
+
+h2 {
+  font-size: 22px;
+  font-weight: 500;
+  line-height: 32px;
+  letter-spacing: 0.48px;
+}
+
+/* This is due to the headings on pages being H2 when auto generated */
+header  h2 {
+  font-size: 28px !important;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 40px; /* 142.857% */
+  letter-spacing: 0.64px;
+}
+
+h3 {
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.48px;
+}
+
+/* Links */
+
+.container a {
+  color: #184846;
+}
+
+[data-theme='dark'] .container a {
+  color: #99FFFA;
+}
+
+[data-theme='dark'] .menu__link {
+  color: rgba(255, 255, 255, 0.80);
+}
+
+[data-theme='dark'] .menu__link--active {
+  color: #99FFFA;
+}
+
+/* Footer */
+[data-theme='light'] .footer {
+  background: var(--brand-teal-50);
+  backdrop-filter: blur(9.550000190734863px);
+}
+[data-theme='light'] .footer__title {
+  color: var(--gray-1200);
+}
+
+[data-theme='dark'] .footer {
+  background: rgba(255, 255, 255, 0.04);
+  backdrop-filter: blur(9.550000190734863px);
+}
+
+[data-theme='dark'] .footer a {
+  color: rgba(255, 255, 255, 0.80);
+}

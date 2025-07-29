@@ -1,0 +1,21 @@
+.navbarHideable {
+  transition: transform var(--ifm-transition-fast) ease;
+}
+
+.navbarHidden {
+  transform: translate3d(0, calc(-100% - 2px), 0);
+}
+
+.customAdmonition {
+  margin-top: 0;
+  display: flex;
+  gap: 1rem;
+  padding-bottom: 0.5rem;
+  padding-top: 0.5rem;
+  border-radius: 0;
+  margin-bottom: 0;
+}
+
+.customAdmonition > * {
+  margin-bottom: 0 !important;
+}

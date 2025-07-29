@@ -1,0 +1,9 @@
+# Query: get started
+# ContextLines: 1
+
+1 result - 1 file
+
+src/pages/index.tsx:
+  23              to="/docs/about-silhouette">
+  24:             Get Started with Silhouette Exchange
+  25            </Link>

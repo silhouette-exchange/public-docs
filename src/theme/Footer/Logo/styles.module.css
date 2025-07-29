@@ -1,0 +1,15 @@
+.footerDefaults {
+    max-width: 145px;
+    padding: 0 var(--ifm-spacing-horizontal);
+    margin-top: 0;
+}
+
+.footerLogoLink {
+  opacity: 0.5;
+  transition: opacity var(--ifm-transition-fast)
+    var(--ifm-transition-timing-default);
+}
+
+.footerLogoLink:hover {
+  opacity: 1;
+}

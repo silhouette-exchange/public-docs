@@ -1,0 +1,335 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.heroBanner {
+  padding: 8rem 0;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+
+.heroBackground {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  opacity: .2;
+  z-index: 0;
+}
+
+.heroContainer {
+  position: relative;
+  z-index: 50;
+}
+
+/* .heroBanner::before {
+  content: " ";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: .4;
+  background-image: url('/static/img/hero.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+} */
+
+.heroBanner::after {
+  content: " ";
+  position: absolute;
+  z-index: 0;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--hero-gradient);
+}
+
+[data-theme='light'] .heroBanner {
+    background-color: #fff; /* Fallback for light mode */
+    color: #0E0E1A;
+}
+
+.heroTitle {
+  font-size: 32px;
+  line-height: 40px;
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  font-family: 'Orbitron', sans-serif;
+}
+@media screen and (max-width: 768px) {
+  .heroTitle {
+    font-size: 24px;
+  }
+}
+
+
+.section {
+    padding: 4rem 2rem;
+}
+
+.sectionTitle {
+    text-align: center;
+    margin-bottom: 1rem;
+    font-size: 24px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: 40px; /* 166.667% */
+    letter-spacing: 4.32px;
+    text-transform: uppercase;
+}
+
+.sectionSubtitle {
+    text-align: center;
+    margin-bottom: 4rem;
+    color: var(--ifm-font-color-base);
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.96px;
+}
+
+.cardContainer {
+    margin: 4rem auto 0;
+    display: flex;
+    justify-content: center;
+    gap: 2rem;
+    flex-wrap: wrap;
+}
+
+.card {
+  background: var(--ifm-color-primary);
+  border-radius: 8px;
+  text-align: left;
+  padding: 24px;
+  max-width: 30%;
+  width: 100%;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.04);
+  -webkit-backdrop-filter: blur(20px);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  text-decoration: none;
+}
+@media screen and (max-width: 768px) {
+  .card {
+    max-width: 100%;
+  }
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    text-decoration: none;
+}
+
+
+.cardHeader {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 1rem;
+}
+
+.cardHeader .cardIcon {
+    width: 24px;
+    height: 24px;
+    color: #C4CDDB;
+}
+
+[data-theme='light'] .cardHeader .cardIcon {
+    color: #6E7788;
+}
+
+.cardHeader .linkIcon {
+    width: 20px;
+    height: 20px;
+    color: #fff;
+    opacity: 0.7;
+    transition: opacity 0.3s ease;
+}
+
+.cardHeader .linkIcon:hover {
+    opacity: 1;
+}
+
+[data-theme='light'] .cardHeader .linkIcon {
+    color: #6E7788;
+}
+
+
+.cardTitle {
+  font-family: 'Orbitron', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 600;
+  line-height: 24px; /* 150% */
+  letter-spacing: 2.56px;
+  text-transform: uppercase;
+}
+
+.cardText {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.96px;
+}
+
+[data-theme='light'] .cardText {
+    color: #1F2937;
+}
+
+[data-theme='dark'] .cardText {
+    color: rgba(255, 255, 255, 0.80);
+}
+
+.gettingStartedContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gettingStartedContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    max-width: 800px;
+    margin: 0 auto;
+}
+
+.gettingStartedLink {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 20px;
+    text-decoration: none;
+    color: var(--ifm-font-color-base) !important;
+    transition: background-color 0.3s, border-color 0.3s;
+}
+
+.gettingStartedLink:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff !important;
+    text-decoration: none;
+}
+
+[data-theme='light'] .gettingStartedLink {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .gettingStartedLink:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.3);
+    color: #0E0E1A !important;
+}
+
+
+.gettingStartedLink div {
+    display: flex;
+    flex-direction: column;
+}
+
+.gettingStartedLink span:last-child {
+    font-family: 'Inter', sans-serif;
+    font-size: 16px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 150% */
+    letter-spacing: 0.96px;
+}
+
+.gettingStartedLink .linkTitle {
+    font-family: 'Inter', sans-serif;
+    font-size: 20px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 24px; /* 120% */
+    letter-spacing: 1.2px;
+    margin-bottom: 0.25rem;
+}
+
+.gettingStartedLink .linkIcon {
+    width: 20px;
+    height: 20px;
+}
+
+[data-theme='light'] .gettingStartedLink .linkIcon {
+    color: #6E7788;
+}
+
+[data-theme='dark'] .gettingStartedLink .linkIcon {
+    color: #C4CDDB;
+}
+
+.socialContainer {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2rem;
+}
+
+@media screen and (max-width: 996px) {
+    .socialContainer {
+        grid-template-columns: 1fr;
+    }
+}
+
+.socialLink {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    padding: 1rem 2rem;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    text-decoration: none;
+    color: var(--ifm-font-color-base) !important;
+    transition: background-color 0.3s, border-color 0.3s;
+    min-width: 250px;
+}
+
+.socialLink:hover {
+    background-color: rgba(255, 255, 255, 0.05);
+    border-color: rgba(255, 255, 255, 0.5);
+    color: #fff !important;
+    text-decoration: none;
+}
+
+[data-theme='light'] .socialLink {
+    border: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+[data-theme='light'] .socialLink:hover {
+    background-color: rgba(0, 0, 0, 0.03);
+    border-color: rgba(0, 0, 0, 0.3);
+    color: #0E0E1A;
+}
+
+.socialLink .socialIcon {
+    width: 24px;
+    height: 24px;
+}
+
+@media screen and (max-width: 996px) {
+  .heroBanner {
+    padding: 2rem;
+  }
+}
+
+.buttons {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
