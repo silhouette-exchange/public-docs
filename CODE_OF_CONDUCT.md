@@ -16,8 +16,6 @@ Examples of behavior that contributes to a positive environment for our communit
 * Accepting responsibility and apologizing to those affected by our mistakes, and learning from the experience
 * Focusing on what is best not just for us as individuals, but for the overall community
 * Using welcoming and inclusive language
-* Being respectful of differing viewpoints and experiences
-* Gracefully accepting constructive criticism
 * Focusing on what is best for the community
 * Showing empathy towards other community members
 
