@@ -1,0 +1,41 @@
+# GitHub Labels Configuration
+# Streamlined set of essential labels for issue and PR management
+
+# Type Labels
+- name: "bug"
+  color: "d73a4a"
+  description: "Something isn't working correctly"
+
+- name: "documentation"
+  color: "0075ca"
+  description: "Improvements or additions to documentation"
+
+- name: "enhancement"
+  color: "a2eeef"
+  description: "New feature or request"
+
+- name: "question"
+  color: "d876e3"
+  description: "Further information is requested"
+
+# Priority Labels
+- name: "priority-high"
+  color: "d93f0b"
+  description: "Critical issues that need attention"
+
+- name: "priority-low"
+  color: "0e8a16"
+  description: "Nice to have improvements"
+
+# Status Labels
+- name: "needs-triage"
+  color: "ededed"
+  description: "New issues that need review"
+
+- name: "good-first-issue"
+  color: "7057ff"
+  description: "Good for newcomers"
+
+- name: "help-wanted"
+  color: "008672"
+  description: "Community contributions welcome"
