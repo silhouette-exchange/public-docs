@@ -20,41 +20,44 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: "category",
-      label: "Architecture",
+      label: "Account Management",
       items: [
-        'trading/order-details',
-        'trading/matching-engine'
+        "account-management/overview",
+        "account-management/encryption-key",
+        "account-management/evm-wallet",
+        "account-management/managed-wallets",
+      ],
+    },
+    {
+      type: "category",
+      label: "Trading",
+      items: [
+        "trading/order-details", 
+        "trading/matching-engine"
       ],
     },
     {
       type: 'category',
       label: 'Architecture',
       items: [
+        'architecture/overview',
         'architecture/webapp',
         'architecture/smart-contract',
         'architecture/tee',
-        'architecture/hyperliquid'
-      ],
-    },
-    {
-      type: "category",
-      label: "Trading",
-      items: ["trading/order-details", "trading/matching-engine"],
-    },
-    {
-      type: "category",
-      label: "Account management",
-      items: [
-        "account/overview",
-        "account/evm-wallet",
-        "account/managed-wallets",
-        "account/encryption-key",
+        'architecture/hyperliquid',
+        'architecture/sdk-api',
+        'architecture/system-flows'
       ],
     },
     {
       type: 'link',
       href: '/docs/faq',
       label: 'FAQ',
+    },
+    {
+      type: 'link',
+      href: '/docs/legal-compliance',
+      label: 'Legal & Compliance',
     },
     {
       type: 'link',
