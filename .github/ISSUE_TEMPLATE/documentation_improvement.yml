@@ -1,0 +1,110 @@
+name: 📚 Documentation Improvement
+description: Suggest improvements to existing documentation
+title: "[Docs]: "
+labels: ["documentation", "enhancement", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for helping us improve our documentation! Your feedback helps make Silhouette more accessible to everyone.
+
+  - type: dropdown
+    id: doc-type
+    attributes:
+      label: Documentation Type
+      description: What type of documentation needs improvement?
+      options:
+        - User Guide
+        - Technical Documentation
+        - FAQ
+        - Blog Post
+        - API Reference
+        - Architecture Documentation
+        - Other
+    validations:
+      required: true
+
+  - type: input
+    id: page-url
+    attributes:
+      label: Page URL
+      description: Link to the specific page that needs improvement
+      placeholder: https://docs.silhouette.exchange/docs/...
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-issue
+    attributes:
+      label: Current Issue
+      description: What's wrong with the current documentation?
+      placeholder: |
+        - Information is unclear
+        - Missing important details
+        - Outdated information
+        - Typos or grammatical errors
+        - Poor organization
+    validations:
+      required: true
+
+  - type: textarea
+    id: suggested-improvement
+    attributes:
+      label: Suggested Improvement
+      description: How would you improve this documentation?
+      placeholder: Describe your suggested changes or additions...
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: Priority
+      description: How important is this improvement?
+      options:
+        - Low - Nice to have
+        - Medium - Would improve user experience
+        - High - Critical for user understanding
+        - Urgent - Blocking or misleading information
+    validations:
+      required: true
+
+  - type: dropdown
+    id: audience
+    attributes:
+      label: Target Audience
+      description: Who would benefit most from this improvement?
+      options:
+        - New users
+        - Experienced traders
+        - Developers
+        - All users
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-context
+    attributes:
+      label: Additional Context
+      description: Any other context or examples that would help?
+      placeholder: Links to similar documentation, examples, or additional details...
+
+  - type: checkboxes
+    id: contribution
+    attributes:
+      label: Contribution
+      description: Are you willing to help with this improvement?
+      options:
+        - label: I'd like to contribute to fixing this issue
+        - label: I can provide additional review or feedback
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
