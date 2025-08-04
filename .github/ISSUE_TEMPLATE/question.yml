@@ -1,0 +1,97 @@
+name: ❓ Question
+description: Ask a question about Silhouette or the documentation
+title: "[Question]: "
+labels: ["question", "needs-triage"]
+assignees: []
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have a question about Silhouette Exchange or our documentation? We're here to help!
+        
+        **Before asking**: Please check our [FAQ](https://docs.silhouette.exchange/docs/faq) and search existing issues to see if your question has already been answered.
+
+  - type: dropdown
+    id: question-type
+    attributes:
+      label: Question Type
+      description: What type of question is this?
+      options:
+        - General usage question
+        - Technical implementation
+        - Trading functionality
+        - Account management
+        - Architecture/design
+        - Documentation clarification
+        - Other
+    validations:
+      required: true
+
+  - type: textarea
+    id: question
+    attributes:
+      label: Your Question
+      description: What would you like to know?
+      placeholder: Please be as specific as possible...
+    validations:
+      required: true
+
+  - type: textarea
+    id: context
+    attributes:
+      label: Context
+      description: What are you trying to accomplish? What have you already tried?
+      placeholder: |
+        - What you're trying to do
+        - What you've already tried
+        - Any relevant background information
+        - Links to relevant documentation
+
+  - type: input
+    id: related-docs
+    attributes:
+      label: Related Documentation
+      description: Is there a specific documentation page related to your question?
+      placeholder: https://docs.silhouette.exchange/docs/...
+
+  - type: dropdown
+    id: urgency
+    attributes:
+      label: Urgency
+      description: How urgent is getting an answer to this question?
+      options:
+        - Low - Just curious
+        - Medium - Would help with my project
+        - High - Blocking my progress
+        - Critical - Urgent issue
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: Any other details that might help us answer your question?
+      placeholder: Screenshots, error messages, or other relevant information...
+
+  - type: checkboxes
+    id: checklist
+    attributes:
+      label: Pre-submission Checklist
+      description: Please confirm you've done the following
+      options:
+        - label: I've searched existing issues for similar questions
+          required: true
+        - label: I've checked the FAQ section
+          required: true
+        - label: I've provided enough context for others to understand my question
+          required: true
+
+  - type: checkboxes
+    id: terms
+    attributes:
+      label: Code of Conduct
+      description: By submitting this issue, you agree to follow our Code of Conduct
+      options:
+        - label: I agree to follow this project's Code of Conduct
+          required: true
