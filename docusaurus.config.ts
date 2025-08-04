@@ -93,7 +93,7 @@ const config: Config = {
     colorMode: {
       defaultMode: 'dark',
     },
-    image: 'img/silhouette-social-card.jpg',
+    image: 'img/silhouette-social-card.png',
     navbar: {
       title: 'Silhouette Docs',
       logo: {
