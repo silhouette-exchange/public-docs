@@ -1,5 +1,5 @@
 ---
-slug: whydarkpoolhaventworked
+slug: why-dark-pool-havent-worked
 title: Why Dark Pools Haven’t Worked Onchain
 authors: [silhouette-team]
 tags: [article]
@@ -18,6 +18,7 @@ By hiding order flow, they aimed to level the playing field. And on paper, that 
 But in practice, they became liquidity graveyards. The traders they were meant to serve stayed away. Makers refused to quote. Spreads widened. Volumes flatlined.
 
 So what went wrong?
+<!-- truncate -->
 
 ## The Instinct Was Right: Transparency Hurts Traders
 
