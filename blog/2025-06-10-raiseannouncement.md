@@ -12,6 +12,7 @@ Decentralised Finance has come a long way since the DeFi Summer of 2020. What be
 At Silhouette, we believe individual confidentiality enhances the foundational benefits of DeFi: accessibility and openness. The latest developments in cryptography enable us to apply verification to outcomes at a speed that matches the current on-chain pace. A transition from full transparency to verification is crucial to the future of an on-chain financial ecosystem.
 
 The DeFi economy will combine open financial markets with the natural desire for users to reduce the visibility of their positions within the market. Silhouette is based on the premise that open public markets and private user interactions are non-negotiable requirements to usher in an on-chain environment that fits the needs of all of finance.
+<!-- truncate -->
 
 ## Introducing: The Shield Exchange
 Silhouette shields your Hyperliquid trades from prying eyes, allowing you to move freely and express your ideas in absolute confidence.
