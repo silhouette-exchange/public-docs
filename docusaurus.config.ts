@@ -87,7 +87,14 @@ const config: Config = {
       } satisfies Preset.Options,
     ],
   ],
-
+  plugins: [
+    [
+      '@docusaurus/plugin-vercel-analytics',
+      {
+        mode: 'auto',
+      },
+    ],
+  ],
   themeConfig: {
     // Replace with social card
     colorMode: {
