@@ -41,7 +41,11 @@ Make sure you meet all the [prerequisites](#prerequisites) before interacting wi
 
 ### Step 1: Obtain a bearer token
 
-You need a bearer token to authenticate your API requests. The easiest way to obtain one is through the login assistant:
+:::warning
+Anyone with your bearer token will have full access to your Silhouette account until it expires.
+:::
+
+You need a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750) to authenticate your API requests. The easiest way to obtain one is through the login assistant:
 
 1. Visit the [login assistant](https://login.silhouette.exchange/)
 2. Connect your Ethereum wallet

@@ -28,7 +28,7 @@ This section covers common errors you may encounter when using the Silhouette AP
 
 Causes:
 
-- Bearer token not included in the `Authorization` header
+- [Bearer token](https://datatracker.ietf.org/doc/html/rfc6750) not included in the `Authorization` header
 - Token format is incorrect (should be `Bearer YOUR_TOKEN_HERE`)
 - Token is malformed or invalid
 - Token is expired

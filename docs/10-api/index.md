@@ -17,7 +17,7 @@ The API URL will be provided when the API is made available. Throughout this doc
 
 All API requests are `POST` requests sent to the same URL. Rather than having separate endpoints for each operation (like `/orders` or `/balances`), the API uses a discriminated union pattern where you specify the operation in the `operation` field of your request body. This approach simplifies integration and provides a consistent request structure across all operations.
 
-Authentication is handled through wallet signing using Sign-In With Ethereum (SIWE), which uses your Ethereum wallet to prove your identity. Once authenticated, you receive a bearer token that you include in all subsequent API requests.
+Authentication is handled through wallet signing using [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/), which uses your Ethereum wallet to prove your identity. Once authenticated, you receive a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750) that you include in all subsequent API requests.
 
 ## Sections
 

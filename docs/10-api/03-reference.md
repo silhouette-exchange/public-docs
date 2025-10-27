@@ -13,7 +13,7 @@ This section provides detailed documentation for each available API operation. A
 
 ## login
 
-Authenticate with the Silhouette API using Sign-In With Ethereum (SIWE) to obtain a bearer token. This operation does not require an existing bearer token—it's the first step in using the API.
+Authenticate with the Silhouette API using [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) to obtain a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750). This operation does not require an existing bearer token—it's the first step in using the API.
 
 **Endpoint**: `POST <API_URL>/v0`
 

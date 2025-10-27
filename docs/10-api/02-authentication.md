@@ -8,21 +8,25 @@ slug: /api/authentication
 The Silhouette API is currently in beta and under active development on testnet. More operations and features will be added soon.
 :::
 
-The Silhouette API uses Sign-In With Ethereum (SIWE) for authentication, which allows you to prove your identity using your Ethereum wallet without requiring traditional API keys or passwords.
+The Silhouette API uses [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) for authentication, which allows you to prove your identity using your Ethereum wallet without requiring traditional API keys or passwords.
 
 ## Overview of SIWE
 
-Sign-In With Ethereum (SIWE) is a standard authentication method that uses cryptographic signatures to prove ownership of an Ethereum address. Instead of creating usernames and passwords, you sign a message with your wallet's private key, and the server verifies the signature to confirm your identity.
+SIWE is a standard authentication method that uses cryptographic signatures to prove ownership of an Ethereum address. Instead of creating usernames and passwords, you sign a message with your wallet's private key, and the server verifies the signature to confirm your identity.
 
 How it works:
 
 1. You generate a SIWE message containing information about your wallet address and the authentication request
 2. You sign this message using your wallet's private key
 3. You send the signed message and signature to the `login` operation
-4. The server verifies the signature and issues a JWT (JSON Web Token) bearer token
+4. The server verifies the signature and issues a JWT (JSON Web Token) [bearer token](https://datatracker.ietf.org/doc/html/rfc6750)
 5. You include this bearer token in the `Authorization` header of all subsequent API requests
 
 Your user identity is automatically derived from your wallet address, which is embedded in the bearer token. This means you can only access your own account data, and no additional credentials or registration is required.
+
+:::warning
+Anyone with your bearer token will have full access to your Silhouette account until it expires.
+:::
 
 ## Using the login assistant (recommended)
 

@@ -12,7 +12,7 @@ The Silhouette API is currently in beta and under active development on testnet.
 
 For developers who want to build strongly-typed integrations, we provide an OpenAPI specification for the Silhouette API. The spec is available at:
 
-```
+```text
 <API_URL>/swagger/v0/json
 ```
 
