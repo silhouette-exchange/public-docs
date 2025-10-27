@@ -52,6 +52,13 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
+      type: "category",
+      label: "API Reference",
+      items: [
+        "10-api/01-api-reference",
+      ],
+    },
+    {
       type: 'link',
       href: '/docs/faq',
       label: 'FAQ',
