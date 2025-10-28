@@ -38,19 +38,19 @@ const tutorials = [
   {
     title: "Quickstart",
     description: "Connect Your EVM Wallet to the Silhouette webapp",
-    link: "/docs/quickstart",
+    link: "/docs/about-silhouette",
   },
   {
     title: "Deposit Assets",
     description:
       "Silhouette uses the HYPE or USDC you already have on HyperCore.",
-    link: "/docs/quickstart",
+    link: "/docs/about-silhouette",
   },
   {
     title: "Withdrawing Assets",
     description:
       "The webapp will facilitate the withdrawal. Just enter the amount.",
-    link: "/docs/quickstart",
+    link: "/docs/about-silhouette",
   },
 ];
 
@@ -77,6 +77,7 @@ const socialLinks = [
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
+
   return (
     <Layout
       title={`Welcome to ${siteConfig.title}`}
@@ -90,40 +91,6 @@ export default function Home(): ReactNode {
                 {`Welcome to `}
                 {`Silhouette Docs`}
               </Heading>
-              <div className={styles.searchBar}>
-                <svg
-                  className={styles.searchIcon}
-                  width="16"
-                  height="16"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                >
-                  <path
-                    d="M7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12Z"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                  <path
-                    d="M11 11L14 14"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-                <input
-                  type="text"
-                  placeholder="Search..."
-                  className={styles.searchInput}
-                  readOnly
-                />
-                <div className={styles.keyboardShortcut}>
-                  <kbd className={styles.key}>⌘</kbd>
-                  <kbd className={styles.key}>K</kbd>
-                </div>
-              </div>
             </div>
             <div className={styles.cardContainer}>
               {featureCards.map((card, idx) => (
