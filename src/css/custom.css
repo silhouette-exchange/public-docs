@@ -453,9 +453,8 @@ h3 {
 }
 
 .navbar__search-input:focus {
-  outline: 2px solid var(--brand-teal-500, #00FFF2) !important;
-  outline-offset: 0px !important;
-  border-color: var(--brand-teal-500, #00FFF2) !important;
+  outline: none !important;
+  border-color: #52525b !important;
 }
 
 /* Search icon */
@@ -539,8 +538,8 @@ h3 {
 }
 
 [data-theme='light'] .navbar__search-input:focus {
-  outline: 2px solid var(--brand-teal-700, #00B8AE) !important;
-  border-color: var(--brand-teal-700, #00B8AE) !important;
+  outline: none !important;
+  border-color: #a1a1aa !important;
 }
 
 [data-theme='light'] .navbar__search::before {
