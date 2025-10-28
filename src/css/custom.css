@@ -184,6 +184,15 @@
   --hero-gradient: linear-gradient(180deg, rgba(28, 27, 27, 0.00) 0%, var(--Bg-cool-grey, #1C1B1B) 100%);
 }
 
+html {
+  background-color: rgba(255, 255, 255, 0.02) !important;
+  background-image: url('/img/main-bg.png');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
 ::selection {
   background-color: #00FFF2;
   color: #07070F;
@@ -225,6 +234,13 @@ h3 {
   letter-spacing: 0.48px;
 }
 
+/* Navbar */
+.navbar {
+  background: transparent !important;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.10) !important;
+  backdrop-filter: blur(36.349998474121094px) !important;
+}
+
 /* Links */
 
 .container a {
@@ -244,19 +260,176 @@ h3 {
 }
 
 /* Footer */
-[data-theme='light'] .footer {
-  background: var(--brand-teal-50);
-  backdrop-filter: blur(9.550000190734863px);
-}
-[data-theme='light'] .footer__title {
-  color: var(--gray-1200);
+.footer {
+  background-color: transparent;
+  backdrop-filter: blur(9.55px) !important;
+  padding: 64px 40px !important;
+  display: flex !important;
+  flex-direction: column !important;
+  align-items: flex-start !important;
+  gap: 48px !important;
+  width: 100% !important;
+  margin: 0 auto !important;
 }
 
-[data-theme='dark'] .footer {
-  background: rgba(255, 255, 255, 0.04);
-  backdrop-filter: blur(9.550000190734863px);
+.footer__container-wrapper {
+  width: 100%;
+  display: flex;
+  gap:152px;
+
+}
+
+.footer__columns {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 80px !important;
+  width: 100% !important;
+}
+
+.footer__col {
+  display: flex !important;
+  flex-direction: column !important;
+}
+
+/* 
+.footer__logo-wrapper {
+  margin-bottom: 48px;
+
+} */
+
+.footer__logo {
+  height: 18px;
+}
+
+
+.footer__items {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  gap: 14px !important;
+}
+
+.clean-list {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.footer__item {
+  list-style: none !important;
+}
+
+.footer__title {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 32px !important;
+  letter-spacing: 0.96px !important;
+  text-transform: uppercase !important;
+  color: #FAFAFA !important;
+  margin-bottom: 14px !important;
+}
+
+.footer__link-item {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 24px !important;
+  letter-spacing: 0.96px !important;
+  color: #A1A1AA !important;
+  text-decoration: none !important;
+  text-transform: uppercase !important;
+}
+
+.footer__link-item:hover {
+  color: #FAFAFA !important;
 }
 
 [data-theme='dark'] .footer a {
-  color: rgba(255, 255, 255, 0.80);
+  color: #A1A1AA !important;
+}
+
+[data-theme='dark'] .footer a:hover {
+  color: #FAFAFA !important;
+}
+
+/* Footer Tablet (880px) */
+@media screen and (max-width: 996px) and (min-width: 768px) {
+  .footer {
+    padding: 64px 24px 40px !important;
+  }
+  
+  .footer__items {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .footer__container-wrapper {
+    display:flex; 
+    flex-direction: column;
+    align-items: start;
+    gap:48px;
+  }
+}
+
+/* Footer Mobile - 360px */
+@media screen and (max-width: 767px) {
+  .footer {
+    padding: 64px 24px 40px !important;
+    backdrop-filter: blur(9.55px) !important;
+  }
+  
+  .footer__columns {
+    flex-direction: column !important;
+    gap: 56px !important;
+  }
+  
+  .footer__col {
+    width: 100% !important;
+  }
+  
+  .footer__title {
+    font-size: 16px !important;
+    margin-bottom: 14px !important;
+  }
+  
+  .footer__link-item {
+    font-size: 16px !important;
+  }
+  
+  .footer__items {
+    display: flex !important;
+    flex-direction: column !important;
+    gap: 14px !important;
+  }
+
+  .footer__container-wrapper {
+    display:flex; 
+    flex-direction: column;
+    align-items: start;
+    gap:48px;
+  }
+}
+
+/* Footer specific for 360px screens */
+@media screen and (max-width: 360px) {
+  .footer {
+    padding: 64px 24px 40px !important;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .footer__columns {
+    gap: 80px !important;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .footer {
+    max-width: 1082px !important;
+    margin: 0 auto !important;
+  }
 }

@@ -1,5 +1,5 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
@@ -69,6 +69,13 @@ const config: Config = {
         href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap",
       },
     },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap",
+      },
+    },
   ],
 
   presets: [
@@ -131,26 +138,30 @@ const config: Config = {
       },
       style: 'dark',
       links: [
-        // {
-        //   title: 'GitHub',
-        //   items: [
-        //     {
-        //       label: 'Contract',
-        //       href: '#',
-        //     },
-        //     {
-        //       label: 'Hyperliquid token IDs',
-        //       href: '#',
-        //     },
-        //     {
-        //       label: 'Deployment',
-        //       href: '#',
-        //     },
-        //   ],
-        // },
+        {
+          title: 'GitHub',
+          items: [
+            {
+              label: 'Contract',
+              href: 'https://github.com/silhouette-exchange',
+            },
+            {
+              label: 'Hyperliquid token IDs',
+              href: 'https://docs.hyperliquid.xyz/developers/public-endpoint',
+            },
+            {
+              label: 'Deployment',
+              href: 'https://docs.hyperliquid.xyz/developers/api',
+            },
+          ],
+        },
         {
           title: 'Ecosystem',
           items: [
+            {
+              label: 'App',
+              href: 'https://app.silhouette.exchange',
+            },
             {
               label: 'Brand Assets',
               href: 'https://silhouette-exchange.notion.site/brand-kit',
@@ -166,7 +177,7 @@ const config: Config = {
           items: [
             {
               label: 'Blog',
-              href: '/blog',
+              href: 'https://silhouette.exchange/blog',
             },
             {
               label: 'Silhouette X',
