@@ -74,7 +74,7 @@ const config: Config = {
       tagName: "link",
       attributes: {
         rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400&display=swap",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap",
       },
     },
   ],
@@ -84,7 +84,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          // sidebarPath: require.resolve('./sidebars.ts'),
+          sidebarPath: require.resolve('./sidebars.ts'),
         },
         blog: {
           showReadingTime: true,
@@ -117,35 +117,35 @@ const config: Config = {
     // Replace with social card
     colorMode: {
       defaultMode: 'dark',
+      disableSwitch: true,
     },
     image: 'img/silhouette-social-card.png',
     navbar: {
-      title: 'Silhouette Docs',
+      title: 'Silhouette',
       logo: {
         alt: 'Silhouette Exchange',
-        src: 'img/logo.jpg',
+        src: 'img/silhouette-title-logo.svg',
+        height: 18,
       },
       items: [
         {
-          // sidebarId: 'Sidebar',
-          to: '/docs/about-silhouette',
+          type: 'docSidebar',
+          sidebarId: 'Sidebar',
           position: 'left',
-          label: 'Documentation',
+          label: 'SILHOUETTE DOCS',
+          className: 'navbar-tab',
+        },
+        {
+          to: '/api',
+          label: 'API',
+          position: 'left',
+          className: 'navbar-tab',
         },
         {
           to: '/docs/faq',
           label: 'FAQ',
           position: 'left',
-        },
-        {
-          to: '/blog',
-          label: 'Blog',
-          position: 'left',
-        },
-        {
-          href: 'https://github.com/silhouette-exchange',
-          label: 'GitHub',
-          position: 'right',
+          className: 'navbar-tab',
         },
       ],
     },
@@ -215,9 +215,10 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     docs: {
-      // sidebar: {
-      //   hideable: true,
-      // },
+      sidebar: {
+        hideable: false,
+        autoCollapseCategories: true,
+      },
     },
   } satisfies Preset.ThemeConfig,
 };

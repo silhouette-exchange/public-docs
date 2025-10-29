@@ -7,6 +7,7 @@ import {
 } from "@docusaurus/theme-common/internal";
 import { translate } from "@docusaurus/Translate";
 import NavbarMobileSidebar from "@theme/Navbar/MobileSidebar";
+import ActiveNavbarTab from "../../Navbar/ActiveNavbarTab";
 import type { Props } from "@theme/Navbar/Layout";
 
 import styles from "./styles.module.css";
@@ -27,6 +28,7 @@ export default function NavbarLayout({ children }: Props): ReactNode {
   } = useThemeConfig();
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
+
   return (
     <>
       <nav
@@ -51,6 +53,7 @@ export default function NavbarLayout({ children }: Props): ReactNode {
           }
         )}
       >
+        <ActiveNavbarTab />
         {children}
         <NavbarBackdrop onClick={mobileSidebar.toggle} />
         <NavbarMobileSidebar />
