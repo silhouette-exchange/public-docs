@@ -5,25 +5,25 @@ pagination_label: FAQ
 slug: /faq
 ---
 
-## FAQs ✍️
+## FAQs
 
  ### How does Silhouette integrate with HyperCore and the HyperEVM?
 
 The Silhouette system is comprised of a smart contract, smart wallets, and a TEE (Trusted Execution Environment) that connect together to enable private trading. The TEE interacts with the smart contracts and HyperCore for state management, deposits/withdrawals, and order settlement.
-
-### Is Silhouette a mixer?
-
-No. Mixers enable private transactions between two different addresses to obfuscate the movement of funds. Silhouette only permits deposits and withdrawals from the same address.
-
- ### What is the difference between shielding and mixing? What is Silhouette doing?
-
-Shielding hides trade and order data from outsiders. Mixing prevents traceability of funds by intertwining the funds of multiple users and different addresses. Silhouette is a shielding system, since it only aims to hide order and balance data, while deposits and withdrawals remain "open" on HyperCore.
 
  ### What is the difference between Naked and Shielded trading?
 
 **Naked** - This means trading on Hyperliquid with no privacy/shielding of transactions. Your trades are in the open and visible for all to see. When Silhouette’s product is in “Naked” mode, the front end is simply a UI for Hyperlquid.
 
 **Shielded** - This means trades are routed to the TEE (Trusted Execution Environment).
+
+### What does a Hyperliquid Builder Code team unlock by integrating Silhouette?
+
+Integrating Silhouette will unlock Shielded trading for their users. This means that someone will not be able to track/front-run/copy-trade a user as they perform shielded trades on the builder code front-end.
+
+### What economic incentive is there for integrating Silhouette Builder codes?
+
+Due to the architectural setup of Silhouette, performing trades through Silhouette means that the Ecosystem teams using Hyperliquid Builder Codes will forgo their fee share via the Hyperliquid API, as the transactions will be settled by Silhouette addresses. As a result, the Silhouette API will have a near-identical Builder Code design for fee sharing, allowing the teams to still earn revenue from trades made via Silhouette.
 
  ### Is Silhouette just an off-chain orderbook?
 
@@ -44,6 +44,14 @@ Clients verify an attestation bound to the enclave’s code measurement and keys
 ### What happens if my order is too big for the private book?
 
 We support flexible settlement. Orders can settle entirely in Silhouette, partially on Hyperliquid, or fully on Hyperliquid when advantageous, preserving as much privacy as possible while guaranteeing fills.
+
+### Is Silhouette a mixer?
+
+No. Mixers enable private transactions between two different addresses to obfuscate the movement of funds. Silhouette only permits deposits and withdrawals from the same address.
+
+ ### What is the difference between shielding and mixing? What is Silhouette doing?
+
+Shielding hides trade and order data from outsiders. Mixing prevents traceability of funds by intertwining the funds of multiple users and different addresses. Silhouette is a shielding system, since it only aims to hide order and balance data, while deposits and withdrawals remain "open" on HyperCore.
 
 ### How do I get access to the closed beta?
 Join the waitlist [here](https://silhouette.exchange/).
