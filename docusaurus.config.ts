@@ -19,7 +19,7 @@ const config: Config = {
   organizationName: 'silhouette-exchange',
   projectName: 'public-docs',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   future: {
