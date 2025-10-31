@@ -1288,3 +1288,40 @@ body.navbar-sidebar--show,
 html.navbar-sidebar--show {
   overflow: hidden !important;
 }
+
+
+
+@media screen and (max-width: 996px) {
+  .theme-layout-navbar-sidebar{ 
+    background-color: rgba(0, 0, 0, 1) !important;
+    width:50% !important;
+  }
+
+  .navbar-sidebar .menu__link {
+    letter-spacing: 0.6px !important;
+  }
+
+  .navbar-sidebar .menu__link--sublist {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    max-width: 60% !important;
+  }
+}
+
+@media screen and (max-width: 555px) {
+  .theme-layout-navbar-sidebar{ 
+    width:100% !important;
+  }
+
+  .navbar-sidebar .menu__link {
+    font-size: 14px !important;
+    letter-spacing: 0.6px !important;
+  }
+
+  .navbar-sidebar .menu__link--sublist {
+    max-width: 100% !important;
+    box-sizing: border-box !important;
+    max-width: 96% !important;
+   
+  }
+}
