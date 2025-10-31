@@ -49,6 +49,10 @@
   background: var(--hero-gradient);
 }
 
+[data-theme='light'] .heroTitle {
+  color: var(--gray-1000);
+}
+
 [data-theme='light'] .heroBanner {
     background-color: #fff; /* Fallback for light mode */
     color: #0E0E1A;
@@ -62,13 +66,13 @@
   text-transform: uppercase;
   margin-bottom: 0;
   font-family: 'Orbitron', sans-serif;
+  color: var(--text-default);
 }
 @media screen and (max-width: 768px) {
-  .heroTitle {
+  .heroTitl e {
     font-size: 24px;
   }
 }
-
 
 .section {
     padding: 4rem 2rem;

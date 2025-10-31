@@ -9,6 +9,13 @@
   /* Silhouette variables */
   --hero-gradient: linear-gradient(180deg, #D0E7EB 6.41%, #F7F8FF16 100%);
 
+  /* Text Colors */
+  --text-default: #fafafa;
+  --text-muted: #a1a1aa;
+  --text-secondary: #d4d4d8;
+  --cyan-tint-40: #66fff7;
+  --cyan-link: #4dfff6;
+
   /* Colors */
   --gray-50: #f7fbff;
   --gray-100: #e6ebf5;
@@ -160,6 +167,10 @@
   --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
   --ifm-font-family-base: "Inter", system-ui, sans-serif;
   --ifm-heading-font-family: "Inter", system-ui, sans-serif;
+  
+  /* Font Families */
+  --font-mono: 'IBM Plex Mono', monospace;
+  --font-sans: 'Inter', sans-serif;
 
 
   --ifm-h1-font-size:                                                    28px;
