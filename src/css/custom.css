@@ -1211,10 +1211,6 @@ article:has(header h1) {
 
 /* Responsive adjustments */
 @media screen and (max-width: 996px) {
-  .theme-doc-sidebar-container {
-    width: 320px !important;
-  }
-  
   aside.theme-doc-sidebar-container {
     padding: 24px 24px 0 24px !important;
   }

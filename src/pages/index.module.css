@@ -65,9 +65,6 @@
     letter-spacing: 1.92px;
   }
 
-  .sectionSubtitle {
-    margin-bottom: 4rem;
-  }
 
   .getStartedSection {
     padding: 48px 40px;
@@ -125,8 +122,6 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 600px;
-  padding: 100px 24px 40px;
   overflow: hidden;
   background-image: url('/img/graphic-background.png');
   background-size: contain;
@@ -151,7 +146,7 @@
 .heroTextContainer {
   display: flex;
   flex-direction: column;
-  gap: 30px;
+  gap: 0px;
   align-items: center;
   width: 100%;
   max-width: 880px;
@@ -287,12 +282,16 @@
     font-weight: 400;
     line-height: 1.5;
     letter-spacing: 0.84px;
+    margin-bottom: 3rem;
+
 }
 
 .getStartedSection {
     padding: 48px 24px;
     text-align: center;
     width: 100%;
+    position: relative;
+    z-index: 1;
 }
 
 .tutorialContainer {
@@ -714,7 +713,7 @@
   }
 
   .heroSection {
-    padding: 100px 2rem 80px;
+    padding-top: 100px;
   }
 
   .section {

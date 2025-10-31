@@ -11,6 +11,7 @@ import { BookIcon } from "../icons/book.icon";
 import { XIcon } from "../icons/x.icon";
 import { TelegramIcon } from "../icons/telegram.icon";
 import { GithubIcon } from "../icons/github.icon";
+import Searchbar from "@theme/SearchBar";
 
 const featureCards = [
   {
@@ -91,6 +92,7 @@ export default function Home(): ReactNode {
                 {`Welcome to `}
                 {`Silhouette Docs`}
               </Heading>
+              <Searchbar />
             </div>
             <div className={styles.cardContainer}>
               {featureCards.map((card, idx) => (
