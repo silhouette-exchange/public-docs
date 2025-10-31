@@ -1,10 +1,19 @@
 ---
-title: Smart Contracts
-sidebar_label: Smart Contracts
-pagination_label: Smart Contracts
+title: Smart Contract
+sidebar_label: Smart Contract
+pagination_label: Smart Contract
 ---
-A smart contract on the HyperEVM serves as the ground truth for the current state of the Silhouette protocol. The contract stores the encrypted state for the Silhouette protocol. This includes user balances and the state of all orders in the order book. The contract also serves as the entry point for all actions on Silhouette: actions such as depositing, placing orders, and withdrawing are performed on the EVM by supplying the required encrypted data. Silhouette's secure enclave monitors the EVM for these transactions to maintain and update its internal decrypted state.
+import ThemedImage from '@theme/ThemedImage';
+import useBaseUrl from '@docusaurus/useBaseUrl';
 
+The Silhouette smart contract, deployed on the HyperEVM, serves as a guardian and as the **source of truth** for user balances.
 
-## Allowlist
-Any user may deposit into the Silhouette MVP. However, only users on the allowlist will receive onboarding gas and are able to place orders.
+The contract holds HyperCore funds in the Silhouette system, and stores state as ciphertexts on the HyperEVM. Ciphertext updates are submitted by the TEE, which is not trusted by the smart contract. State changes must be accompanied by a proof that guarantees the correctness of the update according to the protocol rules.
+
+<ThemedImage
+  alt="Silhouette smart contract diagram"
+  sources={{
+    light: useBaseUrl('/img/flows/contract-light.svg'),
+    dark: useBaseUrl('/img/flows/contract-dark.svg'),
+  }}
+/>
