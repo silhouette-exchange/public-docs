@@ -1,31 +1,50 @@
-import React, {type ReactNode} from 'react';
-
-import {useThemeConfig} from '@docusaurus/theme-common';
-import FooterLinks from '@theme/Footer/Links';
-import FooterLogo from '@theme/Footer/Logo';
-import FooterCopyright from '@theme/Footer/Copyright';
-import FooterLayout from '@theme/Footer/Layout';
-import { useLocation } from '@docusaurus/router';
+import React, { type ReactNode } from "react";
+import { useThemeConfig } from "@docusaurus/theme-common";
+import { useLocation } from "@docusaurus/router";
+import Link from "@docusaurus/Link";
+import useBaseUrl from "@docusaurus/useBaseUrl";
 
 function Footer(): ReactNode {
-  const {footer} = useThemeConfig();
-  const {pathname} = useLocation();
-  if (!footer) {
+  const { footer } = useThemeConfig();
+  const { pathname } = useLocation();
+
+  if (!footer || pathname !== "/") {
     return null;
   }
-  const {copyright, links, logo, style} = footer;
 
-  if (pathname !== '/') {
-    return <></>;
-  }
+  const { links, logo } = footer;
 
   return (
-    <FooterLayout
-      style={style}
-      links={links && links.length > 0 && <FooterLinks links={links} />}
-      logo={logo && <FooterLogo logo={logo} />}
-      copyright={copyright && <FooterCopyright copyright={copyright} />}
-    />
+    <footer className="footer" data-name="Footer">
+      <div className="footer__container-wrapper">
+        {logo && (
+          <img
+            src={useBaseUrl(logo.src)}
+            alt={logo.alt}
+            className="footer__logo"
+          />
+        )}
+
+        {links && (
+          <div className="footer__columns">
+            {links.map((column, i) => (
+              <div key={i} className="footer__col">
+                <div className="footer__title">{column.title}</div>
+                <ul className="footer__items clean-list">
+                  {column.items.map((item, j) => (
+                    <li key={j} className="footer__item">
+                      <Link className="footer__link-item" href={item.href}>
+                        {item.label}
+                      </Link>
+                    </li>
+                  ))}
+                </ul>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </footer>
   );
 }
 
