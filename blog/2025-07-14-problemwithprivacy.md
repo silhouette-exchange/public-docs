@@ -12,6 +12,7 @@ tags: [article]
 Last week we argued that radical transparency turns DeFi into open season for front-running and strategy degradation. This follow-on asks a tougher question: what happens when we swing the pendulum the other way and hide everything?
 
 Short answer: hiding everything often hurts more than it helps. Trading into complete darkness is scary.
+<!-- truncate -->
 
 ## Early privacy implementations and their shortcomings
 ### Mixers

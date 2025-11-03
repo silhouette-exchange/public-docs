@@ -8,11 +8,11 @@ pagination_label: Trusted Execution Environments
 import ThemedImage from '@theme/ThemedImage';
 import useBaseUrl from '@docusaurus/useBaseUrl';
 
-Silhouette's core matching engine runs in an [AWS Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) on the [Marlin](https://www.marlin.org/) network. 
+Silhouette's core matching engine runs in an [AWS Nitro Enclave](https://aws.amazon.com/ec2/nitro/nitro-enclaves/) on the [Marlin](https://www.marlin.org/) network. Expansion to include [Intel TDX](https://www.intel.com/content/www/us/en/developer/tools/trust-domain-extensions/overview.html), under the appropriate conditions, is in the pipeline.
 
 ## AWS Nitro Enclaves
 
-Nitro Enclaves are secure, isolated environments that enable confidential computation. Neither AWS, nor anyone else, has access to these environments.
+Nitro Enclaves are secure, isolated environments that enable confidential computation. Neither AWS, nor anyone else, has access to these environments. Deployments are multi-region with active-passive failover.
 
 ## Verifiable execution
 
@@ -31,7 +31,7 @@ Silhouette will, at the appropriate time, open source the code used to create th
 
 By using Nix, Silhouette is able to achieve a deterministic and reproducible build. This enables anyone in the community to rebuild the .eif running in the Nitro Enclave from source and reproduce PCR0.
 
-Within the .eif there is an attestation server that makes it possible to request signed attestation documents. This completes the loop, allowing community members to verify that the PCR0 they produce themselves matches the AWS hypervisor-signed PCR0 from the running enclave.
+Signed attestation documents will be made available (via an endpoint) to allow community members to verify that the PCR0 they produce themselves matches the AWS hypervisor-signed PCR0 from the running enclave.
 
 <ThemedImage
   alt="TEE Flow Diagram"
