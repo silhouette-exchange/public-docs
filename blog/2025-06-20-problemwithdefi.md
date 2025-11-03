@@ -16,6 +16,7 @@ And to be fair, it has delivered. DeFi protocols now hold over [$114 billion](ht
 But for all the technical achievement and excitement, DeFi is still stuck in a loop, haunted by the same issues that have plagued it for years.
 
 This article doesn’t focus on solutions. It focuses on the rot at the foundation, the systemic trade-offs that make DeFi vulnerable, exploitable, and often unusable for the very people it’s meant to empower. If you’re looking for our solutions to some of these problems, read our article on [Silhouette’s mission and vision for DeFi](/blog/redefiningdefi).
+<!-- truncate -->
 
 ## The Good: DeFi Has Product-Market Fit
 DeFi _works_. It’s global. It’s composable. And it’s accessible in a way that TradFi never could be. In markets where traditional infrastructure is broken, DeFi fills the gap with programmable money and uncensorable access.

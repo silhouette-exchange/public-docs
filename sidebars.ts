@@ -208,6 +208,13 @@ const sidebars: SidebarsConfig = {
       className: 'sidebar-section-header',
     },
     {
+      type: "category",
+      label: "API Reference",
+      items: [
+        "10-api/01-api-reference",
+      ],
+    },
+    {
       type: 'link',
       href: 'https://silhouette-exchange.notion.site/brand-kit',
       label: 'Silhouette Media Kit',
