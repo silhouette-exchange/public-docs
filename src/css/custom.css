@@ -236,19 +236,30 @@ h3 {
 
 /* Navbar */
 .navbar {
+  padding-top: 0 !important;
+  padding-right: 0 !important;
+  padding-left: 0 !important;
+  margin-top: 10px !important;	
+  height: 100% !important;
   background: transparent !important;
-  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.10) !important;
-  backdrop-filter: blur(36.349998474121094px) !important;
   border-bottom: none !important;
+  flex-direction: column !important;
+  align-content: center !important;
+  align-items: stretch !important;
 }
 
 .navbar__inner {
   max-width: 100% !important;
   padding: 0 40px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
 }
 
 .navbar__brand {
   margin-right: 24px !important;
+  display: flex !important;
+  align-items: center !important;
 }
 
 .navbar__title {
@@ -617,46 +628,28 @@ h3 {
   max-width: 100% !important;
 }
 
-/* Secondary Navigation Bar (below main navbar) */
-.navbar-tabs-container {
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  width: 100%;
-  border-bottom: 1px solid #27272a;
-  background: transparent;
+/* Add spacing between navbar and page content */
+.navbar {
+  margin-bottom: 0 !important;
 }
 
-/* Add border under navbar to separate from content */
-.navbar + * {
-  border-top: 1px solid #27272a;
+.navbar__item{
+  display: none;
 }
 
-
-.navbar__items .navbar-tab {
-  font-family: 'IBM Plex Mono', monospace !important;
-  font-weight: 400 !important;
-  font-size: 14px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.84px !important;
-  text-transform: uppercase !important;
-  color: #bdc1c0 !important;
-  padding: 8px 12px !important;
-  margin: 0 4px !important;
-  border-bottom: 1px solid transparent !important;
-  text-decoration: none !important;
-  transition: all 0.2s ease !important;
+/* Push page content down to create gap after navbar */
+.main-wrapper {
+  padding-top: 24px;
 }
 
-.navbar__items .navbar-tab:hover {
-  color: #fafafa !important;
-  border-bottom-color: rgba(102, 255, 247, 0.4) !important;
+/* Alternative approach: add top padding to the page container */
+main[class*="docMainContainer"] {
+  padding-top: 24px !important;
 }
 
-.navbar__items .navbar-tab-active,
-.navbar__items .navbar-tab-active:hover {
-  color: #66fff7 !important;
-  border-bottom: 1px solid rgba(102, 255, 247, 0.4) !important;
+/* For homepage */
+.main-wrapper > div {
+  margin-top: 24px;
 }
 
 /* Sidebar Styling */
@@ -1218,13 +1211,6 @@ article:has(header h1) {
   .theme-doc-markdown {
     padding-left: 24px !important;
     padding-right: 24px !important;
-  }
-}
-
-@media screen and (max-width: 768px) {
-  .navbar-tab {
-    font-size: 12px !important;
-    padding: 6px 8px !important;
   }
 }
 

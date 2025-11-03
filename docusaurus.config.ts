@@ -127,27 +127,7 @@ const config: Config = {
         src: 'img/silhouette-title-logo.svg',
         height: 18,
       },
-      items: [
-        {
-          type: 'docSidebar',
-          sidebarId: 'Sidebar',
-          position: 'left',
-          label: 'SILHOUETTE DOCS',
-          className: 'navbar-tab',
-        },
-        {
-          to: '/api',
-          label: 'API',
-          position: 'left',
-          className: 'navbar-tab',
-        },
-        {
-          to: '/docs/faq',
-          label: 'FAQ',
-          position: 'left',
-          className: 'navbar-tab',
-        },
-      ],
+      // items: [],
     },
     footer: {
       logo: {

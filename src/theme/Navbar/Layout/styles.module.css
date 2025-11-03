@@ -6,6 +6,16 @@
   transform: translate3d(0, calc(-100% - 2px), 0);
 }
 
+.navbarHeader {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 1px 10px 0 rgba(0, 0, 0, 0.10) !important;
+  backdrop-filter: blur(36.349998474121094px) !important;
+}
+
 .customAdmonition {
   margin-top: 0;
   display: flex;

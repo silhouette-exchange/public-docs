@@ -6,8 +6,9 @@ import {
   useNavbarMobileSidebar,
 } from "@docusaurus/theme-common/internal";
 import { translate } from "@docusaurus/Translate";
+import { useLocation } from "@docusaurus/router";
 import NavbarMobileSidebar from "@theme/Navbar/MobileSidebar";
-import ActiveNavbarTab from "../../Navbar/ActiveNavbarTab";
+import NavbarItems from "../NavbarItems";
 import type { Props } from "@theme/Navbar/Layout";
 
 import styles from "./styles.module.css";
@@ -28,6 +29,8 @@ export default function NavbarLayout({ children }: Props): ReactNode {
   } = useThemeConfig();
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
+  const location = useLocation();
+  const shouldShowNavbarItems = location.pathname.startsWith("/docs");
 
   return (
     <>
@@ -53,8 +56,15 @@ export default function NavbarLayout({ children }: Props): ReactNode {
           }
         )}
       >
-        <ActiveNavbarTab />
-        {children}
+        <div
+          className={clsx(styles.navbarHeader)}
+          style={{
+            borderBottom: shouldShowNavbarItems ? "1px solid #27272a" : "none",
+          }}
+        >
+          {children}
+          {shouldShowNavbarItems && <NavbarItems />}
+        </div>
         <NavbarBackdrop onClick={mobileSidebar.toggle} />
         <NavbarMobileSidebar />
       </nav>
