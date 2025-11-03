@@ -637,20 +637,12 @@ h3 {
   display: none;
 }
 
-/* Push page content down to create gap after navbar */
-.main-wrapper {
-  padding-top: 24px;
-}
 
 /* Alternative approach: add top padding to the page container */
 main[class*="docMainContainer"] {
-  padding-top: 24px !important;
+  padding-top: 15px !important;
 }
 
-/* For homepage */
-.main-wrapper > div {
-  margin-top: 24px;
-}
 
 /* Sidebar Styling */
 .theme-doc-sidebar-container {
@@ -660,7 +652,7 @@ main[class*="docMainContainer"] {
 }
 
 aside.theme-doc-sidebar-container {
-  padding: 40px 40px 0 40px !important;
+  padding: 30px 40px 0 40px !important;
 }
 
 .menu {
@@ -701,10 +693,19 @@ aside.theme-doc-sidebar-container {
   background: transparent !important;
   color: #66fff7 !important;
   font-weight: 500 !important;
-  font-size: 18px !important;
   letter-spacing: 1.08px !important;
   border-left: 1px solid #66fff7 !important;
   padding-left: 20px !important;
+}
+
+/* Only submenu items (non-category links) should be cyan when active */
+.menu__link--sublist.menu__link--active {
+  color: #a1a1aa !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  letter-spacing: 0.84px !important;
+  border-left: none !important;
+  padding-left: 12px !important;
 }
 
 /* Sidebar category collapsible */

@@ -190,12 +190,12 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Heimdall API',
+      label: 'API',
       collapsed: true,
       items: [{
         type: 'doc',
-        id: 'heimdall-api/index',
-        label: 'Heimdall API',
+        id: 'api/index',
+        label: 'API',
       }],
     },
     {
@@ -208,8 +208,8 @@ const sidebars: SidebarsConfig = {
       className: 'sidebar-section-header',
     },
     {
-      type: 'doc',
-      id: 'community/media-kit',
+      type: 'link',
+      href: 'https://silhouette-exchange.notion.site/brand-kit',
       label: 'Silhouette Media Kit',
     },
     {

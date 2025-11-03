@@ -14,8 +14,8 @@ export default function NavbarItems(): ReactNode {
       return "faq";
     }
     // API tab
-    else if (currentPath.startsWith("/api")) {
-      return "api";
+    else if (currentPath.startsWith("/docs/api")) {
+      return "/docs/api";
     }
     // Docs tab - matches /docs routes and home page
     else if (
@@ -42,9 +42,9 @@ export default function NavbarItems(): ReactNode {
           SILHOUETTE DOCS
         </Link>
         <Link
-          to="/api"
+          to="/docs/api"
           className={`${styles.navbarItem} ${
-            activeTab === "api" ? styles.navbarItemActive : ""
+            activeTab === "/docs/api" ? styles.navbarItemActive : ""
           }`}
         >
           API

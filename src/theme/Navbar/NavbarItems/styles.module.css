@@ -1,7 +1,5 @@
 .navbarItemsContainer {
   width: 100%;
-  /* background: rgba(7, 7, 15, 0.5) !important; */
-  /* -webkit-backdrop-filter: blur(36.349998474121094px) !important; */
   display: flex;
   justify-content: flex-start;
   padding: 0 27px;
