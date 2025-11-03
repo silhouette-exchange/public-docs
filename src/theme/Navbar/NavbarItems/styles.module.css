@@ -1,0 +1,56 @@
+.navbarItemsContainer {
+  width: 100%;
+  display: flex;
+  justify-content: flex-start;
+  padding: 0 27px;
+  margin-bottom: 0;
+  position: relative;
+  z-index: 1;
+}
+
+.navbarItemsInner {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  max-width: 100%;
+}
+
+.navbarItem {
+  font-family: 'IBM Plex Mono', monospace;
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.5;
+  letter-spacing: 0.84px;
+  text-transform: uppercase;
+  color: #bdc1c0;
+  padding: 8px 12px;
+  margin: 0;
+  border-bottom: 2px solid transparent;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.navbarItem:hover {
+  color: #fafafa;
+  border-bottom-color: rgba(102, 255, 247, 0.4);
+}
+
+.navbarItemActive,
+.navbarItemActive:hover {
+  color: #66fff7;
+  border-bottom: 2px solid #66fff7;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 768px) {
+  .navbarItemsContainer {
+    padding: 0 24px;
+  }
+
+  .navbarItem {
+    font-size: 12px;
+    padding: 6px 8px;
+  }
+}
+
