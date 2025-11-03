@@ -256,7 +256,7 @@ Solutions:
 
 - Ensure you've deposited at least 5 USDC to the Silhouette contract address via `spotSend`
 - Wait for the deposit transaction to be confirmed on the Hyperliquid testnet
-- Verify you sent funds to the correct contract address: `0x564df7E15f24df933270E604192de22e906CEa0c`
+- Verify you sent funds to the correct contract address: `0x2B065d0C4865a520bab6821C835a66B073e4e590`
 
 ### Internal server error
 

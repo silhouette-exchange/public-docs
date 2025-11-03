@@ -21,7 +21,7 @@ Before you can use the Silhouette API, you need to complete the following steps:
 3. Use Hyperliquid's `spotSend` operation to transfer funds to the Silhouette testnet contract address to activate your account in Silhouette:
 
    ```text
-   0x564df7E15f24df933270E604192de22e906CEa0c
+   0x2B065d0C4865a520bab6821C835a66B073e4e590
    ```
 
    :::warning
