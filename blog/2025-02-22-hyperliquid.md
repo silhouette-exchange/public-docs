@@ -14,6 +14,7 @@ tags: [article]
 For an introduction to Silhouette, please see [Introducing Silhouette](/blog/2025-01-22-intro.md).
 
 Silhouette's goal is straightforward: offering a decentralised and full-featured private trading system that does not compromise user experience. A downfall of many other private trading environments is a lack of liquidity. Hyperliquid provides this liquidity and opportunity to support Silhouette’s mission.
+<!-- truncate -->
 
 ## Why Hyperliquid?
 Hyperliquid is a purpose-built chain aiming to [‘house all finance’](https://hyperfoundation.org/). Its high performance, transaction speed, and robust liquidity create an effective and successful Decentralized Finance (DeFi) trading environment.
