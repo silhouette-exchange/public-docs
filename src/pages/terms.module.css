@@ -1,0 +1,146 @@
+/**
+ * CSS files with the .module.css suffix will be treated as CSS modules
+ * and scoped locally.
+ */
+
+.pageContainer {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+  align-items: center;
+  padding: 104px 80px 64px;
+  width: 100%;
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: center;
+  width: 800px;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.heading {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 672px;
+}
+
+.heading h1 {
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 32px;
+  line-height: 40px;
+  text-transform: uppercase;
+  letter-spacing: 1.6px;
+  margin: 0;
+  color: var(--text-default);
+}
+
+.lastUpdated {
+  display: flex;
+  align-items: center;
+  font-family: var(--font-mono);
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 16px;
+  text-transform: uppercase;
+  color: var(--cyan-tint-40);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.sectionHeading {
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  padding: 18px 0 0;
+  width: 100%;
+  max-width: 768px;
+}
+
+.sectionHeading h3 {
+  font-family: var(--font-mono);
+  font-weight: 400;
+  font-size: 20px;
+  line-height: 33px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin: 0;
+  color: var(--text-default);
+}
+
+.body {
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding: 0;
+  width: 100%;
+}
+
+.body p {
+  font-family: var(--font-sans);
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 26px;
+  letter-spacing: 0.16px;
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
+.body ul {
+  margin: 0;
+  padding-left: 24px;
+}
+
+.body li {
+  margin-bottom: 0;
+  color: var(--text-muted);
+}
+
+.body li span {
+  line-height: 26px;
+  color: var(--text-muted);
+}
+
+.bold {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  color: var(--text-muted);
+}
+
+.cyanLink {
+  color: var(--cyan-link);
+}
+
+@media screen and (max-width: 996px) {
+  .pageContainer {
+    padding: 64px 20px 40px;
+  }
+  
+  .container {
+    width: 100%;
+  }
+  
+  .heading h1 {
+    font-size: 24px;
+    line-height: 32px;
+  }
+}
