@@ -211,7 +211,7 @@ const sidebars: SidebarsConfig = {
       type: "category",
       label: "API Reference",
       items: [
-        "10-api/01-api-reference",
+        "api/reference",
       ],
     },
     {
