@@ -464,13 +464,20 @@ h3 {
 .navbar__search {
   position: relative;
   min-width: 225px !important;
+  overflow: visible !important;
+}
+
+@media screen and (min-width: 768px) {
+  .navbar__search {
+    max-width: 225px !important;
+  }
 }
 
 /* Style the search input */
 .navbar__search-input {
   display: flex !important;
   align-items: center !important;
-  padding: 6px 6px 6px 36px !important;
+  padding: 6px 70px 6px 36px !important;
   background: transparent !important;
   border: 1px solid #3f3f46 !important;
   border-radius: 0 !important;
@@ -483,6 +490,9 @@ h3 {
   height: 36px !important;
   width: 100% !important;
   line-height: normal !important;
+  box-sizing: border-box !important;
+  overflow: visible !important;
+  position: relative !important;
 }
 
 .navbar__search-input::placeholder {
@@ -523,6 +533,13 @@ h3 {
   gap: 2px !important;
   align-items: center !important;
   justify-content: center !important;
+  flex-shrink: 0 !important;
+  position: absolute !important;
+  right: 12px !important;
+  top: 50% !important;
+  transform: translateY(-50%) !important;
+  pointer-events: none !important;
+  z-index: 1 !important;
 }
 
 /* Keyboard shortcut hint styling - using attribute selector for CSS modules */
@@ -550,6 +567,7 @@ h3 {
 .navbar__search kbd[class*="searchHint"]:first-child {
   font-size: 0 !important;
   position: relative !important;
+  flex-shrink: 0 !important;
 }
 
 .navbar__search kbd[class*="searchHint"]:first-child::after {
@@ -562,6 +580,22 @@ h3 {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
+  overflow: hidden !important;
+}
+
+/* macOS-specific fix for icon overflow */
+@supports (-webkit-appearance: none) {
+  .navbar__search-input {
+    padding-right: 72px !important;
+  }
+  
+  .navbar__search kbd[class*="searchHint"]:first-child {
+    min-width: 22px !important;
+  }
+  
+  .navbar__search kbd[class*="searchHint"]:first-child::after {
+    font-size: 13px !important;
+  }
 }
 
 /* Light mode styling */
