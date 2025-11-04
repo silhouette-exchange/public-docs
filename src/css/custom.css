@@ -598,36 +598,6 @@ h3 {
   }
 }
 
-/* Light mode styling */
-[data-theme='light'] .navbar__search-input {
-  background: transparent !important;
-  border: 1px solid #e4e4e7 !important;
-  color: #3f3f46 !important;
-}
-
-[data-theme='light'] .navbar__search-input::placeholder {
-  color: #71717a !important;
-}
-
-[data-theme='light'] .navbar__search-input:hover {
-  border-color: #d4d4d8 !important;
-}
-
-[data-theme='light'] .navbar__search-input:focus {
-  outline: none !important;
-  border-color: #a1a1aa !important;
-}
-
-[data-theme='light'] .navbar__search::before {
-  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M7 12C9.76142 12 12 9.76142 12 7C12 4.23858 9.76142 2 7 2C4.23858 2 2 4.23858 2 7C2 9.76142 4.23858 12 7 12Z' stroke='%2371717a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3Cpath d='M11 11L14 14' stroke='%2371717a' stroke-width='1.5' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-}
-
-[data-theme='light'] .navbar__search kbd[class*="searchHint"] {
-  color: #3f3f46 !important;
-  background: #fafafa !important;
-  border: 1px solid #e4e4e7 !important;
-  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08), 0 0 12px rgba(0, 184, 174, 0.12), inset 0 1px 2px rgba(255, 255, 255, 0.5) !important;
-}
 
 /* Responsive: adjust for mobile */
 @media screen and (max-width: 768px) {
@@ -637,28 +607,17 @@ h3 {
 }
 
 /* Style the search modal */
-.search-local-modal {
+
+:root {
+  --search-local-highlight-color: #00FFF2;
   --search-local-modal-background: rgba(7, 7, 15, 0.95);
   --search-local-modal-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
   --search-local-hit-background: rgba(255, 255, 255, 0.05);
   --search-local-hit-shadow: none;
   --search-local-hit-color: #F7F8FF;
-  --search-local-highlight-color: #00FFF2;
   --search-local-muted-color: rgba(255, 255, 255, 0.5);
   --search-local-hit-active-color: #07070F;
-  backdrop-filter: blur(20px);
 }
-
-[data-theme='light'] .search-local-modal {
-  --search-local-modal-background: rgba(255, 255, 255, 0.95);
-  --search-local-hit-background: rgba(0, 0, 0, 0.04);
-  --search-local-hit-color: #07070F;
-  --search-local-highlight-color: #00B8AE;
-  --search-local-muted-color: rgba(0, 0, 0, 0.5);
-  --search-local-hit-active-color: #F7F8FF;
-}
-
-/* ==================== FIGMA DESIGN IMPLEMENTATION ==================== */
 
 /* Doc page wrapper */
 .docPage {
