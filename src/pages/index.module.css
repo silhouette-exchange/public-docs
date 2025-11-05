@@ -420,7 +420,6 @@
 
 .card {
   backdrop-filter: blur(20px);
-  /* background-color: rgba(255, 255, 255, 0.02); */
   border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: 0;
   box-sizing: border-box;
@@ -428,7 +427,7 @@
   flex-direction: column;
   gap: 25px;
   width: 100%;
-  min-height: 152px;
+  min-height: 233px;
   padding: 24px;
   text-align: left;
   text-decoration: none;

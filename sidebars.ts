@@ -223,6 +223,7 @@ const sidebars: SidebarsConfig = {
       type: 'link',
       href: 'https://app.silhouette.exchange',
       label: 'App',
+      className: 'sidebar-item-coming-soon',
     },
     {
       type: 'link',
