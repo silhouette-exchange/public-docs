@@ -257,6 +257,7 @@ h3 {
   flex-direction: column !important;
   align-content: center !important;
   align-items: stretch !important;
+  
 }
 
 .navbar__inner {
@@ -265,6 +266,12 @@ h3 {
   display: flex !important;
   align-items: center !important;
   justify-content: space-between !important;
+}
+
+@media screen and (max-width: 768px) {
+  .navbar__inner {
+    padding: 0 24px !important;
+  }
 }
 
 .navbar__brand {
@@ -280,7 +287,7 @@ h3 {
 .navbar__logo {
   height: 18px !important;
   width: auto !important;
-  margin-right: 0 !important;
+  margin-right: 0 !important;  
 }
 
 /* Links */
@@ -632,10 +639,6 @@ h3 {
   max-width: 100% !important;
 }
 
-/* Add spacing between navbar and page content */
-.navbar {
-  margin-bottom: 0 !important;
-}
 
 .navbar__item{
   display: none;

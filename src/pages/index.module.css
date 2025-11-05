@@ -31,6 +31,12 @@
   }
 }
 
+@media screen and (max-width: 766px) {
+  .pageWrapper {
+    padding-top: 100px !important;
+  }
+}
+
 /* Responsive styles for tablets and larger screens */
 @media screen and (min-width: 766px) {
   .keyboardShortcut {
