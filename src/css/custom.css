@@ -274,6 +274,25 @@ h3 {
   }
 }
 
+@media screen and (max-width: 535px) {
+  .navbar__inner {
+    flex-direction: column !important;
+    align-items: flex-start !important;
+    height: 80px !important;
+    gap: 30px !important;
+    margin-bottom: 40px !important;
+  }
+  .navbar__search  {
+    position: absolute !important;
+    bottom: -20px !important;
+    left: 50% !important;
+    width: 300px !important;
+  }
+  .navbar__items {
+    position: relative !important;
+  }
+}
+
 .navbar__brand {
   margin-right: 24px !important;
   display: flex !important;
