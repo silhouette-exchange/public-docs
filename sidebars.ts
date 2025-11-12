@@ -9,36 +9,9 @@ import type { SidebarsConfig } from "@docusaurus/plugin-content-docs";
 const sidebars: SidebarsConfig = {
   Sidebar: [
     {
-      type: 'category',
+      type: 'doc',
+      id: 'about-silhouette',
       label: 'About Silhouette',
-      collapsed: false,
-      items: [
-        {
-          type: 'doc',
-          id: 'about-silhouette',
-          label: 'What is Silhouette?',
-        },
-        {
-          type: 'doc',
-          id: 'about/why-silhouette',
-          label: 'Why Silhouette?',
-        },
-        {
-          type: 'doc',
-          id: 'about/core-contributors',
-          label: 'Core Contributors',
-        },
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Onboarding',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'onboarding/index',
-        label: 'Onboarding',
-      }],
     },
     {
       type: 'category',
@@ -118,59 +91,6 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'category',
-      label: 'Silhouette Desk',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'silhouette-desk/index',
-        label: 'Silhouette Desk',
-      }],
-      className: 'sidebar-item-coming-soon',
-    },
-    {
-      type: 'category',
-      label: 'Points',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'points/index',
-        label: 'Points',
-      }],
-      className: 'sidebar-item-coming-soon',
-    },
-    {
-      type: 'category',
-      label: 'Referrals',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'referrals/index',
-        label: 'Referrals',
-      }],
-      className: 'sidebar-item-coming-soon',
-    },
-    {
-      type: 'category',
-      label: 'Audits',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'audits/index',
-        label: 'Audits',
-      }],
-    },
-    {
-      type: 'category',
-      label: 'Risk',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'risk/index',
-        label: 'Risk',
-      }],
-    },
-    {
-      type: 'category',
       label: 'FAQs',
       collapsed: true,
       items: [{
@@ -192,11 +112,38 @@ const sidebars: SidebarsConfig = {
       type: 'category',
       label: 'API',
       collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'api/index',
-        label: 'API',
-      }],
+      items: [
+        {
+          type: 'doc',
+          id: 'api/index',
+          label: 'API',
+        },
+        {
+          type: 'doc',
+          id: 'api/quick-start',
+          label: 'Quick start',
+        },
+        {
+          type: 'doc',
+          id: 'api/authentication',
+          label: 'Authentication',
+        },
+        {
+          type: 'doc',
+          id: 'api/reference',
+          label: 'Reference',
+        },
+        {
+          type: 'doc',
+          id: 'api/troubleshooting',
+          label: 'Troubleshooting',
+        },
+        {
+          type: 'doc',
+          id: 'api/openapi',
+          label: 'OpenAPI specification',
+        },
+      ],
     },
     {
       type: 'html',
@@ -206,13 +153,6 @@ const sidebars: SidebarsConfig = {
       type: 'html',
       value: '<div class="sidebar-section-title">Brand & Community</div>',
       className: 'sidebar-section-header',
-    },
-    {
-      type: "category",
-      label: "API Reference",
-      items: [
-        "api/reference",
-      ],
     },
     {
       type: 'link',

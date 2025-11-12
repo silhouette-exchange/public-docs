@@ -15,7 +15,7 @@ This section provides detailed documentation for each available API operation. A
 
 Authenticate with the Silhouette API using [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) to obtain a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750). This operation does not require an existing bearer token—it's the first step in using the API.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Not required
 
@@ -30,11 +30,11 @@ Authenticate with the Silhouette API using [Sign-In With Ethereum (SIWE)](https:
 **Example request**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -d '{
     "operation": "login",
-    "message": "<API_DOMAIN> wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: <API_URL>/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
+    "message": "api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: https://api-alpha.silhouette.exchange:8081/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
     "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890ab"
   }'
 ```
@@ -103,7 +103,7 @@ curl <API_URL>/v0 \
 
 Retrieve your account balance information for all tokens. This shows your available balance (funds you can trade or withdraw), locked balance (funds tied up in open orders), and total balance.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -116,7 +116,7 @@ Retrieve your account balance information for all tokens. This shows your availa
 **Example request**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -199,7 +199,7 @@ curl <API_URL>/v0 \
 
 Create a new order to buy or sell tokens. Orders can be either limit orders (executed at a specific price or better) or market orders (executed immediately at the best available price).
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -218,7 +218,7 @@ Create a new order to buy or sell tokens. Orders can be either limit orders (exe
 **Example request (limit order)**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -235,7 +235,7 @@ curl <API_URL>/v0 \
 **Example request (market order)**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -318,7 +318,7 @@ curl <API_URL>/v0 \
 
 Cancel an existing open order. Once cancelled, any locked funds from the order are returned to your available balance.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -332,7 +332,7 @@ Cancel an existing open order. Once cancelled, any locked funds from the order a
 **Example request**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -394,7 +394,7 @@ curl <API_URL>/v0 \
 
 Retrieve a list of your orders, optionally filtered by status. This shows all order details including amounts, prices, and current status.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -408,7 +408,7 @@ Retrieve a list of your orders, optionally filtered by status. This shows all or
 **Example request (all orders)**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -419,7 +419,7 @@ curl <API_URL>/v0 \
 **Example request (filtered by status)**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -523,7 +523,7 @@ curl <API_URL>/v0 \
 
 Request a withdrawal of funds from your Silhouette account back to your HyperCore address. Withdrawals are processed asynchronously, and you'll receive a withdrawal ID to track the status.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -538,7 +538,7 @@ Request a withdrawal of funds from your Silhouette account back to your HyperCor
 **Example request**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -625,7 +625,7 @@ curl <API_URL>/v0 \
 
 Check the status of a specific withdrawal using its withdrawal ID. This shows whether the withdrawal is still pending, has completed successfully, or has failed.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -639,7 +639,7 @@ Check the status of a specific withdrawal using its withdrawal ID. This shows wh
 **Example request**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
@@ -774,7 +774,7 @@ curl <API_URL>/v0 \
 
 Retrieve a list of all your withdrawal requests, including their current status. This provides a complete history of your withdrawals.
 
-**Endpoint**: `POST <API_URL>/v0`
+**Endpoint**: `POST https://api-alpha.silhouette.exchange:8081/v0`
 
 **Authentication**: Required
 
@@ -787,7 +787,7 @@ Retrieve a list of all your withdrawal requests, including their current status.
 **Example request**:
 
 ```bash
-curl <API_URL>/v0 \
+curl https://api-alpha.silhouette.exchange:8081/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
