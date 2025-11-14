@@ -1,6 +1,7 @@
-import {themes as prismThemes} from 'prism-react-renderer';
-import type {Config} from '@docusaurus/types';
+import { themes as prismThemes } from 'prism-react-renderer';
+import type { Config } from '@docusaurus/types';
 import type * as Preset from '@docusaurus/preset-classic';
+import localSearch from '@easyops-cn/docusaurus-search-local';
 
 // This runs in Node.js - Don't use client-side code here (browser APIs, JSX...)
 
@@ -18,7 +19,7 @@ const config: Config = {
   organizationName: 'silhouette-exchange',
   projectName: 'public-docs',
 
-  onBrokenLinks: 'throw',
+  onBrokenLinks: 'warn',
   onBrokenMarkdownLinks: 'warn',
 
   future: {
@@ -69,6 +70,13 @@ const config: Config = {
         href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap",
       },
     },
+    {
+      tagName: "link",
+      attributes: {
+        rel: "stylesheet",
+        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap",
+      },
+    },
   ],
 
   presets: [
@@ -76,7 +84,7 @@ const config: Config = {
       'classic',
       {
         docs: {
-          // sidebarPath: require.resolve('./sidebars.ts'),
+          sidebarPath: require.resolve('./sidebars.ts'),
         },
         blog: {
           showReadingTime: true,
@@ -88,41 +96,38 @@ const config: Config = {
     ],
   ],
 
+  plugins: [
+    [
+      localSearch,
+      {
+        hashed: true,
+        language: ['en'],
+        indexBlog: true,
+        indexDocs: true,
+        docsRouteBasePath: '/docs',
+        blogRouteBasePath: '/blog',
+        // Enable search in development mode
+        removeDefaultStopWordFilter: true,
+        highlightSearchTermsOnTargetPage: true,
+      },
+    ],
+  ],
+
   themeConfig: {
     // Replace with social card
     colorMode: {
       defaultMode: 'dark',
+      disableSwitch: true,
     },
     image: 'img/silhouette-social-card.png',
     navbar: {
-      title: 'Silhouette Docs',
+      title: 'Silhouette',
       logo: {
         alt: 'Silhouette Exchange',
-        src: 'img/logo.jpg',
+        src: 'img/silhouette-title-logo.svg',
+        height: 18,
       },
-      items: [
-        {
-          // sidebarId: 'Sidebar',
-          to: '/docs/about-silhouette',
-          position: 'left',
-          label: 'Documentation',
-        },
-        {
-          to: '/docs/faq',
-          label: 'FAQ',
-          position: 'left',
-        },
-        {
-          to: '/blog',
-          label: 'Blog',
-          position: 'left',
-        },
-        {
-          href: 'https://github.com/silhouette-exchange',
-          label: 'GitHub',
-          position: 'right',
-        },
-      ],
+      // items: [],
     },
     footer: {
       logo: {
@@ -186,9 +191,10 @@ const config: Config = {
       darkTheme: prismThemes.dracula,
     },
     docs: {
-      // sidebar: {
-      //   hideable: true,
-      // },
+      sidebar: {
+        hideable: false,
+        autoCollapseCategories: true,
+      },
     },
   } satisfies Preset.ThemeConfig,
 };

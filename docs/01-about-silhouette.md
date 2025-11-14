@@ -1,7 +1,7 @@
 ---
-title: About Silhouette
-sidebar_label: About Silhouette
-pagination_label: About Silhouette
+title: What is Silhouette?
+sidebar_label: What is Silhouette?
+pagination_label: What is Silhouette?
 slug: /about-silhouette
 ---
 
