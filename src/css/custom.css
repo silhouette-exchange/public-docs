@@ -879,12 +879,14 @@ aside.theme-doc-sidebar-container {
 }
 
 /* Coming Soon badge - placed on a pseudo-element that won't conflict */
-.sidebar-item-coming-soon .menu__link--sublist {
+.sidebar-item-coming-soon .menu__link--sublist,
+.sidebar-item-coming-soon .menu__link {
   position: relative !important;
   padding-right: 6px !important; /* Space for badge + chevron */
 }
 
-.sidebar-item-coming-soon .menu__link--sublist::before {
+.sidebar-item-coming-soon .menu__link--sublist::before,
+.sidebar-item-coming-soon .menu__link::before {
   content: 'COMING SOON' !important;
   position: absolute !important;
   right: 40px !important;
@@ -1314,11 +1316,11 @@ html.navbar-sidebar--show {
     letter-spacing: 0.6px !important;
   }
 
-  .navbar-sidebar .menu__link--sublist {
-    max-width: 100% !important;
+  .navbar-sidebar .menu__link {
     box-sizing: border-box !important;
     max-width: 60% !important;
   }
+
 }
 
 @media screen and (max-width: 555px) {
@@ -1331,7 +1333,7 @@ html.navbar-sidebar--show {
     letter-spacing: 0.6px !important;
   }
 
-  .navbar-sidebar .menu__link--sublist {
+  .navbar-sidebar .menu__link {
     max-width: 100% !important;
     box-sizing: border-box !important;
     max-width: 96% !important;
