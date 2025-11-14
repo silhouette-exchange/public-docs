@@ -483,8 +483,6 @@ h3 {
   height: 36px !important;
   width: 100% !important;
   line-height: normal !important;
-  padding-right: 100px !important;
-  box-sizing: border-box !important;
 }
 
 .navbar__search-input::placeholder {
@@ -525,11 +523,6 @@ h3 {
   gap: 2px !important;
   align-items: center !important;
   justify-content: center !important;
-  position: absolute !important;
-  top: 50% !important;
-  right: 0.8rem !important;
-  transform: translateY(-50%) !important;
-  pointer-events: none !important;
 }
 
 /* Keyboard shortcut hint styling - using attribute selector for CSS modules */
@@ -569,14 +562,6 @@ h3 {
   display: flex !important;
   align-items: center !important;
   justify-content: center !important;
-}
-
-.navbar__search button[class*="searchClearButton"] {
-  position: absolute !important;
-  right: 0.8rem !important;
-  top: 50% !important;
-  transform: translateY(-50%) !important;
-  z-index: 15 !important;
 }
 
 /* Light mode styling */
@@ -637,47 +622,6 @@ h3 {
   --search-local-highlight-color: #00B8AE;
   --search-local-muted-color: rgba(0, 0, 0, 0.5);
   --search-local-hit-active-color: #F7F8FF;
-}
-
-/* Search highlight readability */
-:root {
-  --search-local-hit-background: rgba(255, 255, 255, 0.03);
-  --search-local-hit-color: #f8fafc;
-  --search-local-hit-active-color: #f8fafc;
-  --search-local-highlight-color: rgba(255, 255, 255, 0.08);
-}
-
-[data-theme='dark'] {
-  --search-local-hit-background: rgba(255, 255, 255, 0.05);
-  --search-local-highlight-color: rgba(255, 255, 255, 0.1);
-}
-
-[data-theme='light'] {
-  --search-local-hit-background: rgba(0, 0, 0, 0.04);
-  --search-local-highlight-color: rgba(0, 0, 0, 0.08);
-  --search-local-hit-color: #1f2937;
-  --search-local-hit-active-color: #1f2937;
-}
-
-[class*="searchBar"] [class*="suggestion"] {
-  background-color: transparent !important;
-  color: var(--search-local-hit-color, #f8fafc) !important;
-}
-
-[class*="searchBar"] [class*="suggestion"][class*="cursor"] {
-  background-color: var(--search-local-hit-background, rgba(255, 255, 255, 0.04)) !important;
-  transition: background-color 0.2s ease !important;
-}
-
-[class*="searchBar"] [class*="suggestion"][class*="cursor"] * {
-  color: var(--search-local-hit-active-color, #f8fafc) !important;
-}
-
-[class*="searchBar"] mark {
-  background-color: var(--search-local-highlight-color, rgba(255, 255, 255, 0.08)) !important;
-  color: var(--search-local-hit-active-color, #f8fafc) !important;
-  border-radius: 2px !important;
-  padding: 0 0.08em !important;
 }
 
 /* ==================== FIGMA DESIGN IMPLEMENTATION ==================== */
