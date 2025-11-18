@@ -12,7 +12,7 @@ The Silhouette API is currently in beta and under active development on testnet.
 The Silhouette API provides programmatic access to the Silhouette shielded exchange, enabling traders to deposit funds, place and manage orders, and process withdrawals.
 
 :::info
-The Silhouette API is available at `https://api-alpha.silhouette.exchange:8081/v0`.
+The Silhouette API is available at `https://api-alpha.silhouette.exchange/v0`.
 :::
 
 All API requests are `POST` requests sent to the same URL. Rather than having separate endpoints for each operation (like `/orders` or `/balances`), the API uses a discriminated union pattern where you specify the operation in the `operation` field of your request body. This approach simplifies integration and provides a consistent request structure across all operations.

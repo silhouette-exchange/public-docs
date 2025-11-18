@@ -319,7 +319,7 @@ Before making API requests, ensure your bearer token is still valid. Tokens expi
 All API requests must:
 
 - Use the `POST` method
-- Target the endpoint: `https://api-alpha.silhouette.exchange:8081/v0`
+- Target the endpoint: `https://api-alpha.silhouette.exchange/v0`
 - Include the `Content-Type: application/json` header
 - Include a valid `operation` field in the request body
 - For authenticated operations, include the `Authorization: Bearer YOUR_TOKEN_HERE` header
