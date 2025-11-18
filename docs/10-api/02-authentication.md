@@ -70,7 +70,7 @@ const message = new SiweMessage({
   domain: 'api-alpha.silhouette.exchange',
   address: account.address,
   statement: 'Sign in with Ethereum to the app.',
-  uri: 'https://api-alpha.silhouette.exchange:443/login',
+  uri: 'https://api-alpha.silhouette.exchange/login',
   version: '1',
   chainId: 1,
   nonce: generateNonce(),
@@ -96,7 +96,7 @@ api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:
 
 Sign in with Ethereum to the app.
 
-URI: https://api-alpha.silhouette.exchange:443/login
+URI: https://api-alpha.silhouette.exchange/login
 Version: 1
 Chain ID: 1
 Nonce: abcdefghijklmnopqrstuvwxyz123456
@@ -121,7 +121,7 @@ curl https://api-alpha.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -d '{
     "operation": "login",
-    "message": "api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: https://api-alpha.silhouette.exchange:443/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
+    "message": "api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: https://api-alpha.silhouette.exchange/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
     "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890ab"
   }'
 ```
