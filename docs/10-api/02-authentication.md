@@ -117,7 +117,7 @@ Send the SIWE message and signature to the API's `login` operation:
 Request:
 
 ```bash
-curl https://api-alpha.silhouette.exchange:443/v0 \
+curl https://api-alpha.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -d '{
     "operation": "login",
@@ -170,7 +170,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
 Example authenticated request:
 
 ```bash
-curl https://api-alpha.silhouette.exchange:443/v0 \
+curl https://api-alpha.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -d '{

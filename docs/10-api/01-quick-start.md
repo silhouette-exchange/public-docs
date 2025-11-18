@@ -61,7 +61,7 @@ Now that you have a bearer token, you can make your first API call. Let's retrie
 **Request:**
 
 ```bash
-curl https://api-alpha.silhouette.exchange:443/v0 \
+curl https://api-alpha.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
