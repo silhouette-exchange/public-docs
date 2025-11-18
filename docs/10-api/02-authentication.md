@@ -70,7 +70,7 @@ const message = new SiweMessage({
   domain: 'api-alpha.silhouette.exchange',
   address: account.address,
   statement: 'Sign in with Ethereum to the app.',
-  uri: 'https://api-alpha.silhouette.exchange:8081/login',
+  uri: 'https://api-alpha.silhouette.exchange:443/login',
   version: '1',
   chainId: 1,
   nonce: generateNonce(),
@@ -96,7 +96,7 @@ api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:
 
 Sign in with Ethereum to the app.
 
-URI: https://api-alpha.silhouette.exchange:8081/login
+URI: https://api-alpha.silhouette.exchange:443/login
 Version: 1
 Chain ID: 1
 Nonce: abcdefghijklmnopqrstuvwxyz123456
@@ -117,11 +117,11 @@ Send the SIWE message and signature to the API's `login` operation:
 Request:
 
 ```bash
-curl https://api-alpha.silhouette.exchange:8081/v0 \
+curl https://api-alpha.silhouette.exchange:443/v0 \
   -H "Content-Type: application/json" \
   -d '{
     "operation": "login",
-    "message": "api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: https://api-alpha.silhouette.exchange:8081/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
+    "message": "api-alpha.silhouette.exchange wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: https://api-alpha.silhouette.exchange:443/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
     "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890ab"
   }'
 ```
@@ -170,7 +170,7 @@ Authorization: Bearer YOUR_TOKEN_HERE
 Example authenticated request:
 
 ```bash
-curl https://api-alpha.silhouette.exchange:8081/v0 \
+curl https://api-alpha.silhouette.exchange:443/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9..." \
   -d '{
