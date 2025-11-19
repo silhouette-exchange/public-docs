@@ -32,6 +32,7 @@
 }
 
 .navbarItem:hover {
+  text-decoration: none;
   color: #fafafa;
   border-bottom-color: rgba(102, 255, 247, 0.4);
 }

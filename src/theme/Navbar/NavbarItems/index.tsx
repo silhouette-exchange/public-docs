@@ -8,17 +8,19 @@ export default function NavbarItems(): ReactNode {
   const currentPath = location.pathname;
 
   // Determine which tab should be active based on current pathname
-  const getActiveTab = () => {
-    // FAQ tab
-    if (currentPath === "/docs/faq" || currentPath.startsWith("/docs/faq/")) {
+  const getActiveTab = (): string => {
+    // Check specific routes first (more specific before general)
+    if (currentPath.startsWith("/docs/faq")) {
       return "faq";
     }
-    // API tab
-    else if (currentPath.startsWith("/docs/api")) {
-      return "/docs/api";
+    if (currentPath.startsWith("/docs/api")) {
+      return "api";
+    }
+    if (currentPath.startsWith("/blog")) {
+      return "blog";
     }
     // Docs tab - matches /docs routes and home page
-    else if (
+    if (
       currentPath.startsWith("/docs") ||
       currentPath === "/" ||
       currentPath === ""
@@ -44,7 +46,7 @@ export default function NavbarItems(): ReactNode {
         <Link
           to="/docs/api"
           className={`${styles.navbarItem} ${
-            activeTab === "/docs/api" ? styles.navbarItemActive : ""
+            activeTab === "api" ? styles.navbarItemActive : ""
           }`}
         >
           API
@@ -56,6 +58,14 @@ export default function NavbarItems(): ReactNode {
           }`}
         >
           FAQ
+        </Link>
+        <Link
+          to="/blog"
+          className={`${styles.navbarItem} ${
+            activeTab === "blog" ? styles.navbarItemActive : ""
+          }`}
+        >
+          BLOG
         </Link>
       </div>
     </div>
