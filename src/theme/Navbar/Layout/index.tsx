@@ -30,7 +30,10 @@ export default function NavbarLayout({ children }: Props): ReactNode {
   const mobileSidebar = useNavbarMobileSidebar();
   const { navbarRef, isNavbarVisible } = useHideableNavbar(hideOnScroll);
   const location = useLocation();
-  const shouldShowNavbarItems = location.pathname.startsWith("/docs");
+  const shouldShowNavbarItems =
+    location.pathname.startsWith("/docs") ||
+    location.pathname === "/" ||
+    location.pathname === "";
 
   return (
     <>

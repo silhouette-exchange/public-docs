@@ -11,7 +11,7 @@ tags: [article]
 
 **Silhouette is building on Hyperliquid because the future of on-chain needs speed, scale and privacy.**
 
-For an introduction to Silhouette, please see [Introducing Silhouette](/blog/2025-01-22-intro.md).
+For an introduction to Silhouette, please see [Introducing Silhouette](/docs/blog/intro).
 
 Silhouette's goal is straightforward: offering a decentralised and full-featured private trading system that does not compromise user experience. A downfall of many other private trading environments is a lack of liquidity. Hyperliquid provides this liquidity and opportunity to support Silhouette’s mission.
 <!-- truncate -->
