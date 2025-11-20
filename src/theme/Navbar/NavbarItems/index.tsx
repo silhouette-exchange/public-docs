@@ -3,6 +3,8 @@ import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
 import styles from "./styles.module.css";
 
+const docsPrefix = "/docs";
+
 export default function NavbarItems(): ReactNode {
   const location = useLocation();
   const currentPath = location.pathname;
@@ -10,22 +12,22 @@ export default function NavbarItems(): ReactNode {
   // Determine which tab should be active based on current pathname
   const getActiveTab = (): string => {
     // Check specific routes first (more specific before general)
-    if (currentPath.startsWith("/docs/faq")) {
+    if (currentPath.startsWith(`${docsPrefix}/faq`)) {
       return "faq";
     }
-    if (currentPath.startsWith("/docs/api")) {
+    if (currentPath.startsWith(`${docsPrefix}/api`)) {
       return "api";
     }
-    if (currentPath.startsWith("/blog")) {
+    if (currentPath.startsWith(`${docsPrefix}/blog`)) {
       return "blog";
     }
     // Docs tab - matches /docs routes and home page
     if (
-      currentPath.startsWith("/docs") ||
+      currentPath.startsWith(docsPrefix) ||
       currentPath === "/" ||
       currentPath === ""
     ) {
-      return "docs";
+      return docsPrefix;
     }
     return "";
   };
@@ -38,7 +40,7 @@ export default function NavbarItems(): ReactNode {
         <Link
           to="/docs/about-silhouette"
           className={`${styles.navbarItem} ${
-            activeTab === "docs" ? styles.navbarItemActive : ""
+            activeTab === docsPrefix ? styles.navbarItemActive : ""
           }`}
         >
           SILHOUETTE DOCS
@@ -60,7 +62,7 @@ export default function NavbarItems(): ReactNode {
           FAQ
         </Link>
         <Link
-          to="/blog"
+          to="/docs/blog"
           className={`${styles.navbarItem} ${
             activeTab === "blog" ? styles.navbarItemActive : ""
           }`}
