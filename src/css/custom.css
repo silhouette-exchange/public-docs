@@ -1076,6 +1076,11 @@ article:has(header h1) {
   margin-bottom: 4px !important;
 }
 
+#key-features {
+  margin-top: 32px !important;
+  margin-bottom: -2px !important;
+}
+
 /* Body text */
 .markdown p {
   font-family: 'Inter', sans-serif !important;
@@ -1085,6 +1090,44 @@ article:has(header h1) {
   letter-spacing: 0.96px !important;
   color: #a1a1aa !important;
   margin: 0 0 16px 0 !important;
+}
+
+.markdown ol li {
+  margin-left: -10px !important;
+}
+.markdown ol li p{
+  margin-top: 15px !important;
+  margin-bottom: 6px !important;
+}
+
+/* Lists - filled bullet points */
+.markdown ul {
+  list-style-type: disc !important;
+  margin-left: -5px !important;
+}
+
+.markdown ul li {
+  list-style-type: disc !important;
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.96px !important;
+  color: #a1a1aa !important;
+}
+
+.markdown ul li::marker {
+  color: #a1a1aa !important;
+}
+
+/* Nested lists */
+.markdown ul ul {
+  list-style-type: disc !important;
+}
+
+.markdown ul ul li {
+  list-style-type: disc !important;
+  
 }
 
 /* Admonitions (info box) */
@@ -1111,10 +1154,11 @@ article:has(header h1) {
   color: #d4d4d8 !important;
 }
 
-/* Table of Contents (right sidebar) */
+/* Table of Contents (right sidebar) - ensure it's on the right */
 .theme-doc-toc-desktop {
   max-width: 224px !important;
   padding-left: 40px !important;
+  padding-right: 40px !important;
   padding-top: 40px !important;
 }
 
@@ -1340,3 +1384,440 @@ html.navbar-sidebar--show {
    
   }
 }
+
+/* ==================== Blog Styling ==================== */
+
+/* Blog page main wrapper - ensure left alignment */
+main[class*="main-wrapper"] .container,
+.blog-list-page .container,
+.blog-post-page .container,
+.container.margin-vert--lg {
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  
+}
+
+/* Target blog pages specifically */
+[class*="blog-list-page"] .container,
+[class*="blog-post-page"] .container,
+[class*="blog"] .container {
+  max-width: 100% !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  
+  
+}
+
+/* TOC sidebar - RIGHT SIDEBAR - col--2 or similar */
+.blog-post-page .col--2,
+.blog-post-page [class*="col--2"],
+.blog-post-page [class*="col--"][class*="toc"],
+.blog-post-page [class*="toc"] {
+  order: 3 !important;
+  flex-shrink: 0 !important;
+  width: 224px !important;
+  padding-left: 40px !important;
+  padding-right: 40px !important;
+  
+}
+
+/* For blog posts, ensure TOC is positioned correctly on the right */
+.blog-post-page .theme-doc-toc-desktop,
+.blog-post-page .col--2:has(.theme-doc-toc-desktop),
+.blog-post-page .col--2 .theme-doc-toc-desktop,
+[class*="blog"] .theme-doc-toc-desktop {
+  order: 3 !important;
+  position: relative !important;
+  
+}
+
+/* Blog list page container */
+.blog-list-page {
+  max-width: 100% !important;
+  
+}
+
+/* Blog page row container - align items to start */
+.blog-list-page .row,
+.blog-post-page .row,
+[class*="blog"] .row {
+  display: flex !important;
+  flex-direction: row !important;
+  align-items: flex-start !important;
+  justify-content: flex-start !important;
+  gap: 40px !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  width: 100% !important;
+  position: relative !important;
+  
+}
+
+/* Override any container centering on blog pages */
+[class*="blog"] .container,
+[class*="blog"] .container-fluid {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  max-width: 100% !important;
+  
+}
+
+/* Blog list wrapper */
+.blog-list-wrapper {
+  display: flex !important;
+  flex-direction: row !important;
+  gap: 40px !important;
+  padding: 40px 40px 0 40px !important;
+  
+}
+
+/* Blog sidebar (Recent posts) - col--3 - LEFT SIDEBAR */
+.blog-list-page .col--3,
+.blog-post-page .col--3,
+[class*="blog"] .col--3 {
+  width: 200px !important;
+  flex-shrink: 0 !important;
+  order: 1 !important;
+  padding-left: 40px !important;
+  padding-right: 0 !important;
+  margin-left: 0 !important;
+  margin-right: 0 !important;
+  align-self: flex-start !important;
+}
+
+
+/* Ensure Recent posts sidebar stays on the left */
+.blog-post-page .col--3:has(nav[aria-label*="recent"]),
+.blog-post-page .col--3:has(nav[aria-label*="Recent"]),
+.blog-post-page .col--3:has(aside) {
+  order: 1 !important;  
+}
+
+/* Blog sidebar content - ensure left alignment */
+.blog-list-page .col--3 nav,
+.blog-post-page .col--3 nav,
+.blog-list-page .col--3 aside,
+.blog-post-page .col--3 aside {
+  padding-left: 0 !important;
+  margin-left: 0 !important;
+  text-align: left !important;
+  width:75% !important
+}
+
+/* Target Docusaurus blog sidebar structure */
+.blog-list-page .col--3 nav[aria-label*="recent"],
+.blog-post-page .col--3 nav[aria-label*="recent"],
+.blog-list-page .col--3 nav[aria-label*="Recent"],
+.blog-post-page .col--3 nav[aria-label*="Recent"] {
+  padding: 0 !important;
+  margin: 0 !important;
+
+}
+
+/* Blog sidebar list items */
+.blog-list-page .col--3 nav ul,
+.blog-post-page .col--3 nav ul,
+.blog-list-page .col--3 nav [role="group"] ul,
+.blog-post-page .col--3 nav [role="group"] ul {
+  list-style: none !important;
+  padding: 0 !important;
+  margin: 0 !important;
+}
+
+.blog-list-page .col--3 nav ul li,
+.blog-post-page .col--3 nav ul li,
+.blog-list-page .col--3 nav [role="group"] ul li,
+.blog-post-page .col--3 nav [role="group"] ul li {
+  margin: 0 !important;
+  padding: 8px 0px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+
+
+}
+
+.blog-list-page .col--3 nav ul li:first-child,
+.blog-post-page .col--3 nav ul li:first-child {
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+  margin-top:16px !important;
+  
+}
+
+/* Blog sidebar links */
+.blog-list-page .col--3 nav a,
+.blog-post-page .col--3 nav a,
+.blog-list-page .col--3 nav [role="group"] a,
+.blog-post-page .col--3 nav [role="group"] a {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.84px !important;
+  text-transform: uppercase !important;
+  color: #A1A1AA !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: space-between !important;
+  padding: 12px 0 !important;
+  gap: 8px !important;
+  
+}
+
+
+.blog-list-page .col--3 nav a:hover,
+.blog-post-page .col--3 nav a:hover {
+  color: #66FFF7 !important;
+}
+
+.blog-list-page .col--3 nav a.active,
+.blog-post-page .col--3 nav a.active,
+.blog-list-page .col--3 nav a[aria-current="page"],
+.blog-post-page .col--3 nav a[aria-current="page"] {
+  color: #66FFF7 !important;
+}
+
+
+/* Blog main content area - col--7 */
+.blog-list-page .col--7,
+.blog-post-page .col--7 {
+  flex: 1 !important;
+  max-width: 50% !important;
+  order: 2 !important;
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  position: relative !important;
+}
+
+/* Adjust padding when TOC is present */
+.blog-post-page:has(.theme-doc-toc-desktop) .col--7 {
+  padding-right: 0 !important;
+  margin-right: 0 !important;
+}
+
+/* Blog post title */
+.blog-post-page h1,
+.blog-list-page h1 {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 500 !important;
+  font-size: 32px !important;
+  line-height: 40px !important;
+  letter-spacing: 1.6px !important;
+  text-transform: uppercase !important;
+  color: #66fff7 !important;
+  margin-top: 0 !important;
+  margin-bottom: 12px !important;
+}
+
+/* Blog post metadata */
+.blog-post-page .margin-bottom--sm,
+.blog-post-page .text--muted {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.84px !important;
+  color: #a1a1aa !important;
+  margin-bottom: 16px !important;
+}
+
+/* Blog post author */
+.blog-post-page .avatar {
+  margin-right: 8px !important;
+}
+
+.blog-post-page .avatar__name {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  color: #a1a1aa !important;
+}
+
+/* Blog post content */
+.blog-post-page .markdown {
+  font-family: 'Inter', sans-serif !important;
+}
+
+.blog-post-page .markdown p {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.96px !important;
+  color: #a1a1aa !important;
+  margin: 0 0 16px 0 !important;
+}
+
+.blog-post-page .markdown h2 {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 400 !important;
+  font-size: 20px !important;
+  line-height: 32px !important;
+  letter-spacing: 1px !important;
+  text-transform: uppercase !important;
+  color: #fafafa !important;
+  margin-top: 32px !important;
+  margin-bottom: 12px !important;
+}
+
+.blog-post-page .markdown h3 {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 400 !important;
+  font-size: 18px !important;
+  line-height: 28px !important;
+  letter-spacing: 0.9px !important;
+  text-transform: uppercase !important;
+  color: #fafafa !important;
+  margin-top: 24px !important;
+  margin-bottom: 8px !important;
+}
+
+/* Blog post images */
+.blog-post-page .markdown img {
+  max-width: 100% !important;
+  height: auto !important;
+  border-radius: 0 !important;
+  margin: 24px 0 !important;
+}
+
+/* Blog list items */
+.blog-list-page .blog-list-item {
+  margin-bottom: 40px !important;
+  padding-bottom: 40px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.blog-list-page .blog-list-item:last-child {
+  border-bottom: none !important;
+}
+
+.blog-list-page .blog-list-item h2 {
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-weight: 500 !important;
+  font-size: 24px !important;
+  line-height: 32px !important;
+  letter-spacing: 1.2px !important;
+  text-transform: uppercase !important;
+  color: #66fff7 !important;
+  margin-bottom: 8px !important;
+}
+
+.blog-list-page .blog-list-item h2 a {
+  color: #66fff7 !important;
+  text-decoration: none !important;
+  transition: color 0.2s ease !important;
+}
+
+.blog-list-page .blog-list-item h2 a:hover {
+  color: #99fffa !important;
+}
+
+.blog-list-page .blog-list-item .blog-list-item-meta {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 14px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.84px !important;
+  color: #a1a1aa !important;
+  margin-bottom: 12px !important;
+}
+
+.blog-list-page .blog-list-item .markdown p {
+  font-family: 'Inter', sans-serif !important;
+  font-weight: 400 !important;
+  font-size: 16px !important;
+  line-height: 1.5 !important;
+  letter-spacing: 0.96px !important;
+  color: #a1a1aa !important;
+  margin: 0 0 16px 0 !important;
+}
+
+/* Blog pagination */
+.blog-list-page .pagination-nav {
+  margin-top: 40px !important;
+  padding-top: 40px !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+/* Ensure blog pages don't center content */
+main[class*="main-wrapper"]:has([class*="blog"]) .container,
+main[class*="main-wrapper"]:has([class*="blog"]) .row,
+main[class*="main-wrapper"]:has([class*="blog"]) {
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+}
+
+
+/* Target the main wrapper div that contains blog content */
+div[class*="main-wrapper"]:has([class*="blog"]) {
+  display: flex !important;
+  justify-content: flex-start !important;
+  align-items: flex-start !important;
+  
+}
+
+div[class*="main-wrapper"]:has([class*="blog"]) > .container {
+  margin-left: 0 !important;
+  margin-right: auto !important;
+  padding-left: 0 !important;
+}
+
+/* Responsive blog styling */
+@media screen and (max-width: 996px) {
+  .blog-list-page .row,
+  .blog-post-page .row {
+    flex-direction: column !important;
+    gap: 32px !important;
+    justify-content: center !important;
+    align-items: center !important;
+    max-width: 100% !important;
+  }
+  .blog-list-page .col--7,
+  .blog-post-page .col--7 {
+    max-width: 96% !important;
+}
+
+  .blog-list-wrapper {
+    flex-direction: column !important;
+    padding: 24px 24px 0 24px !important;
+    gap: 32px !important;
+    
+  }
+
+  .blog-list-page .col--3,
+  .blog-post-page .col--3 {
+    width: 100% !important;
+    padding-left: 24px !important;
+    padding-right: 24px !important;
+    order: 1 !important;
+    margin-left: 0 !important;
+  }
+
+  .blog-post-page .col--7,
+  .blog-list-page .col--7 {
+    padding: 0 24px !important;
+    order: 2 !important;
+  }
+  
+  .navbar-sidebar div[role="group"] ul li a {
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+    padding-top: 16px !important;
+    padding-bottom: 16px !important;
+  }
+
+}
+
+
+

@@ -32,6 +32,7 @@
 }
 
 .navbarItem:hover {
+  text-decoration: none;
   color: #fafafa;
   border-bottom-color: rgba(102, 255, 247, 0.4);
 }
@@ -46,6 +47,11 @@
 @media screen and (max-width: 768px) {
   .navbarItemsContainer {
     padding: 0 24px;
+  }
+
+  .navbarItemsInner {
+    justify-content: space-between !important;
+    width: 100% !important;
   }
 
   .navbarItem {
