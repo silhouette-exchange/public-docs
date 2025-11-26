@@ -3,27 +3,31 @@ import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
 import styles from "./styles.module.css";
 
+const docsPrefix = "/docs";
+
 export default function NavbarItems(): ReactNode {
   const location = useLocation();
   const currentPath = location.pathname;
 
   // Determine which tab should be active based on current pathname
-  const getActiveTab = () => {
-    // FAQ tab
-    if (currentPath === "/docs/faq" || currentPath.startsWith("/docs/faq/")) {
+  const getActiveTab = (): string => {
+    // Check specific routes first (more specific before general)
+    if (currentPath.startsWith(`${docsPrefix}/faq`)) {
       return "faq";
     }
-    // API tab
-    else if (currentPath.startsWith("/docs/api")) {
-      return "/docs/api";
+    if (currentPath.startsWith(`${docsPrefix}/api`)) {
+      return "api";
+    }
+    if (currentPath.startsWith(`${docsPrefix}/blog`)) {
+      return "blog";
     }
     // Docs tab - matches /docs routes and home page
-    else if (
-      currentPath.startsWith("/docs") ||
+    if (
+      currentPath.startsWith(docsPrefix) ||
       currentPath === "/" ||
       currentPath === ""
     ) {
-      return "docs";
+      return docsPrefix;
     }
     return "";
   };
@@ -36,7 +40,7 @@ export default function NavbarItems(): ReactNode {
         <Link
           to="/docs/about-silhouette"
           className={`${styles.navbarItem} ${
-            activeTab === "docs" ? styles.navbarItemActive : ""
+            activeTab === docsPrefix ? styles.navbarItemActive : ""
           }`}
         >
           SILHOUETTE DOCS
@@ -44,7 +48,7 @@ export default function NavbarItems(): ReactNode {
         <Link
           to="/docs/api"
           className={`${styles.navbarItem} ${
-            activeTab === "/docs/api" ? styles.navbarItemActive : ""
+            activeTab === "api" ? styles.navbarItemActive : ""
           }`}
         >
           API
@@ -56,6 +60,14 @@ export default function NavbarItems(): ReactNode {
           }`}
         >
           FAQ
+        </Link>
+        <Link
+          to="/docs/blog"
+          className={`${styles.navbarItem} ${
+            activeTab === "blog" ? styles.navbarItemActive : ""
+          }`}
+        >
+          BLOG
         </Link>
       </div>
     </div>

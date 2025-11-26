@@ -20,27 +20,27 @@ Transparent markets, private participants. Our mission is to bring liquidity on-
 ## Key features
 
 1. **Privacy-Preserving Execution**
-    - Shielded trading flows.
-	- Randomized execution (size/time jitter) prevents signaling risk.
-	- Net settlement design ensures only final balances hit public ledgers.
+   - Shielded trading flows.
+   - Randomized execution (size/time jitter) prevents signaling risk.
+   - Net settlement design ensures only final balances hit public ledgers.
 
 2. **Public Market Transparency**
-	-	Aggregate market data, volumes, and settlement remain open and auditable.
-	-	Preserves price discovery and public trust while keeping personal flows private.
+   - Aggregate market data, volumes, and settlement remain open and auditable.
+   - Preserves price discovery and public trust while keeping personal flows private.
 
 3. **Block-Trading & RFQ Mechanisms**
-	-	Tooling for executing large orders.
-	-	Reduces market impact and slippage.
+   - Tooling for executing large orders.
+   - Reduces market impact and slippage.
 
-4. **Effecent HyperEVM to HyperCore flows**
-    - Native support for seamless flows between HyperEVM and HyperCore.
-	- Enables dApp interactions to settle directly into the core order book.
-	- Bridges on-chain programmability (EVM smart contracts) with off-chain performance (HyperCore engine).
-	- Unlocks hybrid execution strategies combining private venue flows with public liquidity.
+4. **Efficient HyperEVM to HyperCore flows**
+   - Native support for seamless flows between HyperEVM and HyperCore.
+   - Enables dApp interactions to settle directly into the core order book.
+   - Bridges on-chain programmability (EVM smart contracts) with off-chain performance (HyperCore engine).
+   - Unlocks hybrid execution strategies combining private venue flows with public liquidity.
 
-4. **Policy engine support**
-    - Optional onchain policy engines for programmatic compliance logic.
-    - Trade-on chain while meeting your regulatory requirements. 
+5. **Policy engine support**
+   - Optional onchain policy engines for programmatic compliance logic.
+   - Trade-on chain while meeting your regulatory requirements. 
 
 ## The Problem We're Solving
 
