@@ -13,7 +13,7 @@ The Silhouette API is currently in beta and under active development on testnet.
 For developers who want to build strongly-typed integrations, we provide an OpenAPI specification for the Silhouette API. The spec is available at:
 
 ```text
-https://api-alpha.silhouette.exchange/swagger/v0/json
+https://api.silhouette.exchange/swagger/v0/json
 ```
 
 You can use this specification with code generation tools to automatically create type-safe client libraries in your preferred programming language.
@@ -36,7 +36,7 @@ npm install @openapitools/openapi-generator-cli -g
 
 # Generate a TypeScript Axios client
 openapi-generator-cli generate \
-  -i https://api-alpha.silhouette.exchange/swagger/v0/json \
+  -i https://api.silhouette.exchange/swagger/v0/json \
   -g typescript-axios \
   -o ./generated-client
 ```
@@ -45,7 +45,7 @@ openapi-generator-cli generate \
 
 ```bash
 openapi-generator-cli generate \
-  -i https://api-alpha.silhouette.exchange/swagger/v0/json \
+  -i https://api.silhouette.exchange/swagger/v0/json \
   -g python \
   -o ./generated-client
 ```
@@ -67,7 +67,7 @@ You can also use the OpenAPI specification with [Swagger UI](https://swagger.io/
 ```bash
 # Using Docker
 docker run -p 8080:8080 \
-  -e SWAGGER_JSON_URL=https://api-alpha.silhouette.exchange/swagger/v0/json \
+  -e SWAGGER_JSON_URL=https://api.silhouette.exchange/swagger/v0/json \
   swaggerapi/swagger-ui
 ```
 
