@@ -519,6 +519,132 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `cancelOrder` to cancel an open order, and `createOrder` to place new orders.
 
+## getOrderById
+
+Get a single order by its unique ID. This endpoint allows you to retrieve detailed information about a specific order, including its current status, filled amounts, and pricing details. **Requires authentication.**
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"getOrderById"` |
+| orderId | string | Yes | The unique identifier of the order to retrieve. Can be a numeric ID (for Silhouette orders) or a string ID (for delegated orders) |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "getOrderById",
+    "orderId": "1000001"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "data": {
+    "order": {
+      "orderId": "1000001",
+      "side": "buy",
+      "orderType": "limit",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "amount": "100000000",
+      "amountFloat": "1.00",
+      "price": "25000000",
+      "priceFloat": "25.00",
+      "status": "filled",
+      "expiry": 1736870400,
+      "createdAt": 1734825600000,
+      "updatedAt": 1734825700000,
+      "filledAmount": "100000000",
+      "filledPrice": "24500000",
+      "clearingVenue": "silhouette"
+    }
+  },
+  "responseMetadata": {
+    "timestamp": 1705313400,
+    "requestId": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| orderId | string | Unique identifier for the order |
+| side | string | Order side: `"buy"` or `"sell"` |
+| orderType | string | Order type: `"limit"` or `"market"` |
+| baseToken | string | The token being traded (e.g., `"HYPE"`) |
+| quoteToken | string | The token used for pricing (e.g., `"USDC"`) |
+| amount | string | Total order amount in the token's smallest unit |
+| amountFloat | string | Total order amount as a human-readable decimal number |
+| price | string | Order price in the token's smallest unit (limit orders only) |
+| priceFloat | string | Order price as a human-readable decimal number (limit orders only) |
+| status | string | Order status: `"active"`, `"filled"`, or `"cancelled"` |
+| expiry | number \| null | Unix timestamp (seconds) when the order expires, or `null` for no expiry |
+| createdAt | number | Unix timestamp (milliseconds) when the order was created |
+| updatedAt | number | Unix timestamp (milliseconds) when the order was last updated |
+| filledAmount | string \| null | Amount that has been filled (for partially or fully filled orders) |
+| filledPrice | string \| null | Average price at which the order was filled |
+| clearingVenue | string | Where the order is executed: `"silhouette"` or `"hyperliquid"` |
+
+**Error responses**:
+
+```json
+{
+  "operation": "getOrderById",
+  "error": "Missing or invalid orderId.",
+  "code": "VALIDATION_ERROR",
+  "responseMetadata": {
+    "timestamp": 1705313400
+  }
+}
+```
+
+```json
+{
+  "operation": "getOrderById",
+  "error": "Order not found.",
+  "code": "ORDER_NOT_FOUND",
+  "responseMetadata": {
+    "timestamp": 1705313400
+  }
+}
+```
+
+```json
+{
+  "operation": "getOrderById",
+  "error": "Unauthorized",
+  "code": "UNAUTHORIZED",
+  "responseMetadata": {
+    "timestamp": 1705313400
+  }
+}
+```
+
+**Notes**:
+
+- You can only retrieve your own orders. Attempting to access another user's order returns `ORDER_NOT_FOUND` (this is intentional for privacy—it doesn't reveal whether the order exists)
+- The `orderId` must be provided as a string, even if it's a numeric ID (e.g., `"1000001"` not `1000001`)
+- Silhouette orders typically have numeric IDs, while delegated orders may have string-based IDs (e.g., `"hl_order_abc123"`)
+- Both active and historical orders (filled or cancelled) can be retrieved
+- The response includes both raw values (in the token's smallest unit) and human-readable float values (with `Float` suffix)
+- For orders with no expiry, the `expiry` field will be `null`
+- The `filledAmount` and `filledPrice` fields are only populated for orders that have been partially or fully filled
+
+**Related operations**: Use `getUserOrders` to retrieve all your orders with optional status filtering, or `createOrder` to place a new order.
+
 ## initiateWithdrawal
 
 Request a withdrawal of funds from your Silhouette account back to your HyperCore address. Withdrawals are processed asynchronously, and you'll receive a withdrawal ID to track the status.
