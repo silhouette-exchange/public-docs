@@ -5,25 +5,31 @@ pagination_label: FAQ
 slug: /faq
 ---
 
+import styles from "./08-faq.module.css";
+
 ### How does Silhouette integrate with HyperCore and the HyperEVM?
-<div style={{ marginBottom: 32 }}>
+
+<div className={styles.faqSpacing}>
   The Silhouette system is comprised of a smart contract, smart wallets, and a TEE that connect together to enable private trading. The TEE interacts with the smart contracts and HyperCore for state management, deposits/withdrawals, and order settlement.
 </div>
 
 ### What is the difference between obfuscation and mixing? What is Silhouette doing?
-<div style={{ marginBottom: 32 }}>
-  Obfuscation hides trade and order data from outsiders. Mixing prevents traceability of funds by intertwining the funds of multiple users. Silhouette is an **obfuscation** system, since it only aims to hide order and balance data, while deposits and withdrawals remain "open" on HyperCore. 
+
+<div className={styles.faqSpacing}>
+  Obfuscation hides trade and order data from outsiders. Mixing prevents traceability of funds by intertwining the funds of multiple users.Silhouette is an **obfuscation** system, since it only aims to hide order and balance data, while deposits and withdrawals remain "open" on HyperCore.
 </div>
 
-###  Is Silhouette just an off-chain orderbook?
-<div style={{ marginBottom: 32 }}>
+### Is Silhouette just an off-chain orderbook?
+
+<div className={styles.faqSpacing}>
   Silhouette is a matching and privacy engine that contains a built-in orderbook, along with privacy-enhancing mechanisms to protect users' trades. It leverages the Hyperliquid blockchain for settlement, providing more liquidity access than a standalone off-chain orderbook.
 
   In order for Silhouette to work as designed, we need an underlying settlement chain. This is the Hyperliquid. The net result of all trades on Silhouette go through Hyperliquid
 </div>
 
 ### Is Silhouette a mixer?
-<div style={{ marginBottom: 32 }}>
+
+<div className={styles.faqSpacing}>
   No. Mixers enable private transactions between two addresses to obfuscate the movement of funds. Silhouette only permits deposits and withdrawals from the same address.
 </div>
 
