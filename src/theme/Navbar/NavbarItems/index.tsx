@@ -1,11 +1,11 @@
-import React, { type ReactNode } from "react";
+import { JSX } from "react";
 import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
 import styles from "./styles.module.css";
 
 const docsPrefix = "/docs";
 
-export default function NavbarItems(): ReactNode {
+export default function NavbarItems(): JSX.Element {
   const location = useLocation();
   const currentPath = location.pathname;
 

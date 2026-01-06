@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";
+import { JSX } from "react";
 import Layout from "@theme/Layout";
 import styles from "./terms.module.css";
+import { MAIN_LINKS } from "../constants/main-links";
 
-export default function PrivacyPage(): ReactNode {
+export default function PrivacyPage(): JSX.Element {
   return (
     <Layout
       title="Privacy Policy"
@@ -28,12 +29,12 @@ export default function PrivacyPage(): ReactNode {
                 This privacy policy explains how we process and protect your
                 personal data when you use our website available on{" "}
                 <a
-                  href="https://silhouette.exchange/"
+                  href={MAIN_LINKS.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.cyanLink}
                 >
-                  https://silhouette.exchange/
+                  {MAIN_LINKS.website}
                 </a>{" "}
                 ("Website")
               </p>

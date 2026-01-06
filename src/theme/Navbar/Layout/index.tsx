@@ -1,4 +1,4 @@
-import React, { type ComponentProps, type ReactNode } from "react";
+import { JSX, type ComponentProps } from "react";
 import clsx from "clsx";
 import { ThemeClassNames, useThemeConfig } from "@docusaurus/theme-common";
 import {
@@ -23,7 +23,7 @@ function NavbarBackdrop(props: ComponentProps<"div">) {
   );
 }
 
-export default function NavbarLayout({ children }: Props): ReactNode {
+export default function NavbarLayout({ children }: Props): JSX.Element {
   const {
     navbar: { hideOnScroll, style },
   } = useThemeConfig();

@@ -1,8 +1,9 @@
-import type { ReactNode } from "react";
+import { JSX } from "react";
 import Layout from "@theme/Layout";
 import styles from "./terms.module.css";
+import { MAIN_LINKS } from "../constants/main-links";
 
-export default function TermsPage(): ReactNode {
+export default function TermsPage(): JSX.Element {
   return (
     <Layout
       title="Terms and Conditions"
@@ -31,12 +32,12 @@ export default function TermsPage(): ReactNode {
                 These terms and conditions ("Terms") apply to the access to, and
                 the use of the website available on{" "}
                 <a
-                  href="https://silhouette.exchange/"
+                  href={MAIN_LINKS.website}
                   target="_blank"
                   rel="noopener noreferrer"
                   className={styles.cyanLink}
                 >
-                  https://silhouette.exchange/
+                  {MAIN_LINKS.website}
                 </a>{" "}
                 ("Website") offered by Silhouette AG, Gartenstrasse 6, 6300 Zug,
                 Switzerland ("Company"), and including the website-hosted user
