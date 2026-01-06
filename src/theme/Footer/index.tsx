@@ -1,10 +1,10 @@
-import React, { type ReactNode } from "react";
+import React, { JSX } from "react";
 import { useThemeConfig } from "@docusaurus/theme-common";
 import { useLocation } from "@docusaurus/router";
 import Link from "@docusaurus/Link";
 import useBaseUrl from "@docusaurus/useBaseUrl";
 
-function Footer(): ReactNode {
+export default function Footer(): JSX.Element | null {
   const { footer } = useThemeConfig();
   const { pathname } = useLocation();
 
@@ -47,5 +47,3 @@ function Footer(): ReactNode {
     </footer>
   );
 }
-
-export default React.memo(Footer);
