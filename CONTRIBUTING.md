@@ -57,7 +57,7 @@ docs/
 ├── 05-account-management/      # Account and wallet management
 ├── 06-trading/                 # Trading functionality
 ├── 07-architecture/            # Technical architecture
-├── 08-faq.md                   # Frequently asked questions
+├── 08-faq.mdx                   # Frequently asked questions
 └── 09-glossary.md              # Terms and definitions
 
 blog/                           # Blog posts and announcements
