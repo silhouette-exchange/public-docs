@@ -173,12 +173,12 @@
   --font-sans: 'Inter', sans-serif;
 
 
-  --ifm-h1-font-size:                                                    28px;
-  --ifm-h2-font-size:                                                  22px;
-  --ifm-h3-font-size:                                                 1.25rem;
-  --ifm-h4-font-size:                                                    1rem;
-  --ifm-h5-font-size:                                                0.875rem;
-  --ifm-h6-font-size:                                                 0.85rem;
+  --ifm-h1-font-size: 36px;
+  --ifm-h2-font-size: 28px;
+  --ifm-h3-font-size: 22px;
+  --ifm-h4-font-size: 18px;
+  --ifm-h5-font-size: 16px;
+  --ifm-h6-font-size: 14px;
 }
 
 /* For readability concerns, you should choose a lighter palette in dark mode. */
@@ -217,32 +217,32 @@ h1, h2, h3 {
 }
 
 h1 {
-  font-size: 28px !important;
-  line-height: 40px !important;
-  letter-spacing: 0.64px !important;
+  font-size: 36px !important;
+  line-height: 1.2 !important;
+  letter-spacing: -0.02em !important;
 }
 
 h2 {
-  font-size: 22px;
+  font-size: 28px;
   font-weight: 500;
-  line-height: 32px;
-  letter-spacing: 0.48px;
+  line-height: 1.25;
+  letter-spacing: -0.01em;
 }
 
 /* This is due to the headings on pages being H2 when auto generated */
 header  h2 {
-  font-size: 28px !important;
+  font-size: 36px !important;
   font-style: normal;
   font-weight: 400;
-  line-height: 40px; /* 142.857% */
-  letter-spacing: 0.64px;
+  line-height: 1.2;
+  letter-spacing: -0.02em;
 }
 
 h3 {
   font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.48px;
+  font-size: 22px;
+  line-height: 1.3;
+  letter-spacing: 0;
 }
 
 /* Navbar */
@@ -1054,26 +1054,26 @@ article:has(header h1) {
 /* Content headings */
 .markdown h2 {
   font-family: 'IBM Plex Mono', monospace !important;
-  font-weight: 400 !important;
-  font-size: 20px !important;
-  line-height: 32px !important;
-  letter-spacing: 1px !important;
+  font-weight: 500 !important;
+  font-size: 28px !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
   color: #fafafa !important;
-  margin-top: 18px !important;
-  margin-bottom: 4px !important;
+  margin-top: 48px !important;
+  margin-bottom: 16px !important;
 }
 
 .markdown h3 {
   font-family: 'IBM Plex Mono', monospace !important;
-  font-weight: 400 !important;
-  font-size: 20px !important;
-  line-height: 32px !important;
-  letter-spacing: 1px !important;
+  font-weight: 500 !important;
+  font-size: 22px !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
   color: #fafafa !important;
-  margin-top: 18px !important;
-  margin-bottom: 4px !important;
+  margin-top: 32px !important;
+  margin-bottom: 12px !important;
 }
 
 #key-features {
@@ -1085,11 +1085,11 @@ article:has(header h1) {
 .markdown p {
   font-family: 'Inter', sans-serif !important;
   font-weight: 400 !important;
-  font-size: 16px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.96px !important;
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
   color: #a1a1aa !important;
-  margin: 0 0 16px 0 !important;
+  margin: 0 0 20px 0 !important;
 }
 
 .markdown ol li {
@@ -1110,9 +1110,9 @@ article:has(header h1) {
   list-style-type: disc !important;
   font-family: 'Inter', sans-serif !important;
   font-weight: 400 !important;
-  font-size: 16px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.96px !important;
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
   color: #a1a1aa !important;
 }
 
@@ -1156,10 +1156,19 @@ article:has(header h1) {
 
 /* Table of Contents (right sidebar) - ensure it's on the right */
 .theme-doc-toc-desktop {
-  max-width: 224px !important;
-  padding-left: 40px !important;
-  padding-right: 40px !important;
-  padding-top: 40px !important;
+  min-width: 200px !important;
+  max-width: none !important;
+  width: auto !important;
+  padding-left: 24px !important;
+  padding-right: 16px !important;
+  padding-top: 24px !important;
+}
+
+/* TOC Wrapper with Copy Button */
+.toc-wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
 }
 
 .table-of-contents {
@@ -1650,35 +1659,35 @@ main[class*="main-wrapper"] .container,
 .blog-post-page .markdown p {
   font-family: 'Inter', sans-serif !important;
   font-weight: 400 !important;
-  font-size: 16px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.96px !important;
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
   color: #a1a1aa !important;
-  margin: 0 0 16px 0 !important;
+  margin: 0 0 20px 0 !important;
 }
 
 .blog-post-page .markdown h2 {
   font-family: 'IBM Plex Mono', monospace !important;
-  font-weight: 400 !important;
-  font-size: 20px !important;
-  line-height: 32px !important;
-  letter-spacing: 1px !important;
+  font-weight: 500 !important;
+  font-size: 28px !important;
+  line-height: 1.25 !important;
+  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
   color: #fafafa !important;
-  margin-top: 32px !important;
-  margin-bottom: 12px !important;
+  margin-top: 48px !important;
+  margin-bottom: 16px !important;
 }
 
 .blog-post-page .markdown h3 {
   font-family: 'IBM Plex Mono', monospace !important;
-  font-weight: 400 !important;
-  font-size: 18px !important;
-  line-height: 28px !important;
-  letter-spacing: 0.9px !important;
+  font-weight: 500 !important;
+  font-size: 22px !important;
+  line-height: 1.3 !important;
+  letter-spacing: 0.5px !important;
   text-transform: uppercase !important;
   color: #fafafa !important;
-  margin-top: 24px !important;
-  margin-bottom: 8px !important;
+  margin-top: 32px !important;
+  margin-bottom: 12px !important;
 }
 
 /* Blog post images */
@@ -1734,11 +1743,11 @@ main[class*="main-wrapper"] .container,
 .blog-list-page .blog-list-item .markdown p {
   font-family: 'Inter', sans-serif !important;
   font-weight: 400 !important;
-  font-size: 16px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.96px !important;
+  font-size: 17px !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.02em !important;
   color: #a1a1aa !important;
-  margin: 0 0 16px 0 !important;
+  margin: 0 0 20px 0 !important;
 }
 
 /* Blog pagination */
@@ -1818,6 +1827,7 @@ div[class*="main-wrapper"]:has([class*="blog"]) > .container {
   }
 
 }
+
 
 
 

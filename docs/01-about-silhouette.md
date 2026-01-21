@@ -50,6 +50,6 @@ Previous attempts at building privacy into DeFi have fallen short. Many sacrific
 
 Silhouette bridges this divide by combining public market transparency with private participant flows. Our design ensures that markets remain open, auditable, and trustworthy, while giving participants the confidentiality they need to trade at scale. This unlocks new flows from sophisticated actors and institutions, bringing depth and resilience to DeFi markets.
 
-### Core Team
+## Core Team
 
 The team behind Silhouette has roots in zero-knowledge cryptography, CEX bootstrapping, and protocol engineering. With experience spanning DeFi teams UMA, Across, Etherfi, AWS and Centralised exchanges like Luno and Coinbase, we’re building a product that bridges traditional capital markets rigor with crypto-native privacy primitives.
