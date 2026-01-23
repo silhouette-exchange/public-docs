@@ -92,6 +92,9 @@ export default function Home(): ReactNode {
                 {`Welcome to `}
                 {`Silhouette Docs`}
               </Heading>
+              <p className={styles.heroSubtitle}>
+                Learn how to trade privately on Hyperliquid.
+              </p>
               <Searchbar />
             </div>
             <div className={styles.cardContainer}>

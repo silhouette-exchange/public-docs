@@ -14,46 +14,56 @@ const sidebars: SidebarsConfig = {
       label: 'About Silhouette',
     },
     {
+      type: 'doc',
+      id: 'quickstart',
+      label: 'Quickstart',
+    },
+    {
+      type: 'category',
+      label: 'Onboarding',
+      collapsed: true,
+      items: [
+        {
+          type: 'doc',
+          id: 'onboarding/start-trading',
+          label: 'Start Trading',
+        },
+        {
+          type: 'doc',
+          id: 'onboarding/withdraw',
+          label: 'Withdraw',
+        },
+        {
+          type: 'doc',
+          id: 'onboarding/feedback',
+          label: 'Provide Feedback',
+        },
+        {
+          type: 'doc',
+          id: 'onboarding/testnet',
+          label: 'Testnet',
+        },
+      ],
+    },
+    {
       type: 'category',
       label: 'Trading',
       collapsed: true,
       items: [
         {
           type: 'doc',
-          id: 'trading/matching-engine',
-          label: 'Matching Engine',
+          id: 'trading/shielded-trading',
+          label: 'Shielded Trading',
         },
         {
           type: 'doc',
-          id: 'trading/order-details',
-          label: 'Order Details',
-        },
-      ],
-    },
-    {
-      type: 'category',
-      label: 'Account Management',
-      collapsed: true,
-      items: [
-        {
-          type: 'doc',
-          id: 'account-management/overview',
-          label: 'Overview',
+          id: 'trading/naked-trading',
+          label: 'Naked Trading',
         },
         {
           type: 'doc',
-          id: 'account-management/evm-wallet',
-          label: 'EVM Wallet',
-        },
-        {
-          type: 'doc',
-          id: 'account-management/managed-wallets',
-          label: 'Managed Wallets',
-        },
-        {
-          type: 'doc',
-          id: 'account-management/encryption-key',
-          label: 'Encryption Key',
+          id: 'trading/order-types',
+          label: 'Order Types',
         },
       ],
     },
@@ -65,22 +75,17 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'architecture/overview',
-          label: 'Architecture Overview',
-        },
-        {
-          type: 'doc',
-          id: 'architecture/webapp',
-          label: 'Webapp',
-        },
-        {
-          type: 'doc',
-          id: 'architecture/smart-contract',
-          label: 'Smart Contracts',
+          label: 'Overview',
         },
         {
           type: 'doc',
           id: 'architecture/tee',
-          label: 'Trusted Execution Environments',
+          label: 'TEE',
+        },
+        {
+          type: 'doc',
+          id: 'architecture/smart-contract',
+          label: 'Smart Contract',
         },
         {
           type: 'doc',
@@ -90,14 +95,19 @@ const sidebars: SidebarsConfig = {
       ],
     },
     {
-      type: 'category',
+      type: 'doc',
+      id: 'fees',
+      label: 'Fees',
+    },
+    {
+      type: 'doc',
+      id: 'referrals',
+      label: 'Referrals',
+    },
+    {
+      type: 'doc',
+      id: 'faq',
       label: 'FAQs',
-      collapsed: true,
-      items: [{
-        type: 'doc',
-        id: 'faq',
-        label: 'FAQ',
-      }],
     },
     {
       type: 'html',
@@ -163,7 +173,6 @@ const sidebars: SidebarsConfig = {
       type: 'link',
       href: 'https://app.silhouette.exchange',
       label: 'App',
-      className: 'sidebar-item-coming-soon',
     },
     {
       type: 'link',
