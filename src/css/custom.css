@@ -11,8 +11,11 @@
 
   /* Text Colors */
   --text-default: #fafafa;
-  --text-muted: #a1a1aa;
+  --text-muted: #b4b4bc;  /* Improved contrast ratio */
   --text-secondary: #d4d4d8;
+
+  /* Focus ring color for accessibility */
+  --focus-ring-color: #00fff2;
   --cyan-tint-40: #66fff7;
   --cyan-link: #4dfff6;
 
@@ -193,6 +196,69 @@
 
   /* Silhouette variables */
   --hero-gradient: linear-gradient(180deg, rgba(28, 27, 27, 0.00) 0%, var(--Bg-cool-grey, #1C1B1B) 100%);
+}
+
+/* ============================================
+   ACCESSIBILITY: Focus States
+   ============================================ */
+
+/* Global focus-visible styles for keyboard navigation */
+*:focus-visible {
+  outline: 2px solid var(--focus-ring-color, #00fff2) !important;
+  outline-offset: 2px !important;
+}
+
+/* Remove default outline for mouse users */
+*:focus:not(:focus-visible) {
+  outline: none;
+}
+
+/* Specific focus styles for interactive elements */
+a:focus-visible,
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible,
+[role="button"]:focus-visible,
+[tabindex]:focus-visible {
+  outline: 2px solid var(--focus-ring-color, #00fff2) !important;
+  outline-offset: 2px !important;
+  border-radius: 2px;
+}
+
+/* Sidebar link focus */
+.menu__link:focus-visible {
+  background: rgba(0, 255, 242, 0.1) !important;
+}
+
+/* Card focus */
+.card:focus-visible {
+  outline: 2px solid var(--focus-ring-color, #00fff2) !important;
+  outline-offset: 2px !important;
+}
+
+/* ============================================
+   ACCESSIBILITY: Skip to Content Link
+   ============================================ */
+
+.skip-to-content {
+  position: absolute;
+  top: -100px;
+  left: 16px;
+  z-index: 9999;
+  padding: 12px 24px;
+  background: #00fff2;
+  color: #07070f;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: none;
+  border-radius: 0;
+  transition: top 0.2s ease;
+}
+
+.skip-to-content:focus {
+  top: 16px;
 }
 
 html {
@@ -927,7 +993,7 @@ aside.theme-doc-sidebar-container {
 .theme-doc-markdown {
   max-width: 768px !important;
   padding-left: 24px !important;
-  padding-right: 48px !important;
+  padding-right: 24px !important;  /* Fixed: was 48px, now symmetric */
   padding-top: 40px !important;
   padding-bottom: 40px !important;
 }
@@ -1086,9 +1152,9 @@ article:has(header h1) {
   font-family: 'Inter', sans-serif !important;
   font-weight: 400 !important;
   font-size: 16px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.96px !important;
-  color: #a1a1aa !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.01em !important;  /* Reduced from 0.96px for better readability */
+  color: #b4b4bc !important;  /* Improved contrast */
   margin: 0 0 16px 0 !important;
 }
 
@@ -1111,13 +1177,13 @@ article:has(header h1) {
   font-family: 'Inter', sans-serif !important;
   font-weight: 400 !important;
   font-size: 16px !important;
-  line-height: 1.5 !important;
-  letter-spacing: 0.96px !important;
-  color: #a1a1aa !important;
+  line-height: 1.6 !important;
+  letter-spacing: 0.01em !important;  /* Reduced for better readability */
+  color: #b4b4bc !important;  /* Improved contrast */
 }
 
 .markdown ul li::marker {
-  color: #a1a1aa !important;
+  color: #b4b4bc !important;
 }
 
 /* Nested lists */
@@ -1156,10 +1222,12 @@ article:has(header h1) {
 
 /* Table of Contents (right sidebar) - ensure it's on the right */
 .theme-doc-toc-desktop {
-  max-width: 224px !important;
-  padding-left: 40px !important;
-  padding-right: 40px !important;
-  padding-top: 40px !important;
+  min-width: 200px !important;
+  max-width: none !important;
+  width: auto !important;
+  padding-left: 24px !important;
+  padding-right: 16px !important;
+  padding-top: 24px !important;
 }
 
 .table-of-contents {
@@ -1821,3 +1889,67 @@ div[class*="main-wrapper"]:has([class*="blog"]) > .container {
 
 
 
+
+/* ============================================
+   CODE BLOCKS: Enhanced Styling
+   ============================================ */
+
+/* Code block container */
+.theme-code-block {
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0 !important;
+  overflow: hidden;
+}
+
+/* Code block title/language label */
+.theme-code-block div[class*="codeBlockTitle"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 8px 16px !important;
+  font-family: 'IBM Plex Mono', monospace !important;
+  font-size: 12px !important;
+  font-weight: 500 !important;
+  letter-spacing: 0.5px !important;
+  text-transform: uppercase !important;
+  color: #a1a1aa !important;
+}
+
+/* Highlighted line with left border indicator */
+.theme-code-block-highlighted-line {
+  background: rgba(0, 255, 242, 0.1) !important;
+  border-left: 3px solid #00fff2 !important;
+  margin-left: -3px;
+  padding-left: calc(1rem - 3px);
+  display: block;
+}
+
+/* Error line highlighting */
+.code-block-error-line {
+  background: rgba(255, 0, 0, 0.15) !important;
+  border-left: 3px solid #ff4444 !important;
+  margin-left: -3px;
+  padding-left: calc(1rem - 3px);
+  display: block;
+}
+
+/* Copy button improvements */
+.theme-code-block button[class*="copyButton"] {
+  background: rgba(255, 255, 255, 0.05) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  border-radius: 0 !important;
+  color: #a1a1aa !important;
+  transition: all 0.15s ease !important;
+}
+
+.theme-code-block button[class*="copyButton"]:hover {
+  background: rgba(255, 255, 255, 0.1) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #fafafa !important;
+}
+
+/* Copy button success state */
+.theme-code-block button[class*="copyButton"][class*="copyButtonCopied"] {
+  background: rgba(0, 255, 242, 0.1) !important;
+  border-color: #00fff2 !important;
+  color: #00fff2 !important;
+}
