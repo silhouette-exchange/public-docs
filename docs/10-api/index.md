@@ -12,7 +12,7 @@ The Silhouette API and SDK is currently in beta and under active development. Mo
 The Silhouette API provides programmatic access to the Silhouette shielded exchange, enabling traders to deposit funds, place and manage orders, and process withdrawals.
 
 :::info
-The Silhouette API is available at `https://api.silhouette.exchange/v0` for mainnet and `https://api-testnet.silhouette.exchange/v0` for testnet.
+The Silhouette API is available at `https://api.silhouette.exchange/` for mainnet and `https://api-testnet.silhouette.exchange/` for testnet.
 :::
 
 All API requests are `POST` requests sent to the same URL. Rather than having separate endpoints for each operation (like `/orders` or `/balances`), the API uses a discriminated union pattern where you specify the operation in the `operation` field of your request body. This approach simplifies integration and provides a consistent request structure across all operations.
