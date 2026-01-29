@@ -1,8 +1,6 @@
 ---
-title: Community FAQs
-sidebar_label: FAQ
-pagination_label: FAQ
-slug: /faq
+id: faq
+title: FAQs
 ---
 
 ### How does Silhouette integrate with HyperCore and the HyperEVM?

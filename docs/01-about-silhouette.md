@@ -1,17 +1,17 @@
 ---
-title: What is Silhouette?
-sidebar_label: What is Silhouette?
-pagination_label: What is Silhouette?
+title: About Silhouette
+sidebar_label: About Silhouette
+pagination_label: About Silhouette
 slug: /about-silhouette
 ---
 
 :::info
 
-Silhouette Exchange is currently under development, these docs are subject to change.
+Silhouette Exchange is currently under development, these docs and the information within them are subject to change.
 
 :::
 
-Silhouette is the shield exchange on Hyperliquid that enables the most sophisticated strategies to flow freely on-chain. 
+Silhouette is the Shield Exchange that lets you trade on Hyperliquid without revealing your strategy. Your orders stay encrypted until settlement, protecting you from front-runners, copytrade bots and MEV extraction. 
 
 We believe markets work best when they are transparent at the public level but private at the personal level. Public transparency ensures integrity, efficiency, and fair price discovery across the system. At the same time, individuals and institutions deserve privacy for their trading activity, strategies, and portfolio choices. By combining these two principles, Silhouette creates a venue where market data remains open and auditable, while personal execution flows remain shielded, protecting participants without compromising on the health and transparency of the market itself.
 
