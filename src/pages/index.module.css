@@ -90,25 +90,25 @@
     flex-direction: column;
     align-items: center;
   }
-  
+
   :global(.container) {
     max-width: 1082px;
     margin: 0 auto;
     width: 100%;
   }
-  
+
   .heroSection {
     width: 100%;
     max-width: 1082px;
     margin: 0 auto;
   }
-  
+
   .getStartedSection {
     width: 100%;
     max-width: 1082px;
     margin: 0 auto;
   }
-  
+
   .section {
     width: 100%;
     max-width: 1082px;
@@ -161,8 +161,9 @@
 
 
 [data-theme='light'] .heroBanner {
-    background-color: #fff; /* Fallback for light mode */
-    color: #0E0E1A;
+  background-color: #fff;
+  /* Fallback for light mode */
+  color: #0E0E1A;
 }
 
 .heroTitle {
@@ -177,7 +178,18 @@
   text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.8);
   text-align: center;
   white-space: pre-wrap;
+  margin-bottom: 12px;
+}
+
+.heroSubtitle {
+  text-align: center;
   margin-bottom: 30px;
+  color: #a1a1aa;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.84px;
 }
 
 .searchBar {
@@ -258,72 +270,72 @@
 }
 
 .section {
-    padding: 32px 24px;
-    width: 100%;
+  padding: 32px 24px;
+  width: 100%;
 }
 
 
 
 .sectionTitle {
-    text-align: center;
-    margin-bottom: 6px;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 30px;
-    letter-spacing: 1.6px;
-    text-transform: uppercase;
-    color: #fafafa;
-    font-family: 'IBM Plex Mono', monospace;
+  text-align: center;
+  margin-bottom: 6px;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 30px;
+  letter-spacing: 1.6px;
+  text-transform: uppercase;
+  color: #fafafa;
+  font-family: 'IBM Plex Mono', monospace;
 }
 
 .sectionSubtitle {
-    text-align: center;
-    margin-bottom: 24px;
-    color: #a1a1aa;
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 1.5;
-    letter-spacing: 0.84px;
-    margin-bottom: 3rem;
-    text-transform: uppercase;
+  text-align: center;
+  margin-bottom: 24px;
+  color: #a1a1aa;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 1.5;
+  letter-spacing: 0.84px;
+  margin-bottom: 3rem;
+  text-transform: uppercase;
 }
 
 .getStartedSection {
-    padding: 48px 24px;
-    text-align: center;
-    width: 100%;
-    position: relative;
-    z-index: 1;
+  padding: 48px 24px;
+  text-align: center;
+  width: 100%;
+  position: relative;
+  z-index: 1;
 }
 
 .tutorialContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
-    max-width: 1082px;
-    margin: 0 auto;
-    width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  max-width: 1082px;
+  margin: 0 auto;
+  width: 100%;
 }
 
 .tutorialLink {
-    backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    border-radius: 0;
-    box-sizing: border-box;
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: 24px;
-    min-height: 102px;
-    max-height: 250px;
-    padding: 24px 16px;
-    text-decoration: none;
-    transition: background-color 0.3s, border-color 0.3s;
-    width: 100%;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: 0;
+  box-sizing: border-box;
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 24px;
+  min-height: 102px;
+  max-height: 250px;
+  padding: 24px 16px;
+  text-decoration: none;
+  transition: background-color 0.3s, border-color 0.3s;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
@@ -334,50 +346,50 @@
 }
 
 .tutorialLink:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.1);
-    text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
 }
 
 .tutorialTitle {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 16px;
-    font-weight: 400;
-    letter-spacing: 0.96px;
-    line-height: 32px;
-    margin-bottom: 4px;
-    text-transform: uppercase;
-    color: #fafafa;
-    min-height: 25px;
-    display: flex;
-    align-items: center;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 16px;
+  font-weight: 400;
+  letter-spacing: 0.96px;
+  line-height: 32px;
+  margin-bottom: 4px;
+  text-transform: uppercase;
+  color: #fafafa;
+  min-height: 25px;
+  display: flex;
+  align-items: center;
 }
 
 .tutorialDescription {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 12px;
-    letter-spacing: 0.72px;
-    line-height: 18px;
-    margin-bottom: 0;
-    color: #a1a1aa;
-    text-transform: uppercase;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 12px;
+  letter-spacing: 0.72px;
+  line-height: 18px;
+  margin-bottom: 0;
+  color: #a1a1aa;
+  text-transform: uppercase;
 }
 
 .tutorialIcon {
-    width: 24px;
-    height: 24px;
-    color: #a1a1aa;
-    flex-shrink: 0;
-    align-self: flex-start;
+  width: 24px;
+  height: 24px;
+  color: #a1a1aa;
+  flex-shrink: 0;
+  align-self: flex-start;
 }
 
 .cardContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 1082px;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 1082px;
+  align-items: center;
 }
 
 @media screen and (min-width: 768px) and (max-width: 960px) {
@@ -385,7 +397,7 @@
     max-width: 880px;
     padding: 80px 0;
   }
-  
+
   .cardContainer {
     flex-direction: row;
     flex-wrap: wrap;
@@ -394,17 +406,17 @@
     width: 100%;
     max-width: 800px;
   }
-  
+
   .cardContainer .card {
     width: 100%;
     max-width: 100% !important;
   }
-  
+
   .cardContainer .card:first-child {
     flex: 0 0 100% !important;
     max-width: 100% !important;
   }
-  
+
   .cardContainer .card:nth-child(2),
   .cardContainer .card:nth-child(3) {
     flex: 1 1 calc(50% - 8px) !important;
@@ -418,7 +430,7 @@
     flex-wrap: wrap;
     justify-content: center;
   }
-  
+
   .heroContent {
     max-width: 1082px;
   }
@@ -441,43 +453,43 @@
 }
 
 .card:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.1);
-    text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  text-decoration: none;
 }
 
 
 .cardHeader {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 1rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
 }
 
 .cardHeader .cardIcon {
-    width: 24px;
-    height: 24px;
-    color: #C4CDDB;
+  width: 24px;
+  height: 24px;
+  color: #C4CDDB;
 }
 
 [data-theme='light'] .cardHeader .cardIcon {
-    color: #6E7788;
+  color: #6E7788;
 }
 
 .cardHeader .linkIcon {
-    width: 20px;
-    height: 20px;
-    color: #fff;
-    opacity: 0.7;
-    transition: opacity 0.3s ease;
+  width: 20px;
+  height: 20px;
+  color: #fff;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
 .cardHeader .linkIcon:hover {
-    opacity: 1;
+  opacity: 1;
 }
 
 [data-theme='light'] .cardHeader .linkIcon {
-    color: #6E7788;
+  color: #6E7788;
 }
 
 
@@ -494,112 +506,114 @@
 }
 
 .cardText {
-    font-family: 'Inter', sans-serif;
-    font-size: 14px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 22.4px;
-    letter-spacing: 0.84px;
-    color: #a1a1aa;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 22.4px;
+  letter-spacing: 0.84px;
+  color: #a1a1aa;
 }
 
 [data-theme='light'] .cardText {
-    color: #1F2937;
+  color: #1F2937;
 }
 
 [data-theme='dark'] .cardText {
-    color: rgba(255, 255, 255, 0.80);
+  color: rgba(255, 255, 255, 0.80);
 }
 
 .gettingStartedContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .gettingStartedContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 1.5rem;
-    max-width: 800px;
-    margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  max-width: 800px;
+  margin: 0 auto;
 }
 
 .gettingStartedLink {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 1.5rem;
-    border: 1px solid rgba(255, 255, 255, 0.2);
-    border-radius: 20px;
-    text-decoration: none;
-    color: var(--ifm-font-color-base) !important;
-    transition: background-color 0.3s, border-color 0.3s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 20px;
+  text-decoration: none;
+  color: var(--ifm-font-color-base) !important;
+  transition: background-color 0.3s, border-color 0.3s;
 }
 
 .gettingStartedLink:hover {
-    background-color: rgba(255, 255, 255, 0.05);
-    border-color: rgba(255, 255, 255, 0.5);
-    color: #fff !important;
-    text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.5);
+  color: #fff !important;
+  text-decoration: none;
 }
 
 [data-theme='light'] .gettingStartedLink {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='light'] .gettingStartedLink:hover {
-    background-color: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.3);
-    color: #0E0E1A !important;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.3);
+  color: #0E0E1A !important;
 }
 
 
 .gettingStartedLink div {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .gettingStartedLink span:last-child {
-    font-family: 'Inter', sans-serif;
-    font-size: 16px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 150% */
-    letter-spacing: 0.96px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 150% */
+  letter-spacing: 0.96px;
 }
 
 .gettingStartedLink .linkTitle {
-    font-family: 'Inter', sans-serif;
-    font-size: 20px;
-    font-style: normal;
-    font-weight: 400;
-    line-height: 24px; /* 120% */
-    letter-spacing: 1.2px;
-    margin-bottom: 0.25rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 20px;
+  font-style: normal;
+  font-weight: 400;
+  line-height: 24px;
+  /* 120% */
+  letter-spacing: 1.2px;
+  margin-bottom: 0.25rem;
 }
 
 .gettingStartedLink .linkIcon {
-    width: 20px;
-    height: 20px;
+  width: 20px;
+  height: 20px;
 }
 
 [data-theme='light'] .gettingStartedLink .linkIcon {
-    color: #6E7788;
+  color: #6E7788;
 }
 
 [data-theme='dark'] .gettingStartedLink .linkIcon {
-    color: #C4CDDB;
+  color: #C4CDDB;
 }
 
 .socialContainer {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-    width: 100%;
-    max-width: 1082px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  width: 100%;
+  max-width: 1082px;
 }
 
 @media screen and (min-width: 768px) {
@@ -611,21 +625,21 @@
 }
 
 .socialLink {
-    backdrop-filter: blur(20px);
-    background-color: rgba(255, 255, 255, 0.02);
-    border: 1px solid rgba(255, 255, 255, 0.04);
-    box-sizing: border-box;
-    display: flex;
-    gap: 24px;
-    max-height: 250px;
-    min-height: 0;
-    padding: 24px;
-    padding-bottom: 16px;
-    padding-top: 24px;
-    text-decoration: none;
-    transition: background-color 0.3s, border-color 0.3s;
-    align-items: flex-start;
-    width: 100%;
+  backdrop-filter: blur(20px);
+  background-color: rgba(255, 255, 255, 0.02);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  box-sizing: border-box;
+  display: flex;
+  gap: 24px;
+  max-height: 250px;
+  min-height: 0;
+  padding: 24px;
+  padding-bottom: 16px;
+  padding-top: 24px;
+  text-decoration: none;
+  transition: background-color 0.3s, border-color 0.3s;
+  align-items: flex-start;
+  width: 100%;
 }
 
 @media screen and (min-width: 768px) {
@@ -636,57 +650,57 @@
 }
 
 .socialLink:hover {
-    background-color: rgba(255, 255, 255, 0.04);
-    border-color: rgba(255, 255, 255, 0.1);
-    color: var(--text-default) !important;
-    text-decoration: none;
+  background-color: rgba(255, 255, 255, 0.04);
+  border-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-default) !important;
+  text-decoration: none;
 }
 
 [data-theme='light'] .socialLink {
-    border: 1px solid rgba(0, 0, 0, 0.1);
+  border: 1px solid rgba(0, 0, 0, 0.1);
 }
 
 [data-theme='light'] .socialLink:hover {
-    background-color: rgba(0, 0, 0, 0.03);
-    border-color: rgba(0, 0, 0, 0.3);
-    color: #0E0E1A;
+  background-color: rgba(0, 0, 0, 0.03);
+  border-color: rgba(0, 0, 0, 0.3);
+  color: #0E0E1A;
 }
 
 .socialLink strong {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 18px;
-    font-weight: 400;
-    letter-spacing: 1.08px;
-    text-transform: uppercase;
-    color: #fafafa;
-    display: block;
-    line-height: 24px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 18px;
+  font-weight: 400;
+  letter-spacing: 1.08px;
+  text-transform: uppercase;
+  color: #fafafa;
+  display: block;
+  line-height: 24px;
 }
 
 .socialLink p {
-    font-family: 'IBM Plex Mono', monospace;
-    font-size: 14px;
-    letter-spacing: 0.84px;
-    line-height: 21px;
-    color: #a1a1aa;
-    text-transform: uppercase;
-    margin-bottom: 0;
-    min-height: 51px;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 14px;
+  letter-spacing: 0.84px;
+  line-height: 21px;
+  color: #a1a1aa;
+  text-transform: uppercase;
+  margin-bottom: 0;
+  min-height: 51px;
 }
 
 .socialLink {
-    align-items: flex-start;
+  align-items: flex-start;
 }
 
 .socialLink .socialIcon {
-    width: 32px;
-    height: 32px;
-    flex-shrink: 0;
-    color: #a1a1aa;
+  width: 32px;
+  height: 32px;
+  flex-shrink: 0;
+  color: #a1a1aa;
 }
 
 [data-theme='light'] .socialLink .socialIcon {
-    color: #6E7788;
+  color: #6E7788;
 }
 
 @media screen and (min-width: 766px) and (max-width: 996px) {
@@ -697,11 +711,11 @@
   .heroSection {
     padding: 100px 40px 80px;
   }
-  
+
   .cardContainer {
     flex-wrap: wrap;
   }
-  
+
   .section {
     padding: 4rem 40px;
   }
@@ -734,4 +748,3 @@
   align-items: center;
   justify-content: center;
 }
-
