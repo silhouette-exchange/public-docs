@@ -5,7 +5,7 @@ slug: /api/sdk
 ---
 
 :::warning
-The Silhouette API is currently in beta and under active development on testnet. More operations and features will be added soon.
+The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
 :::
 
 The official Python SDK provides a convenient way to interact with the Silhouette API.

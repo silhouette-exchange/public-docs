@@ -6,7 +6,7 @@ slug: /api/reference
 ---
 
 :::warning
-The Silhouette API is currently in beta and under active development on testnet. More operations and features will be added soon.
+The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
 :::
 
 This section provides detailed documentation for each available API operation. All operations use the same endpoint with different `operation` values in the request body.
