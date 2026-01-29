@@ -3,8 +3,6 @@ id: referrals
 title: Referrals
 ---
 
-## Introduction
-
 At Silhouette, our referral program is designed to accelerate user growth and retention on our shielded exchange built on Hyperliquid. With a straightforward structure featuring flat rates and clear caps, it's easy to understand, predictable, and built to resist abuse. This system incentivizes sharing while ensuring long-term sustainability for the platform.
 
 ## Core Principles
