@@ -38,11 +38,6 @@ const sidebars: SidebarsConfig = {
           id: 'onboarding/feedback',
           label: 'Provide Feedback',
         },
-        {
-          type: 'doc',
-          id: 'onboarding/testnet',
-          label: 'Testnet',
-        },
       ],
     },
     {
@@ -126,7 +121,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'api/index',
-          label: 'API',
+          label: 'Overview',
         },
         {
           type: 'doc',
@@ -152,6 +147,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'api/openapi',
           label: 'OpenAPI specification',
+        },
+        {
+          type: 'doc',
+          id: 'api/sdk',
+          label: 'Python SDK',
         },
       ],
     },
