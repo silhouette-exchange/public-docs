@@ -1889,6 +1889,65 @@ div[class*="main-wrapper"]:has([class*="blog"]) > .container {
 
 
 
+/* Doc layout wrapper for copy button positioning */
+.doc-layout-with-copy {
+  position: relative;
+}
+
+/* Copy Page Button - positioned at top of TOC sidebar */
+#copy-page-button-portal {
+  isolation: isolate;
+  margin-bottom: 20px;
+}
+
+@media (max-width: 996px) {
+  #copy-page-button-portal {
+    display: none !important;
+  }
+}
+
+/* Copy Page Button - Main button styles */
+.copy-page-button-wrapper button:first-child {
+  background: rgba(255, 255, 255, 0.03) !important;
+  background-color: rgba(255, 255, 255, 0.03) !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.copy-page-button-wrapper button:first-child:hover {
+  background: rgba(255, 255, 255, 0.06) !important;
+  background-color: rgba(255, 255, 255, 0.06) !important;
+}
+
+/* Copy Page Button - Dropdown container */
+.copy-page-button-wrapper > div > div:last-child:not(:first-child) {
+  background: #111118 !important;
+  background-color: #111118 !important;
+  /* Isolate from parent blend modes */
+  isolation: isolate !important;
+  mix-blend-mode: normal !important;
+  filter: none !important;
+  -webkit-filter: none !important;
+  transform: translateZ(0);
+}
+
+/* Copy Page Button - Dropdown items */
+.copy-page-button-wrapper > div > div:last-child:not(:first-child) button {
+  background: transparent !important;
+  background-color: transparent !important;
+}
+
+.copy-page-button-wrapper > div > div:last-child:not(:first-child) button:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+  background-color: rgba(255, 255, 255, 0.04) !important;
+}
+
+/* Ensure dropdown background in dark mode */
+[data-theme='dark'] .copy-page-button-wrapper > div > div:last-child:not(:first-child) {
+  background: #111118 !important;
+  background-color: #111118 !important;
+  isolation: isolate !important;
+  mix-blend-mode: normal !important;
+}
 
 /* ============================================
    CODE BLOCKS: Enhanced Styling

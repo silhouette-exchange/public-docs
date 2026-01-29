@@ -1,0 +1,141 @@
+.container {
+  position: relative;
+  margin-bottom: 16px;
+  /* Isolate from parent blend modes and stacking contexts */
+  isolation: isolate;
+  filter: none !important;
+  -webkit-filter: none !important;
+  mix-blend-mode: normal !important;
+  transform: translateZ(0);
+}
+
+.mainButton {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  padding: 10px 14px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 0;
+  color: #a1a1aa;
+  font-family: 'IBM Plex Mono', monospace;
+  font-size: 13px;
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.mainButton:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: rgba(255, 255, 255, 0.12);
+  color: #fafafa;
+}
+
+.mainButton span {
+  flex: 1;
+  text-align: left;
+}
+
+.dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: #0e0e1a !important;
+  background-color: #0e0e1a !important;
+  border: 1px solid rgba(255, 255, 255, 0.08) !important;
+  border-radius: 0 !important;
+  z-index: 9999;
+  overflow: hidden;
+  animation: fadeIn 0.15s ease;
+  /* Fix for blue/purple tint */
+  isolation: isolate;
+  mix-blend-mode: normal;
+  opacity: 1;
+  filter: none;
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
+  /* Add solid shadow to block anything behind */
+  box-shadow: 0 0 0 1000px rgba(0, 0, 0, 0) inset, 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-4px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.dropdownItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+  width: 100%;
+  padding: 12px 14px;
+  background: transparent !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
+  border-radius: 0 !important;
+  color: #a1a1aa !important;
+  cursor: pointer;
+  transition: all 0.15s ease;
+  text-align: left;
+}
+
+.dropdownItem:last-child {
+  border-bottom: none;
+}
+
+.dropdownItem:hover {
+  background: rgba(255, 255, 255, 0.04) !important;
+}
+
+.dropdownItem:hover .dropdownItemTitle {
+  color: #fafafa;
+}
+
+.dropdownItem svg {
+  flex-shrink: 0;
+  margin-top: 2px;
+  opacity: 0.7;
+}
+
+.dropdownItem:hover svg {
+  opacity: 1;
+}
+
+.dropdownItemText {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.dropdownItemTitle {
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  font-weight: 500;
+  color: #d4d4d8;
+  transition: color 0.15s ease;
+}
+
+.dropdownItemDesc {
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: #71717a;
+}
+
+/* Responsive adjustments */
+@media screen and (max-width: 996px) {
+  .container {
+    display: none;
+  }
+}
