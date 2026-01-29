@@ -3,8 +3,6 @@ id: fees
 title: Fees
 ---
 
-## Introduction
-
 At Silhouette, our fee structure is designed to promote accessibility, liquidity, and growth within our shielded exchange on Hyperliquid. We draw inspiration from established models while incorporating features tailored to our ecosystem, such as maker/taker distinctions, volume-based tiers, and staking incentives. This creates a balanced system that rewards active participation and aligns with community-driven growth.
 
 Fees fund platform operations and contribute to rewards like rebates from the Silhouette Assistance Fund. In this document, we'll outline the key components of our fee system, including how fees are calculated and applied.
