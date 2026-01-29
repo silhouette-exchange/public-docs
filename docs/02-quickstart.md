@@ -28,4 +28,4 @@ Provided that you have assets in Hypercore, you can deposit them to Silhouette b
 ## 5. Begin trading spot HYPE/USDC
 You are now set to begin trading.
 
-For more information on trading spot HYPE/USDC, see the [Shielded Trading](/trading/shielded-trading) section.
+For more information on trading spot HYPE/USDC, see the [Shielded Trading](/docs/trading/shielded-trading) section.
