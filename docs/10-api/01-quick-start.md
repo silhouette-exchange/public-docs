@@ -5,7 +5,7 @@ slug: /api/quick-start
 ---
 
 :::warning
-The Silhouette API is currently in beta and under active development on testnet. More operations and features will be added soon.
+The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
 :::
 
 This guide will walk you through making your first API call to the Silhouette exchange, from setting up prerequisites to checking your balance.
@@ -14,21 +14,21 @@ This guide will walk you through making your first API call to the Silhouette ex
 
 Before you can use the Silhouette API, you need to complete the following steps:
 
-1. You must have a wallet address on Hyperliquid's L1 testnet chain (HyperCore). This is your identity on the Silhouette platform.
+1. You must have a wallet address on Hyperliquid's L1 chain (HyperCore). This is your identity on the Silhouette platform.
 
-2. Since Silhouette is currently running on testnet, you'll need testnet USDC. Visit the [Hyperliquid testnet faucet](https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/testnet-faucet) to obtain testnet funds for your HyperCore address.
+2. Use Hyperliquid's `spotSend` operation to transfer funds to the Silhouette contract address to activate your account in Silhouette:
 
-3. Use Hyperliquid's `spotSend` operation to transfer funds to the Silhouette testnet contract address to activate your account in Silhouette:
+   | Network | Contract address |
+   |---------|------------------|
+   | Mainnet | `0x32F4712b3862ceB35945420c4361f02f1cc93b41` |
+   | Testnet | `0x2B065d0C4865a520bab6821C835a66B073e4e590` |
 
-   ```text
-   0x2B065d0C4865a520bab6821C835a66B073e4e590
-   ```
-
-   :::warning
-   This contract address is on the Hyperliquid testnet, not mainnet.
-   :::
    :::warning
    You must deposit at least 5 USDC to activate your account.
+   :::
+
+   :::tip
+   For testnet, you can obtain free test USDC from the [Hyperliquid testnet faucet](https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/testnet-faucet).
    :::
 
    The `spotSend` operation transfers assets between addresses on the Hyperliquid network. Refer to the [Hyperliquid documentation](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/exchange-endpoint#core-spot-transfer) for details on executing this operation.

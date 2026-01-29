@@ -45,7 +45,7 @@ const tutorials = [
     title: "Deposit Assets",
     description:
       "SILHOUETTE USES THE HYPE OR USDC YOU ALREADY HAVE ON HYPERCORE.",
-    link: "/docs/account-management/overview",
+    link: "/docs/onboarding/start-trading",
   },
   {
     title: "Withdrawing Assets",
