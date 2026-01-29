@@ -17,19 +17,19 @@ const featureCards = [
   {
     title: "What is Silhouette",
     description:
-      "LEARN ABOUT THE CORE CONCEPTS OF SILHOUETTE, AND HOW TO GET STARTED.",
+      "Learn about the core concepts of Silhouette and how to get started.",
     link: "/docs/about-silhouette",
     Icon: InfoIcon,
   },
   {
-    title: "smart contracts",
-    description: "LEARN ABOUT THE ARCHITECTURE OF OUR SMART CONTRACTS.",
+    title: "Smart Contracts",
+    description: "Learn about the architecture of our smart contracts.",
     link: "/docs/architecture/overview",
     Icon: BookIcon,
   },
   {
-    title: "OUR FAQ",
-    description: "READ THROUGH OUR MOST COMMON QUESTIONS.",
+    title: "FAQ",
+    description: "Read through our most common questions.",
     link: "/docs/faq",
     Icon: QuestionMarkIcon,
   },
@@ -38,19 +38,19 @@ const featureCards = [
 const tutorials = [
   {
     title: "Quickstart",
-    description: "CONNECT YOUR EVM WALLET TO THE SILHOUETTE WEBAPP",
+    description: "Connect your EVM wallet to the Silhouette webapp",
     link: "/docs/about-silhouette",
   },
   {
     title: "Deposit Assets",
     description:
-      "SILHOUETTE USES THE HYPE OR USDC YOU ALREADY HAVE ON HYPERCORE.",
+      "Silhouette uses the HYPE or USDC you already have on HyperCore.",
     link: "/docs/account-management/overview",
   },
   {
     title: "Withdrawing Assets",
     description:
-      "THE WEBAPP WILL FACILITATE THE WITHDRAWAL. JUST ENTER THE AMOUNT.",
+      "The webapp will facilitate the withdrawal. Just enter the amount.",
     link: "/docs/about-silhouette",
   },
 ];
@@ -58,19 +58,19 @@ const tutorials = [
 const socialLinks = [
   {
     title: "Telegram",
-    description: "JOIN OUR DISCUSSIONS ON TELEGRAM",
+    description: "Join our discussions on Telegram",
     link: "https://t.me/silhouette_exchange",
     Icon: TelegramIcon,
   },
   {
     title: "GitHub",
-    description: "VIEW OUR REPOSITORIES",
+    description: "View our repositories",
     link: "https://github.com/silhouette-exchange",
     Icon: GithubIcon,
   },
   {
     title: "Follow Us",
-    description: "SEE WHAT WE ARE GETTING UP TO ON X",
+    description: "See what we are getting up to on X",
     link: "https://x.com/silhouette_ex",
     Icon: XIcon,
   },
