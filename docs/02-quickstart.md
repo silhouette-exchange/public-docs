@@ -5,17 +5,17 @@ title: Quickstart
 
 # Quickstart
 
-## 1. Connect Your EVM Wallet to the Silhouette webapp
+## 1. Connect your EVM wallet to the Silhouette webapp
 Go to https://app.silhouette.exchange and click 'Connect Wallet'.
 
 <img src="/img/flows/connect.png" alt="Connect" width="252" height="372" />
 
-## 2. Switch from Naked to Shielded Mode
+## 2. Switch from Naked to Shielded mode
 At the top of the page, toggle the switch from 'Naked' to 'Shielded'.
 
 <img src="/img/flows/shielded.png" alt="Shielded" />
 
-## 3. Connect to Silhouette's Shielded Trading Flow
+## 3. Connect to Silhouette's Shielded Trading flow
 Once you have switched to 'Shielded' mode, you will be prompted to click the "Connect Shielded" button in the Accounts Dashboard. Do so to connect and sign in to Silhouette's Shielded Trading Flow.  
 
 <img src="/img/flows/connect-shielded.png" alt="Connect Shielded" />
