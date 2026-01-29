@@ -38,11 +38,6 @@ const sidebars: SidebarsConfig = {
           id: 'onboarding/feedback',
           label: 'Provide Feedback',
         },
-        {
-          type: 'doc',
-          id: 'onboarding/testnet',
-          label: 'Testnet',
-        },
       ],
     },
     {
