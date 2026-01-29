@@ -46,7 +46,7 @@ export default function NavbarItems(): ReactNode {
           SILHOUETTE DOCS
         </Link>
         <Link
-          to="/docs/api"
+          to="/docs/api-overview"
           className={`${styles.navbarItem} ${
             activeTab === "api" ? styles.navbarItemActive : ""
           }`}

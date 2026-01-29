@@ -6,7 +6,7 @@ slug: /api/troubleshooting
 ---
 
 :::warning
-The Silhouette API is currently in beta and under active development on testnet. More operations and features will be added soon.
+The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
 :::
 
 This section covers common errors you may encounter when using the Silhouette API and how to resolve them.
@@ -249,14 +249,15 @@ Solutions:
 
 Causes:
 
-- Your account hasn't been activated yet
-- You haven't completed the deposit prerequisite
+- You haven't deposited funds yet. Your Silhouette account is initialised when you make your first deposit.
 
 Solutions:
 
 - Ensure you've deposited at least 5 USDC to the Silhouette contract address via `spotSend`
-- Wait for the deposit transaction to be confirmed on the Hyperliquid testnet
-- Verify you sent funds to the correct contract address: `0x2B065d0C4865a520bab6821C835a66B073e4e590`
+- Wait for the deposit transaction to be confirmed on Hyperliquid
+- Verify you sent funds to the correct contract address:
+  - Mainnet: `0x32F4712b3862ceB35945420c4361f02f1cc93b41`
+  - Testnet: `0x2B065d0C4865a520bab6821C835a66B073e4e590`
 
 ### Internal server error
 
@@ -326,7 +327,7 @@ All API requests must:
 
 ### Ensure deposit has processed
 
-Before using the API, ensure your initial testnet deposit has been confirmed on the Hyperliquid network. Your account must be activated with a minimum 5 USDC deposit before you can use any operations besides `login`.
+Before using the API, ensure your initial deposit has been confirmed on the Hyperliquid network. Your account must be activated with a minimum 5 USDC deposit before you can use any operations besides `login`.
 
 ### Check network connectivity
 

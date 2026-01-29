@@ -5,7 +5,7 @@ slug: /api/authentication
 ---
 
 :::warning
-The Silhouette API is currently in beta and under active development on testnet. More operations and features will be added soon.
+The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
 :::
 
 The Silhouette API uses [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) for authentication, which allows you to prove your identity using your Ethereum wallet without requiring traditional API keys or passwords.
