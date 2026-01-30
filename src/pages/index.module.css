@@ -185,11 +185,11 @@
   text-align: center;
   margin-bottom: 30px;
   color: #a1a1aa;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.84px;
+  line-height: 1.6;
+  letter-spacing: 0;
 }
 
 .searchBar {
@@ -279,28 +279,26 @@
 .sectionTitle {
   text-align: center;
   margin-bottom: 6px;
-  font-size: 20px;
+  font-size: 24px;
   font-style: normal;
-  font-weight: 400;
-  line-height: 30px;
-  letter-spacing: 1.6px;
-  text-transform: uppercase;
+  font-weight: 600;
+  line-height: 32px;
+  letter-spacing: -0.02em;
   color: #fafafa;
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Inter', sans-serif;
 }
 
 .sectionSubtitle {
   text-align: center;
   margin-bottom: 24px;
   color: #a1a1aa;
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
   font-style: normal;
   font-weight: 400;
-  line-height: 1.5;
-  letter-spacing: 0.84px;
+  line-height: 1.6;
+  letter-spacing: 0;
   margin-bottom: 3rem;
-  text-transform: uppercase;
 }
 
 .getStartedSection {
@@ -352,13 +350,12 @@
 }
 
 .tutorialTitle {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
-  font-weight: 400;
-  letter-spacing: 0.96px;
-  line-height: 32px;
+  font-weight: 500;
+  letter-spacing: 0;
+  line-height: 24px;
   margin-bottom: 4px;
-  text-transform: uppercase;
   color: #fafafa;
   min-height: 25px;
   display: flex;
@@ -366,13 +363,12 @@
 }
 
 .tutorialDescription {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 12px;
-  letter-spacing: 0.72px;
-  line-height: 18px;
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  letter-spacing: 0;
+  line-height: 20px;
   margin-bottom: 0;
   color: #a1a1aa;
-  text-transform: uppercase;
 }
 
 .tutorialIcon {
@@ -494,13 +490,12 @@
 
 
 .cardTitle {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 16px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 500;
   line-height: 24px;
-  letter-spacing: 0.96px;
-  text-transform: uppercase;
+  letter-spacing: 0;
   color: #ffffff;
   margin-bottom: 8px;
 }
@@ -510,8 +505,8 @@
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 22.4px;
-  letter-spacing: 0.84px;
+  line-height: 22px;
+  letter-spacing: 0;
   color: #a1a1aa;
 }
 
@@ -667,23 +662,21 @@
 }
 
 .socialLink strong {
-  font-family: 'IBM Plex Mono', monospace;
-  font-size: 18px;
-  font-weight: 400;
-  letter-spacing: 1.08px;
-  text-transform: uppercase;
+  font-family: 'Inter', sans-serif;
+  font-size: 16px;
+  font-weight: 500;
+  letter-spacing: 0;
   color: #fafafa;
   display: block;
   line-height: 24px;
 }
 
 .socialLink p {
-  font-family: 'IBM Plex Mono', monospace;
+  font-family: 'Inter', sans-serif;
   font-size: 14px;
-  letter-spacing: 0.84px;
-  line-height: 21px;
+  letter-spacing: 0;
+  line-height: 20px;
   color: #a1a1aa;
-  text-transform: uppercase;
   margin-bottom: 0;
   min-height: 51px;
 }

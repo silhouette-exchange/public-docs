@@ -121,7 +121,7 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'api/index',
-          label: 'API',
+          label: 'Overview',
         },
         {
           type: 'doc',
@@ -147,6 +147,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'api/openapi',
           label: 'OpenAPI specification',
+        },
+        {
+          type: 'doc',
+          id: 'api/sdk',
+          label: 'Python SDK',
         },
       ],
     },
