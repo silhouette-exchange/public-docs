@@ -1,6 +1,6 @@
 ---
 title: API Overview
-slug: /api-overview
+slug: /api
 ---
 
 :::warning
