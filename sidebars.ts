@@ -148,12 +148,12 @@ const sidebars: SidebarsConfig = {
           id: 'api/openapi',
           label: 'OpenAPI specification',
         },
-        {
-          type: 'doc',
-          id: 'api/sdk',
-          label: 'Python SDK',
-        },
       ],
+    },
+    {
+      type: 'doc',
+      id: 'sdk',
+      label: 'Python SDK',
     },
     {
       type: 'html',

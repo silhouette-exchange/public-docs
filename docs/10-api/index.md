@@ -26,4 +26,3 @@ Authentication is handled through wallet signing using [Sign-In With Ethereum (S
 3. [Reference](/docs/api/reference) – Complete documentation for all available API operations
 4. [Troubleshooting](/docs/api/troubleshooting) – Common errors and solutions
 5. [OpenAPI specification](/docs/api/openapi) – Generate strongly-typed client libraries from our OpenAPI spec
-6. [Python SDK](/docs/api/sdk) – Official Python SDK for interacting with the Silhouette API
