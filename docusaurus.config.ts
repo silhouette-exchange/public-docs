@@ -19,8 +19,7 @@ const config: Config = {
   organizationName: 'silhouette-exchange',
   projectName: 'public-docs',
 
-  onBrokenLinks: 'warn',
-  onBrokenMarkdownLinks: 'warn',
+  onBrokenLinks: 'throw',
 
   future: {
     experimental_faster: {
@@ -34,6 +33,9 @@ const config: Config = {
   },
   markdown: {
     mermaid: true,
+    hooks: {
+      onBrokenMarkdownLinks: 'throw',
+    },
   },
   themes: ['@docusaurus/theme-mermaid'],
   i18n: {
