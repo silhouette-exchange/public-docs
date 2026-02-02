@@ -1,7 +1,7 @@
 ---
 title: Python SDK
 sidebar_label: Python SDK
-slug: /api/sdk
+slug: /sdk
 ---
 
 :::warning
@@ -48,6 +48,6 @@ print(f"Order placed: {order['orderId']}")
 
 ## Resources
 
-- [GitHub repository](https://github.com/silhouette-exchange/silhouette-python-sdk)
+- [PyPI package](https://pypi.org/project/silhouette-python-sdk/)
 - [API reference](/docs/api/reference) for all available operations
 - [Authentication](/docs/api/authentication) for details on the SIWE authentication flow
