@@ -22,9 +22,9 @@ const featureCards = [
     Icon: InfoIcon,
   },
   {
-    title: "Smart Contracts",
-    description: "Learn about the architecture of our smart contracts.",
-    link: "/docs/architecture/overview",
+    title: "Get Started",
+    description: "Connect your wallet, deposit your funds, and start trading privately.",
+    link: "/docs/quickstart",
     Icon: BookIcon,
   },
   {
@@ -32,26 +32,6 @@ const featureCards = [
     description: "Read through our most common questions.",
     link: "/docs/faq",
     Icon: QuestionMarkIcon,
-  },
-];
-
-const tutorials = [
-  {
-    title: "Quickstart",
-    description: "Connect your EVM wallet to the Silhouette webapp",
-    link: "/docs/about-silhouette",
-  },
-  {
-    title: "Deposit Assets",
-    description:
-      "Silhouette uses the HYPE or USDC you already have on HyperCore.",
-    link: "/docs/account-management/overview",
-  },
-  {
-    title: "Withdrawing Assets",
-    description:
-      "The webapp will facilitate the withdrawal. Just enter the amount.",
-    link: "/docs/about-silhouette",
   },
 ];
 
@@ -115,31 +95,6 @@ export default function Home(): ReactNode {
         </section>
 
         <main className="container">
-          {/* Get Started Section */}
-          <section className={styles.getStartedSection}>
-            <h2 className={styles.sectionTitle}>Get started with Silhouette</h2>
-            <p className={styles.sectionSubtitle}>
-              Explore these guided tutorials to get started with Silhouette
-            </p>
-            <div className={styles.tutorialContainer}>
-              {tutorials.map((tutorial, idx) => (
-                <Link
-                  to={tutorial.link}
-                  className={styles.tutorialLink}
-                  key={idx}
-                >
-                  <div>
-                    <h4 className={styles.tutorialTitle}>{tutorial.title}</h4>
-                    <p className={styles.tutorialDescription}>
-                      {tutorial.description}
-                    </p>
-                  </div>
-                  <ArrowIcon className={styles.tutorialIcon} />
-                </Link>
-              ))}
-            </div>
-          </section>
-
           {/* Social Links Section */}
           <section className={styles.section}>
             <div className={styles.socialContainer}>

@@ -65,17 +65,6 @@
     padding: 4rem 2rem;
   }
 
-  .sectionTitle {
-    font-size: 24px;
-    line-height: 40px;
-    letter-spacing: 1.92px;
-  }
-
-
-  .getStartedSection {
-    padding: 48px 40px;
-  }
-
   .card {
     flex: 1 0 0;
     min-width: 300px;
@@ -98,12 +87,6 @@
   }
 
   .heroSection {
-    width: 100%;
-    max-width: 1082px;
-    margin: 0 auto;
-  }
-
-  .getStartedSection {
     width: 100%;
     max-width: 1082px;
     margin: 0 auto;
@@ -275,109 +258,6 @@
 }
 
 
-
-.sectionTitle {
-  text-align: center;
-  margin-bottom: 6px;
-  font-size: 24px;
-  font-style: normal;
-  font-weight: 600;
-  line-height: 32px;
-  letter-spacing: -0.02em;
-  color: #fafafa;
-  font-family: 'Inter', sans-serif;
-}
-
-.sectionSubtitle {
-  text-align: center;
-  margin-bottom: 24px;
-  color: #a1a1aa;
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 1.6;
-  letter-spacing: 0;
-  margin-bottom: 3rem;
-}
-
-.getStartedSection {
-  padding: 48px 24px;
-  text-align: center;
-  width: 100%;
-  position: relative;
-  z-index: 1;
-}
-
-.tutorialContainer {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  max-width: 1082px;
-  margin: 0 auto;
-  width: 100%;
-}
-
-.tutorialLink {
-  backdrop-filter: blur(20px);
-  background-color: rgba(255, 255, 255, 0.02);
-  border: 1px solid rgba(255, 255, 255, 0.04);
-  border-radius: 0;
-  box-sizing: border-box;
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  gap: 24px;
-  min-height: 102px;
-  max-height: 250px;
-  padding: 24px 16px;
-  text-decoration: none;
-  transition: background-color 0.3s, border-color 0.3s;
-  width: 100%;
-}
-
-@media screen and (min-width: 768px) {
-  .tutorialLink {
-    gap: 80px;
-    padding: 24px;
-  }
-}
-
-.tutorialLink:hover {
-  background-color: rgba(255, 255, 255, 0.04);
-  border-color: rgba(255, 255, 255, 0.1);
-  text-decoration: none;
-}
-
-.tutorialTitle {
-  font-family: 'Inter', sans-serif;
-  font-size: 16px;
-  font-weight: 500;
-  letter-spacing: 0;
-  line-height: 24px;
-  margin-bottom: 4px;
-  color: #fafafa;
-  min-height: 25px;
-  display: flex;
-  align-items: center;
-}
-
-.tutorialDescription {
-  font-family: 'Inter', sans-serif;
-  font-size: 14px;
-  letter-spacing: 0;
-  line-height: 20px;
-  margin-bottom: 0;
-  color: #a1a1aa;
-}
-
-.tutorialIcon {
-  width: 24px;
-  height: 24px;
-  color: #a1a1aa;
-  flex-shrink: 0;
-  align-self: flex-start;
-}
 
 .cardContainer {
   display: flex;
@@ -712,10 +592,6 @@
   .section {
     padding: 4rem 40px;
   }
-
-  .getStartedSection {
-    padding: 4rem 40px;
-  }
 }
 
 @media screen and (min-width: 997px) {
@@ -728,10 +604,6 @@
   }
 
   .section {
-    padding: 4rem 2rem;
-  }
-
-  .getStartedSection {
     padding: 4rem 2rem;
   }
 }
