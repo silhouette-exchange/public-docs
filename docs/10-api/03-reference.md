@@ -212,8 +212,8 @@ Create a new order to buy or sell tokens. Orders can be either limit orders (exe
 | orderType | string | Yes | Order type: `"limit"` or `"market"` |
 | baseToken | string | Yes | The token being traded: `"USDC"` or `"HYPE"` |
 | quoteToken | string | Yes | The token used for pricing: `"USDC"` or `"HYPE"` |
-| amount | string | Yes | Order amount as a string (can be decimal like `"100.5"` or scaled integer like `"100500000"`) |
-| price | string | Conditional | Order price (required for limit orders, ignored for market orders). Can be decimal like `"1.25"` or scaled integer with 6 decimals |
+| amount | string | Yes | Order amount as a human-readable decimal string (e.g., `"100"` or `"100.5"`) |
+| price | string | Conditional | Order price as a human-readable decimal string (required for limit orders, ignored for market orders) |
 
 **Example request (limit order)**:
 
@@ -307,8 +307,8 @@ curl https://api.silhouette.exchange/v0 \
   - `"buy"`: Purchase the base token using the quote token
   - `"sell"`: Sell the base token for the quote token
 - **Tokens**: Currently supports `"USDC"` and `"HYPE"` only
-- **Amount format**: Can be provided as a decimal string (e.g., `"100.5"`) or as a scaled integer string. Decimal values are automatically converted to the token's smallest unit.
-- **Price format**: For limit orders, can be decimal (e.g., `"1.25"`) or scaled integer with 6 decimal places. Ignored for market orders.
+- **Amount format**: Must be a human-readable decimal string (e.g., `"100"` or `"100.5"`). Values are automatically scaled to the token's smallest unit. Do not send pre-scaled values.
+- **Price format**: Must be a human-readable decimal string (e.g., `"1.25"`). Values are automatically scaled. Required for limit orders, ignored for market orders.
 - **Insufficient balance**: The order will fail if you don't have sufficient available balance of the required token
 - Save the returned `orderId` to cancel or track the order later
 
@@ -533,7 +533,7 @@ Request a withdrawal of funds from your Silhouette account back to your HyperCor
 |-----------|------|----------|-------------|
 | operation | string | Yes | Must be `"initiateWithdrawal"` |
 | tokenSymbol | string | Yes | The token to withdraw: `"USDC"` or `"HYPE"` |
-| amount | string | Yes | Withdrawal amount as a string (can be decimal like `"100.5"` or scaled integer like `"100500000"`) |
+| amount | string | Yes | Withdrawal amount as a human-readable decimal string (e.g., `"100"` or `"100.5"`) |
 
 **Example request**:
 
@@ -614,7 +614,7 @@ curl https://api.silhouette.exchange/v0 \
 - Withdrawals are processed asynchronously. The API returns a `withdrawalId` immediately, but the actual withdrawal takes time to process
 - You can only have one pending withdrawal at a time. Wait for your current withdrawal to complete before initiating another
 - The amount must not exceed your available balance (not including locked funds in open orders)
-- Amount format: Can be decimal string (e.g., `"100.5"`) or scaled integer. Decimal values are automatically converted to the token's smallest unit
+- **Amount format**: Must be a human-readable decimal string (e.g., `"100"` or `"100.5"`). Values are automatically scaled to the token's smallest unit. Do not send pre-scaled values
 - Use `getWithdrawalStatus` with the returned `withdrawalId` to track the withdrawal progress
 - Tokens: Currently supports `"USDC"` and `"HYPE"` only
 - Funds will be sent to your HyperCore address (the address associated with your authenticated wallet)
