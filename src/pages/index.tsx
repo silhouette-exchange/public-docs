@@ -91,12 +91,8 @@ export default function Home(): ReactNode {
                 </Link>
               ))}
             </div>
-          </div>
-        </section>
 
-        <main className="container">
-          {/* Social Links Section */}
-          <section className={styles.section}>
+            {/* Social Links */}
             <div className={styles.socialContainer}>
               {socialLinks.map((item, idx) => (
                 <Link to={item.link} className={styles.socialLink} key={idx}>
@@ -108,8 +104,26 @@ export default function Home(): ReactNode {
                 </Link>
               ))}
             </div>
-          </section>
-        </main>
+
+            {/* TradingView Attribution */}
+            <div className={styles.tradingViewAttribution}>
+              <img
+                src="/img/logo-square-light.png"
+                alt="TradingView"
+                className={styles.tradingViewLogo}
+              />
+              <p className={styles.tradingViewText}>
+                Charts on Silhouette are powered by{" "}
+                <Link to="https://www.tradingview.com/">TradingView</Link>, a
+                multi-functionality platform that provides in-depth information
+                on every aspect of trading, including technical and fundamental
+                data, news and analysis, ideas, and community discussions, and
+                allows you to follow real-time prices across a wide range of
+                trading pairs.
+              </p>
+            </div>
+          </div>
+        </section>
       </div>
     </Layout>
   );
