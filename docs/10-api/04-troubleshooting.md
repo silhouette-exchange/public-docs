@@ -313,7 +313,7 @@ Solutions:
 
 ### Check token validity
 
-Before making API requests, ensure your bearer token is still valid. Tokens expire after 1 hour, and you'll need to re-authenticate. Consider implementing automatic token refresh in your application.
+Before making API requests, ensure your bearer token is still valid. Tokens expire after 24 hours, and you'll need to re-authenticate. Consider implementing automatic token refresh in your application.
 
 ### Verify request format
 

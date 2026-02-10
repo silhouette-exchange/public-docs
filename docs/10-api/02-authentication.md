@@ -180,7 +180,7 @@ curl https://api.silhouette.exchange/v0 \
 
 ## Token expiry and renewal
 
-Bearer tokens expire after 1 hour by default. When your token expires, you'll receive an authentication error when making API requests. To continue using the API, you'll need to repeat the authentication process to obtain a new token.
+Bearer tokens expire after 24 hours. When your token expires, you'll receive an authentication error when making API requests. To continue using the API, you'll need to repeat the authentication process to obtain a new token.
 
 Signs your token has expired:
 
