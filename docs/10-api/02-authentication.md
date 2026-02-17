@@ -178,6 +178,33 @@ curl https://api.silhouette.exchange/v0 \
   }'
 ```
 
+## API wallet login
+
+Silhouette also supports signing with a [Hyperliquid API wallet](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/agent-wallets) for logins. After authorizing an API wallet to act on behalf of your main wallet, include your main address in the optional `primaryAddress` parameter on the login request. After verifying that the supplied API wallet is authorized for your primary wallet, the server issues a JWT with your primary address as its identity.
+
+### How it works
+
+1. **Approve an API wallet on Hyperliquid L1** (e.g. via `exchange.approve_agent()` in the Hyperliquid SDK). This registers and authorizes the API wallet to act on behalf of your main wallet.
+2. **Sign the SIWE message with the API wallet's private key** — the SIWE message will contain the API wallet's address.
+3. **Include `primaryAddress` in the login request** — set this to your main wallet address.
+4. **Heimdall verifies the API wallet relationship** by querying the Hyperliquid API to confirm the API wallet is authorized for the given primary address.
+5. **JWT is issued with the primary address** — the returned token contains your main wallet address. All downstream API operations then work identically to a direct login without an API wallet.
+
+### Example
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "login",
+    "message": "api.silhouette.exchange wants you to sign in with your Ethereum account:\n0xAPI_WALLET_ADDRESS\n\nSign in with Ethereum to the app.\n\nURI: https://api.silhouette.exchange/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
+    "signature": "0x_SIGNATURE_FROM_API_WALLET",
+    "primaryAddress": "0xYOUR_MAIN_WALLET_ADDRESS"
+  }'
+```
+
+The JWT bearer token issued in response is identical to one obtained through a direct login.
+
 ## Token expiry and renewal
 
 Bearer tokens expire after 24 hours. When your token expires, you'll receive an authentication error when making API requests. To continue using the API, you'll need to repeat the authentication process to obtain a new token.
