@@ -26,8 +26,9 @@ Authenticate with the Silhouette API using [Sign-In With Ethereum (SIWE)](https:
 | operation | string | Yes | Must be `"login"` |
 | message | string | Yes | The SIWE message to verify. Must include the statement "Sign in with Ethereum to the app." |
 | signature | string | Yes | The cryptographic signature of the SIWE message, signed with your wallet's private key |
+| primaryAddress | string | No | Primary wallet address when signing with a Hyperliquid API wallet. Must be a valid EVM address (`0x` + 40 hex chars). When provided, Heimdall verifies the signing address is an authorized API wallet for this primary address and issues a JWT with the primary address as identity. |
 
-**Example request**:
+**Example request (direct wallet login)**:
 
 ```bash
 curl https://api.silhouette.exchange/v0 \
@@ -36,6 +37,19 @@ curl https://api.silhouette.exchange/v0 \
     "operation": "login",
     "message": "api.silhouette.exchange wants you to sign in with your Ethereum account:\n0x1234567890123456789012345678901234567890\n\nSign in with Ethereum to the app.\n\nURI: https://api.silhouette.exchange/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
     "signature": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890ab"
+  }'
+```
+
+**Example request (API wallet login)**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "login",
+    "message": "api.silhouette.exchange wants you to sign in with your Ethereum account:\n0xAPI_WALLET_ADDRESS\n\nSign in with Ethereum to the app.\n\nURI: https://api.silhouette.exchange/login\nVersion: 1\nChain ID: 1\nNonce: abcdefghijklmnopqrstuvwxyz123456\nIssued At: 2024-01-15T10:30:00.000Z",
+    "signature": "0x_SIGNATURE_FROM_API_WALLET",
+    "primaryAddress": "0xYOUR_MAIN_WALLET_ADDRESS"
   }'
 ```
 
@@ -96,6 +110,7 @@ curl https://api.silhouette.exchange/v0 \
 - Store the token securely—you'll need to include it in the `Authorization` header for all subsequent API requests
 - If your token expires, simply call this operation again to obtain a new token
 - You can use the [login assistant](https://login.silhouette.exchange/) for a simplified authentication flow
+- **API wallet login**: If you provide a `primaryAddress`, the SIWE message must be signed by an API wallet authorized for that primary address. The returned JWT will contain the `primaryAddress`, so all downstream operations work the same as a direct login. See [Authentication](authentication#api-wallet-login) for details.
 
 **Related operations**: This operation is prerequisite for all other operations except `login` itself.
 
