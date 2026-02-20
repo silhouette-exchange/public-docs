@@ -175,35 +175,31 @@
 }
 
 @keyframes glitch {
-  0%, 92%, 100% {
-    text-shadow: none;
-    transform: none;
-  }
-  93% {
+  0% {
     text-shadow: -3px 0 #00fff2, 3px 0 #fa00ff;
     transform: translate(-2px, 1px) skewX(-0.5deg);
   }
-  93.5% {
+  1% {
     text-shadow: 3px 0 #00fff2, -2px 0 #fa00ff;
     transform: translate(1px, -1px) skewX(0.5deg);
   }
-  94% {
+  2% {
     text-shadow: -2px 0 #fa00ff, 2px 0 #00fff2;
     transform: translate(2px, -1px);
   }
-  94.5% {
+  2.5% {
     text-shadow: none;
     transform: none;
   }
-  96% {
+  4% {
     text-shadow: -2px 0 #fa00ff, 2px 0 #00fff2;
     transform: translate(1px, 2px) skewX(-0.3deg);
   }
-  96.5% {
+  4.5% {
     text-shadow: 2px 0 #00fff2, -3px 0 #fa00ff;
     transform: translate(-1px, -1px);
   }
-  97% {
+  5%, 100% {
     text-shadow: none;
     transform: none;
   }
