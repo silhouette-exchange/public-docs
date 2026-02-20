@@ -25,17 +25,9 @@
   z-index: 0;
 }
 
-@media screen and (max-width: 480px) {
+@media screen and (max-width: 400px) {
   .heroTitle {
     font-size: 24px !important;
-    letter-spacing: 3px !important;
-  }
-}
-
-@media screen and (max-width: 360px) {
-  .heroTitle {
-    font-size: 20px !important;
-    letter-spacing: 2px !important;
   }
 }
 
@@ -160,53 +152,16 @@
 .heroTitle {
   font-size: 32px;
   line-height: 36px;
-  font-weight: 600;
+  font-weight: 400;
   letter-spacing: 4.32px;
   text-transform: uppercase;
   margin-bottom: 0;
   font-family: 'Orbitron', sans-serif;
-  color: #ffffff !important;
+  color: #ffffff;
+  text-shadow: 0px 0px 12px rgba(255, 255, 255, 0.8);
   text-align: center;
   white-space: pre-wrap;
   margin-bottom: 12px;
-  position: relative;
-  text-shadow: none;
-  animation: glitch 6s 4s infinite;
-}
-
-@keyframes glitch {
-  0%, 92%, 100% {
-    text-shadow: none;
-    transform: none;
-  }
-  93% {
-    text-shadow: -3px 0 #00fff2, 3px 0 #fa00ff;
-    transform: translate(-2px, 1px) skewX(-0.5deg);
-  }
-  93.5% {
-    text-shadow: 3px 0 #00fff2, -2px 0 #fa00ff;
-    transform: translate(1px, -1px) skewX(0.5deg);
-  }
-  94% {
-    text-shadow: -2px 0 #fa00ff, 2px 0 #00fff2;
-    transform: translate(2px, -1px);
-  }
-  94.5% {
-    text-shadow: none;
-    transform: none;
-  }
-  96% {
-    text-shadow: -2px 0 #fa00ff, 2px 0 #00fff2;
-    transform: translate(1px, 2px) skewX(-0.3deg);
-  }
-  96.5% {
-    text-shadow: 2px 0 #00fff2, -3px 0 #fa00ff;
-    transform: translate(-1px, -1px);
-  }
-  97% {
-    text-shadow: none;
-    transform: none;
-  }
 }
 
 .heroSubtitle {
@@ -218,14 +173,6 @@
   font-weight: 400;
   line-height: 1.6;
   letter-spacing: 0;
-}
-
-.heroRotatingWord {
-  color: #00fff2;
-  font-weight: 500;
-  display: inline-block;
-  white-space: nowrap;
-  position: relative;
 }
 
 .searchBar {
@@ -379,31 +326,12 @@
   text-align: left;
   text-decoration: none;
   transition: all 0.3s ease;
-  position: relative;
-  overflow: hidden;
-}
-
-/* Ambient glow on hover */
-.card::before {
-  content: '';
-  position: absolute;
-  inset: 0;
-  background: radial-gradient(ellipse 80% 60% at 50% -20%, rgba(0, 255, 242, 0.06), transparent 60%);
-  opacity: 0;
-  transition: opacity 0.4s ease;
-  pointer-events: none;
 }
 
 .card:hover {
   background-color: rgba(255, 255, 255, 0.04);
-  border-color: rgba(0, 255, 242, 0.15);
+  border-color: rgba(255, 255, 255, 0.1);
   text-decoration: none;
-  transform: translateY(-2px);
-  box-shadow: 0 8px 30px -10px rgba(0, 0, 0, 0.5), 0 0 0 1px rgba(0, 255, 242, 0.08);
-}
-
-.card:hover::before {
-  opacity: 1;
 }
 
 
@@ -418,11 +346,6 @@
   width: 24px;
   height: 24px;
   color: #C4CDDB;
-  transition: color 0.3s ease;
-}
-
-.card:hover .cardIcon {
-  color: #66fff7;
 }
 
 [data-theme='light'] .cardHeader .cardIcon {
@@ -433,14 +356,12 @@
   width: 20px;
   height: 20px;
   color: #fff;
-  opacity: 0.4;
-  transition: all 0.3s ease;
+  opacity: 0.7;
+  transition: opacity 0.3s ease;
 }
 
-.card:hover .linkIcon {
+.cardHeader .linkIcon:hover {
   opacity: 1;
-  color: #00fff2;
-  transform: translateX(4px);
 }
 
 [data-theme='light'] .cardHeader .linkIcon {
@@ -605,12 +526,9 @@
 
 .socialLink:hover {
   background-color: rgba(255, 255, 255, 0.04);
-  border-color: rgba(0, 255, 242, 0.12);
+  border-color: rgba(255, 255, 255, 0.1);
   color: var(--text-default) !important;
   text-decoration: none;
-  transform: translateY(-1px);
-  box-shadow: 0 4px 16px -6px rgba(0, 0, 0, 0.4);
-  transition: all 0.25s ease;
 }
 
 [data-theme='light'] .socialLink {

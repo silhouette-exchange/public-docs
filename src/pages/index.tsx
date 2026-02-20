@@ -1,9 +1,8 @@
-import { type ReactNode, useState, useEffect } from "react";
+import type { ReactNode } from "react";
 import Link from "@docusaurus/Link";
 import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
 import Layout from "@theme/Layout";
 import Heading from "@theme/Heading";
-import { TextMorph } from "torph/react";
 import styles from "./index.module.css";
 import { ArrowIcon } from "../icons/arrow.icon";
 import { InfoIcon } from "../icons/info.icon";
@@ -13,19 +12,6 @@ import { XIcon } from "../icons/x.icon";
 import { TelegramIcon } from "../icons/telegram.icon";
 import { GithubIcon } from "../icons/github.icon";
 import Searchbar from "@theme/SearchBar";
-
-const rotatingWords = ["privately", "shielded", "securely", "confidently"];
-
-function useRotatingWord(words: string[], intervalMs = 3000) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, intervalMs);
-    return () => clearInterval(timer);
-  }, [words.length, intervalMs]);
-  return words[index];
-}
 
 const featureCards = [
   {
@@ -72,7 +58,6 @@ const socialLinks = [
 
 export default function Home(): ReactNode {
   const { siteConfig } = useDocusaurusContext();
-  const currentWord = useRotatingWord(rotatingWords, 3000);
 
   return (
     <Layout
@@ -83,20 +68,12 @@ export default function Home(): ReactNode {
         <section className={styles.heroSection}>
           <div className={styles.heroContent}>
             <div className={styles.heroTextContainer}>
-              <h1 className={styles.heroTitle}>
-                Welcome to Silhouette Docs
-              </h1>
+              <Heading as="h1" className={styles.heroTitle}>
+                {`Welcome to `}
+                {`Silhouette Docs`}
+              </Heading>
               <p className={styles.heroSubtitle}>
-                Learn how to trade{" "}
-                <TextMorph
-                  as="span"
-                  className={styles.heroRotatingWord}
-                  duration={400}
-                  respectReducedMotion
-                >
-                  {currentWord}
-                </TextMorph>
-                {" "}on Hyperliquid.
+                Learn how to trade privately on Hyperliquid.
               </p>
               <Searchbar />
             </div>
