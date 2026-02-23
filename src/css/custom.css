@@ -2143,58 +2143,6 @@ body {
 }
 
 /* ============================================
-   POLISH: Table Styling
-   ============================================ */
-
-[data-theme='dark'] .markdown table {
-  border-collapse: separate !important;
-  border-spacing: 0 !important;
-  overflow: hidden !important;
-  border: 1px solid rgba(255, 255, 255, 0.08) !important;
-  font-size: 0.875rem !important;
-  width: 100% !important;
-  margin: 1.5rem 0 !important;
-  background: rgba(255, 255, 255, 0.01) !important;
-}
-
-[data-theme='dark'] .markdown thead {
-  background: rgba(255, 255, 255, 0.03) !important;
-}
-
-[data-theme='dark'] .markdown th {
-  font-weight: 600 !important;
-  text-align: left !important;
-  font-size: 0.6875rem !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.06em !important;
-  color: #a1a1aa !important;
-  padding: 0.75rem 1rem !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08) !important;
-  border-right: none !important;
-  border-left: none !important;
-}
-
-[data-theme='dark'] .markdown td {
-  padding: 0.75rem 1rem !important;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04) !important;
-  border-right: none !important;
-  border-left: none !important;
-  color: #b4b4bc !important;
-}
-
-[data-theme='dark'] .markdown tbody tr {
-  transition: background 0.15s ease !important;
-}
-
-[data-theme='dark'] .markdown tbody tr:hover {
-  background: rgba(255, 255, 255, 0.025) !important;
-}
-
-[data-theme='dark'] .markdown tbody tr:last-child td {
-  border-bottom: none !important;
-}
-
-/* ============================================
    POLISH: Scrollbar Styling
    ============================================ */
 
