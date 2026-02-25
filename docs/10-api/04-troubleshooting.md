@@ -162,31 +162,6 @@ Solutions:
 - Cancel existing orders to free up locked funds
 - Deposit more funds before placing the order
 
-### Order not found
-
-```json
-{
-  "operation": "cancelOrder",
-  "error": "Failed to cancel order.",
-  "code": "CANCELLATION_ERROR",
-  "responseMetadata": {
-    "timestamp": 1705313400
-  }
-}
-```
-
-Causes:
-
-- The order ID doesn't exist
-- The order belongs to another user
-- The order has already been cancelled, filled, or expired
-
-Solutions:
-
-- Verify the order ID is correct
-- Use `getUserOrders` to check your current orders
-- Ensure the order is in an `"open"` state before attempting to cancel
-
 ### Withdrawal not found
 
 ```json
