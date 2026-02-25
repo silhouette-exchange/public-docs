@@ -101,6 +101,16 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'doc',
+      id: 'compliance',
+      label: 'Compliance',
+    },
+    {
+      type: 'doc',
+      id: 'roadmap',
+      label: 'Roadmap',
+    },
+    {
+      type: 'doc',
       id: 'faq',
       label: 'FAQs',
     },
