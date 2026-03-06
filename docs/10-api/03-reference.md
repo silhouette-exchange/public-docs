@@ -327,83 +327,7 @@ curl https://api.silhouette.exchange/v0 \
 - **Insufficient balance**: The order will fail if you don't have sufficient available balance of the required token
 - Save the returned `orderId` to cancel or track the order later
 
-**Related operations**: Use `getUserOrders` to view your orders, `cancelOrder` to cancel an open order, and `getBalances` to check available funds.
-
-## cancelOrder
-
-Cancel an existing open order. Once cancelled, any locked funds from the order are returned to your available balance.
-
-**Endpoint**: `POST https://api.silhouette.exchange/v0`
-
-**Authentication**: Required
-
-**Request parameters**:
-
-| Parameter | Type | Required | Description |
-|-----------|------|----------|-------------|
-| operation | string | Yes | Must be `"cancelOrder"` |
-| orderId | string | Yes | The unique identifier of the order to cancel |
-
-**Example request**:
-
-```bash
-curl https://api.silhouette.exchange/v0 \
-  -H "Content-Type: application/json" \
-  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
-  -d '{
-    "operation": "cancelOrder",
-    "orderId": "550e8400-e29b-41d4-a716-446655440000"
-  }'
-```
-
-**Success response**:
-
-```json
-{
-  "data": {
-    "message": "Order cancelled successfully.",
-    "orderId": "550e8400-e29b-41d4-a716-446655440000"
-  },
-  "responseMetadata": {
-    "timestamp": 1705313400,
-    "requestId": "650e8400-e29b-41d4-a716-446655440001"
-  }
-}
-```
-
-**Error responses**:
-
-```json
-{
-  "operation": "cancelOrder",
-  "error": "Missing required field: orderId.",
-  "code": "VALIDATION_ERROR",
-  "responseMetadata": {
-    "timestamp": 1705313400
-  }
-}
-```
-
-```json
-{
-  "operation": "cancelOrder",
-  "error": "Failed to cancel order.",
-  "code": "CANCELLATION_ERROR",
-  "responseMetadata": {
-    "timestamp": 1705313400
-  }
-}
-```
-
-**Notes**:
-
-- You can only cancel your own orders
-- Orders that have already been filled, partially filled, or cancelled cannot be cancelled
-- When an order is successfully cancelled, any funds that were locked for that order become available in your balance
-- The `orderId` is returned when you create an order using `createOrder`
-- Cancelling an order that doesn't exist or doesn't belong to you will return a `CANCELLATION_ERROR`
-
-**Related operations**: Use `getUserOrders` to find orders to cancel, and `getBalances` to see your freed balance after cancellation.
+**Related operations**: Use `getUserOrders` to view your orders and `getBalances` to check available funds.
 
 ## getUserOrders
 
@@ -529,10 +453,9 @@ curl https://api.silhouette.exchange/v0 \
 - Orders are returned in reverse chronological order (newest first)
 - If you have no orders, the `orders` array will be empty
 - Both raw and float representations are provided for amounts and prices
-- Use the `status` filter to find specific orders (e.g., only open orders you can cancel)
-- The `orderId` can be used with `cancelOrder` to cancel an open order
+- Use the `status` filter to find specific orders (e.g., only open orders)
 
-**Related operations**: Use `cancelOrder` to cancel an open order, and `createOrder` to place new orders.
+**Related operations**: Use `createOrder` to place new orders.
 
 ## initiateWithdrawal
 
