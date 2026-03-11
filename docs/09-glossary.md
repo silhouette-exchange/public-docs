@@ -1,211 +1,129 @@
 ---
+id: glossary
 title: Glossary
 sidebar_label: Glossary
 pagination_label: Glossary
 slug: /glossary
+description: "Comprehensive glossary of technical terms used in Silhouette documentation, covering shielded trading, TEE, HyperCore, and DeFi concepts."
+keywords:
+  - glossary
+  - shielded trading
+  - Hyperliquid API
+  - Silhouette API
+  - DeFi API
+  - trading API
+  - programmatic trading
 ---
 
-This reference defines technical terms used throughout Silhouette documentation.
+# Glossary
+
+Technical terms used throughout Silhouette documentation.
 
 ---
 
 ## A
 
-**AES-GCM**  
-Advanced Encryption Standard with Galois/Counter Mode. Symmetric encryption algorithm that encrypts order details and communications between browser and enclave.
+**Agent Wallet**
+See Delegated Wallet.
 
-**Agent Wallet**  
-Fresh Hyperliquid wallets used to execute aggregated trades on HyperCore. Maximises privacy by obscuring individual trader activity during settlement.
-
-**Allowlist**  
-Curated list of users authorised to place orders on Silhouette MVP. Any user may deposit regardless of allowlist status.
-
-**Attestation**  
-CBOR-encoded, COSE-signed documents from Nitro Hypervisor that verify the exact code running inside an enclave. Proves computational integrity.
+**Attestation**
+Cryptographic proof, signed by the hardware platform, that verifies the exact code running inside a Trusted Execution Environment. Used to prove computational integrity without trusting the operator.
 
 ---
 
-## C
+## B
 
-**CBOR**  
-Concise Binary Object Representation. Encoding format for attestation documents that enables efficient binary serialisation.
+**Builder Codes**
+Hyperliquid's native framework that allows third-party applications to place trades on the Hyperliquid order book. Silhouette uses Builder Codes for naked trading.
 
-**Cipher-text**  
-Encrypted data resulting from encryption of plaintext order details. Only decryptable by intended recipients.
+---
 
-**COSE**  
-CBOR Object Signing and Encryption. Signing format for attestation documents that ensures authenticity and integrity.
+## D
+
+**Delegated Wallet**
+Fresh Hyperliquid wallets used by Silhouette's TEE to execute shielded trades on HyperCore. Aggregate activity from multiple users, obscuring individual trader identity during settlement.
 
 ---
 
 ## E
 
-**ECDH**  
-Elliptic Curve Diffie-Hellman. Key agreement protocol enabling two parties to establish a shared secret over insecure channels.
+**Encrypted Balance**
+Your balance inside Silhouette, stored as encrypted data within the TEE. Only decryptable by you using your local encryption key.
 
-**EIF**  
-Enclave Image File. Contains application and runtime dependencies for deployment to Nitro Enclave. Hash determines PCR0 value.
-
-**Enclave**  
-See Trusted Execution Environment (TEE).
-
-**Encryption Key**  
-AES symmetric key derived from X25519 key exchange that shields balances and trading activity from all parties except the trader.
-
-**End-to-End Encryption**  
-Encryption where only communicating parties (browser and enclave) can decrypt information. No intermediaries have access.
-
----
-
-## G
-
-**Good Til Cancelled (GTC)**  
-Default order type in Silhouette. Remains active until filled, cancelled, or expired.
+**Encryption Key**
+A key generated and stored locally in your browser that shields your balances and trading activity from all parties except you. The private component never leaves your browser.
 
 ---
 
 ## H
 
-**HKDF**  
-HMAC-based Key Derivation Function. Derives encryption keys from X25519 shared secrets for secure communication.
+**HyperBFT**
+Consensus mechanism securing the Hyperliquid blockchain, covering both HyperCore and HyperEVM.
 
-**HyperBFT**  
-Consensus mechanism securing the unified Hyperliquid blockchain containing both HyperCore and HyperEVM.
+**HyperCore**
+The high-performance trading engine of Hyperliquid. Purpose-built for financial primitives with sub-millisecond execution. This is where Silhouette's shielded trades settle.
 
-**HyperCore**  
-High-performance trading component of Hyperliquid. Purpose-built for financial primitives with sub-millisecond execution.
-
-**HyperEVM**  
-Ethereum Virtual Machine-compatible component of Hyperliquid. Supports smart contracts with fast and slow execution blocks.
+**HyperEVM**
+The Ethereum Virtual Machine-compatible layer of Hyperliquid. Supports smart contracts and decentralized applications.
 
 ---
 
 ## I
 
-**Immediate or Cancel (IOC)**  
-Order type used when Silhouette orders expire and are placed on Hyperliquid exchange. Executes immediately or cancels remainder.
-
-**IndexedDB**  
-Browser storage where private encryption keys are stored locally. Namespaced by account address and network ID.
-
----
-
-## K
-
-**KDF**  
-Key Derivation Function. Cryptographic primitive that expands key material into one or more cryptographic keys.
-
----
-
-## L
-
-**L1**  
-Deprecated term for HyperCore. Previously used to refer to the main Hyperliquid blockchain layer where final settlement occurs.
-
-**Limit Order**  
-Order to buy or sell at specific price or better. Provides price protection for traders.
+**Immediate or Cancel (IoC)**
+Order type used when Silhouette submits shielded trades to Hyperliquid. The order either executes immediately or cancels - no resting orders are left on the book.
 
 ---
 
 ## M
 
-**Managed Wallet**  
-Ephemeral wallet created in trader's browser. Authorised to submit orders on behalf of primary account for frictionless trading.
-
-**Market Order**  
-Order to buy or sell immediately at current market price. Prioritises execution speed over price control.
-
-**Matching Engine**  
-System that matches buy and sell orders according to price-time priority rules. Runs inside secure enclave.
+**Matching Engine**
+The system inside Silhouette's TEE that processes and matches shielded orders according to price-time priority rules.
 
 ---
 
 ## N
 
-**Nix**  
-Deterministic build system used by Silhouette to achieve reproducible builds of enclave code.
+**Naked Trading**
+Trading on Silhouette with full public visibility. Orders route directly to Hyperliquid via Builder Codes, identical to any other Hyperliquid frontend.
 
-**Nonce**  
-Number used once in cryptographic operations. Ensures security and prevents replay attacks.
+**Net Settlement**
+A design where only the final net result of trading activity is reflected onchain, rather than individual trades. Reduces onchain footprint and strengthens confidentiality.
 
 ---
 
 ## O
 
-**Order Book**  
-List of buy and sell orders for trading pair. Maintained privately within secure enclave.
-
-**Order Expiry**  
-Timestamp after which order expires in Silhouette's order book and gets settled on HyperCore.
+**Order Book**
+The list of buy and sell orders for a trading pair on Hyperliquid. Silhouette's shielded trades execute against this same order book.
 
 ---
 
 ## P
 
-**Partial Fill**  
-When order is only partially executed, leaving remaining balance to be filled later.
-
-**PCR0**  
-Platform Configuration Register 0. SHA-384 hash of enclave image file that definitively identifies exact code running inside Nitro Enclave.
-
-**Perps**  
-Perpetual futures contracts. Currently unsupported on Silhouette but available on Hyperliquid.
-
-**Price-Time Priority**  
-Matching algorithm that prioritises orders first by price, then by timestamp for orders at same price level.
-
-**Primary EVM Wallet**  
-Root wallet (MetaMask, WalletConnect, Frame) that controls Silhouette account and performs critical functions like deposits.
+**PCR0**
+Platform Configuration Register 0. A SHA-384 hash of the Enclave Image File that uniquely identifies the exact code running inside an AWS Nitro Enclave.
 
 ---
 
 ## S
 
-**Settlement**  
-Final execution and clearing of trades. Occurs on HyperCore for expired orders through agent wallets.
+**Settlement**
+The final execution and clearing of trades on Hyperliquid's order book. For shielded trades, settlement occurs through delegated wallets.
 
-**Shared Secret**  
-Cryptographic secret derived through X25519 ECDH between webapp and enclave for secure communication.
-
-**Shielded Exchange**  
-Privacy-preserving trading platform that protects order flow from public visibility while maintaining full functionality.
-
-**Silhouette Contract**  
-Primary smart contract deployed on HyperEVM. Orchestrates exchange operations and stores encrypted state.
-
-**Silhouette UI**  
-Frontend interface enabling direct HyperCore actions, Silhouette Contract interaction, and encryption key management.
-
-**Spot Trading**  
-Direct trading of tokens (as opposed to derivatives). Supported on both Silhouette and Hyperliquid.
-
-**Strategy Protection**  
-Ability to trade without signalling intentions or revealing strategies to other market participants.
-
-**szDecimals**  
-Hyperliquid's precision specification for token amounts. ETH has szDecimals of 4, meaning prices are quoted to 4 decimal places.
+**Shielded Trading**
+Trading on Silhouette where your orders are processed inside the TEE and executed via delegated wallets. Your identity, size, and intent are hidden from the public ledger.
 
 ---
 
 ## T
 
-**TEE**  
-Trusted Execution Environment. Secure, isolated computing environment enabling confidential computation. Silhouette uses AWS Nitro Enclaves.
+**TEE (Trusted Execution Environment)**
+A secure, hardware-isolated computing environment that enables confidential computation. Silhouette uses AWS Nitro Enclaves. No one - including the Silhouette team and the cloud provider - can access data inside the TEE.
+
+**Transparency Tax**
+The cost traders pay because their activity is visible on a public ledger. Includes losses from front-running, copy trading, liquidation hunting, and strategy decay.
 
 ---
 
-## U
-
-**UI Encryption Key**  
-X25519 key pair generated in browser for encrypting communications with secure enclave. Private component never leaves browser.
-
----
-
-## X
-
-**X25519**  
-Elliptic curve in Montgomery form over field with 2^255 + 19 elements. Used for Diffie-Hellman key exchange to establish shared secrets between webapp and enclave.
-
----
-
-> ℹ️ **Info:** This documentation is for informational purposes only and does not constitute financial advice.
+> This documentation is for informational purposes only and does not constitute financial advice.

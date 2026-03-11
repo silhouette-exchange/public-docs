@@ -87,10 +87,11 @@ const config: Config = {
       {
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
+          routeBasePath: '/',
         },
         blog: {
           showReadingTime: true,
-          routeBasePath: '/docs/blog',
+          routeBasePath: '/blog',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -107,8 +108,8 @@ const config: Config = {
         language: ['en'],
         indexBlog: true,
         indexDocs: true,
-        docsRouteBasePath: '/docs',
-        blogRouteBasePath: '/docs/blog',
+        docsRouteBasePath: '/',
+        blogRouteBasePath: '/blog',
         // Enable search in development mode
         removeDefaultStopWordFilter: true,
         highlightSearchTermsOnTargetPage: true,
@@ -174,7 +175,7 @@ const config: Config = {
           items: [
             {
               label: 'Blog',
-              href: '/docs/blog',
+              href: '/blog',
             },
             {
               label: 'Silhouette X',

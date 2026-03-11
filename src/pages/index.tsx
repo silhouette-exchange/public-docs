@@ -32,19 +32,19 @@ const featureCards = [
     title: "What is Silhouette",
     description:
       "Learn about the core concepts of Silhouette and how to get started.",
-    link: "/docs/about-silhouette",
+    link: "/about-silhouette",
     Icon: InfoIcon,
   },
   {
     title: "Get Started",
     description: "Connect your wallet, deposit your funds, and start trading privately.",
-    link: "/docs/quickstart",
+    link: "/quickstart",
     Icon: BookIcon,
   },
   {
     title: "FAQ",
     description: "Read through our most common questions.",
-    link: "/docs/faq",
+    link: "/faq",
     Icon: QuestionMarkIcon,
   },
 ];
