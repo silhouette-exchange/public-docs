@@ -19,6 +19,11 @@ const sidebars: SidebarsConfig = {
       label: 'Quickstart',
     },
     {
+      type: 'doc',
+      id: 'how-silhouette-works',
+      label: 'How Silhouette Works',
+    },
+    {
       type: 'category',
       label: 'Onboarding',
       collapsed: true,
@@ -32,11 +37,6 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'onboarding/withdraw',
           label: 'Withdraw',
-        },
-        {
-          type: 'doc',
-          id: 'onboarding/feedback',
-          label: 'Provide Feedback',
         },
       ],
     },
@@ -59,6 +59,16 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'trading/order-types',
           label: 'Order Types',
+        },
+        {
+          type: 'doc',
+          id: 'trading/order-lifecycle',
+          label: 'Order Lifecycle',
+        },
+        {
+          type: 'doc',
+          id: 'trading/fees',
+          label: 'Fees',
         },
       ],
     },
@@ -91,11 +101,6 @@ const sidebars: SidebarsConfig = {
     },
     {
       type: 'doc',
-      id: 'fees',
-      label: 'Fees',
-    },
-    {
-      type: 'doc',
       id: 'referrals',
       label: 'Referrals',
     },
@@ -103,6 +108,11 @@ const sidebars: SidebarsConfig = {
       type: 'doc',
       id: 'faq',
       label: 'FAQs',
+    },
+    {
+      type: 'doc',
+      id: 'glossary',
+      label: 'Glossary',
     },
     {
       type: 'html',

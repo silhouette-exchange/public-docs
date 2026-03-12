@@ -2,10 +2,19 @@
 title: Authentication
 sidebar_label: Authentication
 slug: /api/authentication
+description: "Authenticate with the Silhouette API using Sign-In With Ethereum (SIWE). Obtain bearer tokens for programmatic shielded trading."
+keywords:
+  - SIWE authentication
+  - Silhouette API
+  - Hyperliquid API
+  - trading API
+  - shielded trading
+  - programmatic trading
+  - API reference
 ---
 
 :::warning
-The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
+The Silhouette API and SDK are in beta. We are actively adding new operations.
 :::
 
 The Silhouette API uses [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) for authentication, which allows you to prove your identity using your Ethereum wallet without requiring traditional API keys or passwords.
@@ -28,7 +37,7 @@ Your user identity is automatically derived from your wallet address, which is e
 Anyone with your bearer token will have full access to your Silhouette account until it expires.
 :::
 
-## Using the login assistant (recommended)
+## Using the Login Assistant (Recommended)
 
 The easiest way to authenticate is through the Silhouette login assistant web interface.
 
@@ -43,17 +52,17 @@ Steps:
 
 Save this token securely. You'll need to include it in all API requests.
 
-## Manual authentication flow (advanced)
+## Manual Authentication Flow (Advanced)
 
 If you're integrating programmatically or prefer to handle authentication manually, follow these steps:
 
-### Step 1: Install required libraries
+### Step 1: Install Required Libraries
 
 ```bash
 npm install siwe viem
 ```
 
-### Step 2: Generate and sign the SIWE message
+### Step 2: Generate and Sign the SIWE Message
 
 Here's a complete example using Node.js:
 
@@ -110,7 +119,7 @@ Key points:
 - `message.toMessage()` returns the complete message string to send in the API request
 - The SIWE library automatically adds the `Issued At` timestamp
 
-### Step 3: Call the login operation
+### Step 3: Call the Login Operation
 
 Send the SIWE message and signature to the API's `login` operation:
 
@@ -153,13 +162,13 @@ Error response example:
 }
 ```
 
-For complete details on the `login` operation, see the [reference](reference#login) documentation.
+For complete details on the `login` operation, see the [Reference](/api/reference#login) documentation.
 
-### Step 4: Store the bearer token
+### Step 4: Store the Bearer Token
 
 The `token` field in the response contains your JWT bearer token. Store this token securely, as you'll need it for all authenticated API requests.
 
-## Using the bearer token
+## Using the Bearer Token
 
 Once you have a bearer token, include it in the `Authorization` header of every API request:
 
@@ -178,17 +187,17 @@ curl https://api.silhouette.exchange/v0 \
   }'
 ```
 
-## API wallet login
+## API Wallet Login
 
 Silhouette also supports signing with a [Hyperliquid API wallet](https://hyperliquid.gitbook.io/hyperliquid-docs/for-developers/api/agent-wallets) for logins. After authorizing an API wallet to act on behalf of your main wallet, include your main address in the optional `primaryAddress` parameter on the login request. After verifying that the supplied API wallet is authorized for your primary wallet, the server issues a JWT with your primary address as its identity.
 
-### How it works
+### How It Works
 
 1. **Approve an API wallet on Hyperliquid L1** (e.g. via `exchange.approve_agent()` in the Hyperliquid SDK). This registers and authorizes the API wallet to act on behalf of your main wallet.
-2. **Sign the SIWE message with the API wallet's private key** — the SIWE message will contain the API wallet's address.
-3. **Include `primaryAddress` in the login request** — set this to your main wallet address.
-4. **Heimdall verifies the API wallet relationship** by querying the Hyperliquid API to confirm the API wallet is authorized for the given primary address.
-5. **JWT is issued with the primary address** — the returned token contains your main wallet address. All downstream API operations then work identically to a direct login without an API wallet.
+2. **Sign the SIWE message with the API wallet's private key** - the SIWE message will contain the API wallet's address.
+3. **Include `primaryAddress` in the login request** - set this to your main wallet address.
+4. **Silhouette verifies the API wallet** by querying the Hyperliquid API to confirm the API wallet is authorized for the given primary address.
+5. **JWT is issued with the primary address** - the returned token contains your main wallet address. All subsequent API operations then work identically to a direct login without an API wallet.
 
 ### Example
 
@@ -205,7 +214,7 @@ curl https://api.silhouette.exchange/v0 \
 
 The JWT bearer token issued in response is identical to one obtained through a direct login.
 
-## Token expiry and renewal
+## Token Expiry and Renewal
 
 Bearer tokens expire after 24 hours. When your token expires, you'll receive an authentication error when making API requests. To continue using the API, you'll need to repeat the authentication process to obtain a new token.
 
@@ -217,4 +226,4 @@ Signs your token has expired:
 
 When this happens, simply go through the authentication flow again (using the login assistant or manual flow) to obtain a fresh token.
 
-For troubleshooting authentication issues, see the [troubleshooting](troubleshooting) page.
+For troubleshooting authentication issues, see the [Troubleshooting](/api/troubleshooting) page.

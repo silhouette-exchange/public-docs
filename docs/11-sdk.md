@@ -1,14 +1,24 @@
 ---
+id: sdk
 title: Python SDK
 sidebar_label: Python SDK
 slug: /sdk
+description: "Official Python SDK for Silhouette - build trading bots and automate shielded trading on Hyperliquid."
+keywords:
+  - Python SDK
+  - Silhouette API
+  - Hyperliquid API
+  - trading API
+  - shielded trading
+  - programmatic trading
+  - DeFi API
 ---
 
 :::warning
-The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
+The Silhouette API and SDK are in beta and under active development. More operations and features will be added.
 :::
 
-The official Python SDK provides a convenient way to interact with the Silhouette API.
+The official Python SDK lets you trade programmatically while keeping your strategy, size, and intent private. Build trading bots or automate strategies - all with shielded execution.
 
 ## Installation
 
@@ -18,15 +28,17 @@ pip install silhouette-python-sdk
 
 The package is available on [PyPI](https://pypi.org/project/silhouette-python-sdk/).
 
-## Quick start
+## Quick Start
 
 ```python
+import os
 from silhouette import SilhouetteApiClient
 
-# Initialise the client with your private key
+# Initialize the client with your private key
+# Never hardcode your private key - use environment variables
 client = SilhouetteApiClient(
     base_url="https://api.silhouette.exchange",
-    private_key="your_private_key_here",
+    private_key=os.environ["SILHOUETTE_PRIVATE_KEY"],
     auto_auth=True,
 )
 
@@ -49,5 +61,8 @@ print(f"Order placed: {order['orderId']}")
 ## Resources
 
 - [PyPI package](https://pypi.org/project/silhouette-python-sdk/)
-- [API reference](/docs/api/reference) for all available operations
-- [Authentication](/docs/api/authentication) for details on the SIWE authentication flow
+- [API Reference](/api/reference) - All available operations
+- [Authentication](/api/authentication) - Details on the SIWE authentication flow
+- [Quick Start](/api/quick-start) - Set up prerequisites and make your first API call
+- [Troubleshooting](/api/troubleshooting) - Common errors and solutions
+- [OpenAPI Specification](/api/openapi) - Generate typed clients in other languages

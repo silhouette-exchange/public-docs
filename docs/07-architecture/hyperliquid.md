@@ -1,25 +1,67 @@
 ---
-title: Hyperliquid Ecosystem
+title: Hyperliquid Integration
 sidebar_label: Hyperliquid
 pagination_label: Hyperliquid
+description: "Learn how Silhouette integrates with Hyperliquid's HyperCore and HyperEVM to deliver shielded trading with deep liquidity and fast execution."
+keywords:
+  - Hyperliquid
+  - HyperEVM
+  - shielded trading
+  - decentralized exchange
+  - DeFi privacy
+  - Silhouette Exchange
+  - architecture
 ---
 
-## Hyperliquid is one blockchain
+# Hyperliquid Integration
 
-HyperCore and HyperEVM are two components of a single system. They have separate execution environments, but share a single global ledger state which is secured by [HyperBFT](https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/overview#consensus). This means that one set of validators ('replicas' in HotStuff, which HyperBFT is influenced by) is producing one chain of blocks that may contain both HyperCore and HyperEVM transactions.
+:::info For All Users
+This page explains how Silhouette integrates with Hyperliquid. Useful context for understanding performance and settlement, especially for traders familiar with Hyperliquid.
+:::
 
-A single state provides the ability to transfer assets directly between components, and for smart contracts on the HyperEVM to access HyperCore.
+Silhouette is built directly on Hyperliquid - the highest-performance decentralized exchange in crypto. Every shielded trade settles on Hyperliquid's order book. Understanding how Hyperliquid works helps explain why Silhouette is built the way it is.
+
+## One Blockchain, Two Components
+
+Hyperliquid is a single blockchain with two execution environments: **HyperCore** and **HyperEVM**. They share a single global ledger state, secured by [HyperBFT](https://hyperliquid.gitbook.io/hyperliquid-docs/hypercore/overview#consensus) consensus. One set of validators produces one chain of blocks that may contain transactions from both components.
 
 > *"The Hyperliquid blockchain features two key parts: HyperCore and HyperEVM. The HyperEVM is not a separate chain, but rather, secured by the same HyperBFT consensus as HyperCore. This lets the HyperEVM interact directly with parts of HyperCore, such as spot and perp order books."* - [Hyperliquid Docs](https://hyperliquid.gitbook.io/hyperliquid-docs/hyperevm)
 
+### HyperCore
 
-## Different Components Work on Different Timescales
+The high-performance trading engine. Purpose-built for financial primitives with sub-millisecond execution. This is where Hyperliquid's spot and perpetuals order books live, and where Silhouette's shielded trades ultimately settle.
 
-Hyperliquid has successfully segregated its components according to the speed at which different types of transactions need to occur. 
-- HyperCore is incredibly fast because it is purpose-built to run financial primitives
-- HyperEVM has fast (small) and slow (large) blocks to cater to users and builders respectively
-This means that the single, sequential Hyperliquid blockchain includes transactions from the different components at different times.
+HyperCore blocks are included approximately every **70ms**, supporting around 200,000 orders per second.
 
-> HyperCore blocks are included approximately every *70ms*, supporting about 200k orders/sec.\
-> Small HyperEVM block duration is *1s* (with a *2M* gas limit). \
-> Large HyperEVM block duration is *1min* (with a *30M* gas limit).
+### HyperEVM
+
+The Ethereum Virtual Machine-compatible layer. This is where smart contracts run, including the [Silhouette smart contract](/architecture/smart-contract) that holds your funds and stores your encrypted balances.
+
+HyperEVM has two block types to serve different needs:
+- **Fast blocks**: 1-second duration with a 2M gas limit - for user-facing transactions
+- **Large blocks**: 1-minute duration with a 30M gas limit - for builder and infrastructure operations
+
+## How Silhouette Uses Both Components
+
+Silhouette leverages the unique architecture of Hyperliquid by operating across both components:
+
+| Component | Silhouette's Use |
+|---|---|
+| **HyperCore** | Trade execution - shielded orders settle on the spot and perps order books |
+| **HyperEVM** | Fund custody and state - the [smart contract](/architecture/smart-contract) holds funds and stores encrypted balances |
+
+Because HyperCore and HyperEVM share a single ledger state, assets can move directly between them. This enables Silhouette to hold funds on the EVM (where smart contract logic provides security guarantees) while settling trades on HyperCore (where the order book provides liquidity and execution speed).
+
+## Why Hyperliquid
+
+Silhouette is built on Hyperliquid because it is the best execution venue in DeFi:
+
+- **Deepest liquidity**: More volume than any other decentralized exchange
+- **Fastest execution**: Sub-second finality on HyperCore
+- **Native EVM**: Smart contract capabilities without bridging to a separate chain
+- **Builder Codes**: A native framework for building execution infrastructure on top of Hyperliquid's order book
+- **Unified state**: Seamless flows between EVM smart contracts and the core order book
+
+Silhouette does not compete with Hyperliquid. We extend it. Every trade on Silhouette is a trade on Hyperliquid - just with a shielded route to get there.
+
+For a full picture of how Silhouette's components interact with Hyperliquid, see [Architecture Overview](/architecture/overview). To understand the role of the [TEE](/architecture/tee) in executing trades, see [Trusted Execution Environments](/architecture/tee).

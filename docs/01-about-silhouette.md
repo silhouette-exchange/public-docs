@@ -1,55 +1,63 @@
 ---
-title: About Silhouette
-sidebar_label: About Silhouette
-pagination_label: About Silhouette
+id: about-silhouette
+title: Introduction
+sidebar_label: Introduction
+pagination_label: Introduction
 slug: /about-silhouette
+description: "Silhouette is shielded trading on Hyperliquid. Trade on the same order book with full liquidity while keeping your strategy, size, and intent private."
+keywords:
+  - Silhouette Exchange
+  - shielded trading
+  - Hyperliquid trading
+  - DeFi privacy
+  - trade privacy
+  - decentralized exchange
+  - shielded execution
 ---
 
-:::info
+# Shield Everything
 
-Silhouette Exchange is currently under development, these docs and the information within them are subject to change.
+Every trade you place on a transparent ledger is a signal. Copy-trading bots mirror your positions. Front-runners extract value from your execution. Whale-tracking accounts broadcast your moves to thousands of followers. Your strategy becomes everyone else's strategy, except you carry the risk.
 
-:::
+Silhouette changes this. We sit between you and Hyperliquid's order book, processing your trade instructions while keeping your strategy, size, and intent confidential. Your trades settle on the same order book, tap into the same liquidity, and execute at the same prices. The difference is that no one sees you coming.
 
-Silhouette is the Shield Exchange that lets you trade on Hyperliquid without revealing your strategy. Your orders stay encrypted until settlement, protecting you from front-runners, copytrade bots and MEV extraction. 
+**Trade on Hyperliquid without showing your hand.**
 
-We believe markets work best when they are transparent at the public level but private at the personal level. Public transparency ensures integrity, efficiency, and fair price discovery across the system. At the same time, individuals and institutions deserve privacy for their trading activity, strategies, and portfolio choices. By combining these two principles, Silhouette creates a venue where market data remains open and auditable, while personal execution flows remain shielded, protecting participants without compromising on the health and transparency of the market itself.
+## Shielded Trading on Hyperliquid
 
-Transparent markets, private participants. Our mission is to bring liquidity on-chain. 
+Silhouette is a shielded layer on top of Hyperliquid. We are not a separate exchange. Every trade settles on Hyperliquid's order book, allowing you to keep access to the deepest liquidity in DeFi. We add confidentiality to your execution - we don't replace the stack.
 
-## Key features
+You choose how you trade based on your strategy: **Shielded** or **Naked**. Shielded routes your trade through Silhouette's secure environment, obscuring your activity from the public ledger. Naked routes directly to Hyperliquid, fully visible. The power is in the choice. Learn more about [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading).
 
-1. **Privacy-Preserving Execution**
-   - Shielded trading flows.
-   - Randomized execution (size/time jitter) prevents signaling risk.
-   - Net settlement design ensures only final balances hit public ledgers.
+## What Makes Silhouette Different
 
-2. **Public Market Transparency**
-   - Aggregate market data, volumes, and settlement remain open and auditable.
-   - Preserves price discovery and public trust while keeping personal flows private.
+### Same order book, same liquidity. 
+We extend Hyperliquid, we don't compete with it. No separate liquidity pool. No compromised price discovery. Your trades execute against the full depth of Hyperliquid's book.
 
-3. **Block-Trading & RFQ Mechanisms**
-   - Tooling for executing large orders.
-   - Reduces market impact and slippage.
+### Choice, not a mandate. 
+Other approaches force you into a separate, less liquid environment. Silhouette lets you toggle between Shielded and Naked on every trade. Use shielded when your intent matters. Use naked when it doesn't. Or whatever your strategy calls for.
 
-4. **Efficient HyperEVM to HyperCore flows**
-   - Native support for seamless flows between HyperEVM and HyperCore.
-   - Enables dApp interactions to settle directly into the core order book.
-   - Bridges on-chain programmability (EVM smart contracts) with off-chain performance (HyperCore engine).
-   - Unlocks hybrid execution strategies combining private venue flows with public liquidity.
+### Your funds, your control.
+Your funds are managed within Silhouette's secure environment. Your trading activity and balances remain private, visible only to you. Read more about [how your funds are secured](/architecture/smart-contract).
 
-5. **Policy engine support**
-   - Optional onchain policy engines for programmatic compliance logic.
-   - Trade-on chain while meeting your regulatory requirements. 
+## The Problem We Are Solving
 
-## The Problem We're Solving
+For all of finance to scale onchain, there must be a mechanism for confidential execution. Absolute transparency into every position at all times undermines legitimate use cases, particularly for entities that need to execute large trades or protect strategic flows.
 
-For all of finance to truly scale on-chain, there must be a mechanism for privacy. Absolute transparency into every position at all times undermines many legitimate use cases—particularly for institutions, treasuries, and funds that need to execute large trades or protect strategic flows. 
+Every serious financial market in the world has mechanisms for shielded execution. Dark pools handle over 40% of US equity volume. Block trading desks exist at every major bank. Information barriers are regulatory requirements, not optional features. The question is not whether crypto will adopt shielded execution. It is a matter of when the right team builds it.
 
-Previous attempts at building privacy into DeFi have fallen short. Many sacrificed liquidity and composability, isolating flows from the broader ecosystem. Others failed to offer the auditability and compliance frameworks institutions require, leaving adoption stalled. The result is a tradeoff between fully transparent but hostile markets, or fully opaque but untrusted ones.
+Previous attempts at building confidentiality into DeFi fell short. Many sacrificed liquidity and composability, isolating flows from the broader ecosystem. Others failed to offer the auditability and compliance frameworks that institutions require. It's not to say that those implementations were bad, but the timing was not ideal.
 
-Silhouette bridges this divide by combining public market transparency with private participant flows. Our design ensures that markets remain open, auditable, and trustworthy, while giving participants the confidentiality they need to trade at scale. This unlocks new flows from sophisticated actors and institutions, bringing depth and resilience to DeFi markets.
+Silhouette bridges this divide. Public market transparency with private participant flows. Markets remain open, auditable, and trustworthy, while participants get the confidentiality they need to trade at scale.
 
-### Core Team
+## Where We Are Headed
 
-The team behind Silhouette has roots in zero-knowledge cryptography, CEX bootstrapping, and protocol engineering. With experience spanning DeFi teams UMA, Across, Etherfi, AWS and Centralised exchanges like Luno and Coinbase, we’re building a product that bridges traditional capital markets rigor with crypto-native privacy primitives.
+Shielded spot is live today. But the vision is broader. Every order type that benefits from shielded execution - TWAP, VWAP, RFQ, perps, prediction markets - will run through the same core. Each new capability extends the shielded layer across more of DeFi.
+
+If Hyperliquid is a finance company running on crypto rails and will "House all Finance," a vital part of that vision is providing shielded execution for all order types. 
+
+**Shield everything.**
+
+## Core Team
+
+The team behind Silhouette has roots in zero-knowledge cryptography, exchange engineering, and protocol design. With experience spanning DeFi teams like UMA, Across, and Etherfi, infrastructure at AWS, and centralized exchanges like Luno and Coinbase, we are building a product that bridges traditional capital markets rigor with crypto-native execution.

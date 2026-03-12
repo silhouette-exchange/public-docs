@@ -3,17 +3,26 @@ title: Troubleshooting
 sidebar_label: Troubleshooting
 pagination_label: API Troubleshooting
 slug: /api/troubleshooting
+description: "Troubleshoot common Silhouette API errors including authentication failures, validation issues, and withdrawal problems with solutions."
+keywords:
+  - Silhouette API
+  - Hyperliquid API
+  - trading API
+  - API reference
+  - SIWE authentication
+  - programmatic trading
+  - shielded trading
 ---
 
 :::warning
-The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
+The Silhouette API and SDK are in beta. We are actively adding new operations.
 :::
 
 This section covers common errors you may encounter when using the Silhouette API and how to resolve them.
 
-## Common errors
+## Common Errors
 
-### Missing or invalid bearer token
+### Missing or Invalid Bearer Token
 
 ```json
 {
@@ -37,9 +46,9 @@ Solutions:
 
 - Ensure you include the `Authorization: Bearer YOUR_TOKEN_HERE` header in all authenticated requests
 - Verify the token format is correct (no extra spaces, correct prefix)
-- If the token is invalid or expired, authenticate again using the `login` operation or login assistant
+- If the token is invalid or expired, authenticate again using the `login` operation or login assistant. See [Authentication](/api/authentication) for details.
 
-### SIWE signature verification failed
+### SIWE Signature Verification Failed
 
 ```json
 {
@@ -63,8 +72,9 @@ Solutions:
 - Verify you're signing the exact SIWE message without modifications
 - Ensure the wallet address in the message matches the address of the signing key
 - Use the login assistant to simplify the SIWE authentication process (you can view the correct message when you sign)
+- Review the [Authentication](/api/authentication#manual-authentication-flow-advanced) guide for the correct signing flow
 
-### Missing required parameters
+### Missing Required Parameters
 
 ```json
 {
@@ -83,11 +93,11 @@ Causes:
 
 Solutions:
 
-- Check the operation documentation for required parameters
+- Check the [Reference](/api/reference) documentation for required parameters
 - Ensure all required fields are included in your request body
 - Verify parameter names are spelled correctly (case-sensitive)
 
-### Invalid parameter values or types
+### Invalid Parameter Values or Types
 
 ```json
 {
@@ -109,13 +119,13 @@ Causes:
 
 Solutions:
 
-- Check the operation documentation for valid parameter values
+- Check the [Reference](/api/reference) documentation for valid parameter values
 - Ensure you're using the exact string values specified (case-sensitive)
 - For numeric values, ensure they're formatted as strings
 - Ensure amounts and prices are positive values
 - Use decimal strings (e.g., `"100.5"`) or scaled integer strings
 
-### Operation not found
+### Operation Not Found
 
 ```json
 {
@@ -135,10 +145,10 @@ Causes:
 Solutions:
 
 - Verify the operation name is spelled correctly (case-sensitive)
-- Check the Operations section of this documentation for valid operation names
+- Check the [Reference](/api/reference) for valid operation names
 - Ensure you're using the correct API endpoint
 
-### Insufficient balance
+### Insufficient Balance
 
 ```json
 {
@@ -162,7 +172,7 @@ Solutions:
 - Cancel existing orders to free up locked funds
 - Deposit more funds before placing the order
 
-### Order not found
+### Order Not Found
 
 ```json
 {
@@ -187,7 +197,7 @@ Solutions:
 - Use `getUserOrders` to check your current orders
 - Ensure the order is in an `"open"` state before attempting to cancel
 
-### Withdrawal not found
+### Withdrawal Not Found
 
 ```json
 {
@@ -211,7 +221,7 @@ Solutions:
 - Use `getUserWithdrawals` to view your withdrawal history
 - You can only access your own withdrawals
 
-### Withdrawal already in progress
+### Withdrawal Already in Progress
 
 ```json
 {
@@ -234,7 +244,7 @@ Solutions:
 - Wait for the current withdrawal to complete before initiating a new one
 - If a withdrawal is stuck in pending state for an extended period, contact support
 
-### User not found
+### User Not Found
 
 ```json
 {
@@ -249,17 +259,17 @@ Solutions:
 
 Causes:
 
-- You haven't deposited funds yet. Your Silhouette account is initialised when you make your first deposit.
+- You haven't deposited funds yet. Your Silhouette account is initialized when you make your first deposit.
 
 Solutions:
 
-- Ensure you've deposited at least 5 USDC to the Silhouette contract address via `spotSend`
+- Ensure you've deposited at least 5 USDC to the Silhouette contract address via `spotSend`. See the [Quick Start](/api/quick-start#prerequisites) guide for details.
 - Wait for the deposit transaction to be confirmed on Hyperliquid
 - Verify you sent funds to the correct contract address:
   - Mainnet: `0x32F4712b3862ceB35945420c4361f02f1cc93b41`
   - Testnet: `0x2B065d0C4865a520bab6821C835a66B073e4e590`
 
-### Internal server error
+### Internal Server Error
 
 ```json
 {
@@ -284,7 +294,7 @@ Solutions:
 - If the error persists, check the Silhouette status page or contact support
 - Ensure your request is properly formatted
 
-### Service unavailable
+### Service Unavailable
 
 ```json
 {
@@ -309,13 +319,13 @@ Solutions:
 - Check for any maintenance announcements
 - If the service remains unavailable, contact support
 
-## General tips
+## General Tips
 
-### Check token validity
+### Check Token Validity
 
-Before making API requests, ensure your bearer token is still valid. Tokens expire after 24 hours, and you'll need to re-authenticate. Consider implementing automatic token refresh in your application.
+Before making API requests, ensure your bearer token is still valid. Tokens expire after 24 hours, and you'll need to re-authenticate. Consider implementing automatic token refresh in your application. See [Authentication](/api/authentication#token-expiry-and-renewal) for details.
 
-### Verify request format
+### Verify Request Format
 
 All API requests must:
 
@@ -325,11 +335,11 @@ All API requests must:
 - Include a valid `operation` field in the request body
 - For authenticated operations, include the `Authorization: Bearer YOUR_TOKEN_HERE` header
 
-### Ensure deposit has processed
+### Ensure Deposit Has Processed
 
 Before using the API, ensure your initial deposit has been confirmed on the Hyperliquid network. Your account must be activated with a minimum 5 USDC deposit before you can use any operations besides `login`.
 
-### Check network connectivity
+### Check Network Connectivity
 
 If requests are timing out or failing to connect:
 
@@ -337,13 +347,13 @@ If requests are timing out or failing to connect:
 - Check your firewall settings
 - Ensure your network allows HTTPS traffic to the API
 
-### Use the login assistant
+### Use the Login Assistant
 
 For easier authentication without dealing with SIWE message generation and signing manually, use the login assistant at [https://login.silhouette.exchange/](https://login.silhouette.exchange/).
 
-### Refer to operation documentation
+### Refer to Operation Documentation
 
-Each operation has detailed documentation above, including:
+Each operation has detailed documentation in the [Reference](/api/reference), including:
 
 - Required and optional parameters
 - Request and response examples
