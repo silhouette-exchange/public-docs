@@ -23,7 +23,7 @@ Here's what happens when you trade on Silhouette, step by step:
 
 ## 1. Connect and Deposit
 
-You connect your wallet to Silhouette - the same wallet you use across Hyperliquid and the broader EVM ecosystem. When you deposit, your funds move into Silhouette's secure environment. The TEE manages your balance internally and executes trades on your behalf. Learn more about [how your funds are secured](/architecture/smart-contract).
+You connect your wallet to Silhouette - the same wallet you use across Hyperliquid. When you deposit, your funds move into Silhouette's secure environment. The TEE manages your balance internally and executes trades on your behalf. Learn more in [Architecture Overview](/architecture/overview) and [TEE documentation](/architecture/tee).
 
 Your deposit is the last publicly visible action until you withdraw. Everything that happens inside Silhouette stays between you and the system.
 
@@ -40,9 +40,7 @@ You can switch between modes at any time. There is no commitment, no lockup, no 
 
 When you trade shielded, your order enters Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment that no one can access, not even the Silhouette team.
 
-Inside the TEE, your order is processed and matched. When it is time to settle, the trade is executed on Hyperliquid's order book through our agent wallets. These wallets aggregate activity from multiple users, so individual trades cannot be traced back to you. The market sees volume, but not who is behind it.
-
-Your encrypted balance is updated within Silhouette's shielded environment. Only you can decrypt your balance using your local encryption key, which never leaves your browser.
+Inside the TEE, your order is processed and matched. When it is time to settle, the trade is executed on Hyperliquid's order book via agent wallets. These wallets aggregate activity from multiple users, so individual trades cannot be traced back to you. The market sees volume, but not who is behind it. Your balance is securely updated within Silhouette's TEE.
 
 ## 4. Settlement
 

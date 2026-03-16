@@ -42,13 +42,11 @@ The delegated wallet aggregates activity from multiple users. The market sees th
 
 ### 4. Balance Update
 
-After execution, the TEE updates your encrypted balance on the Silhouette smart contract. The update reflects your new position - the asset you bought or sold, and the resulting balance.
-
-Only you can decrypt and view your updated balance. The onchain state contains the encrypted data, but it is meaningless without your local encryption key.
+After execution, the TEE updates your encrypted balance in the Silhouette TEE. The update reflects your new position - the asset you bought or sold, and the resulting balance. Your encrypted balance is not viewable by anyone, including by Silhouette.
 
 ### 5. Settlement Complete
 
-Your trade is now settled on Hyperliquid's order book. Your balance is updated on the Silhouette smart contract. The trade is final.
+Your trade is now settled on Hyperliquid's order book. Your balance is updated inside the Silhouette TEE. The trade is final.
 
 From the public ledger's perspective, all that happened was a trade from a delegated wallet on Hyperliquid - no connection to your identity, your strategy, or your position.
 
@@ -61,7 +59,7 @@ Naked orders follow a simpler path:
 3. The order executes on Hyperliquid's order book, fully visible
 4. Your wallet and trade details are recorded on the public ledger
 
-Naked orders do not interact with the TEE, delegated wallets, or the Silhouette smart contract. They are standard Hyperliquid trades routed through Silhouette's interface.
+Naked orders do not interact with the TEE or delegated wallets. They are standard Hyperliquid trades routed through Silhouette's interface.
 
 ## Order States
 
@@ -72,7 +70,7 @@ Naked orders do not interact with the TEE, delegated wallets, or the Silhouette 
 | **Executing** | The order is being submitted to Hyperliquid |
 | **Filled** | The order has been fully executed |
 | **Partially Filled** | Part of the order has been executed, with the remainder pending |
-| **Cancelled** | The order was cancelled (by you or by IoC expiry) |
+| **Cancelled** | The order was cancelled (for example by IoC expiry) |
 | **Expired** | A limit order reached its expiry time without being fully filled |
 
 To learn more about [shielded trading](/trading/shielded-trading) or the available [order types](/trading/order-types), visit the relevant pages.

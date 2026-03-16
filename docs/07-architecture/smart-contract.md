@@ -22,9 +22,8 @@ Silhouette manages user funds within a secure environment powered by a Trusted E
 
 ## Custody Model
 
-When you deposit into Silhouette, your funds are held in Silhouette's address on Hyperliquid. The [TEE](/architecture/tee) manages these funds on your behalf, tracking your encrypted balance internally and executing trades against Hyperliquid's order book.
-
-The TEE is an isolated computing environment that processes your instructions while keeping your activity private. Your balance is encrypted - only you can decrypt it using a key stored locally in your browser.
+<!-- DOCS_REWRITE: updated custody wording to reflect the current live contract role -->
+When you deposit into Silhouette, your funds enter Silhouette's custody flow on Hyperliquid. The [TEE](/architecture/tee) manages shielded execution and account state on your behalf. The TEE is an isolated computing environment that processes your instructions while keeping your activity private.
 
 ## How Settlement Works
 
@@ -32,7 +31,7 @@ All trades on Silhouette settle on Hyperliquid's order book. When you place a sh
 
 1. Your order enters the TEE
 2. The TEE matches and executes the trade on Hyperliquid
-3. Your encrypted balance is updated within the TEE
+3. Silhouette records the resulting account updates inside the shielded service
 4. The trade settles on Hyperliquid's order book
 
 From the outside, trades appear as activity from Silhouette's address. Individual users and their positions are not visible onchain.
@@ -49,7 +48,6 @@ When using Silhouette's shielded mode, you trust:
 
 - **The TEE** - an isolated environment that processes your trades privately
 - **Hyperliquid's infrastructure** - where all trades ultimately settle
-- **Your local encryption key** - which only you control
 
 The TEE cannot expose your balance or trading activity because it operates in an isolated environment. For more on how the TEE works, see [Trusted Execution Environment](/architecture/tee).
 

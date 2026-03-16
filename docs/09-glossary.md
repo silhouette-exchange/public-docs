@@ -45,16 +45,6 @@ Fresh Hyperliquid wallets used by Silhouette's TEE to execute shielded trades on
 
 ---
 
-## E
-
-**Encrypted Balance**
-Your balance inside Silhouette, stored as encrypted data within the TEE. Only decryptable by you using your local encryption key.
-
-**Encryption Key**
-A key generated and stored locally in your browser that shields your balances and trading activity from all parties except you. The private component never leaves your browser.
-
----
-
 ## H
 
 **HyperBFT**

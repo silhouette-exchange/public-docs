@@ -15,15 +15,15 @@ keywords:
 
 # Shielded Trading
 
-Shielded trading on Silhouette gives you full order confidentiality. Your trades are processed inside a secure execution environment, matched internally, and settled on Hyperliquid without revealing your identity, size, or intent. The only publicly visible events are your deposits and withdrawals.
+Shielded trading on Silhouette keeps your orders inside a secure execution environment and settles them on Hyperliquid through delegated wallets. The market can see delegated-wallet executions, but it does not get a direct mapping back to your wallet, size, or strategy.
 
 ## How It Works
 
 When you place a shielded order, it is routed to Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment hosted on AWS Nitro Enclaves. The TEE runs Silhouette's matching engine in a private environment that ensures orders are processed securely and confidentially. Trade data remains private to each user. Data inside the TEE is inaccessible to the Silhouette team.
 
-The TEE processes your order and executes it on Hyperliquid's order book through delegated wallets - fresh wallets controlled by the TEE that aggregate volume from multiple users. Individual activity is obscured within the wallet's total volume, shielding your trading strategies.
+The TEE processes your order and executes it on Hyperliquid's order book through delegated wallets - agent wallets controlled by the TEE that aggregate volume from multiple users. Individual activity is obscured within the wallet's total volume, shielding your trading strategies.
 
-After execution, your encrypted balance on the Silhouette smart contract is updated. Only you can decrypt your balance using your local encryption key.
+After execution, Silhouette updates your shielded account state and reports the result back to the app through authenticated API responses and events.
 
 ## What Is Currently Live
 
@@ -31,7 +31,8 @@ The current implementation of shielded trading on Silhouette works as follows:
 
 - The TEE places orders on Hyperliquid via agent wallets it controls
 - All orders execute as IoC (Immediate or Cancel), with no resting orders or pending states
-- When trades fill, Silhouette updates your encrypted balance
+- Market-intent orders are submitted with a client-derived price cap
+- When trades fill, Silhouette updates your shielded account balances and order state
 - You access Hyperliquid's full order book depth without broadcasting your identity
 
 This allows you to trade on the deepest liquidity in DeFi without publicly broadcasting your alpha. Your trades are anonymized, shielding your strategies from copy-trading bots, front-runners, and whale trackers.
@@ -45,7 +46,7 @@ This allows you to trade on the deepest liquidity in DeFi without publicly broad
 | Aggregate volume from delegated wallets | Your balance inside Silhouette |
 | | Your strategy and intent |
 
-Once you have deposited, trades update your encrypted balance on the Silhouette smart contract without revealing any details about your activity.
+Once you have deposited, shielded trades update your account state inside Silhouette without creating a direct public link between delegated-wallet executions and your wallet.
 
 ## Supported Markets
 

@@ -50,25 +50,17 @@ Shielded trading currently supports **spot markets** on Hyperliquid. Naked tradi
 
 ### What Order Types Are Supported?
 
-Market orders and limit orders. TWAP, VWAP, and RFQ are on the roadmap.
+Market and limit orders are supported in naked mode, and market orders are supported in shielded mode. Shielded limit orders, TWAPs, VWAPs, and RFQs are on the roadmap.
 
-### How Does Silhouette Handle Latency?
-
-Silhouette's primary constraint is the time between fast blocks on the HyperEVM, which is currently 1 second. Order processing within the TEE adds minimal overhead. Shielded trades settle on Hyperliquid within seconds.
-
-### Are There Fees?
-
-Silhouette is currently in **Open Beta with zero fees**. A tiered fee structure based on trading volume is planned. See the [Fees](/trading/fees) page for details.
 
 ## Security and Trust
 
-### How Does Silhouette Integrate With HyperCore and the HyperEVM?
+### How Does Silhouette Integrate With HyperCore?
 
 Silhouette's system comprises delegated wallets on HyperCore and a TEE. The TEE interacts with HyperCore for state management, deposits/withdrawals, and order settlement.
 
 ### Can the Silhouette Team See My Trades?
-
-No. Your orders are processed inside a Trusted Execution Environment (TEE) - a hardware-isolated computing environment that no one can access, including the Silhouette team. Your balance is encrypted with a key that never leaves your browser.
+No. Your orders are processed inside a Trusted Execution Environment (TEE) - a hardware-isolated computing environment that no one can access, including the Silhouette team.
 
 ### What Happens if Silhouette Goes Offline?
 
@@ -85,8 +77,7 @@ No. Your shielded orders are processed inside the TEE, where they are invisible 
 ## Funds and Withdrawals
 
 ### Where Are My Funds Held?
-
-In Silhouette's secure environment on Hyperliquid. The Silhouette team cannot see your balances or trading activity.
+Funds are stored within Silhouette's secure environment on Hyperliquid. The Silhouette team cannot see your balances or trading activity.
 
 ### How Do I Withdraw?
 
@@ -94,7 +85,7 @@ Initiate a withdrawal through the Silhouette UI. Your funds return to your walle
 
 ### What if I Clear My Browser Data?
 
-Your encryption key is stored locally in your browser. If you clear your data, you can re-derive your key by reconnecting your wallet. Your balance is unaffected.
+If you clear your browser data, you may need to reconnect your wallet and re-authenticate your session. Your deposited balance is not deleted by clearing local browser storage.
 
 ### How Do I Provide Feedback?
 

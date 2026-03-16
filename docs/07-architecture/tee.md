@@ -75,4 +75,4 @@ You do not need to trust Silhouette. The combination of hardware-isolated execut
 
 Your orders enter a sealed environment that no one can inspect. They are processed according to rules that anyone can verify. And the results settle on [Hyperliquid's](/architecture/hyperliquid) public order book, where the execution is transparent even though your identity is not.
 
-For an overview of how the TEE fits into Silhouette's broader architecture, see [Architecture Overview](/architecture/overview). To understand how the [smart contract](/architecture/smart-contract) verifies TEE outputs onchain, see [Smart Contract](/architecture/smart-contract).
+For an overview of how the TEE fits into Silhouette's broader architecture, see [Architecture Overview](/architecture/overview).

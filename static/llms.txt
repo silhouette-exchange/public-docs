@@ -1,0 +1,268 @@
+# Silhouette Exchange
+
+> Silhouette is the Shield Exchange that lets you trade on Hyperliquid without revealing your strategy. Orders stay inside Silhouette's shielded execution flow until delegated execution, protecting traders from front-runners, copytrade bots, and MEV extraction.
+
+Transparent markets, private participants. Silhouette's mission is to bring liquidity on-chain.
+
+- Website: https://silhouette.exchange
+- App: https://app.silhouette.exchange
+- Docs: https://docs.silhouette.exchange
+- API (mainnet): https://api.silhouette.exchange/v0
+- API (testnet): https://api-testnet.silhouette.exchange/v0
+- Login assistant: https://login.silhouette.exchange
+- OpenAPI spec: https://api.silhouette.exchange/swagger/v0/json
+- Python SDK: https://pypi.org/project/silhouette-python-sdk/
+
+## What is Silhouette?
+
+Silhouette is a privacy-preserving exchange (a "Shield Exchange") built on Hyperliquid. It combines public market transparency with private participant flows. Aggregate market data, volumes, and settlement remain open and auditable, while individual orders and trading strategies stay shielded inside a Trusted Execution Environment (TEE).
+
+### Key Features
+
+1. **Privacy-Preserving Execution** - Shielded trading routes orders through a TEE and delegated wallets so the market does not get a direct public mapping back to the user.
+2. **Public Market Transparency** - Execution still happens on Hyperliquid, preserving open market liquidity and price discovery.
+3. **Block-Trading & RFQ Mechanisms** - RFQ and related tooling are available for larger or more structured execution flows.
+4. **API and SDK Access** - The enclave API and Python SDK support programmatic access to balances, orders, withdrawals, discovery, and delegated-order data.
+
+### Current Status
+
+- Spot trading available across the live supported shielded pairs exposed by the app and API
+- Shielded and Naked trading modes
+- UI supports market and limit entry; live shielded spot orders are submitted as delegated IoC orders
+- API and Python SDK in beta
+
+## Trading Modes
+
+### Shielded Trading
+
+Shielded Trading provides order privacy. The current implementation ("Shielded Level 1" or "delegated trading") places orders on behalf of users via agent wallets controlled by Silhouette. Delegated trades are placed as IoC (immediate or cancel) orders on Hyperliquid. This allows traders to tap into Hyperliquid's deep order book without publicly broadcasting their alpha. Deposits, withdrawals, and delegated-wallet executions are visible on Hyperliquid, but there is no direct public mapping from those executions back to an individual user's shielded activity.
+
+### Naked Trading
+
+Naked Trading routes orders directly to Hyperliquid via Builder Codes. Trades are not private. Both perpetuals and spot markets are supported via Naked Trading.
+
+### Order Types
+
+- **Market**: In shielded mode, the client derives a price cap and Silhouette submits a delegated IoC order.
+- **Limit**: In shielded mode, the order is submitted as a delegated IoC at the selected price or better.
+
+## Architecture
+
+Silhouette's live architecture centers on the UI, the TEE, and Hyperliquid.
+
+### Trusted Execution Environment (TEE)
+
+Silhouette's core matching engine (called Heimdall) runs in an AWS Nitro Enclave on the Marlin network. Nitro Enclaves are secure, isolated environments that enable confidential computation — neither AWS nor anyone else has access. Deployments are multi-region with active-passive failover.
+
+Verifiable execution is achieved through PCR0 (Platform Configuration Register 0), a SHA-384 hash of the enclave image file that definitively identifies the exact code running inside the enclave. Reproducible builds using Nix enable anyone to rebuild the enclave image from source and verify PCR0.
+
+### Hyperliquid
+
+HyperCore is the live market and transfer surface used by Silhouette's current user flow. Hyperliquid is secured by HyperBFT consensus, and HyperCore blocks are included approximately every 70ms (~200k orders/sec).
+
+## Fees
+
+Current fee schedules depend on trading mode and live configuration. See the docs site for the latest fee details.
+
+When enabled, spot fee tiers (by 30-day volume):
+
+| 30-Day Volume    | Taker Fee | Maker Fee |
+|------------------|-----------|-----------|
+| <= $5M           | 0.17%     | 0.14%     |
+| > $5M to $25M    | 0.16%     | 0.13%     |
+| > $25M to $100M  | 0.15%     | 0.12%     |
+| > $100M to $500M | 0.14%     | 0.11%     |
+| > $500M to $2B   | 0.135%    | 0.00%     |
+| > $2B to $7B     | 0.13%     | 0.00%     |
+| > $7B            | 0.125%    | 0.00%     |
+
+## Referral Program
+
+- Referrer rebate: 0% in the current live config
+- Referee discount: 0% in the current live config
+- Referrer activation threshold: $10,000 notional volume
+- Referrer volume cap: $1B per referee
+- Referee discount volume cap: $25M
+- Reward claiming UI: coming soon
+
+## Quickstart
+
+1. Connect your EVM wallet at https://app.silhouette.exchange
+2. Toggle from "Naked" to "Shielded" mode
+3. Click "Connect Shielded" to connect to Silhouette's Shielded Trading flow
+4. Deposit one of the currently supported spot assets from HyperCore to Silhouette
+5. Begin trading any supported shielded spot pair shown in the app
+
+## API
+
+The Silhouette API uses a discriminated union pattern — all requests are POST requests to the same endpoint (`/v0`) with an `operation` field specifying the action.
+
+### Authentication
+
+Authentication uses Sign-In With Ethereum (SIWE). The flow is:
+
+1. Generate a SIWE message with `domain: "api.silhouette.exchange"` and `statement: "Sign in with Ethereum to the app."`
+2. Sign the message with your wallet's private key
+3. Call the `login` operation with the message and signature
+4. Receive a JWT bearer token (expires after 24 hours)
+5. Include the token in the `Authorization: Bearer <token>` header for all subsequent requests
+
+API wallet login is also supported — sign with a Hyperliquid API wallet and include `primaryAddress` in the login request.
+
+The easiest way to authenticate is via the login assistant at https://login.silhouette.exchange/.
+
+### Available Operations
+
+**Authentication:**
+- `login` — Authenticate via SIWE to get a JWT bearer token. No auth required.
+
+**Balances:**
+- `getBalances` — Get available, locked, and total balances for all tokens. Auth required.
+
+**Discovery & Health:**
+- `getTokens` — Get metadata for supported tokens.
+- `getMarkets` — Get metadata for supported markets.
+- `getHealth`, `getHealthFeatures`, `getHealthInfo`, `getHealthReady` — Health and feature discovery endpoints.
+
+**Orders:**
+- `createOrder` — Place a buy or sell shielded spot order. The current live flow requires `price` and submits the order as a delegated IoC. Auth required.
+- `getUserOrders` — List orders, optionally filtered by `status` (pending, open, filled, partially_filled, cancelled, expired, failed). Auth required.
+- `listDelegatedOrders`, `getDelegatedOrder`, `batchGetDelegatedOrders` — Query delegated-order records. Auth required.
+
+**Withdrawals:**
+- `initiateWithdrawal` — Request withdrawal of an enabled token symbol for `amount`. Only one pending withdrawal at a time. Auth required.
+- `getWithdrawalStatus` — Check status of a withdrawal by `withdrawalId`. States: pending, completed, failed. Auth required.
+- `getUserWithdrawals` — List all your withdrawals. Auth required.
+
+### API Request Format
+
+All requests:
+```
+POST https://api.silhouette.exchange/v0
+Content-Type: application/json
+Authorization: Bearer <token>   (for authenticated operations)
+
+{
+  "operation": "<operation_name>",
+  ...additional parameters
+}
+```
+
+### API Response Format
+
+Success:
+```json
+{
+  "operation": "<operation_name>",
+  "...payloadFields": "...",
+  "responseMetadata": {
+    "timestamp": 1705313400,
+    "requestId": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+Error:
+```json
+{
+  "operation": "<operation_name>",
+  "error": "Error description",
+  "code": "ERROR_CODE",
+  "responseMetadata": {
+    "timestamp": 1705313400
+  }
+}
+```
+
+### Token Amounts
+
+Amounts in API responses come in two formats:
+- Raw strings in the token's smallest unit (e.g., `"1000000000"` = 1,000 USDC in micro-USDC)
+- Human-readable float strings (e.g., `"1000.0"`)
+
+When sending amounts in requests (createOrder, initiateWithdrawal), use human-readable decimal strings (e.g., `"100"` or `"100.5"`). Values are automatically scaled.
+
+### Supported Tokens
+
+Use `getTokens` and `getMarkets` to discover the live supported set. Current app-facing environments include USDC, USDH, and HYPE, with additional assets enabled in some deployments.
+
+### Order Statuses
+
+- `pending` — Created but not yet processed
+- `open` — Active and can be filled
+- `filled` — Completely executed
+- `partially_filled` — Partially executed
+- `cancelled` — Cancelled by user
+- `expired` — Expired before being filled
+- `failed` — Failed to process
+
+## Python SDK
+
+```bash
+pip install silhouette-python-sdk
+```
+
+```python
+from silhouette import SilhouetteApiClient
+
+client = SilhouetteApiClient(
+    base_url="https://api.silhouette.exchange",
+    private_key="your_private_key_here",
+    auto_auth=True,
+)
+
+# Check balances
+balances = client.user.get_balances()
+
+# Place an order
+order = client.order.create_order(
+    side="buy",
+    order_type="limit",
+    base_token="HYPE",
+    quote_token="USDC",
+    amount="1.0",
+    price="0.001",
+)
+```
+
+## Glossary
+
+- **Agent Wallet**: Fresh Hyperliquid wallets used to execute aggregated trades on HyperCore, maximizing privacy.
+- **Attestation**: CBOR-encoded, COSE-signed documents from Nitro Hypervisor that verify the exact code running inside an enclave.
+- **HyperBFT**: Consensus mechanism securing the unified Hyperliquid blockchain.
+- **HyperCore**: High-performance trading component of Hyperliquid with sub-millisecond execution.
+- **Matching Engine**: Price-time priority order matching system running inside the secure enclave.
+- **Naked Trading**: Trading mode where orders route directly to Hyperliquid (not private).
+- **PCR0**: Platform Configuration Register 0 — SHA-384 hash identifying exact code running in a Nitro Enclave.
+- **Shielded Trading**: Privacy-preserving trading mode where orders are hidden within the TEE.
+- **SIWE**: Sign-In With Ethereum — standard authentication using wallet signatures.
+- **TEE**: Trusted Execution Environment — secure, isolated computing environment (AWS Nitro Enclaves).
+
+## Security
+
+Report vulnerabilities to: security@silhouette.exchange
+Response time: 48-hour acknowledgment, 5 business days initial assessment.
+
+## Documentation Map
+
+- About Silhouette: /docs/about-silhouette
+- Quickstart: /docs/quickstart
+- Onboarding - Start Trading: /docs/onboarding/start-trading
+- Onboarding - Withdraw: /docs/onboarding/withdraw
+- Shielded Trading: /docs/trading/shielded-trading
+- Naked Trading: /docs/trading/naked-trading
+- Order Types: /docs/trading/order-types
+- Architecture Overview: /docs/architecture/overview
+- TEE: /docs/architecture/tee
+- Hyperliquid: /docs/architecture/hyperliquid
+- Fees: /docs/fees
+- Referrals: /docs/referrals
+- FAQ: /docs/faq
+- Glossary: /docs/glossary
+- API Overview: /docs/api
+- API Quick Start: /docs/api/quick-start
+- API Authentication: /docs/api/authentication
+- API Reference: /docs/api/reference
+- API Troubleshooting: /docs/api/troubleshooting
+- OpenAPI Spec: /docs/api/openapi
+- Python SDK: /docs/sdk

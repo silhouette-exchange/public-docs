@@ -87,11 +87,7 @@ const sidebars: SidebarsConfig = {
           id: 'architecture/tee',
           label: 'TEE',
         },
-        {
-          type: 'doc',
-          id: 'architecture/smart-contract',
-          label: 'Smart Contract',
-        },
+        // DOCS_REWRITE: removed deleted smart-contract architecture page from navigation
         {
           type: 'doc',
           id: 'architecture/hyperliquid',

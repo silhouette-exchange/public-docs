@@ -37,13 +37,13 @@ Once in Shielded mode, you will be prompted to click the **Connect Shielded** bu
 
 ## 4. Deposit Funds
 
-If you have assets on HyperCore, deposit them to Silhouette by clicking **To Silhouette** in the Accounts Dashboard (when in Naked mode), or by clicking **Transfer to/from Silhouette** in the Balances section at any time. Your funds are held in a smart contract that [only your wallet controls](/architecture/smart-contract).
+If you have assets on HyperCore, deposit them to Silhouette by clicking **To Silhouette** in the Accounts Dashboard (when in Naked mode), or by clicking **Transfer to/from Silhouette** in the Balances section at any time. Your funds then enter Silhouette's shielded custody flow on Hyperliquid.
 
 <img src="/img/flows/deposit-withdraw.png" alt="Deposit funds" />
 
 ## 5. Start Trading
 
-You are ready to trade. Place shielded spot orders on HYPE/USDC and any other supported pairs. Your orders are processed inside the TEE and settled on Hyperliquid - without anyone seeing your strategy.
+You are ready to trade. Place shielded spot orders on any supported pair shown in the app. Your orders are processed inside the TEE and settled on Hyperliquid--without anyone seeing your strategy.
 
 For more detail on how shielded trading works, see [Shielded Trading](/trading/shielded-trading).
 

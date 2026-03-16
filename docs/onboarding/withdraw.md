@@ -22,7 +22,8 @@ To deposit funds into Silhouette, you need assets on HyperCore (Hyperliquid's hi
 2. Select the asset and amount you want to deposit
 3. Confirm the transaction in your wallet
 
-Your deposit will be detected by Silhouette's system and your encrypted balance will be updated. Deposits are the only publicly visible action onchain - once your funds are inside Silhouette, your trading activity is [shielded](/trading/shielded-trading).
+<!-- DOCS_REWRITE: removed legacy encrypted-balance wording from onboarding flow -->
+Your deposit will be detected by Silhouette's system and your account state will be updated in the shielded service. Deposits are publicly visible on Hyperliquid; once your funds are inside Silhouette, your trading activity is [shielded](/trading/shielded-trading).
 
 ## Withdrawing Funds
 
