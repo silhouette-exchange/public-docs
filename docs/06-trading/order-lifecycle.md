@@ -59,7 +59,7 @@ Naked orders follow a simpler path:
 3. The order executes on Hyperliquid's order book, fully visible
 4. Your wallet and trade details are recorded on the public ledger
 
-Naked orders do not interact with the TEE, delegated wallets, or the Silhouette smart contract. They are standard Hyperliquid trades routed through Silhouette's interface.
+Naked orders do not interact with the TEE or delegated wallets. They are standard Hyperliquid trades routed through Silhouette's interface.
 
 ## Order States
 
@@ -70,7 +70,7 @@ Naked orders do not interact with the TEE, delegated wallets, or the Silhouette 
 | **Executing** | The order is being submitted to Hyperliquid |
 | **Filled** | The order has been fully executed |
 | **Partially Filled** | Part of the order has been executed, with the remainder pending |
-| **Cancelled** | The order was cancelled (by you or by IoC expiry) |
+| **Cancelled** | The order was cancelled (for example by IoC expiry) |
 | **Expired** | A limit order reached its expiry time without being fully filled |
 
 To learn more about [shielded trading](/trading/shielded-trading) or the available [order types](/trading/order-types), visit the relevant pages.

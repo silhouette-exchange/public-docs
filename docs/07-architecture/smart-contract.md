@@ -23,9 +23,7 @@ Silhouette manages user funds within a secure environment powered by a Trusted E
 ## Custody Model
 
 <!-- DOCS_REWRITE: updated custody wording to reflect the current live contract role -->
-When you deposit into Silhouette, your funds enter Silhouette's custody flow on Hyperliquid. The [TEE](/architecture/tee) manages shielded execution and account state on your behalf while the onchain contract path participates in custody and withdrawal finalization.
-
-The TEE is an isolated computing environment that processes your instructions while keeping your activity private. In the current live flow, the app accesses balances and order state through authenticated APIs rather than a user-managed local decryption workflow.
+When you deposit into Silhouette, your funds enter Silhouette's custody flow on Hyperliquid. The [TEE](/architecture/tee) manages shielded execution and account state on your behalf. The TEE is an isolated computing environment that processes your instructions while keeping your activity private.
 
 ## How Settlement Works
 

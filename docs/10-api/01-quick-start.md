@@ -27,14 +27,11 @@ Before you can use the Silhouette API, you need to complete the following steps:
 
 2. Use Hyperliquid's `spotSend` operation to transfer funds to the Silhouette address to activate your account in Silhouette:
 
-   | Network | Contract address |
-   |---------|------------------|
+   | Network | Silhouette address |
+   |---------|--------------------|
    | Mainnet | `0x20b533DEFba689b6146a5C49250A59f2dbc75681` |
    | Testnet | `0xBc0E81a9A41e0119387ced63456deC0C597478E9` |
 
-   :::warning
-   You must deposit at least 5 USDC to activate your account.
-   :::
 
    :::tip
    For testnet, you can obtain free test USDC from the [Hyperliquid testnet faucet](https://hyperliquid.gitbook.io/hyperliquid-docs/onboarding/testnet-faucet).

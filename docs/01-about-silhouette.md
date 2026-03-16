@@ -38,7 +38,7 @@ We extend Hyperliquid, we don't compete with it. No separate liquidity pool. No 
 Other approaches force you into a separate, less liquid environment. Silhouette lets you toggle between Shielded and Naked on every trade. Use shielded when your intent matters. Use naked when it doesn't. Or whatever your strategy calls for.
 
 ### Your funds, your control.
-Your funds are managed within Silhouette's secure environment. Your trading activity and balances remain private, visible only to you. Read more about [how your funds are secured](/architecture/smart-contract).
+Your funds are managed within Silhouette's secure environment. Your trading activity and balances remain private, visible only to you. Read more in [Architecture Overview](/architecture/overview) and [TEE documentation](/architecture/tee).
 
 ## The Problem We Are Solving
 

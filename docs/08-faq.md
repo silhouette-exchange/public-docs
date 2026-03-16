@@ -52,17 +52,10 @@ Shielded trading currently supports **spot markets** on Hyperliquid. Naked tradi
 
 Market and limit orders are supported in naked mode, and market orders are supported in shielded mode. Shielded limit orders, TWAPs, VWAPs, and RFQs are on the roadmap.
 
-### How Does Silhouette Handle Latency?
-
-Silhouette's primary constraint is the time between fast blocks on the HyperEVM, which is currently 1 second. Order processing within the TEE adds minimal overhead. Shielded trades settle on Hyperliquid within seconds.
-
-### Are There Fees?
-
-Silhouette is currently in **Open Beta with zero fees**. A tiered fee structure based on trading volume is planned. See the [Fees](/trading/fees) page for details.
 
 ## Security and Trust
 
-### How Does Silhouette Integrate With HyperCore and the HyperEVM?
+### How Does Silhouette Integrate With HyperCore?
 
 Silhouette's system comprises delegated wallets on HyperCore and a TEE. The TEE interacts with HyperCore for state management, deposits/withdrawals, and order settlement.
 

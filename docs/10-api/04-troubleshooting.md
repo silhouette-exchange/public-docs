@@ -169,16 +169,15 @@ Causes:
 Solutions:
 
 - Use `getBalances` to check your available balance
-- Cancel existing orders to free up locked funds
 - Deposit more funds before placing the order
 
 ### Order Not Found
 
 ```json
 {
-  "operation": "cancelOrder",
-  "error": "Failed to cancel order.",
-  "code": "CANCELLATION_ERROR",
+  "operation": "getDelegatedOrder",
+  "error": "Delegated order with ID '550e8400-e29b-41d4-a716-446655440000' not found for user",
+  "code": "NOT_FOUND",
   "responseMetadata": {
     "timestamp": 1705313400
   }
@@ -189,13 +188,11 @@ Causes:
 
 - The order ID doesn't exist
 - The order belongs to another user
-- The order has already been cancelled, filled, or expired
 
 Solutions:
 
 - Verify the order ID is correct
 - Use `getUserOrders` to check your current orders
-- Ensure the order is in an `"open"` state before attempting to cancel
 
 ### Withdrawal Not Found
 
@@ -263,11 +260,12 @@ Causes:
 
 Solutions:
 
-- Ensure you've deposited at least 5 USDC to the Silhouette contract address via `spotSend`. See the [Quick Start](/api/quick-start#prerequisites) guide for details.
+<!-- DOCS_REWRITE: updated account initialization troubleshooting to remove obsolete minimum-deposit and contract-address guidance -->
+- Ensure you've made a deposit via `spotSend` to the current Silhouette address for your environment. See the [Quick Start](/api/quick-start#prerequisites) guide for details.
 - Wait for the deposit transaction to be confirmed on Hyperliquid
-- Verify you sent funds to the correct contract address:
-  - Mainnet: `0x32F4712b3862ceB35945420c4361f02f1cc93b41`
-  - Testnet: `0x2B065d0C4865a520bab6821C835a66B073e4e590`
+- Verify you sent funds to the correct Silhouette address:
+  - Mainnet: `0x20b533DEFba689b6146a5C49250A59f2dbc75681`
+  - Testnet: `0xBc0E81a9A41e0119387ced63456deC0C597478E9`
 
 ### Internal Server Error
 
@@ -337,7 +335,7 @@ All API requests must:
 
 ### Ensure Deposit Has Processed
 
-Before using the API, ensure your initial deposit has been confirmed on the Hyperliquid network. Your account must be activated with a minimum 5 USDC deposit before you can use any operations besides `login`.
+Before using the API, ensure your initial deposit has been confirmed on the Hyperliquid network. Your account becomes available after Silhouette detects that deposit; a fixed 5 USDC activation minimum is not currently enforced.
 
 ### Check Network Connectivity
 

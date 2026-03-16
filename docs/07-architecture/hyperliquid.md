@@ -2,7 +2,7 @@
 title: Hyperliquid Integration
 sidebar_label: Hyperliquid
 pagination_label: Hyperliquid
-description: "Learn how Silhouette integrates with Hyperliquid's HyperCore and HyperEVM to deliver shielded trading with deep liquidity and fast execution."
+description: "Learn how Silhouette integrates with Hyperliquid's HyperCore to deliver shielded trading with deep liquidity and fast execution."
 keywords:
   - Hyperliquid
   - HyperEVM
@@ -19,7 +19,7 @@ keywords:
 This page explains how Silhouette integrates with Hyperliquid. Useful context for understanding performance and settlement, especially for traders familiar with Hyperliquid.
 :::
 
-Silhouette is built directly on Hyperliquid - the highest-performance decentralized exchange in crypto. Every shielded trade settles on Hyperliquid's order book. Understanding how Hyperliquid works helps explain why Silhouette is built the way it is.
+Silhouette is built directly on Hyperliquid - the highest-performance decentralised exchange in crypto. Every shielded trade settles on Hyperliquid's order book. Understanding how Hyperliquid works helps explain why Silhouette is built the way it is.
 
 ## One Blockchain, Two Components
 
@@ -39,9 +39,7 @@ Silhouette is built on Hyperliquid because it is the best execution venue in DeF
 
 - **Deepest liquidity**: More volume than any other decentralized exchange
 - **Fastest execution**: Sub-second finality on HyperCore
-- **Native EVM**: Smart contract capabilities without bridging to a separate chain
 - **Builder Codes**: A native framework for building execution infrastructure on top of Hyperliquid's order book
-- **Unified state**: Seamless flows between EVM smart contracts and the core order book
 
 Silhouette does not compete with Hyperliquid. We extend it. Every trade on Silhouette is a trade on Hyperliquid - just with a shielded route to get there.
 
