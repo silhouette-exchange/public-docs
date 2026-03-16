@@ -33,26 +33,6 @@ The high-performance trading engine. Purpose-built for financial primitives with
 
 HyperCore blocks are included approximately every **70ms**, supporting around 200,000 orders per second.
 
-### HyperEVM
-
-<!-- DOCS_REWRITE: updated HyperEVM description to match the live contract role -->
-The Ethereum Virtual Machine-compatible layer. This is where smart contracts run, including the [Silhouette smart contract](/architecture/smart-contract) used in Silhouette's custody and withdrawal flow.
-
-HyperEVM has two block types to serve different needs:
-- **Fast blocks**: 1-second duration with a 2M gas limit - for user-facing transactions
-- **Large blocks**: 1-minute duration with a 30M gas limit - for builder and infrastructure operations
-
-## How Silhouette Uses Both Components
-
-Silhouette leverages the unique architecture of Hyperliquid by operating across both components:
-
-| Component | Silhouette's Use |
-|---|---|
-| **HyperCore** | Trade execution - shielded orders settle on the spot and perps order books |
-| **HyperEVM** | Fund custody and withdrawal flow - the [smart contract](/architecture/smart-contract) provides Silhouette's onchain contract component |
-
-Because HyperCore and HyperEVM share a single ledger state, assets can move directly between them. This enables Silhouette to hold funds on the EVM (where smart contract logic provides security guarantees) while settling trades on HyperCore (where the order book provides liquidity and execution speed).
-
 ## Why Hyperliquid
 
 Silhouette is built on Hyperliquid because it is the best execution venue in DeFi:

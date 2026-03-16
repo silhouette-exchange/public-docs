@@ -23,7 +23,6 @@ When you place a shielded order, it is routed to Silhouette's Trusted Execution 
 
 The TEE processes your order and executes it on Hyperliquid's order book through delegated wallets - agent wallets controlled by the TEE that aggregate volume from multiple users. Individual activity is obscured within the wallet's total volume, shielding your trading strategies.
 
-<!-- DOCS_REWRITE: removed stale encrypted-balance claims and aligned with live account-state behavior -->
 After execution, Silhouette updates your shielded account state and reports the result back to the app through authenticated API responses and events.
 
 ## What Is Currently Live

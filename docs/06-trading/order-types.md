@@ -15,7 +15,6 @@ keywords:
 
 # Order Types
 
-<!-- DOCS_REWRITE: updated shielded order semantics to match current IOC delegated-order behavior -->
 Silhouette currently exposes market and limit order entry in the UI. In [naked](/trading/naked-trading) mode, orders route directly to Hyperliquid. In [shielded](/trading/shielded-trading) mode, the live spot flow submits delegated IOC orders, so shielded orders do not rest on the public book.
 
 ## Market Orders
