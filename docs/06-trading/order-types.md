@@ -15,29 +15,30 @@ keywords:
 
 # Order Types
 
-Silhouette currently supports two order types for both [shielded](/trading/shielded-trading) and [naked](/trading/naked-trading) trading. Additional order types - including TWAP, VWAP, and RFQ - are on the roadmap.
+<!-- DOCS_REWRITE: updated shielded order semantics to match current IOC delegated-order behavior -->
+Silhouette currently exposes market and limit order entry in the UI. In [naked](/trading/naked-trading) mode, orders route directly to Hyperliquid. In [shielded](/trading/shielded-trading) mode, the live spot flow submits delegated IOC orders, so shielded orders do not rest on the public book.
 
 ## Market Orders
 
-A market order executes immediately at the best available price on Hyperliquid's order book. You specify the asset and the size. The system fills your order at the current market price.
+A market order is the fastest way to request immediate execution. In naked mode, it routes directly to Hyperliquid. In the current shielded flow, the client derives a price cap from your slippage settings and submits the order as a delegated IOC.
 
 **Use market orders when:**
 - Speed of execution matters more than price precision
 - You want immediate entry or exit from a position
 - The asset has sufficient liquidity that slippage is minimal
 
-**How it works with shielded trading:** Your market order is processed in the TEE and submitted to Hyperliquid as an IoC (Immediate or Cancel) order through a delegated wallet. It fills against the live order book at the best available price, with your identity obscured.
+**How it works with shielded trading:** The webapp computes a price cap for your market-intent order and submits it to the TEE. The TEE then places a delegated IoC (Immediate or Cancel) order on Hyperliquid. If enough liquidity is available within that price cap, it fills immediately; otherwise the unfilled portion cancels.
 
 ## Limit Orders
 
-A limit order executes at your specified price or better. You set the asset, the size, and the price you are willing to pay (or receive). The order only fills when the market reaches your price.
+A limit order executes at your specified price or better. You set the asset, the size, and the price you are willing to pay (or receive).
 
 **Use limit orders when:**
 - You want to control the exact price of your execution
 - You are willing to wait for the market to come to you
 - You want to set a buy below or sell above the current market price
 
-**How it works with shielded trading:** Your limit order is held in the TEE until the market reaches your specified price. When conditions are met, the order is submitted to Hyperliquid through a delegated wallet at your limit price or better.
+**How it works with shielded trading:** In the current live flow, shielded limit orders are also submitted as delegated IoC orders. They are price-capped at your chosen limit price, and any unfilled remainder cancels rather than resting indefinitely.
 
 ## Coming Soon
 

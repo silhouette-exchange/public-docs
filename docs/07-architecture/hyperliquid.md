@@ -35,7 +35,8 @@ HyperCore blocks are included approximately every **70ms**, supporting around 20
 
 ### HyperEVM
 
-The Ethereum Virtual Machine-compatible layer. This is where smart contracts run, including the [Silhouette smart contract](/architecture/smart-contract) that holds your funds and stores your encrypted balances.
+<!-- DOCS_REWRITE: updated HyperEVM description to match the live contract role -->
+The Ethereum Virtual Machine-compatible layer. This is where smart contracts run, including the [Silhouette smart contract](/architecture/smart-contract) used in Silhouette's custody and withdrawal flow.
 
 HyperEVM has two block types to serve different needs:
 - **Fast blocks**: 1-second duration with a 2M gas limit - for user-facing transactions
@@ -48,7 +49,7 @@ Silhouette leverages the unique architecture of Hyperliquid by operating across 
 | Component | Silhouette's Use |
 |---|---|
 | **HyperCore** | Trade execution - shielded orders settle on the spot and perps order books |
-| **HyperEVM** | Fund custody and state - the [smart contract](/architecture/smart-contract) holds funds and stores encrypted balances |
+| **HyperEVM** | Fund custody and withdrawal flow - the [smart contract](/architecture/smart-contract) provides Silhouette's onchain contract component |
 
 Because HyperCore and HyperEVM share a single ledger state, assets can move directly between them. This enables Silhouette to hold funds on the EVM (where smart contract logic provides security guarantees) while settling trades on HyperCore (where the order book provides liquidity and execution speed).
 

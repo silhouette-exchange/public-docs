@@ -67,9 +67,8 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZGRyZXNzIjoiMHgxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwIiwiY2hhaW5JZCI6MSwiaWF0IjoxNzA1MzEzNDAwLCJleHAiOjE3MDUzMTcwMDB9.signature_here"
-  },
+  "operation": "login",
+  "token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJhZGRyZXNzIjoiMHgxMjM0NTY3ODkwMTIzNDU2Nzg5MDEyMzQ1Njc4OTAxMjM0NTY3ODkwIiwiY2hhaW5JZCI6MSwiaWF0IjoxNzA1MzEzNDAwLCJleHAiOjE3MDUzMTcwMDB9.signature_here",
   "responseMetadata": {
     "timestamp": 1705313400,
     "requestId": "550e8400-e29b-41d4-a716-446655440000"
@@ -153,19 +152,18 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "balances": [
-      {
-        "token": "USDC",
-        "available": "1000000000",
-        "availableFloat": "1000.0",
-        "locked": "250000000",
-        "lockedFloat": "250.0",
-        "total": "1250000000",
-        "totalFloat": "1250.0"
-      }
-    ]
-  },
+  "operation": "getBalances",
+  "balances": [
+    {
+      "token": "USDC",
+      "available": "1000000000",
+      "availableFloat": "1000.0",
+      "locked": "250000000",
+      "lockedFloat": "250.0",
+      "total": "1250000000",
+      "totalFloat": "1250.0"
+    }
+  ],
   "responseMetadata": {
     "timestamp": 1705313400,
     "requestId": "550e8400-e29b-41d4-a716-446655440000"
@@ -222,7 +220,7 @@ curl https://api.silhouette.exchange/v0 \
 
 ## createOrder
 
-Create a new order to buy or sell tokens. Orders can be either limit orders (executed at a specific price or better) or market orders (executed immediately at the best available price).
+Create a new spot order to buy or sell tokens. All orders require an explicit `price` and are submitted to Hyperliquid as IOC (Immediate or Cancel) orders.
 
 **Endpoint**: `POST https://api.silhouette.exchange/v0`
 
@@ -235,10 +233,10 @@ Create a new order to buy or sell tokens. Orders can be either limit orders (exe
 | operation | string | Yes | Must be `"createOrder"` |
 | side | string | Yes | Order side: `"buy"` or `"sell"` |
 | orderType | string | Yes | Order type: `"limit"` or `"market"` |
-| baseToken | string | Yes | The token being traded: `"USDC"` or `"HYPE"` |
-| quoteToken | string | Yes | The token used for pricing: `"USDC"` or `"HYPE"` |
+| baseToken | string | Yes | The base token for the trading pair. The live supported set varies by environment; use `getMarkets` for discovery. |
+| quoteToken | string | Yes | The quote token for the trading pair. The live supported set varies by environment; use `getMarkets` for discovery. |
 | amount | string | Yes | Order amount as a human-readable decimal string (e.g., `"100"` or `"100.5"`) |
-| price | string | Conditional | Order price as a human-readable decimal string (required for limit orders, ignored for market orders) |
+| price | string | Yes | Order price as a human-readable decimal string. |
 
 **Example request (limit order)**:
 
@@ -269,7 +267,8 @@ curl https://api.silhouette.exchange/v0 \
     "orderType": "market",
     "baseToken": "HYPE",
     "quoteToken": "USDC",
-    "amount": "50.0"
+    "amount": "50.0",
+    "price": "1.18"
   }'
 ```
 
@@ -277,10 +276,9 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "message": "Order created successfully.",
-    "orderId": "550e8400-e29b-41d4-a716-446655440000"
-  },
+  "operation": "createOrder",
+  "message": "Order created successfully.",
+  "orderId": "550e8400-e29b-41d4-a716-446655440000",
   "responseMetadata": {
     "timestamp": 1705313400,
     "requestId": "650e8400-e29b-41d4-a716-446655440001"
@@ -331,9 +329,9 @@ curl https://api.silhouette.exchange/v0 \
 - **Side**:
   - `"buy"`: Purchase the base token using the quote token
   - `"sell"`: Sell the base token for the quote token
-- **Tokens**: Currently supports `"USDC"` and `"HYPE"` only
+- **Tokens and markets**: Use `getTokens` and `getMarkets` to discover the currently enabled assets and pairs.
 - **Amount format**: Must be a human-readable decimal string (e.g., `"100"` or `"100.5"`). Values are automatically scaled to the token's smallest unit. Do not send pre-scaled values.
-- **Price format**: Must be a human-readable decimal string (e.g., `"1.25"`). Values are automatically scaled. Required for limit orders, ignored for market orders.
+- **Price format**: Must be a human-readable decimal string (e.g., `"1.25"`). Values are automatically scaled.
 - **Insufficient balance**: The order will fail if you don't have sufficient available balance of the required token
 - Save the returned `orderId` to cancel or track the order later
 
@@ -370,10 +368,9 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "message": "Order cancelled successfully.",
-    "orderId": "550e8400-e29b-41d4-a716-446655440000"
-  },
+  "operation": "cancelOrder",
+  "message": "Order cancelled successfully.",
+  "orderId": "550e8400-e29b-41d4-a716-446655440000",
   "responseMetadata": {
     "timestamp": 1705313400,
     "requestId": "650e8400-e29b-41d4-a716-446655440001"
@@ -457,36 +454,37 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "orders": [
-      {
-        "orderId": "550e8400-e29b-41d4-a716-446655440000",
-        "side": "buy",
-        "orderType": "limit",
-        "baseToken": "HYPE",
-        "quoteToken": "USDC",
-        "amount": "100000000",
-        "amountFloat": "100.0",
-        "price": "1250000",
-        "priceFloat": "1.25",
-        "status": "open",
-        "createdAt": 1705313400000,
-        "updatedAt": 1705313400000
-      },
-      {
-        "orderId": "650e8400-e29b-41d4-a716-446655440001",
-        "side": "sell",
-        "orderType": "market",
-        "baseToken": "HYPE",
-        "quoteToken": "USDC",
-        "amount": "50000000",
-        "amountFloat": "50.0",
-        "status": "filled",
-        "createdAt": 1705313200000,
-        "updatedAt": 1705313250000
-      }
-    ]
-  },
+  "operation": "getUserOrders",
+  "orders": [
+    {
+      "orderId": "550e8400-e29b-41d4-a716-446655440000",
+      "side": "buy",
+      "orderType": "limit",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "amount": "100000000",
+      "amountFloat": "100.0",
+      "price": "1250000",
+      "priceFloat": "1.25",
+      "status": "open",
+      "createdAt": 1705313400000,
+      "updatedAt": 1705313400000
+    },
+    {
+      "orderId": "650e8400-e29b-41d4-a716-446655440001",
+      "side": "sell",
+      "orderType": "market",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "amount": "50000000",
+      "amountFloat": "50.0",
+      "price": "1180000",
+      "priceFloat": "1.18",
+      "status": "filled",
+      "createdAt": 1705313200000,
+      "updatedAt": 1705313250000
+    }
+  ],
   "responseMetadata": {
     "timestamp": 1705313400,
     "requestId": "750e8400-e29b-41d4-a716-446655440002"
@@ -577,10 +575,9 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "message": "Withdrawal request accepted and queued for processing.",
-    "withdrawalId": "550e8400-e29b-41d4-a716-446655440000"
-  },
+  "operation": "initiateWithdrawal",
+  "message": "Withdrawal request accepted and queued for processing.",
+  "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
   "responseMetadata": {
     "timestamp": 1705313400,
     "requestId": "650e8400-e29b-41d4-a716-446655440001"
@@ -677,17 +674,16 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "withdrawal": {
-      "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
-      "token": "USDC",
-      "amount": "500000000",
-      "state": "pending",
-      "txHash": null,
-      "errorMessage": null,
-      "created_at": 1705313400000,
-      "updated_at": 1705313400000
-    }
+  "operation": "getWithdrawalStatus",
+  "withdrawal": {
+    "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
+    "token": "USDC",
+    "amount": "500000000",
+    "state": "pending",
+    "txHash": null,
+    "errorMessage": null,
+    "created_at": 1705313400000,
+    "updated_at": 1705313400000
   },
   "responseMetadata": {
     "timestamp": 1705313450,
@@ -700,17 +696,16 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "withdrawal": {
-      "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
-      "token": "USDC",
-      "amount": "500000000",
-      "state": "completed",
-      "txHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-      "errorMessage": null,
-      "created_at": 1705313400000,
-      "updated_at": 1705313500000
-    }
+  "operation": "getWithdrawalStatus",
+  "withdrawal": {
+    "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
+    "token": "USDC",
+    "amount": "500000000",
+    "state": "completed",
+    "txHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+    "errorMessage": null,
+    "created_at": 1705313400000,
+    "updated_at": 1705313500000
   },
   "responseMetadata": {
     "timestamp": 1705313550,
@@ -723,17 +718,16 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "withdrawal": {
-      "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
-      "token": "USDC",
-      "amount": "500000000",
-      "state": "failed",
-      "txHash": null,
-      "errorMessage": "Insufficient balance on enclave wallet",
-      "created_at": 1705313400000,
-      "updated_at": 1705313450000
-    }
+  "operation": "getWithdrawalStatus",
+  "withdrawal": {
+    "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
+    "token": "USDC",
+    "amount": "500000000",
+    "state": "failed",
+    "txHash": null,
+    "errorMessage": "Insufficient balance on enclave wallet",
+    "created_at": 1705313400000,
+    "updated_at": 1705313450000
   },
   "responseMetadata": {
     "timestamp": 1705313500,
@@ -824,40 +818,39 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "data": {
-    "withdrawals": [
-      {
-        "withdrawalId": "650e8400-e29b-41d4-a716-446655440001",
-        "token": "USDC",
-        "amount": "500000000",
-        "state": "completed",
-        "txHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
-        "errorMessage": null,
-        "created_at": 1705313400000,
-        "updated_at": 1705313500000
-      },
-      {
-        "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
-        "token": "HYPE",
-        "amount": "100000000",
-        "state": "pending",
-        "txHash": null,
-        "errorMessage": null,
-        "created_at": 1705313200000,
-        "updated_at": 1705313200000
-      },
-      {
-        "withdrawalId": "450e8400-e29b-41d4-a716-446655440002",
-        "token": "USDC",
-        "amount": "250000000",
-        "state": "failed",
-        "txHash": null,
-        "errorMessage": "Insufficient balance on enclave wallet",
-        "created_at": 1705313000000,
-        "updated_at": 1705313050000
-      }
-    ]
-  },
+  "operation": "getUserWithdrawals",
+  "withdrawals": [
+    {
+      "withdrawalId": "650e8400-e29b-41d4-a716-446655440001",
+      "token": "USDC",
+      "amount": "500000000",
+      "state": "completed",
+      "txHash": "0xabcdef1234567890abcdef1234567890abcdef1234567890abcdef1234567890",
+      "errorMessage": null,
+      "created_at": 1705313400000,
+      "updated_at": 1705313500000
+    },
+    {
+      "withdrawalId": "550e8400-e29b-41d4-a716-446655440000",
+      "token": "HYPE",
+      "amount": "100000000",
+      "state": "pending",
+      "txHash": null,
+      "errorMessage": null,
+      "created_at": 1705313200000,
+      "updated_at": 1705313200000
+    },
+    {
+      "withdrawalId": "450e8400-e29b-41d4-a716-446655440002",
+      "token": "USDC",
+      "amount": "250000000",
+      "state": "failed",
+      "txHash": null,
+      "errorMessage": "Insufficient balance on enclave wallet",
+      "created_at": 1705313000000,
+      "updated_at": 1705313050000
+    }
+  ],
   "responseMetadata": {
     "timestamp": 1705313600,
     "requestId": "750e8400-e29b-41d4-a716-446655440003"

@@ -25,12 +25,12 @@ Before you can use the Silhouette API, you need to complete the following steps:
 
 1. You must have a wallet address on Hyperliquid's L1 chain (HyperCore). This is your identity on the Silhouette platform.
 
-2. Use Hyperliquid's `spotSend` operation to transfer funds to the Silhouette contract address to activate your account in Silhouette:
+2. Use Hyperliquid's `spotSend` operation to transfer funds to the Silhouette address to activate your account in Silhouette:
 
    | Network | Contract address |
    |---------|------------------|
-   | Mainnet | `0x32F4712b3862ceB35945420c4361f02f1cc93b41` |
-   | Testnet | `0x2B065d0C4865a520bab6821C835a66B073e4e590` |
+   | Mainnet | `0x20b533DEFba689b6146a5C49250A59f2dbc75681` |
+   | Testnet | `0xBc0E81a9A41e0119387ced63456deC0C597478E9` |
 
    :::warning
    You must deposit at least 5 USDC to activate your account.
@@ -84,19 +84,18 @@ Replace `YOUR_TOKEN_HERE` with the bearer token you obtained in Step 1.
 
 ```json
 {
-  "data": {
-    "balances": [
-      {
-        "token": "USDC",
-        "available": "1000000000",
-        "availableFloat": "1000.0",
-        "locked": "0",
-        "lockedFloat": "0.0",
-        "total": "1000000000",
-        "totalFloat": "1000.0"
-      }
-    ]
-  },
+  "operation": "getBalances",
+  "balances": [
+    {
+      "token": "USDC",
+      "available": "1000000000",
+      "availableFloat": "1000.0",
+      "locked": "0",
+      "lockedFloat": "0.0",
+      "total": "1000000000",
+      "totalFloat": "1000.0"
+    }
+  ],
   "responseMetadata": {
     "timestamp": 1234567890,
     "requestId": "550e8400-e29b-41d4-a716-446655440000"

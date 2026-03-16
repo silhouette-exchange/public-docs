@@ -42,13 +42,11 @@ The delegated wallet aggregates activity from multiple users. The market sees th
 
 ### 4. Balance Update
 
-After execution, the TEE updates your encrypted balance on the Silhouette smart contract. The update reflects your new position - the asset you bought or sold, and the resulting balance.
-
-Only you can decrypt and view your updated balance. The onchain state contains the encrypted data, but it is meaningless without your local encryption key.
+After execution, the TEE updates your encrypted balance in the Silhouette TEE. The update reflects your new position - the asset you bought or sold, and the resulting balance. Your encrypted balance is not viewable by anyone, including by Silhouette.
 
 ### 5. Settlement Complete
 
-Your trade is now settled on Hyperliquid's order book. Your balance is updated on the Silhouette smart contract. The trade is final.
+Your trade is now settled on Hyperliquid's order book. Your balance is updated inside the Silhouette TEE. The trade is final.
 
 From the public ledger's perspective, all that happened was a trade from a delegated wallet on Hyperliquid - no connection to your identity, your strategy, or your position.
 
