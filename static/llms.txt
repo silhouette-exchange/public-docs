@@ -245,24 +245,26 @@ Response time: 48-hour acknowledgment, 5 business days initial assessment.
 
 ## Documentation Map
 
-- About Silhouette: /docs/about-silhouette
-- Quickstart: /docs/quickstart
-- Onboarding - Start Trading: /docs/onboarding/start-trading
-- Onboarding - Withdraw: /docs/onboarding/withdraw
-- Shielded Trading: /docs/trading/shielded-trading
-- Naked Trading: /docs/trading/naked-trading
-- Order Types: /docs/trading/order-types
-- Architecture Overview: /docs/architecture/overview
-- TEE: /docs/architecture/tee
-- Hyperliquid: /docs/architecture/hyperliquid
-- Fees: /docs/fees
-- Referrals: /docs/referrals
-- FAQ: /docs/faq
-- Glossary: /docs/glossary
-- API Overview: /docs/api
-- API Quick Start: /docs/api/quick-start
-- API Authentication: /docs/api/authentication
-- API Reference: /docs/api/reference
-- API Troubleshooting: /docs/api/troubleshooting
-- OpenAPI Spec: /docs/api/openapi
-- Python SDK: /docs/sdk
+- About Silhouette: /about-silhouette
+- Quickstart: /quickstart
+- How Silhouette Works: /how-silhouette-works
+- Onboarding - Start Trading: /onboarding/start-trading
+- Onboarding - Withdraw: /onboarding/withdraw
+- Shielded Trading: /trading/shielded-trading
+- Naked Trading: /trading/naked-trading
+- Order Types: /trading/order-types
+- Order Lifecycle: /trading/order-lifecycle
+- Architecture Overview: /architecture/overview
+- TEE: /architecture/tee
+- Hyperliquid: /architecture/hyperliquid
+- Fees: /trading/fees
+- Referrals: /referrals
+- FAQ: /faq
+- Glossary: /glossary
+- API Overview: /api
+- API Quick Start: /api/quick-start
+- API Authentication: /api/authentication
+- API Reference: /api/reference
+- API Troubleshooting: /api/troubleshooting
+- OpenAPI Spec: /api/openapi
+- Python SDK: /sdk
