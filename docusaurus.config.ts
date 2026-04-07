@@ -149,9 +149,77 @@ const config: Config = {
         ],
       },
     ],
+    '@stackql/docusaurus-plugin-structured-data',
   ],
 
   themeConfig: {
+    structuredData: {
+      excludedRoutes: [
+        '/search',
+        '/blog/authors',
+        '/blog/tags',
+        '/blog/archive',
+        '/blog',
+      ],
+      verbose: false,
+      featuredImageDimensions: {
+        width: 1200,
+        height: 627,
+      },
+      authors: {
+        'Silhouette Team': {
+          authorId: 'silhouette-team',
+          url: 'https://silhouette.exchange',
+          imageUrl: 'https://github.com/silhouette-exchange.png',
+          sameAs: [
+            'https://x.com/silhouette_ex',
+            'https://github.com/silhouette-exchange',
+            'https://t.me/silhouette_exchange',
+          ],
+        },
+      },
+      organization: {
+        name: 'Silhouette Exchange',
+        legalName: 'Silhouette Exchange',
+        url: 'https://silhouette.exchange',
+        sameAs: [
+          'https://x.com/silhouette_ex',
+          'https://t.me/silhouette_exchange',
+          'https://github.com/silhouette-exchange',
+        ],
+        description:
+          'Silhouette is a shielded perpetuals exchange on Hyperliquid. Orders are encrypted inside a Trusted Execution Environment and settled through delegated wallets.',
+        logo: {
+          '@type': 'ImageObject',
+          inLanguage: 'en-US',
+          '@id': 'https://docs.silhouette.exchange/#logo',
+          url: 'https://docs.silhouette.exchange/img/silhouette-title-logo.svg',
+          contentUrl: 'https://docs.silhouette.exchange/img/silhouette-title-logo.svg',
+          width: 240,
+          height: 32,
+          caption: 'Silhouette Exchange',
+        },
+      },
+      website: {
+        inLanguage: 'en-US',
+      },
+      webpage: {
+        inLanguage: 'en-US',
+        datePublished: '2025-01-01',
+      },
+      breadcrumbLabelMap: {
+        'about-silhouette': 'About',
+        'quickstart': 'Quickstart',
+        'concepts': 'Core Concepts',
+        'trading': 'Trading',
+        'architecture': 'Architecture',
+        'api': 'API',
+        'sdk': 'Python SDK',
+        'guides': 'Guides',
+        'glossary': 'Glossary',
+        'faq': 'FAQs',
+      },
+    },
     // Replace with social card
     colorMode: {
       defaultMode: 'dark',
