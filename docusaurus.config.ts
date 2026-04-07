@@ -115,6 +115,40 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
       },
     ],
+    [
+      '@signalwire/docusaurus-plugin-llms-txt',
+      {
+        siteTitle: 'Silhouette',
+        siteDescription:
+          'Silhouette is a shielded perpetuals exchange on Hyperliquid. Orders are encrypted inside a Trusted Execution Environment and settled through delegated wallets, so the market sees fills but never strategy, size, or identity. Silhouette passes 95% of its Hyperliquid volume discount back to takers.',
+        depth: 2,
+        enableDescriptions: true,
+        runOnPostBuild: true,
+        onRouteError: 'warn',
+        logLevel: 1,
+        content: {
+          enableMarkdownFiles: true,
+          enableLlmsFullTxt: true,
+          relativePaths: false,
+          includeBlog: true,
+          includePages: false,
+          includeDocs: true,
+          excludeRoutes: ['/plans/**', '/search'],
+        },
+        includeOrder: [
+          '/about-silhouette',
+          '/quickstart',
+          '/concepts/**',
+          '/trading/**',
+          '/architecture/**',
+          '/api/**',
+          '/sdk',
+          '/guides/**',
+          '/glossary',
+          '/faq',
+        ],
+      },
+    ],
   ],
 
   themeConfig: {
