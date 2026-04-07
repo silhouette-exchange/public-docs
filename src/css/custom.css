@@ -212,9 +212,11 @@
   /* ---------- Sidebar collapse chevron ---------- */
   /* Override Infima's default dark-gray chevron with one tinted to our
      --text-muted (#b4b4bb). Infima handles position + rotation; we only
-     swap the SVG fill so the chevron is visible against #13161a. */
+     swap the SVG fill so the chevron is visible against #13161a.
+     The filter override has to live on html[data-theme='dark'] below
+     because Infima sets a dark-mode invert filter at that selector and
+     :root loses the specificity tie. */
   --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23b4b4bb" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>');
-  --ifm-menu-link-sublist-icon-filter: none;
 
   /* ---------- Local search modal theming ---------- */
   --search-local-highlight-color: var(--silh-cyan-100);
@@ -225,6 +227,15 @@
   --search-local-hit-color: var(--text-default);
   --search-local-muted-color: var(--text-muted);
   --search-local-hit-active-color: var(--text-inverse);
+}
+
+/* Infima ships an invert(100%) filter at html[data-theme='dark'] meant to
+   flip its default BLACK chevron SVG to white. Our override SVG is already
+   the right color, so the filter would invert it to ~black-on-black and
+   make it invisible. We have to set filter:none at the same selector
+   specificity (an attribute selector beats :root in the cascade). */
+html[data-theme='dark'] {
+  --ifm-menu-link-sublist-icon-filter: none;
 }
 
 /* ============================================
