@@ -61,3 +61,11 @@ If Hyperliquid is a finance company running on crypto rails and will "House all 
 ## Core Team
 
 The team behind Silhouette has roots in zero-knowledge cryptography, exchange engineering, and protocol design. With experience spanning DeFi teams like UMA, Across, and Etherfi, infrastructure at AWS, and centralized exchanges like Luno and Coinbase, we are building a product that bridges traditional capital markets rigor with crypto-native execution.
+
+
+<AuthorByline
+  name="Wayne"
+  role="Head of Growth, Silhouette"
+  date="2026-04-07"
+  sameAs="https://x.com/WaynesWorldza"
+/>
