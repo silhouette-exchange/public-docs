@@ -210,13 +210,12 @@
   --docusaurus-highlighted-code-line-bg: rgba(250, 0, 255, 0.10);
 
   /* ---------- Sidebar collapse chevron ---------- */
-  /* Override Infima's default dark-gray chevron with one tinted to our
-     --text-muted (#b4b4bb). Infima handles position + rotation; we only
-     swap the SVG fill so the chevron is visible against #13161a.
-     The filter override has to live on html[data-theme='dark'] below
-     because Infima sets a dark-mode invert filter at that selector and
-     :root loses the specificity tie. */
-  --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23b4b4bb" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>');
+  /* Custom stroke-based chevron in --text-secondary (#d4d4d8, 12.28:1 AAA).
+     Stroke weight 2.4 for presence, rounded joins to feel precise. The
+     filter override has to live on html[data-theme='dark'] below because
+     Infima sets a dark-mode invert filter at that selector and :root
+     loses the specificity tie. */
+  --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="%23d4d4d8" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 15 12 9 18 15"/></svg>');
 
   /* ---------- Local search modal theming ---------- */
   --search-local-highlight-color: var(--silh-cyan-100);
@@ -797,29 +796,31 @@ aside.theme-doc-sidebar-container {
   display: none;
 }
 
-/* Chevron pinned absolutely inside the link, with a large inset from
-   the right so it clears the sidebar's right boundary. Overrides
-   Infima's flex child defaults completely. */
+/* Chevron pinned absolutely inside the link. 20x20 stroke-based icon
+   from --ifm-menu-link-sublist-icon. Expanded state = chevron pointing
+   down (rotate 180 from the base chevron-up SVG). Collapsed state =
+   pointing right (rotate 90). Cyan tint + glow on hover. */
 .menu__link--sublist-caret::after {
   content: '' !important;
   position: absolute !important;
-  right: 20px !important;
+  right: 16px !important;
   top: 50% !important;
-  width: 16px !important;
-  height: 16px !important;
+  width: 20px !important;
+  height: 20px !important;
   min-width: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
   transform: translateY(-50%) rotate(180deg) !important;
   background-image: var(--ifm-menu-link-sublist-icon) !important;
-  background-size: 24px 24px !important;
+  background-size: 20px 20px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
   filter: none !important;
   opacity: 1 !important;
   visibility: visible !important;
   display: block !important;
-  transition: transform var(--dur-base) var(--ease-standard);
+  transition: transform var(--dur-base) var(--ease-emphasis),
+              filter var(--dur-base) var(--ease-standard);
   pointer-events: none;
   z-index: 2;
 }
@@ -829,8 +830,12 @@ aside.theme-doc-sidebar-container {
   transform: translateY(-50%) rotate(90deg) !important;
 }
 
+/* Cyan tint + glow on hover. drop-shadow works on the SVG pixels so the
+   chevron gets a real halo instead of a box shadow. */
 .menu__link--sublist:hover::after {
-  filter: brightness(1.4) !important;
+  filter:
+    drop-shadow(0 0 4px rgba(0, 255, 242, 0.6))
+    drop-shadow(0 0 1px rgba(0, 255, 242, 0.9)) !important;
 }
 
 /* Nested sublist items - subtle vertical guide */
