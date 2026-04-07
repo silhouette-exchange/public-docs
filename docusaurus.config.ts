@@ -88,10 +88,16 @@ const config: Config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
           routeBasePath: '/',
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
+          editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
           routeBasePath: '/blog',
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
+          editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
