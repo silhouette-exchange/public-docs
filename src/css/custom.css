@@ -641,17 +641,40 @@ main[class*="docMainContainer"] {
 
 /* ============================================
    SIDEBAR (left) - mono section headers, glowing active
+   Docusaurus uses --doc-sidebar-width (300px default) and a CSS module
+   class .docSidebarContainer that sets the width. We bump the width to
+   320px so the chevron has visible breathing room and force overflow
+   hidden on every wrapper to stop any inner element bleeding behind
+   the main content area.
    ============================================ */
+:root {
+  --doc-sidebar-width: 320px;
+}
+
 .theme-doc-sidebar-container {
   border-right: 1px solid var(--border-subtle);
-  width: 300px;
+  width: var(--doc-sidebar-width) !important;
+  max-width: var(--doc-sidebar-width) !important;
   background: rgba(19, 22, 26, 0.4);
   backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
+  overflow: hidden;
 }
 
 aside.theme-doc-sidebar-container {
-  padding: var(--space-8) var(--space-6) var(--space-8) var(--space-8);
+  padding: var(--space-8) var(--space-4) var(--space-8) var(--space-6);
+  box-sizing: border-box;
+}
+
+/* Constrain every inner wrapper so nothing can break out horizontally */
+.theme-doc-sidebar-container .sidebarViewport_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-Sidebar-styles-module,
+.theme-doc-sidebar-container [class*='sidebarViewport'],
+.theme-doc-sidebar-container nav.theme-doc-sidebar-menu,
+.theme-doc-sidebar-container .menu,
+.theme-doc-sidebar-container .menu__list,
+.theme-doc-sidebar-container .menu__list-item {
+  max-width: 100%;
+  box-sizing: border-box;
 }
 
 @media screen and (max-width: 996px) {
@@ -726,16 +749,18 @@ aside.theme-doc-sidebar-container {
   display: none;
 }
 
-/* Sidebar collapsible categories
-   Docusaurus 3.9 puts .menu__link--sublist on the <a> when the
-   category is collapsible, .menu__link--sublist-caret when there's
-   no href (label-only category, our case). The collapsed state is on
-   the parent <li> as .menu__list-item--collapsed. */
-.menu__link--sublist {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  padding-right: var(--space-2);
+/* Sidebar collapsible categories. The link is position:relative and
+   the ::after chevron is position:absolute. We also force overflow:
+   visible on the link because Docusaurus's categoryLink CSS module
+   sets overflow:hidden, which clips the absolutely-positioned chevron. */
+.menu__link--sublist,
+[class*='categoryLink'].menu__link--sublist {
+  position: relative;
+  display: block;
+  overflow: visible !important;
+  padding-right: 56px !important;
+  max-width: 100%;
+  box-sizing: border-box;
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
@@ -745,30 +770,67 @@ aside.theme-doc-sidebar-container {
   margin-top: var(--space-3);
 }
 
+/* The label span inside the link has flex:1 from the Docusaurus CSS
+   module; force it to shrink and ellipsize so it can't push the
+   chevron off-screen. */
+.menu__link--sublist [class*='categoryLinkLabel'],
+.menu__link--sublist > span {
+  flex: 1 1 auto;
+  min-width: 0;
+  max-width: calc(100% - 32px);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: inline-block;
+}
+
 .menu__link--sublist:hover {
   color: var(--text-default);
 }
 
-/* Hide the default .menu__caret button. Docusaurus only renders this
-   when a category has BOTH an href AND is collapsible (a category that
-   navigates AND collapses needs a separate icon-only toggle). Our
-   sidebars.ts categories have no href so this never renders, but we
-   hide it defensively in case future categories add href fields. */
+/* Hide the default .menu__caret button (only renders when a category
+   has both an href AND is collapsible). */
 .menu__caret {
   display: none;
 }
-
 .menu__caret * {
   display: none;
 }
 
-/* The sidebar collapse chevron is provided by Infima via
-   --ifm-menu-link-sublist-icon (overridden in :root above with our
-   own tinted SVG). Infima also handles the rotation when the parent
-   <li> has .menu__list-item--collapsed. We add a hover brightening
-   only - everything else is Infima. */
+/* Chevron pinned absolutely inside the link, with a large inset from
+   the right so it clears the sidebar's right boundary. Overrides
+   Infima's flex child defaults completely. */
+.menu__link--sublist-caret::after {
+  content: '' !important;
+  position: absolute !important;
+  right: 20px !important;
+  top: 50% !important;
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 0 !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  transform: translateY(-50%) rotate(180deg) !important;
+  background-image: var(--ifm-menu-link-sublist-icon) !important;
+  background-size: 24px 24px !important;
+  background-position: center !important;
+  background-repeat: no-repeat !important;
+  filter: none !important;
+  opacity: 1 !important;
+  visibility: visible !important;
+  display: block !important;
+  transition: transform var(--dur-base) var(--ease-standard);
+  pointer-events: none;
+  z-index: 2;
+}
+
+.menu__list-item--collapsed > .menu__list-item-collapsible .menu__link--sublist-caret::after,
+.menu__list-item--collapsed > .menu__link--sublist-caret::after {
+  transform: translateY(-50%) rotate(90deg) !important;
+}
+
 .menu__link--sublist:hover::after {
-  filter: brightness(1.4);
+  filter: brightness(1.4) !important;
 }
 
 /* Nested sublist items - subtle vertical guide */
