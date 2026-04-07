@@ -237,6 +237,12 @@ const config: Config = {
       disableSwitch: true,
     },
     image: 'img/silhouette-social-card.png',
+    metadata: [
+      { name: 'theme-color', content: '#13161a' },
+      { name: 'og:site_name', content: 'Silhouette Docs' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@silhouette_ex' },
+    ],
     navbar: {
       title: 'Silhouette',
       logo: {
