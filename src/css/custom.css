@@ -1678,22 +1678,6 @@ html.navbar-sidebar--show {
 }
 
 /* ============================================
-   COPYPAGE BUTTON wrapper (legacy top-right button)
-   ============================================ */
-.doc-layout-with-copy {
-  position: relative;
-}
-
-#copy-page-button-portal {
-  isolation: isolate;
-  margin-bottom: var(--space-5);
-}
-
-@media (max-width: 996px) {
-  #copy-page-button-portal { display: none; }
-}
-
-/* ============================================
    SCROLLBARS
    ============================================ */
 ::-webkit-scrollbar {
