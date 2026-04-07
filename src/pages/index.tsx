@@ -1,153 +1,49 @@
-import { type ReactNode, useState, useEffect } from "react";
-import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
-import Heading from "@theme/Heading";
-import { TextMorph } from "torph/react";
-import styles from "./index.module.css";
-import { ArrowIcon } from "../icons/arrow.icon";
-import { InfoIcon } from "../icons/info.icon";
-import { QuestionMarkIcon } from "../icons/questionMark.icon";
-import { BookIcon } from "../icons/book.icon";
-import { XIcon } from "../icons/x.icon";
-import { TelegramIcon } from "../icons/telegram.icon";
-import { GithubIcon } from "../icons/github.icon";
-import Searchbar from "@theme/SearchBar";
-
-const rotatingWords = ["privately", "shielded", "securely", "confidently"];
-
-function useRotatingWord(words: string[], intervalMs = 3000) {
-  const [index, setIndex] = useState(0);
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setIndex((prev) => (prev + 1) % words.length);
-    }, intervalMs);
-    return () => clearInterval(timer);
-  }, [words.length, intervalMs]);
-  return words[index];
-}
-
-const featureCards = [
-  {
-    title: "What is Silhouette",
-    description:
-      "Learn about the core concepts of Silhouette and how to get started.",
-    link: "/about-silhouette",
-    Icon: InfoIcon,
-  },
-  {
-    title: "Get Started",
-    description: "Connect your wallet, deposit your funds, and start trading privately.",
-    link: "/quickstart",
-    Icon: BookIcon,
-  },
-  {
-    title: "FAQ",
-    description: "Read through our most common questions.",
-    link: "/faq",
-    Icon: QuestionMarkIcon,
-  },
-];
-
-const socialLinks = [
-  {
-    title: "Telegram",
-    description: "Join our discussions on Telegram",
-    link: "https://t.me/silhouette_exchange",
-    Icon: TelegramIcon,
-  },
-  {
-    title: "GitHub",
-    description: "View our repositories",
-    link: "https://github.com/silhouette-exchange",
-    Icon: GithubIcon,
-  },
-  {
-    title: "Follow Us",
-    description: "See what we are getting up to on X",
-    link: "https://x.com/silhouette_ex",
-    Icon: XIcon,
-  },
-];
+import React, { type ReactNode } from 'react';
+import Layout from '@theme/Layout';
+import Hero from '@site/src/components/Hero';
+import RoleCard from '@site/src/components/RoleCard';
+import styles from './index.module.css';
 
 export default function Home(): ReactNode {
-  const { siteConfig } = useDocusaurusContext();
-  const currentWord = useRotatingWord(rotatingWords, 3000);
-
   return (
     <Layout
-      title={`Welcome to ${siteConfig.title}`}
-      description="Official documentation for Silhouette Exchange - Your comprehensive resource for guides, tutorials and references"
+      title="Shielded trading on Hyperliquid"
+      description="Silhouette is a shielded perpetuals exchange on Hyperliquid. Orders are encrypted until match. 95% of the Hyperliquid volume discount passes back to takers."
     >
-      <div className={styles.pageWrapper}>
-        <section className={styles.heroSection}>
-          <div className={styles.heroContent}>
-            <div className={styles.heroTextContainer}>
-              <h1 className={styles.heroTitle}>
-                Welcome to Silhouette Docs
-              </h1>
-              <p className={styles.heroSubtitle}>
-                Learn how to trade{" "}
-                <TextMorph
-                  as="span"
-                  className={styles.heroRotatingWord}
-                  duration={400}
-                  respectReducedMotion
-                >
-                  {currentWord}
-                </TextMorph>
-                {" "}on Hyperliquid.
-              </p>
-              <Searchbar />
-            </div>
-            <div className={styles.cardContainer}>
-              {featureCards.map((card, idx) => (
-                <Link to={card.link} className={styles.card} key={idx}>
-                  <div className={styles.cardHeader}>
-                    <card.Icon className={styles.cardIcon} />
-                    <ArrowIcon className={styles.linkIcon} />
-                  </div>
-                  <div>
-                    <h3 className={styles.cardTitle}>{card.title}</h3>
-                    <p className={styles.cardText}>{card.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
+      <Hero
+        headline="Shielded trading on Hyperliquid."
+        sub="Every trade on a public orderbook is a confession to copytrade bots, signal-aware LPs, and every desk watching your wallet. Silhouette encrypts your orders until match and passes 95% of the Hyperliquid volume discount back to you."
+        ctas={[
+          { label: 'Read the docs', href: '/about-silhouette', variant: 'primary' },
+          { label: 'Build on Silhouette', href: '/api', variant: 'secondary' },
+        ]}
+      />
 
-            {/* Social Links */}
-            <div className={styles.socialContainer}>
-              {socialLinks.map((item, idx) => (
-                <Link to={item.link} className={styles.socialLink} key={idx}>
-                  <item.Icon className={styles.socialIcon} />
-                  <div>
-                    <strong>{item.title}</strong>
-                    <p style={{ marginBottom: 0 }}>{item.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-
-            {/* TradingView Attribution */}
-            <div className={styles.tradingViewAttribution}>
-              <img
-                src="/img/logo-square-light.png"
-                alt="TradingView"
-                className={styles.tradingViewLogo}
-              />
-              <p className={styles.tradingViewText}>
-                Charts on Silhouette are powered by{" "}
-                <Link to="https://www.tradingview.com/">TradingView</Link>, a
-                multi-functionality platform that provides in-depth information
-                on every aspect of trading, including technical and fundamental
-                data, news and analysis, ideas, and community discussions, and
-                allows you to follow real-time prices across a wide range of
-                trading pairs.
-              </p>
-            </div>
-          </div>
-        </section>
-      </div>
+      <section className={styles.roles}>
+        <div className={styles.rolesGrid}>
+          <RoleCard
+            role="developer"
+            title="Developers"
+            description="Build bots, agents, and integrations against Silhouette's shielded API. OpenAPI spec, SDKs, rate limits, and a testnet quickstart."
+            href="/api"
+            ctaLabel="API reference"
+          />
+          <RoleCard
+            role="institution"
+            title="Institutions"
+            description="Due-diligence the TEE threat model, attestation walkthrough, audit reports, reproducible builds, and custody model in one place."
+            href="/architecture/overview"
+            ctaLabel="Security and architecture"
+          />
+          <RoleCard
+            role="trader"
+            title="Traders"
+            description="Place your first shielded trade in about three minutes. Quickstart, fees, naked vs shielded, and common mistakes."
+            href="/quickstart"
+            ctaLabel="Quickstart"
+          />
+        </div>
+      </section>
     </Layout>
   );
 }
