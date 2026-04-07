@@ -1,0 +1,54 @@
+.card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-6);
+  background: var(--bg-card);
+  border: 1px solid var(--border-default);
+  color: var(--text-default);
+  text-decoration: none !important;
+  transition: background var(--dur-base) var(--ease-standard),
+              border-color var(--dur-base) var(--ease-standard);
+  min-height: 240px;
+}
+
+.card:hover {
+  background: var(--bg-secondary);
+  border-color: var(--border-strong);
+  text-decoration: none !important;
+}
+
+.tag {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-muted);
+}
+
+.card.developer .tag { color: var(--accent-secondary-text); }
+.card.institution .tag { color: var(--accent-primary-text); }
+.card.trader .tag { color: var(--silh-lilac-100); }
+
+.title {
+  font-family: var(--font-display);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-medium);
+  color: var(--text-default);
+  margin: 0;
+}
+
+.description {
+  font-size: var(--fs-sm);
+  color: var(--text-secondary);
+  line-height: var(--lh-relaxed);
+  flex-grow: 1;
+  margin: 0;
+}
+
+.cta {
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  color: var(--accent-secondary-text);
+  margin-top: var(--space-4);
+}

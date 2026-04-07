@@ -1,0 +1,53 @@
+.wrap {
+  margin: var(--space-6) 0;
+  overflow-x: auto;
+  border: 1px solid var(--border-default);
+  background: var(--bg-card);
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: var(--fs-sm);
+  font-variant-numeric: tabular-nums;
+}
+
+.table th,
+.table td {
+  padding: var(--space-3) var(--space-4);
+  border-bottom: 1px solid var(--border-default);
+  text-align: left;
+  vertical-align: top;
+}
+
+.table thead th {
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  background: var(--bg-secondary);
+}
+
+.table thead th.accent {
+  color: var(--accent-primary-text);
+  background: var(--accent-primary-muted);
+}
+
+.table tbody th {
+  font-weight: var(--fw-medium);
+  color: var(--text-default);
+  width: 28%;
+}
+
+.table tbody td {
+  color: var(--text-secondary);
+}
+
+.wrap figcaption {
+  padding: var(--space-3) var(--space-4);
+  font-size: var(--fs-xs);
+  color: var(--text-tertiary);
+  border-top: 1px solid var(--border-subtle);
+}
