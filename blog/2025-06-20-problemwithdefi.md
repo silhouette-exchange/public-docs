@@ -1,8 +1,13 @@
 ---
 slug: problemwithdefi
-title: The Problem with DeFi, Transparency as an Attack Surface
-authors: [silhouette-team]
-tags: [article]
+title: 'The Problem with DeFi, Transparency as an Attack Surface'
+authors:
+  - silhouette-team
+tags:
+  - article
+description: >-
+  The Problem with DeFi, Transparency as an Attack Surface - Silhouette Exchange
+  documentation.
 ---
 
 ![Test image](./images/defi-problem-header.png)

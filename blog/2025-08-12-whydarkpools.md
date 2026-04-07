@@ -1,8 +1,11 @@
 ---
 slug: why-dark-pool-havent-worked
 title: Why Dark Pools Haven’t Worked Onchain
-authors: [silhouette-team]
-tags: [article]
+authors:
+  - silhouette-team
+tags:
+  - article
+description: Why Dark Pools Haven’t Worked Onchain - Silhouette Exchange documentation.
 ---
 
 ![Test image](./images/darkpoolsdontwork.png)
