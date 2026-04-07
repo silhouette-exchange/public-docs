@@ -15,6 +15,10 @@ keywords:
 
 # Architecture Overview
 
+<ShieldedCallout type="note" title="Under active development">
+  Silhouette is currently under active development. These docs and the information within them are subject to change.
+</ShieldedCallout>
+
 :::info For All Users
 This overview explains how Silhouette's components work together. Traders can skim the diagrams and design principles. Those conducting security due diligence should review all sections.
 :::
