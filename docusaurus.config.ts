@@ -115,6 +115,18 @@ const config: Config = {
       },
     ],
     [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'guides',
+        path: 'guides',
+        routeBasePath: 'guides',
+        sidebarPath: require.resolve('./guidesSidebars.ts'),
+        showLastUpdateTime: true,
+        showLastUpdateAuthor: true,
+        editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
+      },
+    ],
+    [
       '@signalwire/docusaurus-plugin-llms-txt',
       {
         siteTitle: 'Silhouette',
@@ -232,7 +244,12 @@ const config: Config = {
         src: 'img/silhouette-title-logo.svg',
         height: 18,
       },
-      // items: [],
+      items: [
+        { to: '/about-silhouette', label: 'Docs', position: 'left' },
+        { to: '/guides', label: 'Guides', position: 'left' },
+        { to: '/blog', label: 'Blog', position: 'left' },
+        { href: 'https://app.silhouette.exchange', label: 'Launch App', position: 'right' },
+      ],
     },
     footer: {
       logo: {
