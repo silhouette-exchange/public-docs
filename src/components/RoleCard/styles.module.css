@@ -1,54 +1,256 @@
 .card {
+  position: relative;
   display: flex;
   flex-direction: column;
-  gap: var(--space-3);
-  padding: var(--space-6);
-  background: var(--bg-card);
-  border: 1px solid var(--border-default);
+  padding: var(--space-7) var(--space-6) var(--space-6);
+  background: linear-gradient(
+    180deg,
+    rgba(24, 24, 27, 0.6) 0%,
+    rgba(19, 22, 26, 0.6) 100%
+  );
+  border: 1px solid var(--border-strong);
+  border-radius: var(--radius-xs);
   color: var(--text-default);
   text-decoration: none !important;
-  transition: background var(--dur-base) var(--ease-standard),
-              border-color var(--dur-base) var(--ease-standard);
-  min-height: 240px;
+  min-height: 280px;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--dur-slow) var(--ease-emphasis),
+    border-color var(--dur-base) var(--ease-standard),
+    background var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-slow) var(--ease-emphasis);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+/* Top accent bar */
+.cardAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-emphasis);
+}
+
+.card.developer .cardAccent {
+  background: linear-gradient(to right, var(--silh-cyan-100) 0%, transparent 80%);
+  box-shadow: 0 0 24px rgba(0, 255, 242, 0.5);
+}
+.card.institution .cardAccent {
+  background: linear-gradient(to right, var(--silh-magenta-100) 0%, transparent 80%);
+  box-shadow: 0 0 24px rgba(250, 0, 255, 0.5);
+}
+.card.trader .cardAccent {
+  background: linear-gradient(to right, var(--silh-lilac-100) 0%, transparent 80%);
+  box-shadow: 0 0 24px rgba(206, 127, 255, 0.5);
+}
+
+/* Corner brackets - bottom right */
+.cardCorner {
+  position: absolute;
+  bottom: var(--space-4);
+  right: var(--space-4);
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.cornerLine {
+  position: absolute;
+  background: var(--border-strong);
+  transition: background var(--dur-base) var(--ease-standard);
+}
+
+.cornerLine:nth-child(1) {
+  bottom: 0; right: 0;
+  width: 14px; height: 1px;
+}
+.cornerLine:nth-child(2) {
+  bottom: 0; right: 0;
+  width: 1px; height: 14px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at top right,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-standard);
 }
 
 .card:hover {
-  background: var(--bg-secondary);
-  border-color: var(--border-strong);
+  transform: translateY(-4px);
   text-decoration: none !important;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 32, 0.85) 0%,
+    rgba(22, 25, 30, 0.85) 100%
+  );
 }
+.card:hover::before { opacity: 1; }
+.card:hover .cardAccent { transform: scaleX(1.02); }
 
-.tag {
+.card.developer:hover {
+  border-color: rgba(0, 255, 242, 0.4);
+  box-shadow: var(--glow-cyan), 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+}
+.card.developer:hover .cornerLine { background: var(--silh-cyan-100); }
+
+.card.institution:hover {
+  border-color: rgba(250, 0, 255, 0.4);
+  box-shadow: var(--glow-magenta), 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+}
+.card.institution:hover .cornerLine { background: var(--silh-magenta-100); }
+
+.card.trader:hover {
+  border-color: rgba(206, 127, 255, 0.4);
+  box-shadow: 0 0 24px rgba(206, 127, 255, 0.35), 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+}
+.card.trader:hover .cornerLine { background: var(--silh-lilac-100); }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-6);
   font-family: var(--font-mono);
-  font-size: var(--fs-xs);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
   text-transform: uppercase;
   letter-spacing: var(--tracking-widest);
-  color: var(--text-muted);
 }
 
-.card.developer .tag { color: var(--accent-secondary-text); }
-.card.institution .tag { color: var(--accent-primary-text); }
-.card.trader .tag { color: var(--silh-lilac-100); }
+.index {
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.kicker {
+  position: relative;
+  padding-left: var(--space-3);
+}
+
+.kicker::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.card.developer .kicker { color: var(--silh-cyan-tint-30); }
+.card.developer .kicker::before {
+  background: var(--silh-cyan-100);
+  box-shadow: 0 0 6px var(--silh-cyan-100);
+}
+
+.card.institution .kicker { color: var(--silh-magenta-tint-50); }
+.card.institution .kicker::before {
+  background: var(--silh-magenta-100);
+  box-shadow: 0 0 6px var(--silh-magenta-100);
+}
+
+.card.trader .kicker { color: var(--silh-lilac-100); }
+.card.trader .kicker::before {
+  background: var(--silh-lilac-100);
+  box-shadow: 0 0 6px var(--silh-lilac-100);
+}
 
 .title {
+  margin: 0 0 var(--space-3) !important;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.titleInner {
+  display: block;
   font-family: var(--font-display);
-  font-size: var(--fs-xl);
+  font-size: 22px;
   font-weight: var(--fw-medium);
+  line-height: var(--lh-tight);
+  letter-spacing: var(--tracking-wider);
+  text-transform: uppercase;
   color: var(--text-default);
-  margin: 0;
 }
 
 .description {
+  font-family: var(--font-sans);
   font-size: var(--fs-sm);
-  color: var(--text-secondary);
   line-height: var(--lh-relaxed);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-6);
   flex-grow: 1;
-  margin: 0;
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px var(--space-3) 4px 6px;
+  margin-bottom: var(--space-5);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  align-self: flex-start;
+  font-variant-numeric: tabular-nums;
+}
+
+.metaDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--silh-green);
+  box-shadow: 0 0 6px rgba(85, 255, 215, 0.7);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
 }
 
 .cta {
-  font-family: var(--font-mono);
-  font-size: var(--fs-sm);
-  color: var(--accent-secondary-text);
-  margin-top: var(--space-4);
+  transition: color var(--dur-base) var(--ease-standard);
 }
+
+.card.developer .cta { color: var(--silh-cyan-tint-30); }
+.card.institution .cta { color: var(--silh-magenta-tint-50); }
+.card.trader .cta { color: var(--silh-lilac-100); }
+
+.ctaArrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--dur-base) var(--ease-emphasis);
+}
+.card.developer .ctaArrow  { color: var(--silh-cyan-tint-30); }
+.card.institution .ctaArrow { color: var(--silh-magenta-tint-50); }
+.card.trader .ctaArrow     { color: var(--silh-lilac-100); }
+
+.card:hover .ctaArrow { transform: translateX(6px); }
