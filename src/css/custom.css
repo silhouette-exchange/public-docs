@@ -748,16 +748,20 @@ aside.theme-doc-sidebar-container {
   display: none;
 }
 
-/* Sidebar collapsible categories. The link is position:relative and
-   the ::after chevron is position:absolute. We also force overflow:
-   visible on the link because Docusaurus's categoryLink CSS module
-   sets overflow:hidden, which clips the absolutely-positioned chevron. */
+/* Sidebar collapsible categories. Flex layout with justify-content:
+   flex-start + gap so the chevron follows immediately after the
+   category label text, instead of floating at the sidebar's right
+   edge. Label is flex:0 0 auto (don't grow) so it only takes its
+   natural width. */
 .menu__link--sublist,
 [class*='categoryLink'].menu__link--sublist {
   position: relative;
-  display: block;
+  display: flex !important;
+  align-items: center;
+  justify-content: flex-start !important;
+  gap: var(--space-2);
   overflow: visible !important;
-  padding-right: 56px !important;
+  padding-right: var(--space-3) !important;
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-mono);
@@ -769,16 +773,14 @@ aside.theme-doc-sidebar-container {
   margin-top: var(--space-3);
 }
 
-/* The label span inside the link has flex:1 from the Docusaurus CSS
-   module; force it to shrink and ellipsize so it can't push the
-   chevron off-screen. */
+/* Label takes its natural width, doesn't grow to push the chevron away */
 .menu__link--sublist [class*='categoryLinkLabel'],
 .menu__link--sublist > span {
-  flex: 1 1 auto;
+  flex: 0 0 auto !important;
   min-width: 0;
-  max-width: calc(100% - 32px);
-  overflow: hidden;
-  text-overflow: ellipsis;
+  max-width: none;
+  overflow: visible;
+  text-overflow: clip;
   white-space: nowrap;
   display: inline-block;
 }
@@ -796,23 +798,21 @@ aside.theme-doc-sidebar-container {
   display: none;
 }
 
-/* Chevron pinned absolutely inside the link. 20x20 stroke-based icon
-   from --ifm-menu-link-sublist-icon. Expanded state = chevron pointing
-   down (rotate 180 from the base chevron-up SVG). Collapsed state =
-   pointing right (rotate 90). Cyan tint + glow on hover. */
+/* Chevron as a flex child sitting immediately after the label text.
+   position: static so it flows naturally, followed by gap: 8px from
+   the parent flex container. */
 .menu__link--sublist-caret::after {
   content: '' !important;
-  position: absolute !important;
-  right: 16px !important;
-  top: 50% !important;
-  width: 20px !important;
-  height: 20px !important;
+  position: static !important;
+  width: 16px !important;
+  height: 16px !important;
   min-width: 0 !important;
   margin: 0 !important;
   padding: 0 !important;
-  transform: translateY(-50%) rotate(180deg) !important;
+  flex: 0 0 16px !important;
+  transform: rotate(180deg) !important;
   background-image: var(--ifm-menu-link-sublist-icon) !important;
-  background-size: 20px 20px !important;
+  background-size: 16px 16px !important;
   background-position: center !important;
   background-repeat: no-repeat !important;
   filter: none !important;
@@ -822,16 +822,14 @@ aside.theme-doc-sidebar-container {
   transition: transform var(--dur-base) var(--ease-emphasis),
               filter var(--dur-base) var(--ease-standard);
   pointer-events: none;
-  z-index: 2;
 }
 
 .menu__list-item--collapsed > .menu__list-item-collapsible .menu__link--sublist-caret::after,
 .menu__list-item--collapsed > .menu__link--sublist-caret::after {
-  transform: translateY(-50%) rotate(90deg) !important;
+  transform: rotate(90deg) !important;
 }
 
-/* Cyan tint + glow on hover. drop-shadow works on the SVG pixels so the
-   chevron gets a real halo instead of a box shadow. */
+/* Cyan tint + glow on hover via drop-shadow on the SVG pixels */
 .menu__link--sublist:hover::after {
   filter:
     drop-shadow(0 0 4px rgba(0, 255, 242, 0.6))
