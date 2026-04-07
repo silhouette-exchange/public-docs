@@ -102,6 +102,13 @@ const config: Config = {
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
         },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.7,
+          ignorePatterns: ['/plans/**'],
+          filename: 'sitemap.xml',
+          lastmod: 'date',
+        },
       } satisfies Preset.Options,
     ],
   ],
