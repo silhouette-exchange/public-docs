@@ -290,39 +290,36 @@ html {
 }
 
 
-h1, h2, h3 {
-  font-family: var(--ifm-font-family-base);
-  font-style: normal;
-  font-weight: 400;
+/* Legacy heading overrides removed in Phase 1.5 - the new design tokens
+   in :root (--ifm-h1-font-size, --ifm-heading-font-family) now drive
+   heading sizes and Orbitron family across docs pages. Component-level
+   typography is owned by individual CSS modules (Hero, RoleCard, etc). */
+
+/* ============================================
+   BLOG TITLES - all-caps Orbitron with wide tracking
+   Targets only the title element inside <article><header>, NOT inline
+   subheadings within blog post body content (those stay sentence case).
+   ============================================ */
+article > header > h1,
+article > header > h2,
+article > header > h2 > a {
+  font-family: var(--font-display) !important;
+  font-size: clamp(28px, 4.5vw, 56px) !important;
+  font-weight: var(--fw-medium) !important;
+  line-height: 1.05 !important;
+  letter-spacing: var(--tracking-wider) !important;
+  text-transform: uppercase !important;
+  color: var(--text-default) !important;
+  text-wrap: balance;
 }
 
-h1 {
-  font-size: 28px !important;
-  line-height: 40px !important;
-  letter-spacing: 0.64px !important;
+article > header > h2 > a {
+  text-decoration: none !important;
+  transition: color var(--dur-base) var(--ease-standard);
 }
 
-h2 {
-  font-size: 22px;
-  font-weight: 500;
-  line-height: 32px;
-  letter-spacing: 0.48px;
-}
-
-/* This is due to the headings on pages being H2 when auto generated */
-header  h2 {
-  font-size: 28px !important;
-  font-style: normal;
-  font-weight: 400;
-  line-height: 40px; /* 142.857% */
-  letter-spacing: 0.64px;
-}
-
-h3 {
-  font-weight: 600;
-  font-size: 16px;
-  line-height: 24px;
-  letter-spacing: 0.48px;
+article > header > h2 > a:hover {
+  color: var(--accent-secondary-text) !important;
 }
 
 /* Navbar */
