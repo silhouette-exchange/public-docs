@@ -209,6 +209,13 @@
 
   --docusaurus-highlighted-code-line-bg: rgba(250, 0, 255, 0.10);
 
+  /* ---------- Sidebar collapse chevron ---------- */
+  /* Override Infima's default dark-gray chevron with one tinted to our
+     --text-muted (#b4b4bb). Infima handles position + rotation; we only
+     swap the SVG fill so the chevron is visible against #13161a. */
+  --ifm-menu-link-sublist-icon: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24"><path fill="%23b4b4bb" d="M7.41 15.41L12 10.83l4.59 4.58L18 14l-6-6-6 6z"/></svg>');
+  --ifm-menu-link-sublist-icon-filter: none;
+
   /* ---------- Local search modal theming ---------- */
   --search-local-highlight-color: var(--silh-cyan-100);
   --search-local-modal-background: rgba(19, 22, 26, 0.96);
@@ -708,8 +715,12 @@ aside.theme-doc-sidebar-container {
   display: none;
 }
 
-/* Sidebar collapsible categories */
-.menu__list-item--collapsible .menu__link--sublist {
+/* Sidebar collapsible categories
+   Docusaurus 3.9 puts .menu__link--sublist on the <a> when the
+   category is collapsible, .menu__link--sublist-caret when there's
+   no href (label-only category, our case). The collapsed state is on
+   the parent <li> as .menu__list-item--collapsed. */
+.menu__link--sublist {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -723,13 +734,15 @@ aside.theme-doc-sidebar-container {
   margin-top: var(--space-3);
 }
 
-.menu__list-item--collapsible .menu__link--sublist:hover {
+.menu__link--sublist:hover {
   color: var(--text-default);
 }
 
-/* Hide the default caret button - we render our own chevron via ::after
-   on the link below, which inherits the link's color and rotates on
-   collapse via transform. */
+/* Hide the default .menu__caret button. Docusaurus only renders this
+   when a category has BOTH an href AND is collapsible (a category that
+   navigates AND collapses needs a separate icon-only toggle). Our
+   sidebars.ts categories have no href so this never renders, but we
+   hide it defensively in case future categories add href fields. */
 .menu__caret {
   display: none;
 }
@@ -738,32 +751,13 @@ aside.theme-doc-sidebar-container {
   display: none;
 }
 
-/* Single chevron-down icon, positioned via ::after on the category link.
-   Uses mask-image so it picks up currentColor (inherits text-default at
-   rest, brighter on hover). Rotates -90deg when the category is collapsed. */
-.menu__list-item--collapsible .menu__link--sublist::after {
-  content: '';
-  display: block;
-  margin-left: auto;
-  flex-shrink: 0;
-  width: 14px;
-  height: 14px;
-  background-color: var(--text-muted);
-  -webkit-mask: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='black' stroke-width='1.6' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E") no-repeat center;
-          mask: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M3.5 5.25L7 8.75L10.5 5.25' stroke='black' stroke-width='1.6' stroke-linecap='square' stroke-linejoin='miter'/%3E%3C/svg%3E") no-repeat center;
-  -webkit-mask-size: contain;
-          mask-size: contain;
-  transition: transform var(--dur-base) var(--ease-standard),
-              background-color var(--dur-base) var(--ease-standard);
-}
-
-.menu__list-item--collapsible .menu__link--sublist:hover::after {
-  background-color: var(--text-default);
-}
-
-/* Rotated -90deg = chevron points right when category is collapsed */
-.menu__list-item--collapsible.menu__list-item--collapsed .menu__link--sublist::after {
-  transform: rotate(-90deg);
+/* The sidebar collapse chevron is provided by Infima via
+   --ifm-menu-link-sublist-icon (overridden in :root above with our
+   own tinted SVG). Infima also handles the rotation when the parent
+   <li> has .menu__list-item--collapsed. We add a hover brightening
+   only - everything else is Infima. */
+.menu__link--sublist:hover::after {
+  filter: brightness(1.4);
 }
 
 /* Nested sublist items - subtle vertical guide */
@@ -1554,52 +1548,84 @@ article header h1 {
 
 /* ============================================
    MOBILE SIDEBAR
+   Only renders below 997px. Hidden completely on desktop where the
+   permanent left rail (.theme-doc-sidebar-container) takes over.
    ============================================ */
-.navbar-sidebar {
-  display: flex;
-  flex-direction: column;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  z-index: 500;
-  background: var(--bg-base);
-  transform: translateX(-100%);
-  transition: transform var(--dur-slow) var(--ease-emphasis);
-  width: 300px;
-  max-width: 80vw;
-  box-shadow: var(--shadow-lg);
-  overflow-y: auto;
-  border-right: 1px solid var(--border-subtle);
-}
-
-.navbar-sidebar--show .navbar-sidebar,
-body.navbar-sidebar--show .navbar-sidebar {
-  transform: translateX(0);
-}
-
+.navbar-sidebar,
 .navbar-sidebar__backdrop {
   display: none;
 }
 
-.navbar-sidebar--show .navbar-sidebar__backdrop,
-body.navbar-sidebar--show .navbar-sidebar__backdrop {
-  display: block;
-  position: fixed;
-  inset: 0;
-  background: rgba(0, 0, 0, 0.7);
-  backdrop-filter: blur(var(--blur-sm));
-  z-index: calc(var(--ifm-z-index-fixed) + 1);
-  cursor: pointer;
-}
-
-body.navbar-sidebar--show,
-html.navbar-sidebar--show {
-  overflow: hidden;
-}
-
-/* Mobile touch targets - WCAG 2.2 SC 2.5.8 (min 24x24, recommended 44x44) */
 @media screen and (max-width: 996px) {
+  .navbar-sidebar {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 500;
+    background: var(--bg-base);
+    transform: translateX(-100%);
+    transition: transform var(--dur-slow) var(--ease-emphasis);
+    width: 320px !important;
+    max-width: 85vw !important;
+    box-shadow: var(--shadow-lg);
+    overflow-x: hidden;
+    overflow-y: auto;
+    border-right: 1px solid var(--border-subtle);
+  }
+
+  /* Constrain the inner panels container - Docusaurus uses a 200% wide
+     flex strip containing two panels, sliding horizontally between
+     main menu and secondary doc menu. Each panel is 100% of the parent
+     navbar-sidebar (320px). */
+  .navbar-sidebar__items {
+    display: flex;
+    width: 200%;
+    height: 100%;
+    overflow: hidden;
+  }
+
+  .navbar-sidebar__item {
+    width: 50%;  /* 50% of the 200% strip = 100% of navbar-sidebar */
+    flex-shrink: 0;
+    overflow-y: auto;
+    padding: var(--space-4) var(--space-2);
+  }
+
+  .navbar-sidebar__brand {
+    padding: var(--space-3) var(--space-4);
+    border-bottom: 1px solid var(--border-subtle);
+  }
+
+  .navbar-sidebar--show {
+    /* Slide the wrapper open */
+  }
+
+  .navbar.navbar-sidebar--show .navbar-sidebar,
+  body.navbar-sidebar--show .navbar-sidebar {
+    transform: translateX(0);
+  }
+
+  .navbar.navbar-sidebar--show .navbar-sidebar__backdrop,
+  body.navbar-sidebar--show .navbar-sidebar__backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(var(--blur-sm));
+    -webkit-backdrop-filter: blur(var(--blur-sm));
+    z-index: calc(var(--ifm-z-index-fixed) + 1);
+    cursor: pointer;
+  }
+
+  body.navbar-sidebar--show,
+  html.navbar-sidebar--show {
+    overflow: hidden;
+  }
+
+  /* Touch targets - WCAG 2.2 SC 2.5.8 */
   .menu__link {
     min-height: 44px;
   }
