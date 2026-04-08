@@ -318,7 +318,7 @@ src/
 
 ### 4b. Publication header
 
-- Title: `Blog` in Inter Display 48px / weight 600 / letter-spacing -0.02em / color `var(--text-strong)` (resolved `#E5E7EB`)
+- Title: `Blog` in Inter Display 48px / weight 600 / letter-spacing -0.02em / color `var(--text-default)` (resolved `#E5E7EB`)
 - Subtitle: `Writing on shielded trading, TEE architecture, and the road to private perps` in IBM Plex Mono 14px / weight 400 / color `var(--text-muted)`
 - Spacing: 12px between title and subtitle, 64px from subtitle to pills
 - Left-aligned
@@ -332,7 +332,7 @@ src/
 - Text color: `var(--text-muted)`
 - Padding: `8px 16px`
 - Border radius: `999px`
-- Hover: border brightens to `rgba(255,255,255,0.18)`, text to `var(--text-strong)`, 150ms ease-out, cursor pointer
+- Hover: border brightens to `rgba(255,255,255,0.18)`, text to `var(--text-default)`, 150ms ease-out, cursor pointer
 - Active: fills with `linear-gradient(135deg, rgba(var(--accent-primary-rgb), 0.15), rgba(var(--accent-secondary-rgb), 0.15))`, border at `rgba(255,255,255,0.3)`, text at full contrast
 - Focus: 2px outline ring in `var(--accent-secondary)`, 2px offset
 
@@ -371,13 +371,13 @@ Accent colors render as a 6px dot before the category name on article page eyebr
 
 **Copy area** (top to bottom):
 - Eyebrow: `{CATEGORY} · {READING TIME}`, IBM Plex Mono 11px, uppercase, letter-spacing 0.1em, color `var(--text-muted)`
-- Title: Inter Display 32px desktop / 26px mobile, weight 600, letter-spacing -0.02em, `text-wrap: balance`, color `var(--text-strong)`, `-webkit-line-clamp: 3`
+- Title: Inter Display 32px desktop / 26px mobile, weight 600, letter-spacing -0.02em, `text-wrap: balance`, color `var(--text-default)`, `-webkit-line-clamp: 3`
 - Dek: Inter 16px, weight 400, line-height 1.55, color `var(--text-muted)`, `-webkit-line-clamp: 3`
 - 32px gap
 - Byline footer: 32px avatar + `{name}` in Inter 14px + `· {DATE}` in Plex Mono 11px uppercase muted
 
 **Card style**:
-- Background: `var(--surface-1)` (one step raised from `var(--bg-base)`)
+- Background: `var(--bg-secondary)` (one step raised from `var(--bg-base)`)
 - Border: 1px `rgba(255,255,255,0.06)`
 - Border radius: 12px
 - Copy area padding: 40px desktop / 24px mobile
@@ -402,13 +402,13 @@ Accent colors render as a 6px dot before the category name on article page eyebr
 - Mobile (<996px): horizontal scroll with `scroll-snap-type: x proximity`, cards 72% viewport width
 
 **Per card**:
-- Background: `var(--surface-1)`
+- Background: `var(--bg-secondary)`
 - Border: 1px `rgba(var(--accent-secondary-rgb), 0.15)` (cyan tint distinguishes series cards from regular post cards)
 - Border radius: 12px
 - Padding: 24px
 - Step indicator row: `PART 1 OF 7` in Orbitron 11px uppercase letter-spacing 0.14em color `var(--accent-secondary)`
 - 16px space
-- Title: Inter 18px weight 600 `text-wrap: balance` color `var(--text-strong)` `-webkit-line-clamp: 3`
+- Title: Inter 18px weight 600 `text-wrap: balance` color `var(--text-default)` `-webkit-line-clamp: 3`
 - 12px space
 - Dek: Inter 14px weight 400 color `var(--text-muted)` `-webkit-line-clamp: 2`
 - 24px space
@@ -426,11 +426,11 @@ Accent colors render as a 6px dot before the category name on article page eyebr
 - Cover image 16:9 top of card, edge-to-edge
 - Padding 24px below the image
 - Eyebrow: `{CATEGORY} · {READING TIME}` Plex Mono 11px muted
-- Title: Inter 22px weight 600 `text-wrap: balance` color `var(--text-strong)` `-webkit-line-clamp: 2`
+- Title: Inter 22px weight 600 `text-wrap: balance` color `var(--text-default)` `-webkit-line-clamp: 2`
 - Dek: Inter 15px weight 400 color `var(--text-muted)` `-webkit-line-clamp: 2`
 - Footer: `{name} · {DATE}` with `margin-top: auto` (pins to card bottom). Name in Inter 13px weight 500. Date in Plex Mono 11px uppercase muted.
 
-**Card style**: `var(--surface-1)` bg, 1px `rgba(255,255,255,0.06)` border, 12px radius, overflow hidden.
+**Card style**: `var(--bg-secondary)` bg, 1px `rgba(255,255,255,0.06)` border, 12px radius, overflow hidden.
 
 **Hover**: same -2px translate + border brighten. **Alternating accent glow** deterministic by post slug hash: `hash(slug) % 2 === 0 ? magenta : cyan`. Stable across filter changes because it's keyed on slug, not array index. Glow at `box-shadow: 0 0 32px rgba(<accent>, 0.08)`.
 
@@ -440,10 +440,10 @@ Minimal text-only list of posts beyond the first 6 latest + 7 series. Rendered a
 
 **Per row**:
 - Top metadata line: category + date, Plex Mono 11px uppercase muted, 12px gap between them
-- Bottom title line: Inter 17px weight 500 `var(--text-strong)`, 4px margin-top
+- Bottom title line: Inter 17px weight 500 `var(--text-default)`, 4px margin-top
 - Separator: 1px bottom border `rgba(255,255,255,0.05)`, omitted on last row
 - Row padding: 24px vertical, 0 horizontal
-- Hover: background shifts to `rgba(255,255,255,0.02)`, title brightens to `var(--text-strong)` at full opacity, cursor pointer
+- Hover: background shifts to `rgba(255,255,255,0.02)`, title brightens to `var(--text-default)` at full opacity, cursor pointer
 
 This is not a grid. It is a reading list. It carries "we have more" without visual noise.
 
@@ -453,7 +453,7 @@ When a post has no `image` frontmatter, `<BlogCoverImage>` renders `<BlogCoverFa
 
 - Background: `linear-gradient(135deg, var(--bg-base) 0%, rgba(var(--accent-primary-rgb), 0.08) 50%, rgba(var(--accent-secondary-rgb), 0.08) 100%)`
 - 1px inner border `rgba(255,255,255,0.08)`
-- Post title overlaid bottom-left in Inter Display 24px weight 600 `var(--text-strong)`, `-webkit-line-clamp: 3`, 24px padding
+- Post title overlaid bottom-left in Inter Display 24px weight 600 `var(--text-default)`, `-webkit-line-clamp: 3`, 24px padding
 - Silhouette wordmark in Orbitron 10px top-right, 24px inset, color `var(--text-muted)`
 - 2% opacity noise texture for depth
 - Same 16:9 aspect ratio as real covers
@@ -544,7 +544,7 @@ At viewports ≥1280px, the right-rail TOC occupies `grid-column: 3` with `posit
 - Category token is clickable, links to `/blog?category=<slug>`
 - 16px below back link, 24px above title
 
-**Title**: Inter Display 60px desktop / 48px tablet / 40px mobile, weight 600, letter-spacing -0.025em, line-height 1.05, `text-wrap: balance`, color `var(--text-strong)`. Left-aligned. 32px below eyebrow.
+**Title**: Inter Display 60px desktop / 48px tablet / 40px mobile, weight 600, letter-spacing -0.025em, line-height 1.05, `text-wrap: balance`, color `var(--text-default)`. Left-aligned. 32px below eyebrow.
 
 **Dek** (only if `description` frontmatter is not a stub): Inter 22px desktop / 19px mobile, weight 400, line-height 1.4, color `var(--text-muted)`, `max-width: 40em`, `-webkit-line-clamp: 3`. 16px below title. 32px above byline row.
 
@@ -552,15 +552,15 @@ At viewports ≥1280px, the right-rail TOC occupies `grid-column: 3` with `posit
 
 Single horizontal flex, 32px below dek (or 32px below title if no dek), 64px above the cover image or body.
 
-**Left side** — author block:
+**Left side** - author block:
 - Avatar: 40x40px `border-radius: 50%`, 1px `rgba(255,255,255,0.1)` border
-- Name: Inter 15px weight 500 `var(--text-strong)`
+- Name: Inter 15px weight 500 `var(--text-default)`
 - Role: Inter 13px weight 400 `var(--text-muted)` directly under name
 - 12px gap between avatar and name block
 
 **Multi-author**: avatars stack with 24px overlap, up to 2 visible, "+N more" text if applicable. Names comma-joined.
 
-**Right side** — share row:
+**Right side** - share row:
 - `Share on X` · `Copy link` · `RSS` as three text buttons separated by 16px gap and `·` dividers
 - Each: Inter 13px weight 500 `var(--text-muted)`, hover to `var(--accent-secondary)`
 - Share on X: `https://twitter.com/intent/tweet?text={title}&url={url}` in new tab
@@ -594,7 +594,7 @@ This is the decisive section. Every measurement is load-bearing.
   line-height: 1.7;                        /* 32.3px */
   font-weight: 450;                        /* optical correction for dark */
   letter-spacing: 0;                       /* Inter is calibrated */
-  color: var(--text-strong);               /* #E5E7EB, 13.8:1 on #13161a, AAA */
+  color: var(--text-default);               /* #E5E7EB, 13.8:1 on #13161a, AAA */
   font-feature-settings: "cv11", "ss01", "ss03";
   text-rendering: optimizeLegibility;
   -webkit-font-smoothing: antialiased;
@@ -620,7 +620,7 @@ This is the decisive section. Every measurement is load-bearing.
 | H3 | 24px | 22px | 600 | 1.75em | 0.5em |
 | H4 | 19px | 17px | 600 | 1.5em | 0.4em |
 
-All headings: `letter-spacing: -0.015em`, `line-height: 1.25`, `scroll-margin-top: 80px`, color `var(--text-strong)`.
+All headings: `letter-spacing: -0.015em`, `line-height: 1.25`, `scroll-margin-top: 80px`, color `var(--text-default)`.
 
 Hover on H2/H3 reveals a `#` anchor character to the left at 50% opacity, clickable, copies URL with heading slug as fragment. 120ms fade-in.
 
@@ -639,7 +639,7 @@ Hover on H2/H3 reveals a `#` anchor character to the left at 50% opacity, clicka
   transition: text-decoration-color 150ms, text-decoration-thickness 150ms;
   ```
   Hover: `text-decoration-thickness: 1.5px; text-decoration-color: var(--accent-secondary);`
-- **Selection**: `::selection { background: rgba(var(--accent-secondary-rgb), 0.28); color: var(--text-strong); }`
+- **Selection**: `::selection { background: rgba(var(--accent-secondary-rgb), 0.28); color: var(--text-default); }`
 
 ### 5g. In-body element styling
 
@@ -647,7 +647,7 @@ Hover on H2/H3 reveals a `#` anchor character to the left at 50% opacity, clicka
 ```css
 border-left: 3px solid rgba(var(--accent-primary-rgb), 0.6);
 padding-left: 1.25em;
-color: var(--text-strong);               /* NOT muted — quotes read clearly */
+color: var(--text-default);               /* NOT muted - quotes read clearly */
 font-style: normal;                      /* italics off */
 margin-block: 1.75em;
 ```
@@ -655,11 +655,11 @@ No quotation marks (a border already signals "quote").
 
 **Pull quote** (MDX component, optional, max 1 per long post):
 - `<PullQuote>...</PullQuote>`
-- Center-aligned, 1.5em body-font, weight 500, color `var(--text-strong)`, no border, 48px margin block, small cyan dash `—` above
+- Center-aligned, 1.5em body-font, weight 500, color `var(--text-default)`, no border, 48px margin block, small cyan dash `-` above
 
 **Code block**:
 ```css
-background: var(--surface-2);            /* one step raised from article bg */
+background: var(--bg-modal);            /* one step raised from article bg */
 border: 1px solid rgba(255,255,255,0.06);
 border-radius: 10px;
 padding: 24px;
@@ -677,7 +677,7 @@ margin-block: 1.75em;
   - Strings: `var(--accent-secondary)` (cyan)
   - Numbers: `#fbbf24` (amber)
   - Comments: `rgba(255,255,255,0.4)`, italic
-  - Identifiers: `var(--text-strong)`
+  - Identifiers: `var(--text-default)`
   - Function names: `#a78bfa` (lilac, matches Trader role from Phase 1)
   - Operators, punctuation: `var(--text-muted)`
 - Diff highlighting: `+` lines `background: rgba(34,197,94,0.12)`, `-` lines `rgba(239,68,68,0.12)`
@@ -726,9 +726,9 @@ Renders only when:
 
 **Style**:
 - Label: `ON THIS PAGE` in Orbitron 11px uppercase letter-spacing 0.14em color `var(--text-muted)`
-- H2 rows: Inter 13px weight 500 `var(--text-muted)`, padding 8px 0, 1px left border `rgba(255,255,255,0.06)` with `padding-left: 16px`, hover to `var(--text-strong)`
+- H2 rows: Inter 13px weight 500 `var(--text-muted)`, padding 8px 0, 1px left border `rgba(255,255,255,0.06)` with `padding-left: 16px`, hover to `var(--text-default)`
 - H3 rows: Inter 12px weight 400 `var(--text-muted)`, indented further
-- **Active highlighting** via IntersectionObserver tracks which H2/H3 is in view (top of viewport): matching row gets `border-left: 2px solid var(--accent-secondary)` and `color: var(--text-strong)`
+- **Active highlighting** via IntersectionObserver tracks which H2/H3 is in view (top of viewport): matching row gets `border-left: 2px solid var(--accent-secondary)` and `color: var(--text-default)`
 - Smooth scroll on click, URL fragment updates
 
 **Below 1280px**: TOC collapses into inline `<details>` drawer directly after byline row, labeled `On this page ▾`, auto-collapsed. Below 640px: hidden entirely.
@@ -737,7 +737,7 @@ Renders only when:
 
 Rendered in order, below the article body:
 
-1. **Sign-off line** (only if `authors[0]` is a named individual): `— Wayne` in Plex Mono 15px `var(--text-muted)`, left-aligned, 48px top margin
+1. **Sign-off line** (only if `authors[0]` is a named individual): `- Wayne` in Plex Mono 15px `var(--text-muted)`, left-aligned, 48px top margin
 2. **Copy for LLM row**: reuse existing `<CopyForLLMRow>` from docs theme via wrap swizzle on `theme/BlogPostItem/Footer/index.tsx`
 3. **Next in series** (only if post has `series`): horizontal card with `NEXT IN THE SILHOUETTE SERIES` Orbitron eyebrow, next post title + dek, styled as a smaller version of the featured hero with cyan border tint
 4. **Read next**:
@@ -844,15 +844,15 @@ Three, and only three, signature moves this push.
 - Portal-mounted to `document.body`
 - Positioned via `getBoundingClientRect()` of the selection Range, 8px below the selection bottom edge, horizontally centered on the selection
 - Flips to above/left/right if it would overflow the viewport
-- Background: `var(--surface-2)`
+- Background: `var(--bg-modal)`
 - Border: 1px `rgba(255,255,255,0.12)`
 - Border radius: 10px
 - Padding: 8px
 - Box shadow: `0 8px 32px rgba(0,0,0,0.4), 0 0 24px rgba(var(--accent-primary-rgb), 0.1)`
 - Enter animation: 120ms fade + 4px translate-up
 - Two buttons separated by 1px vertical divider:
-  - **Quote on X**: opens `https://twitter.com/intent/tweet?text=${encodeURIComponent('"' + selectedText + '"\n\n— from ' + postTitle)}&url=${encodeURIComponent(canonicalUrl)}` in new tab
-  - **Copy quote**: clipboard write of `> {selectedText}\n\n— {postTitle}\n{canonicalUrl}` via `navigator.clipboard.writeText()` with `document.execCommand('copy')` fallback. Label swaps to "✓ Copied" for 1.5s.
+  - **Quote on X**: opens `https://twitter.com/intent/tweet?text=${encodeURIComponent('"' + selectedText + '"\n\n- from ' + postTitle)}&url=${encodeURIComponent(canonicalUrl)}` in new tab
+  - **Copy quote**: clipboard write of `> {selectedText}\n\n- {postTitle}\n{canonicalUrl}` via `navigator.clipboard.writeText()` with `document.execCommand('copy')` fallback. Label swaps to "✓ Copied" for 1.5s.
 
 **Dismiss triggers**: click-outside, scroll, Escape, selection cleared, new selection that doesn't meet criteria.
 
@@ -1041,7 +1041,7 @@ wayne:
 
 ### 9b. Avatar file
 
-`static/img/authors/wayne.jpg` — 256x256 square headshot. **Wayne provides this file.** If not available by implementation time, `<BlogByline>` falls back to a generated initials avatar (single `W` in Orbitron over magenta-cyan gradient square). Fallback is built into the component regardless.
+`static/img/authors/wayne.jpg` - 256x256 square headshot. **Wayne provides this file.** If not available by implementation time, `<BlogByline>` falls back to a generated initials avatar (single `W` in Orbitron over magenta-cyan gradient square). Fallback is built into the component regardless.
 
 ### 9c. Future authors
 
@@ -1068,7 +1068,7 @@ Every new component ships with a co-located `*.test.tsx` in the same commit. Bas
 
 **Target**: 5-10 tests per component. 19 components × ~7 average = **~130 new tests** on top of the existing 13 from session 2 (3 smoke + 10 EndpointCard). All running in the existing vitest infrastructure.
 
-**Notable test cases per component** — see §12 Build Sequence for specifics.
+**Notable test cases per component** - see §12 Build Sequence for specifics.
 
 ### 10b. Integration tests
 
@@ -1088,8 +1088,8 @@ Manual dispatches, not CI. Three gates:
 
 Three new color pairings to verify via math or Stark:
 
-- Body text on card surface: `#E5E7EB` on `var(--surface-1)` → must be ≥7:1 AAA
-- Eyebrow muted text on card surface: `rgba(229,231,235,0.55)` on `var(--surface-1)` → must be ≥4.5:1 AA
+- Body text on card surface: `#E5E7EB` on `var(--bg-secondary)` → must be ≥7:1 AAA
+- Eyebrow muted text on card surface: `rgba(229,231,235,0.55)` on `var(--bg-secondary)` → must be ≥4.5:1 AA
 - Link cyan on body background: `var(--accent-secondary)` on `#13161a` → must be ≥4.5:1 AA
 
 All three should pass given session 1's WCAG 2.2 pass, but re-verify during implementation.
@@ -1105,80 +1105,80 @@ All three should pass given session 1's WCAG 2.2 pass, but re-verify during impl
 Organized by theme with intent markers so future sessions know what's waiting vs killed.
 
 **Intent key**:
-- **[v2]** — deferred to a future push, likely within this docs overhaul arc
-- **[later]** — lower priority, no committed timeline
-- **[owned elsewhere]** — another track or team member owns it
-- **[killed]** — explicitly decided against; do not resurrect without Wayne's go
+- **[v2]** - deferred to a future push, likely within this docs overhaul arc
+- **[later]** - lower priority, no committed timeline
+- **[owned elsewhere]** - another track or team member owns it
+- **[killed]** - explicitly decided against; do not resurrect without Wayne's go
 
 ### 11a. Discovery features (revisit at 30+ posts)
 
-- **Blog-scoped search input** — **[v2]** — client-side fuzzy match over titles + descriptions + category. Revisit around 40 posts.
-- **Load-more / pagination** — **[v2]** — currently renders everything inline. Revisit when listing scroll gets painful.
-- **`/blog/archive` flat list page** — **[v2]** — chronological text-only archive. Useful SEO landing.
-- **Category index pages** (`/blog/research/`) — **[later]** — only build if a specific category becomes a dedicated SEO target.
-- **Tag cloud / tag index pages** — **[killed]** — we use categories not tags. `tags` frontmatter stays dormant for forward compat.
-- **"Most popular" / "Top essays" heuristics** — **[later]** — needs analytics integration.
-- **Author index carousel / featured author** — **[killed]** — not relevant for single-company blog.
+- **Blog-scoped search input** - **[v2]** - client-side fuzzy match over titles + descriptions + category. Revisit around 40 posts.
+- **Load-more / pagination** - **[v2]** - currently renders everything inline. Revisit when listing scroll gets painful.
+- **`/blog/archive` flat list page** - **[v2]** - chronological text-only archive. Useful SEO landing.
+- **Category index pages** (`/blog/research/`) - **[later]** - only build if a specific category becomes a dedicated SEO target.
+- **Tag cloud / tag index pages** - **[killed]** - we use categories not tags. `tags` frontmatter stays dormant for forward compat.
+- **"Most popular" / "Top essays" heuristics** - **[later]** - needs analytics integration.
+- **Author index carousel / featured author** - **[killed]** - not relevant for single-company blog.
 
 ### 11b. Engagement features (intentionally skipped)
 
-- **Newsletter subscribe form** — **[v2]** — requires ESP choice first. Inline at article footer + publication header. No popups.
-- **Newsletter popup / modal** — **[killed]** — trust-destroyer.
-- **Related-posts sidebar rail on listing** — **[killed]** — competes with archive tail.
-- **Claps / reactions** — **[killed]** — not Silhouette's voice.
-- **Comments** — **[killed]** — moderation burden, wrong audience (crypto-Twitter is the discussion layer).
-- **Social share counts** — **[killed]** — vanity metric.
-- **Mid-article CTA** — **[killed]** — breaks reading flow.
+- **Newsletter subscribe form** - **[v2]** - requires ESP choice first. Inline at article footer + publication header. No popups.
+- **Newsletter popup / modal** - **[killed]** - trust-destroyer.
+- **Related-posts sidebar rail on listing** - **[killed]** - competes with archive tail.
+- **Claps / reactions** - **[killed]** - not Silhouette's voice.
+- **Comments** - **[killed]** - moderation burden, wrong audience (crypto-Twitter is the discussion layer).
+- **Social share counts** - **[killed]** - vanity metric.
+- **Mid-article CTA** - **[killed]** - breaks reading flow.
 
 ### 11c. Reading experience quality ceiling (v2)
 
-- **Tufte-style sidenotes** — **[v2]** — 4-8h build. Right-margin sidenotes ≥1280px, collapsed footnotes mobile. Highest-value v2 signature touch.
-- **Drop caps on research posts** — **[later]** — editorial flourish, restricted to long-form research essays.
-- **Scroll-triggered reveals on body paragraphs** — **[killed]** — competes with shielded reveal at mount.
-- **Sentence-highlighting following scroll** — **[killed]** — competes with reading flow.
-- **Cursor-following radial gradient background** — **[later]** — Vercel/Linear signature. Noise-to-signal borderline.
-- **Reading mode toggle** — **[killed]** — base surface already optimized.
-- **"About to read for ~7 minutes" modal** — **[killed]** — eyebrow reading time is enough.
-- **Highlight-to-share on mobile** — **[later]** — currently relies on native share sheet. Revisit if inadequate.
+- **Tufte-style sidenotes** - **[v2]** - 4-8h build. Right-margin sidenotes ≥1280px, collapsed footnotes mobile. Highest-value v2 signature touch.
+- **Drop caps on research posts** - **[later]** - editorial flourish, restricted to long-form research essays.
+- **Scroll-triggered reveals on body paragraphs** - **[killed]** - competes with shielded reveal at mount.
+- **Sentence-highlighting following scroll** - **[killed]** - competes with reading flow.
+- **Cursor-following radial gradient background** - **[later]** - Vercel/Linear signature. Noise-to-signal borderline.
+- **Reading mode toggle** - **[killed]** - base surface already optimized.
+- **"About to read for ~7 minutes" modal** - **[killed]** - eyebrow reading time is enough.
+- **Highlight-to-share on mobile** - **[later]** - currently relies on native share sheet. Revisit if inadequate.
 
 ### 11d. Content and frontmatter passes
 
-- **Real description frontmatter pass** — **[v2]** — 150-char hand-written SEO descriptions across docs + blog. Already on session 2 backlog.
-- **Legacy post MEV rewrite** — **[killed]** — Wayne's 2026-04-09 call. Legacy stays.
-- **Legacy post reattribution** — **[later]** — only if Wayne wants specific posts bylined to named authors.
-- **`blog/` → `content/blog/` file move** — **[killed]** — Docusaurus expects posts at `blog/`.
-- **`blog/images/` per-post subdirectories** — **[later]** — low priority until 40+ posts.
-- **Image optimization pass** — **[later]** — compress + WebP + `srcset`.
+- **Real description frontmatter pass** - **[v2]** - 150-char hand-written SEO descriptions across docs + blog. Already on session 2 backlog.
+- **Legacy post MEV rewrite** - **[killed]** - Wayne's 2026-04-09 call. Legacy stays.
+- **Legacy post reattribution** - **[later]** - only if Wayne wants specific posts bylined to named authors.
+- **`blog/` → `content/blog/` file move** - **[killed]** - Docusaurus expects posts at `blog/`.
+- **`blog/images/` per-post subdirectories** - **[later]** - low priority until 40+ posts.
+- **Image optimization pass** - **[later]** - compress + WebP + `srcset`.
 
 ### 11e. Author and attribution
 
-- **Author profile pages** (`/blog/authors/wayne`) — **[later]** — flip `page: false` to `true` in `authors.yml` when there's a "meet the team" story.
-- **Additional authors** (Jason, Chandler, Stent, Rory, Ciaran) — **[as needed]** — add when their first post ships.
+- **Author profile pages** (`/blog/authors/wayne`) - **[later]** - flip `page: false` to `true` in `authors.yml` when there's a "meet the team" story.
+- **Additional authors** (Jason, Chandler, Stent, Rory, Ciaran) - **[as needed]** - add when their first post ships.
 
 ### 11f. Series and editorial
 
-- **Second series beyond `silhouette-primer`** — **[as needed]** — system supports multiple series out of the box.
-- **Migration of legacy posts into a series** — **[killed]** — legacy posts are independent.
-- **Series completion tracker** (localStorage, shows ✓ on read posts) — **[later]** — delightful if the series gets traction.
-- **Series-specific landing page** (`/blog/series/silhouette-primer`) — **[v2]** — dedicated page per series with hand-written intro.
+- **Second series beyond `silhouette-primer`** - **[as needed]** - system supports multiple series out of the box.
+- **Migration of legacy posts into a series** - **[killed]** - legacy posts are independent.
+- **Series completion tracker** (localStorage, shows ✓ on read posts) - **[later]** - delightful if the series gets traction.
+- **Series-specific landing page** (`/blog/series/silhouette-primer`) - **[v2]** - dedicated page per series with hand-written intro.
 
 ### 11g. Structured data and SEO
 
-- **Blog post JSON-LD** (`BlogPosting` schema) — **[v2]** — per-post `headTags` via swizzle. Currently the blog routes are excluded from the `@stackql` structured-data plugin.
-- **Schema markup pass on non-API pages** — **[v2]** — session 2 backlog item.
-- **AI SEO audit of live state** — **[v2]** — session 2 backlog item.
+- **Blog post JSON-LD** (`BlogPosting` schema) - **[v2]** - per-post `headTags` via swizzle. Currently the blog routes are excluded from the `@stackql` structured-data plugin.
+- **Schema markup pass on non-API pages** - **[v2]** - session 2 backlog item.
+- **AI SEO audit of live state** - **[v2]** - session 2 backlog item.
 
 ### 11h. Phase 4 distribution (owned elsewhere)
 
-- **MCP server deployment** (`silhouette-exchange/docs-mcp`) — **[owned elsewhere]** — half-done Python repo, needs deployment + `context7` listing.
-- **Wikipedia draft** — **[owned elsewhere]** — Jerri owns per project memory.
-- **Messari / DeFiLlama / CoinGecko / CMC listings** — **[owned elsewhere]** — distribution track.
-- **X announcement of rebuilt docs + blog** — **[later]** — after visual sign-off.
+- **MCP server deployment** (`silhouette-exchange/docs-mcp`) - **[owned elsewhere]** - half-done Python repo, needs deployment + `context7` listing.
+- **Wikipedia draft** - **[owned elsewhere]** - Jerri owns per project memory.
+- **Messari / DeFiLlama / CoinGecko / CMC listings** - **[owned elsewhere]** - distribution track.
+- **X announcement of rebuilt docs + blog** - **[later]** - after visual sign-off.
 
 ### 11i. Notion CMS
 
-- **Full Notion-to-docs sync pipeline** — **[killed]** — Wayne's 2026-04-09 call. Claude Code manual push instead.
-- **Notion CRM integration** — **[unchanged]** — different DB, different token, not part of docs overhaul.
+- **Full Notion-to-docs sync pipeline** - **[killed]** - Wayne's 2026-04-09 call. Claude Code manual push instead.
+- **Notion CRM integration** - **[unchanged]** - different DB, different token, not part of docs overhaul.
 
 ---
 
@@ -1205,14 +1205,14 @@ Each bullet is a task unit. "Trivial" runs controller-direct. "Subagent-dispatch
 ### Phase 2: listing page components (subagent-dispatch, TDD)
 
 11. `BlogPublicationHeader`
-12. `BlogCategoryPills` — client-side filter, URL query param sync, keyboard nav (~8 tests)
+12. `BlogCategoryPills` - client-side filter, URL query param sync, keyboard nav (~8 tests)
 13. `BlogCoverFallback` + `BlogCoverImage`
 14. `BlogEyebrow`
-15. `BlogByline` — avatar, initials fallback, multi-author cluster
-16. `BlogPostCard` — alternating glow deterministic by slug hash
-17. `BlogHero` — split layout ≥996px, stacked below
-18. `BlogSeriesCard` — numbered step card
-19. `BlogSeriesBand` — header + card grid + conditional render
+15. `BlogByline` - avatar, initials fallback, multi-author cluster
+16. `BlogPostCard` - alternating glow deterministic by slug hash
+17. `BlogHero` - split layout ≥996px, stacked below
+18. `BlogSeriesCard` - numbered step card
+19. `BlogSeriesBand` - header + card grid + conditional render
 20. `BlogLatestBand`
 21. `BlogArchiveList`
 
@@ -1227,13 +1227,13 @@ Likely bundled into ~8 subagent tasks (small components paired, larger ones solo
 
 ### Phase 4: article page components (subagent-dispatch, TDD)
 
-26. `BlogTOC` — right-rail sticky, IntersectionObserver active tracking
-27. `BlogShareRow` — X / Copy / RSS with clipboard fallback
+26. `BlogTOC` - right-rail sticky, IntersectionObserver active tracking
+27. `BlogShareRow` - X / Copy / RSS with clipboard fallback
 28. `BlogNextInSeries`
-29. `BlogReadNext` — 1 big + 3 small
-30. `BlogScrollProgress` — rAF-driven width
-31. `BlogShieldedReveal` — stagger cap + sessionStorage flag
-32. `BlogHighlightShare` — selection popover + scope check
+29. `BlogReadNext` - 1 big + 3 small
+30. `BlogScrollProgress` - rAF-driven width
+31. `BlogShieldedReveal` - stagger cap + sessionStorage flag
+32. `BlogHighlightShare` - selection popover + scope check
 
 ~5 subagent tasks.
 
@@ -1247,7 +1247,7 @@ Likely bundled into ~8 subagent tasks (small components paired, larger ones solo
 
 ### Phase 6: final verification (trivial, controller-direct)
 
-38. `pnpm test` — all ~143 tests green
+38. `pnpm test` - all ~143 tests green
 39. Kill dev server, `pnpm build` green with `onBrokenLinks: throw`
 40. Restart dev server, curl smoke test on `/blog`, `/blog?category=research`, one article URL
 41. Visual review session with Wayne on local dev server
