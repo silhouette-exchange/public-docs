@@ -271,6 +271,174 @@ git commit -m "fix(api): correct OpenAPI spec URL to /v0/openapi.json and link t
 
 ---
 
+### Milestone 3.5 - Test infrastructure
+
+New components from Milestone 4 onwards must ship with unit tests in the same commit per Wayne's 2026-04-08 feedback rule (`feedback_unit_tests_required.md`). The docs repo has no test infrastructure today, so we wire it up before touching any component code.
+
+#### Task 6.5: Install vitest and testing-library
+
+**Files:**
+- Modify: `package.json` (devDependencies + scripts)
+- Modify: `pnpm-lock.yaml` (auto)
+- Create: `vitest.config.ts`
+- Create: `vitest.setup.ts`
+- Create: `src/components/__smoke__/smoke.test.tsx`
+
+**Step 1:** Kill the dev server if it is running (per Lesson 3 from session 1). Then install:
+
+```bash
+pnpm add -D vitest @vitest/ui @testing-library/react @testing-library/jest-dom jsdom @vitejs/plugin-react
+```
+
+**Step 2:** Create `vitest.config.ts` at the repo root:
+
+```ts
+import { defineConfig } from 'vitest/config';
+import react from '@vitejs/plugin-react';
+import path from 'node:path';
+
+export default defineConfig({
+  plugins: [react()],
+  resolve: {
+    alias: {
+      '@site': path.resolve(__dirname, './'),
+      '@docusaurus/Link': path.resolve(__dirname, './src/test/mocks/Link.tsx'),
+      '@docusaurus/router': path.resolve(__dirname, './src/test/mocks/router.ts'),
+      '@docusaurus/BrowserOnly': path.resolve(__dirname, './src/test/mocks/BrowserOnly.tsx'),
+    },
+  },
+  test: {
+    environment: 'jsdom',
+    setupFiles: ['./vitest.setup.ts'],
+    globals: true,
+    css: { modules: { classNameStrategy: 'non-scoped' } },
+    include: ['src/**/*.{test,spec}.{ts,tsx}'],
+    exclude: ['node_modules', 'build', '.docusaurus'],
+  },
+});
+```
+
+**Step 3:** Create `vitest.setup.ts` at the repo root:
+
+```ts
+import '@testing-library/jest-dom/vitest';
+import { cleanup } from '@testing-library/react';
+import { afterEach } from 'vitest';
+
+afterEach(() => {
+  cleanup();
+});
+```
+
+**Step 4:** Create the Docusaurus module mocks at `src/test/mocks/`:
+
+```tsx
+// src/test/mocks/Link.tsx
+import React from 'react';
+
+interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+  to?: string;
+}
+
+export default function Link({ to, href, children, ...rest }: LinkProps) {
+  return <a href={to ?? href} {...rest}>{children}</a>;
+}
+```
+
+```ts
+// src/test/mocks/router.ts
+export function useLocation() {
+  return { pathname: '/', search: '', hash: '', state: null, key: 'test' };
+}
+```
+
+```tsx
+// src/test/mocks/BrowserOnly.tsx
+import React from 'react';
+
+interface BrowserOnlyProps {
+  children: () => React.ReactNode;
+  fallback?: React.ReactNode;
+}
+
+export default function BrowserOnly({ children }: BrowserOnlyProps) {
+  return <>{children()}</>;
+}
+```
+
+**Step 5:** Add test scripts to `package.json`. Insert into the `scripts` block:
+
+```json
+"test": "vitest run",
+"test:watch": "vitest",
+"test:ui": "vitest --ui"
+```
+
+**Step 6:** Write a smoke test to prove the rig works. Create `src/components/__smoke__/smoke.test.tsx`:
+
+```tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+
+describe('vitest smoke test', () => {
+  it('renders a React element', () => {
+    render(<div data-testid="smoke">hello</div>);
+    expect(screen.getByTestId('smoke')).toHaveTextContent('hello');
+  });
+
+  it('has jsdom environment', () => {
+    expect(typeof window).toBe('object');
+    expect(typeof document).toBe('object');
+  });
+
+  it('has jest-dom matchers loaded', () => {
+    render(<button disabled>click</button>);
+    expect(screen.getByRole('button')).toBeDisabled();
+  });
+});
+```
+
+**Step 7:** Run the smoke test to verify the rig:
+
+```bash
+pnpm test
+```
+
+Expected: 3 tests pass, exit code 0. If anything fails, STOP and debug before proceeding. Common failure modes:
+- `Cannot find module '@docusaurus/Link'` → check the alias paths in `vitest.config.ts`
+- `window is not defined` → check `environment: 'jsdom'` is set
+- `.toBeDisabled is not a function` → check `vitest.setup.ts` is loaded via `setupFiles`
+
+**Step 8:** Verify `pnpm build` still passes (the mocks should not affect the Docusaurus build because they only resolve under vitest's config):
+
+```bash
+pnpm build 2>&1 | tail -5
+```
+
+Expected: build succeeds.
+
+**Step 9:** Commit:
+
+```bash
+git add package.json pnpm-lock.yaml vitest.config.ts vitest.setup.ts src/test/mocks/ src/components/__smoke__/
+git commit -m "feat(test): wire vitest + testing-library + jsdom for component unit tests
+
+Adds vitest, @testing-library/react, @testing-library/jest-dom, jsdom,
+and @vitejs/plugin-react as dev dependencies. Creates vitest.config.ts
+with aliases for @docusaurus/Link, @docusaurus/router, and
+@docusaurus/BrowserOnly so components using these imports can be
+tested in isolation.
+
+Adds test scripts (test, test:watch, test:ui) and a smoke test that
+verifies the rig: React render, jsdom environment, jest-dom matchers.
+
+Docs repo had zero test infrastructure before this commit. Required
+by Wayne's 2026-04-08 unit-tests-required feedback rule before any
+new component work lands."
+```
+
+---
+
 ### Milestone 4 - Build the EndpointCard MDX component
 
 > **REQUIRED SUB-SKILL:** Before Task 7, invoke `superpowers:brainstorming` to align on what an EndpointCard should communicate. Then `frontend-design` for the actual implementation.
