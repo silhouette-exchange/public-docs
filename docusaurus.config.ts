@@ -185,6 +185,7 @@ const config: Config = {
           darkMode: true,
           hideClientButton: false,
           hideDarkModeToggle: true,
+          telemetry: false, // privacy: do not phone home from the docs site
           theme: 'none', // we override CSS variables in custom.css
           layout: 'modern',
           hiddenClients: ['c', 'clojure', 'http', 'ocaml', 'powershell', 'objc', 'r'],
