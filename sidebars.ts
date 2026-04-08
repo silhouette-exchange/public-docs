@@ -76,6 +76,7 @@ const sidebars: SidebarsConfig = {
         'api/quick-start',
         'api/authentication',
         'api/reference',
+        { type: 'link', label: 'Interactive Explorer', href: '/api/explorer' },
         'api/troubleshooting',
         'api/openapi',
       ],
