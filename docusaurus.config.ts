@@ -205,6 +205,7 @@ const config: Config = {
         '/blog/tags',
         '/blog/archive',
         '/blog',
+        '/api/explorer',
       ],
       verbose: false,
       featuredImageDimensions: {
