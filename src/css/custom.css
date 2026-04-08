@@ -1821,3 +1821,123 @@ article header h1 {
   scrollbar-width: thin;
   scrollbar-color: rgba(255, 255, 255, 0.06) transparent;
 }
+
+/* ============================================================
+ * Scalar API Explorer theming
+ * Maps Scalar's CSS variables to Silhouette tokens.
+ * Verified against @scalar/docusaurus 0.8.6 theme.css.
+ * Last audited 2026-04-08 (frontend-design + ui-ux-pro-max).
+ *
+ * Strategy: the docs site is dark-only, so we skip the
+ * html[data-theme='dark'] gating and scope directly to
+ * .scalar-app, .scalar-api-reference, and .scalar-card.dark-mode.
+ * That keeps specificity high enough to beat Scalar's own
+ * html[data-theme='dark'] body rule at the .scalar-app element,
+ * and child elements inherit our custom property values because
+ * CSS variables cascade through the nearest declaring ancestor.
+ *
+ * Contrast math (all vs --bg-base #13161a):
+ *   --scalar-color-1 = #f9f9f9 -> 17.23:1 AAA
+ *   --scalar-color-2 = #d4d4d8 -> 12.28:1 AAA
+ *   --scalar-color-3 = #b4b4bb ->  8.80:1 AAA
+ *   --scalar-color-accent = #4dfff6 -> ~13:1 AAA
+ *   --scalar-button-1 cyan on #09090b -> ~16:1 AAA
+ * ============================================================ */
+.scalar-app,
+.scalar-api-reference,
+.scalar-card.dark-mode {
+  /* Foreground text scale */
+  --scalar-color-1: var(--text-default);
+  --scalar-color-2: var(--text-secondary);
+  --scalar-color-3: var(--text-muted);
+  --scalar-color-accent: var(--accent-secondary-text);
+
+  /* Background surface scale */
+  --scalar-background-1: var(--bg-base);
+  --scalar-background-2: var(--bg-secondary);
+  --scalar-background-3: var(--bg-tertiary);
+  --scalar-background-accent: var(--accent-primary-muted);
+
+  /* Borders and shadows */
+  --scalar-border-color: var(--border-default);
+  --scalar-border-width: 1px;
+  --scalar-shadow-1: var(--shadow-sm);
+  --scalar-shadow-2: var(--shadow-lg);
+
+  /* Status / method palette. Scalar uses these for HTTP method
+     pills, syntax highlighting, and status chips. Note: Scalar's
+     internal convention maps `--scalar-color-green` to POST and
+     `--scalar-color-blue` to GET (verified in puppeteer against
+     0.8.6 pill output), so we pick the Silhouette token that makes
+     sense for each method, not each hue name:
+        green  -> POST    (brand magenta - the signature color)
+        blue   -> GET     (cyan accent - primary read operation)
+        red    -> DELETE  (danger red-pink, 6.7:1 on bg-base)
+        yellow -> PATCH   (warning amber)
+        orange -> PUT     (warning amber - same family as yellow)
+        purple -> OPTIONS (lilac)
+     Each HTTP method is always text-labeled inside Scalar, so the
+     yellow/orange collision never blocks disambiguation. */
+  --scalar-color-green: var(--accent-primary-text);
+  --scalar-color-blue: var(--accent-secondary-text);
+  --scalar-color-red: var(--danger);
+  --scalar-color-yellow: var(--warning);
+  --scalar-color-orange: var(--warning);
+  --scalar-color-purple: var(--silh-lilac-100);
+
+  /* Primary CTA. Cyan fill on near-black text = ~16:1 AAA. */
+  --scalar-button-1: var(--accent-secondary);
+  --scalar-button-1-hover: var(--accent-secondary-hover);
+  --scalar-button-1-color: var(--text-inverse);
+
+  /* Radii (Scalar only references --scalar-radius and -lg). */
+  --scalar-radius: var(--radius-md);
+  --scalar-radius-lg: var(--radius-lg);
+
+  /* Typography - Inter body, IBM Plex Mono for code. */
+  --scalar-font: var(--font-sans);
+  --scalar-font-code: var(--font-mono);
+}
+
+/* Sidebar tokens. Scalar's sidebar re-derives its own variable
+   layer inside .t-doc__sidebar, so we override that layer too. */
+.scalar-app .t-doc__sidebar,
+.scalar-api-reference .t-doc__sidebar {
+  --scalar-sidebar-background-1: var(--bg-secondary);
+  --scalar-sidebar-item-hover-background: rgba(255, 255, 255, 0.04);
+  --scalar-sidebar-item-hover-color: var(--text-default);
+  --scalar-sidebar-item-active-background: var(--accent-primary-muted);
+  --scalar-sidebar-border-color: var(--border-default);
+  --scalar-sidebar-color-1: var(--text-default);
+  --scalar-sidebar-color-2: var(--text-muted);
+  --scalar-sidebar-color-active: var(--accent-secondary);
+  --scalar-sidebar-search-background: var(--bg-card);
+  --scalar-sidebar-search-border-color: var(--border-default);
+  --scalar-sidebar-search--color: var(--text-tertiary);
+}
+
+/* Belt-and-suspenders: Scalar's internal stylesheet sometimes
+   paints .scalar-app directly with its own background color rather
+   than going through --scalar-background-1. Force the base surface
+   so the explorer never flashes white during hydration. */
+.scalar-app {
+  background: var(--bg-base) !important;
+}
+
+/* Scalar's standalone CDN bundle redeclares the --scalar-color-* status
+   palette at .scalar-card scope, which is a nearer ancestor than
+   .scalar-app for any element inside a card. CSS variables resolve
+   against the nearest declaring ancestor, so our .scalar-app mapping
+   stops applying inside cards. Re-declare the same tokens at .scalar-card
+   so the cascade keeps inheriting Silhouette colors all the way down. */
+.scalar-app .scalar-card,
+.scalar-api-reference .scalar-card,
+.scalar-app [class*="scalar-card-"],
+.scalar-api-reference [class*="scalar-card-"] {
+  --scalar-color-green: var(--accent-primary-text);
+  --scalar-color-blue: var(--accent-secondary-text);
+  --scalar-color-red: var(--danger);
+  --scalar-color-yellow: var(--warning);
+  --scalar-color-orange: var(--warning);
+  --scalar-color-purple: var(--silh-lilac-100);
+}
