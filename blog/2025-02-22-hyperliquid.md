@@ -3,8 +3,7 @@ slug: hyperliquid
 title: Why We Chose Hyperliquid
 authors:
   - silhouette-team
-tags:
-  - article
+category: research
 description: Why We Chose Hyperliquid - Silhouette Exchange documentation.
 ---
 

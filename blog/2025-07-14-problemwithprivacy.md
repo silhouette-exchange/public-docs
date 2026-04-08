@@ -3,8 +3,7 @@ slug: problemwithprivacy
 title: The Privacy Mirage - Why Complete Darkness Breaks DeFi
 authors:
   - silhouette-team
-tags:
-  - article
+category: research
 description: >-
   The Privacy Mirage - Why Complete Darkness Breaks DeFi - Silhouette Exchange
   documentation.

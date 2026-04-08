@@ -3,8 +3,7 @@ slug: redefiningdefi
 title: Redefining DeFi with Silhouette
 authors:
   - silhouette-team
-tags:
-  - article
+category: announcements
 description: Redefining DeFi with Silhouette - Silhouette Exchange documentation.
 ---
 

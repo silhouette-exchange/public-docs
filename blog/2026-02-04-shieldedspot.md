@@ -3,8 +3,7 @@ slug: shielded-spot-trading
 title: Shielded Spot Trading - Live on Hyperliquid
 authors:
   - silhouette-team
-tags:
-  - article
+category: product
 description: >-
   Shielded Spot Trading - Live on Hyperliquid - Silhouette Exchange
   documentation.
