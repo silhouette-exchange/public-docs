@@ -2,17 +2,24 @@
  * BlogPublicationHeader
  *
  * Pure presentational header for the /blog listing page top. Renders a
- * large wordmark title (--font-display, single word "Blog" is approved
- * for Orbitron usage) and an optional subtitle in IBM Plex Mono. All
- * values reference :root tokens from src/css/custom.css. No hardcoded
- * colours, no hardcoded fonts, no em dashes.
+ * large title in Inter (--font-sans) and an optional subtitle in IBM
+ * Plex Mono. All values reference :root tokens from src/css/custom.css.
+ * No hardcoded colours, no hardcoded fonts. Orbitron is not used here:
+ * per the design doc section 3, Orbitron is reserved for category
+ * pills, section labels, navbar, and footer headings only, never for
+ * article titles or body text.
  *
- * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4b
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md sections 4a, 4b, 3
  */
 
+/*
+ * Horizontal containment (max-width, centering, responsive side
+ * padding) is the parent's responsibility. The BlogListPage swizzle
+ * from Phase 3 Task 3.3 provides the 1280px max-width plus 20/48/64px
+ * horizontal padding, so this header fits its parent's content area
+ * instead of being self-centering. Vertical padding stays here.
+ */
 .header {
-  max-width: 1280px;
-  margin-inline: auto;
   padding-top: var(--space-16);
   padding-bottom: var(--space-16);
   text-align: left;
@@ -20,7 +27,7 @@
 
 .title {
   margin: 0;
-  font-family: var(--font-display);
+  font-family: var(--font-sans);
   font-size: var(--fs-4xl);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--tracking-tighter);
