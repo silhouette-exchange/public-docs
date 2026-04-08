@@ -4,6 +4,7 @@ import AuthorByline from '@site/src/components/AuthorByline';
 import ComparisonTable from '@site/src/components/ComparisonTable';
 import RoleCard from '@site/src/components/RoleCard';
 import Hero from '@site/src/components/Hero';
+import EndpointCard from '@site/src/components/EndpointCard';
 
 export default {
   ...MDXComponents,
@@ -12,4 +13,5 @@ export default {
   ComparisonTable,
   RoleCard,
   Hero,
+  EndpointCard,
 };
