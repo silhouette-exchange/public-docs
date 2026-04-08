@@ -161,6 +161,39 @@ const config: Config = {
       },
     ],
     '@stackql/docusaurus-plugin-structured-data',
+    [
+      '@scalar/docusaurus',
+      {
+        label: 'API Explorer',
+        route: '/api/explorer',
+        showNavLink: false, // we add it to the docs sidebar instead
+        configuration: {
+          sources: [
+            {
+              url: 'https://api.silhouette.exchange/v0/openapi.json',
+              title: 'v0 (current)',
+              slug: 'v0',
+              default: true,
+            },
+            {
+              url: 'https://api.silhouette.exchange/v1/openapi.json',
+              title: 'v1 (next)',
+              slug: 'v1',
+            },
+          ],
+          darkMode: true,
+          hideClientButton: false,
+          hideDarkModeToggle: true,
+          theme: 'none', // we override CSS variables in custom.css
+          layout: 'modern',
+          hiddenClients: ['c', 'clojure', 'http', 'ocaml', 'powershell', 'objc', 'r'],
+          defaultHttpClient: {
+            targetKey: 'shell',
+            clientKey: 'curl',
+          },
+        },
+      },
+    ],
   ],
 
   themeConfig: {
