@@ -3,3 +3,11 @@ silhouette-team:
   title: Building the future of private trading
   url: https://silhouette.exchange
   image_url: https://github.com/silhouette-exchange.png
+  page: false
+
+wayne:
+  name: Wayne
+  title: Head of Growth, Silhouette
+  url: https://x.com/WaynesWorldza
+  image_url: /img/authors/wayne.jpg
+  page: false
