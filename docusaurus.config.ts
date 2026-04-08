@@ -77,6 +77,7 @@ const config: Config = {
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
           editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
+          exclude: ['plans/**'],
         },
         blog: {
           showReadingTime: true,
