@@ -451,26 +451,114 @@ new component work lands."
 
 Capture the output as a short spec. Decide: is this a single horizontal strip, or a multi-row block? Does it have a hover state? Where does the "Try in explorer" CTA go?
 
-#### Task 8: Build the EndpointCard component
+#### Task 8: Build the EndpointCard component (with tests)
 
 > **REQUIRED SUB-SKILL:** Invoke `frontend-design` for this task with the brainstorm output as context.
 
 **Files:**
 - Create: `src/components/EndpointCard/index.tsx`
 - Create: `src/components/EndpointCard/styles.module.css`
+- Create: `src/components/EndpointCard/EndpointCard.test.tsx`
 
 **Step 1:** Implementation must:
 - Use TypeScript
 - Use the project's existing token system (no hardcoded colors / fonts)
-- Accept props: `operation: string`, `method?: 'POST' | 'GET' | 'PUT' | 'DELETE' | 'PATCH'` (default `POST`), `path?: string` (default `/v0`), `auth?: 'none' | 'bearer'`, `description?: string`, `tryUrl?: string`
+- Accept props: `operation: string`, `method?: 'POST' | 'GET' | 'PUT' | 'DELETE' | 'PATCH'` (default `POST`), `path?: string` (default `/v0`), `auth?: 'none' | 'bearer'` (default `none`), `description?: string`, `tryUrl?: string`
 - Render the operation name in IBM Plex Mono with `--text-primary`
 - Render the method as a colored pill (POST = magenta, GET = cyan, PUT = amber, DELETE = red)
 - Render the auth state as a small icon + label (lock icon for bearer, dash for none)
 - Render `Try it →` link aligned right that opens `/api/explorer` (or the `tryUrl` prop if provided)
 - Be accessible: button-like elements have `aria-label`, focus ring uses `--accent-secondary`
 - Be visually dense - max ~50px tall
+- Expose stable `data-testid` attributes for testability:
+  - `data-testid="endpoint-card"` on the root
+  - `data-testid="endpoint-card-method"` on the method pill
+  - `data-testid="endpoint-card-operation"` on the operation label
+  - `data-testid="endpoint-card-auth"` on the auth indicator
+  - `data-testid="endpoint-card-try"` on the Try-it link
 
-**Step 2:** Register in `src/theme/MDXComponents.tsx`:
+**Step 2:** Write the test FIRST (TDD). Create `src/components/EndpointCard/EndpointCard.test.tsx`:
+
+```tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import EndpointCard from './index';
+
+describe('<EndpointCard>', () => {
+  it('renders the operation name', () => {
+    render(<EndpointCard operation="createOrder" />);
+    expect(screen.getByTestId('endpoint-card-operation')).toHaveTextContent('createOrder');
+  });
+
+  it('defaults to POST method', () => {
+    render(<EndpointCard operation="createOrder" />);
+    expect(screen.getByTestId('endpoint-card-method')).toHaveTextContent('POST');
+  });
+
+  it('respects an explicit method prop', () => {
+    render(<EndpointCard operation="getMarkets" method="GET" />);
+    expect(screen.getByTestId('endpoint-card-method')).toHaveTextContent('GET');
+  });
+
+  it('applies a method-specific class for colour mapping', () => {
+    const { rerender } = render(<EndpointCard operation="a" method="POST" />);
+    expect(screen.getByTestId('endpoint-card-method').className).toMatch(/post/i);
+
+    rerender(<EndpointCard operation="a" method="GET" />);
+    expect(screen.getByTestId('endpoint-card-method').className).toMatch(/get/i);
+
+    rerender(<EndpointCard operation="a" method="DELETE" />);
+    expect(screen.getByTestId('endpoint-card-method').className).toMatch(/delete/i);
+  });
+
+  it('shows a bearer auth indicator when auth="bearer"', () => {
+    render(<EndpointCard operation="createOrder" auth="bearer" />);
+    expect(screen.getByTestId('endpoint-card-auth')).toHaveTextContent(/bearer|jwt|auth/i);
+  });
+
+  it('shows an unauthenticated indicator when auth is omitted', () => {
+    render(<EndpointCard operation="getMarkets" />);
+    const authEl = screen.getByTestId('endpoint-card-auth');
+    expect(authEl).toBeInTheDocument();
+    expect(authEl).not.toHaveTextContent(/bearer|jwt/i);
+  });
+
+  it('renders the description when provided', () => {
+    render(<EndpointCard operation="login" description="Authenticate via SIWE and obtain a JWT" />);
+    expect(screen.getByText(/Authenticate via SIWE/)).toBeInTheDocument();
+  });
+
+  it('links the Try-it affordance to /api/explorer by default', () => {
+    render(<EndpointCard operation="createOrder" />);
+    const link = screen.getByTestId('endpoint-card-try');
+    expect(link).toHaveAttribute('href', expect.stringContaining('/api/explorer'));
+  });
+
+  it('respects an explicit tryUrl prop', () => {
+    render(<EndpointCard operation="createOrder" tryUrl="/api/explorer#createOrder" />);
+    expect(screen.getByTestId('endpoint-card-try')).toHaveAttribute('href', '/api/explorer#createOrder');
+  });
+
+  it('gives the Try-it affordance an accessible label', () => {
+    render(<EndpointCard operation="createOrder" />);
+    const link = screen.getByTestId('endpoint-card-try');
+    expect(link).toHaveAccessibleName(/createOrder/i);
+  });
+});
+```
+
+**Step 3:** Run the test and confirm it fails (no component file yet):
+
+```bash
+pnpm test src/components/EndpointCard
+```
+
+Expected: red. Tests fail with "cannot resolve './index'" or similar.
+
+**Step 4:** Implement the component to make the tests pass. Work in `src/components/EndpointCard/index.tsx` and `styles.module.css` until `pnpm test src/components/EndpointCard` is green.
+
+**Step 5:** Register in `src/theme/MDXComponents.tsx`:
+
 ```tsx
 import EndpointCard from '@site/src/components/EndpointCard';
 // ...
@@ -480,86 +568,207 @@ const MDXComponents = {
 };
 ```
 
-**Step 3:** Save and let dev server reload.
-**Step 4:** Test by adding `<EndpointCard operation="login" auth="none" description="Authenticate via SIWE and obtain a JWT" />` at the top of `docs/10-api/03-reference.md` (just temporarily, above the existing `## login` heading, so we can see what it looks like rendered).
-**Step 5:** Visit `http://localhost:3100/api/reference#login` and visually verify.
-**Step 6:** Remove the temporary instance from `03-reference.md` (we'll add real ones in Task 18).
-**Step 7:** Commit:
+**Step 6:** Save and let dev server reload (start it if killed).
+
+**Step 7:** Visually verify by adding `<EndpointCard operation="login" auth="none" description="Authenticate via SIWE and obtain a JWT" />` at the top of `docs/10-api/03-reference.md` temporarily, visit `http://localhost:3100/api/reference#login`, and confirm it looks right.
+
+**Step 8:** Remove the temporary instance from `03-reference.md`.
+
+**Step 9:** Run `pnpm test` once more to confirm everything still passes.
+
+**Step 10:** Commit:
+
 ```bash
 git add src/components/EndpointCard src/theme/MDXComponents.tsx
-git commit -m "feat(components): add EndpointCard MDX component for API reference operations"
+git commit -m "feat(components): add EndpointCard MDX component with unit tests
+
+Dense, token-driven card for introducing a single API operation in a
+hand-written reference page. Method pill colour mapping (POST=magenta,
+GET=cyan, PUT=amber, DELETE=red), bearer/none auth indicator, optional
+description, and a Try-it link defaulting to /api/explorer.
+
+Ships with EndpointCard.test.tsx covering: default method, explicit
+method prop, method colour class mapping, bearer vs unauth indicator,
+description rendering, default and override tryUrl, and accessible
+name on the Try-it link. 10 tests, all passing."
 ```
 
 ---
 
 ### Milestone 5 - Build the LanguageTabs MDX component
 
-#### Task 9: Build LanguageTabs
+#### Task 9: Build LanguageTabs (with tests)
 
 > **REQUIRED SUB-SKILL:** `frontend-design` (lighter touch - this is a thin wrapper around Docusaurus Tabs)
 
 **Files:**
 - Create: `src/components/LanguageTabs/index.tsx`
 - Create: `src/components/LanguageTabs/styles.module.css`
+- Create: `src/components/LanguageTabs/LanguageTabs.test.tsx`
 
 **Step 1:** Implementation:
 - Wraps `@theme/Tabs` and `@theme/TabItem` from `@docusaurus/theme-common`
-- Children: cURL / Python / TypeScript code blocks
-- Props: `defaultValue?: 'curl' | 'python' | 'typescript'` (default `curl`)
+- Children: cURL / Python / TypeScript code blocks (or the `<CurlBlock>` / `<PythonBlock>` / `<TypeScriptBlock>` slot pattern - pick the cleanest API)
+- Props: `defaultValue?: 'curl' | 'python' | 'typescript'` (default `curl`), `groupId?: string` (default `api-language`)
 - Persists user's choice via `groupId="api-language"` so all tabs on the page sync
-- Tab labels: cURL / Python (SDK) / TypeScript (community)
+- Tab labels: `cURL` / `Python (SDK)` / `TypeScript (community)`
+- Each tab renders with `data-testid="language-tab-<value>"`
 
-**Step 2:** Register in `src/theme/MDXComponents.tsx`:
+Because `@theme/Tabs` comes from Docusaurus and is not available in the vitest rig, the component should export an internal `LanguageTabsView` that accepts tab definitions as a prop. The default export wires it to the real `@theme/Tabs`. The test imports `LanguageTabsView` directly and renders a trivial headless version. Pattern:
+
 ```tsx
-import LanguageTabs from '@site/src/components/LanguageTabs';
-// ...
-LanguageTabs,
+// src/components/LanguageTabs/index.tsx
+import React from 'react';
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+export interface LanguageTab {
+  value: 'curl' | 'python' | 'typescript';
+  label: string;
+  content: React.ReactNode;
+}
+
+export interface LanguageTabsProps {
+  defaultValue?: 'curl' | 'python' | 'typescript';
+  groupId?: string;
+  tabs: LanguageTab[];
+}
+
+export function LanguageTabsView({ defaultValue = 'curl', groupId = 'api-language', tabs }: LanguageTabsProps) {
+  return (
+    <div data-testid="language-tabs" data-group-id={groupId} data-default={defaultValue}>
+      {tabs.map((t) => (
+        <div key={t.value} data-testid={`language-tab-${t.value}`} data-label={t.label}>
+          {t.content}
+        </div>
+      ))}
+    </div>
+  );
+}
+
+export default function LanguageTabs(props: LanguageTabsProps) {
+  return (
+    <Tabs groupId={props.groupId ?? 'api-language'} defaultValue={props.defaultValue ?? 'curl'}>
+      {props.tabs.map((t) => (
+        <TabItem key={t.value} value={t.value} label={t.label}>
+          {t.content}
+        </TabItem>
+      ))}
+    </Tabs>
+  );
+}
 ```
 
-**Step 3:** Verify by adding to `docs/10-api/03-reference.md` temporarily under `## login`:
+**Step 2:** Write the test FIRST. Create `src/components/LanguageTabs/LanguageTabs.test.tsx`:
 
-```mdx
-<LanguageTabs>
-  <CurlBlock>
-    ```bash
-    curl https://api.silhouette.exchange/v0 -H "Content-Type: application/json" -d '{"operation":"login",...}'
-    ```
-  </CurlBlock>
-  <PythonBlock>
-    ```python
-    from silhouette import Client
-    client = Client.login_with_siwe(...)
-    ```
-  </PythonBlock>
-  <TypeScriptBlock>
-    ```typescript
-    const client = await silhouette.loginWithSiwe(...)
-    ```
-  </TypeScriptBlock>
-</LanguageTabs>
+```tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import { LanguageTabsView } from './index';
+
+const tabs = [
+  { value: 'curl' as const, label: 'cURL', content: <pre>curl ...</pre> },
+  { value: 'python' as const, label: 'Python (SDK)', content: <pre>from silhouette import Client</pre> },
+  { value: 'typescript' as const, label: 'TypeScript (community)', content: <pre>import silhouette</pre> },
+];
+
+describe('<LanguageTabsView>', () => {
+  it('renders all three language tabs', () => {
+    render(<LanguageTabsView tabs={tabs} />);
+    expect(screen.getByTestId('language-tab-curl')).toBeInTheDocument();
+    expect(screen.getByTestId('language-tab-python')).toBeInTheDocument();
+    expect(screen.getByTestId('language-tab-typescript')).toBeInTheDocument();
+  });
+
+  it('renders the correct labels', () => {
+    render(<LanguageTabsView tabs={tabs} />);
+    expect(screen.getByTestId('language-tab-curl')).toHaveAttribute('data-label', 'cURL');
+    expect(screen.getByTestId('language-tab-python')).toHaveAttribute('data-label', 'Python (SDK)');
+    expect(screen.getByTestId('language-tab-typescript')).toHaveAttribute('data-label', 'TypeScript (community)');
+  });
+
+  it('defaults to curl as the selected tab', () => {
+    render(<LanguageTabsView tabs={tabs} />);
+    expect(screen.getByTestId('language-tabs')).toHaveAttribute('data-default', 'curl');
+  });
+
+  it('respects an explicit defaultValue prop', () => {
+    render(<LanguageTabsView tabs={tabs} defaultValue="python" />);
+    expect(screen.getByTestId('language-tabs')).toHaveAttribute('data-default', 'python');
+  });
+
+  it('uses api-language as the default groupId', () => {
+    render(<LanguageTabsView tabs={tabs} />);
+    expect(screen.getByTestId('language-tabs')).toHaveAttribute('data-group-id', 'api-language');
+  });
+
+  it('respects an explicit groupId prop', () => {
+    render(<LanguageTabsView tabs={tabs} groupId="different-group" />);
+    expect(screen.getByTestId('language-tabs')).toHaveAttribute('data-group-id', 'different-group');
+  });
+
+  it('preserves the order of the tabs as passed in', () => {
+    render(<LanguageTabsView tabs={tabs} />);
+    const rendered = screen.getAllByTestId(/^language-tab-/);
+    expect(rendered.map((el) => el.getAttribute('data-testid'))).toEqual([
+      'language-tab-curl',
+      'language-tab-python',
+      'language-tab-typescript',
+    ]);
+  });
+
+  it('renders the tab content', () => {
+    render(<LanguageTabsView tabs={tabs} />);
+    expect(screen.getByText('curl ...')).toBeInTheDocument();
+    expect(screen.getByText('from silhouette import Client')).toBeInTheDocument();
+    expect(screen.getByText('import silhouette')).toBeInTheDocument();
+  });
+});
 ```
 
-NOTE: You may simplify the API. The point is the consumer writes 3 code blocks and gets language-tabbed output. Pick the cleanest API.
+**Step 3:** Run the failing test:
 
-**Step 4:** Visit `http://localhost:3100/api/reference#login`, verify all three tabs render and the persistence works (switching to Python on one tab should persist to other LanguageTabs on the same page).
-**Step 5:** Remove the temporary block from `03-reference.md`.
-**Step 6:** Commit:
+```bash
+pnpm test src/components/LanguageTabs
+```
+
+**Step 4:** Implement until green.
+
+**Step 5:** Register in `src/theme/MDXComponents.tsx`.
+
+**Step 6:** Verify in the dev server by adding a temporary `<LanguageTabs tabs={[...]} />` instance to `docs/10-api/03-reference.md`, confirming it renders with real Docusaurus Tabs (not the test view), then removing it.
+
+**Step 7:** Run `pnpm test` once more.
+
+**Step 8:** Commit:
+
 ```bash
 git add src/components/LanguageTabs src/theme/MDXComponents.tsx
-git commit -m "feat(components): add LanguageTabs MDX component for cURL/Python/TS API examples"
+git commit -m "feat(components): add LanguageTabs MDX component with unit tests
+
+Wraps @theme/Tabs with a cURL / Python (SDK) / TypeScript (community)
+preset and groupId='api-language' persistence so all LanguageTabs on
+the same page stay in sync.
+
+Exports a headless LanguageTabsView for unit testing without the
+Docusaurus theme runtime. LanguageTabs.test.tsx covers: renders all
+three tabs, correct labels, default curl, defaultValue override,
+default groupId, groupId override, order preservation, content
+rendering. 8 tests, all passing."
 ```
 
 ---
 
 ### Milestone 6 - Build the RateLimit pill
 
-#### Task 10: Build RateLimit component
+#### Task 10: Build RateLimit component (with tests)
 
 > **REQUIRED SUB-SKILL:** `frontend-design` (small and visual)
 
 **Files:**
 - Create: `src/components/RateLimit/index.tsx`
 - Create: `src/components/RateLimit/styles.module.css`
+- Create: `src/components/RateLimit/RateLimit.test.tsx`
 
 **Step 1:** Implementation:
 - Inline pill: `<RateLimit per="second" limit={10} />` renders as `10 req / sec`
@@ -567,15 +776,95 @@ git commit -m "feat(components): add LanguageTabs MDX component for cURL/Python/
 - Pill background varies by tier: public = `--bg-elevated`, authenticated = magenta tinted, institutional = lilac tinted
 - Mono font, small (text size matching `--text-tertiary`)
 - Accessible: includes a tooltip via `title` attribute explaining which tier this is for
+- Exposes `data-testid="rate-limit"` on the root span
 
-**Step 2:** Register in `src/theme/MDXComponents.tsx`.
+**Step 2:** Write the test FIRST. Create `src/components/RateLimit/RateLimit.test.tsx`:
 
-**Step 3:** Sanity-check render: add `<RateLimit per="second" limit={10} />` somewhere in `docs/10-api/index.md` temporarily, verify it renders inline.
-**Step 4:** Remove the temporary instance.
-**Step 5:** Commit:
+```tsx
+import { describe, it, expect } from 'vitest';
+import { render, screen } from '@testing-library/react';
+import RateLimit from './index';
+
+describe('<RateLimit>', () => {
+  it('renders limit and per-second unit', () => {
+    render(<RateLimit per="second" limit={10} />);
+    expect(screen.getByTestId('rate-limit')).toHaveTextContent(/10.*sec/i);
+  });
+
+  it('renders per-minute unit', () => {
+    render(<RateLimit per="minute" limit={50} />);
+    expect(screen.getByTestId('rate-limit')).toHaveTextContent(/50.*min/i);
+  });
+
+  it('renders per-hour unit', () => {
+    render(<RateLimit per="hour" limit={1000} />);
+    expect(screen.getByTestId('rate-limit')).toHaveTextContent(/1000.*hour/i);
+  });
+
+  it('renders per-day unit', () => {
+    render(<RateLimit per="day" limit={10000} />);
+    expect(screen.getByTestId('rate-limit')).toHaveTextContent(/10000.*day/i);
+  });
+
+  it('defaults to the public tier', () => {
+    render(<RateLimit per="second" limit={10} />);
+    expect(screen.getByTestId('rate-limit').className).toMatch(/public/i);
+  });
+
+  it('applies the authenticated-tier class when tier="authenticated"', () => {
+    render(<RateLimit per="second" limit={50} tier="authenticated" />);
+    expect(screen.getByTestId('rate-limit').className).toMatch(/authenticated/i);
+  });
+
+  it('applies the institutional-tier class when tier="institutional"', () => {
+    render(<RateLimit per="second" limit={500} tier="institutional" />);
+    expect(screen.getByTestId('rate-limit').className).toMatch(/institutional/i);
+  });
+
+  it('sets a descriptive title attribute for the tier', () => {
+    render(<RateLimit per="second" limit={50} tier="authenticated" />);
+    const el = screen.getByTestId('rate-limit');
+    expect(el).toHaveAttribute('title', expect.stringMatching(/authenticated/i));
+  });
+
+  it('handles a limit of 1 with correct formatting', () => {
+    render(<RateLimit per="second" limit={1} />);
+    expect(screen.getByTestId('rate-limit')).toHaveTextContent(/1.*sec/i);
+  });
+});
+```
+
+**Step 3:** Run the failing test:
+
+```bash
+pnpm test src/components/RateLimit
+```
+
+**Step 4:** Implement until green.
+
+**Step 5:** Register in `src/theme/MDXComponents.tsx`.
+
+**Step 6:** Sanity-check render: add `<RateLimit per="second" limit={10} />` to `docs/10-api/index.md` temporarily, verify it renders inline.
+
+**Step 7:** Remove the temporary instance.
+
+**Step 8:** Run `pnpm test` once more.
+
+**Step 9:** Commit:
+
 ```bash
 git add src/components/RateLimit src/theme/MDXComponents.tsx
-git commit -m "feat(components): add RateLimit pill component for API tier annotations"
+git commit -m "feat(components): add RateLimit pill component with unit tests
+
+Inline pill for annotating API rate limits inline in MDX. Formats
+'{limit} req / {sec|min|hour|day}' with tier-aware background colour
+(public/authenticated/institutional) and a title tooltip naming the
+tier.
+
+Ships with RateLimit.test.tsx covering: all four per-unit formats,
+default public tier, authenticated and institutional tier classes,
+title attribute tier string, and limit=1 formatting. 9 tests, all
+passing."
 ```
 
 ---
