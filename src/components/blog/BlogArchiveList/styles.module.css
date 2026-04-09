@@ -1,0 +1,110 @@
+/*
+ * BlogArchiveList
+ *
+ * Text-only archive tail. Each row is two lines (metadata above title)
+ * separated by thin bottom borders. Whole row is a link.
+ *
+ * Token choices vs spec (design doc section 4h):
+ *
+ *  - List reset: no bullet markers, no padding, no margin.
+ *  - Row padding: 24px vertical / 0 horizontal. --space-6 is exactly
+ *    24px.
+ *  - Row separator: 1px bottom border rgba(255, 255, 255, 0.05).
+ *    Raw rgba; no semantic token at this exact alpha (lower than the
+ *    --border-soft-white 0.16 used elsewhere). Last row has no
+ *    border via :last-child.
+ *  - Metadata: Plex Mono 11px uppercase muted, 12px gap between
+ *    category and date.
+ *  - Title: Inter 17px weight 500. 17px raw (no token; sits between
+ *    --fs-base 16px and --fs-md 18px).
+ *  - Hover: row background brightens to rgba(255, 255, 255, 0.02),
+ *    title text brightens.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4h
+ */
+
+.list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.item {
+  /* Bottom border between rows. Last row drops the border to avoid
+     a trailing rule. */
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+}
+
+.item:last-child {
+  border-bottom: none;
+}
+
+.row {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+  padding: var(--space-6) 0;
+  text-decoration: none;
+  color: inherit;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.row:hover,
+.row:focus-visible {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.row:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+/* ==================================================================
+   Metadata line (category + date)
+   ================================================================== */
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  line-height: 1;
+}
+
+.category {
+  color: inherit;
+}
+
+.metaSep {
+  color: var(--border-soft-white);
+}
+
+.date {
+  color: inherit;
+}
+
+/* ==================================================================
+   Title line
+   ================================================================== */
+.title {
+  font-family: var(--font-sans);
+  /* 17px raw per spec; sits between --fs-base 16px and --fs-md 18px. */
+  font-size: 17px;
+  font-weight: var(--fw-medium);
+  line-height: var(--lh-snug);
+  color: var(--text-secondary);
+  /* 4px margin-top per spec. --space-1 is 4px. */
+  margin-top: var(--space-1);
+  text-wrap: balance;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.row:hover .title,
+.row:focus-visible .title {
+  color: var(--text-default);
+}
