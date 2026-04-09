@@ -37,7 +37,7 @@ export default function BlogCategoryPills({
   function handleKeyDown(e: React.KeyboardEvent<HTMLDivElement>): void {
     if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
     e.preventDefault();
-    const buttons = Array.from(
+    const buttons: HTMLButtonElement[] = Array.from(
       toolbarRef.current?.querySelectorAll<HTMLButtonElement>('button') ?? []
     );
     const currentIndex = buttons.findIndex((b) => b === document.activeElement);

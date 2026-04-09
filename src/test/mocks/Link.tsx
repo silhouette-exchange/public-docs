@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { type ComponentProps } from 'react';
 
-interface LinkProps extends React.AnchorHTMLAttributes<HTMLAnchorElement> {
+type LinkProps = ComponentProps<'a'> & {
   to?: string;
-}
+};
 
 export default function Link({ to, href, children, ...rest }: LinkProps) {
   return (

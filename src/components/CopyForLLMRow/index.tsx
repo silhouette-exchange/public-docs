@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, type ReactNode } from 'react';
 import { useLocation } from '@docusaurus/router';
 import BrowserOnly from '@docusaurus/BrowserOnly';
 import styles from './styles.module.css';
@@ -12,13 +12,13 @@ function buildPromptPrefix(): string {
   return 'Here are the Silhouette Exchange docs for the page I was just reading. Answer my follow-up questions using only what is in these docs when possible.\n\n';
 }
 
-export default function CopyForLLMRow(): JSX.Element {
+export default function CopyForLLMRow(): ReactNode {
   return (
     <BrowserOnly>{() => <CopyForLLMRowInner />}</BrowserOnly>
   );
 }
 
-function CopyForLLMRowInner(): JSX.Element {
+function CopyForLLMRowInner(): ReactNode {
   const location = useLocation();
   const [copied, setCopied] = useState(false);
 
