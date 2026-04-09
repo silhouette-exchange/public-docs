@@ -74,3 +74,18 @@ The result: you trade with the full depth of Hyperliquid's liquidity, and the ma
 On a fully transparent ledger, every trade is a signal. The moment you place an order, copy-trading bots can mirror your position, front-runners can extract value from your execution, and whale-tracking accounts can broadcast your activity.
 
 Silhouette removes you from that equation. Same market, same prices, same liquidity. But your strategy stays yours.
+
+<TechArticleSchema
+  headline="How Silhouette Works: Deposit, Shielded Execution, Settlement"
+  description="Learn how Silhouette works - from deposit to shielded execution to settlement on Hyperliquid. Same order book, same liquidity, fully private."
+  proficiencyLevel="Intermediate"
+  keywords={[
+    "shielded trading",
+    "Hyperliquid trading",
+    "shielded execution",
+    "TEE",
+    "trade privacy",
+    "Silhouette Exchange",
+    "decentralized exchange",
+  ]}
+/>

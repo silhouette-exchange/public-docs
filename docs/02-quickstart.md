@@ -52,3 +52,17 @@ For more detail on how shielded trading works, see [Shielded Trading](/trading/s
 - [Start Trading](/onboarding/start-trading) - Detailed guide covering spot and perpetuals trading
 - [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading) - Understand the two trading modes
 - [How Silhouette Works](/how-silhouette-works) - End-to-end walkthrough of the system
+
+<TechArticleSchema
+  headline="Silhouette Quickstart: Start Shielded Trading in Five Steps"
+  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and trade on Hyperliquid without showing your hand."
+  proficiencyLevel="Beginner"
+  keywords={[
+    "Silhouette Exchange",
+    "shielded trading",
+    "Hyperliquid trading",
+    "crypto trading",
+    "decentralized exchange",
+    "DeFi privacy",
+  ]}
+/>

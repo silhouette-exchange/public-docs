@@ -6,6 +6,8 @@ import RoleCard from '@site/src/components/RoleCard';
 import Hero from '@site/src/components/Hero';
 import EndpointCard from '@site/src/components/EndpointCard';
 import JoinUs from '@site/src/components/JoinUs';
+import FAQSchema from '@site/src/components/FAQSchema';
+import TechArticleSchema from '@site/src/components/TechArticleSchema';
 
 export default {
   ...MDXComponents,
@@ -16,4 +18,6 @@ export default {
   Hero,
   EndpointCard,
   JoinUs,
+  FAQSchema,
+  TechArticleSchema,
 };

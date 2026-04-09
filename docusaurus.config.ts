@@ -85,6 +85,27 @@ const config: Config = {
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
           editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
+          /*
+           * blogTitle flows into the `<title>` of /blog and into the
+           * og:title / twitter:title meta tags. Previously defaulted to
+           * "Blog" which the SEO audit flagged as a wasted keyword slot.
+           */
+          blogTitle: 'Shielded trading blog | Silhouette',
+          /*
+           * blogDescription flows into the meta description and og/twitter
+           * description of /blog. Previously missing entirely, so the
+           * listing page served a blank SERP snippet.
+           */
+          blogDescription:
+            'Research, guides and dispatches on shielded trading, TEE-attested execution, and building privacy-preserving markets on Hyperliquid.',
+          /*
+           * archiveBasePath: null disables the auto-generated /blog/archive
+           * page. The default Docusaurus archive is a thin list of every
+           * post grouped by month. The SEO audit flagged it as crawl-budget
+           * waste on a site where the real /blog listing is the authored
+           * entry point. Same story with authorsBasePath below.
+           */
+          archiveBasePath: null,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
@@ -92,7 +113,15 @@ const config: Config = {
         sitemap: {
           changefreq: 'weekly',
           priority: 0.7,
-          ignorePatterns: ['/plans/**'],
+          /*
+           * /plans/** are in-repo execution notes, excluded from public
+           * discovery. /blog/authors/** is a thin Docusaurus auto-generated
+           * author listing tree that the SEO audit flagged as crawl-budget
+           * waste (we only have one author today and no real author bios
+           * yet). /blog/archive is disabled at the plugin level via
+           * archiveBasePath: null.
+           */
+          ignorePatterns: ['/plans/**', '/blog/authors/**'],
           filename: 'sitemap.xml',
           lastmod: 'date',
         },
@@ -145,7 +174,19 @@ const config: Config = {
           includeBlog: true,
           includePages: false,
           includeDocs: true,
-          excludeRoutes: ['/plans/**', '/search'],
+          excludeRoutes: [
+            '/plans/**',
+            '/search',
+            /*
+             * Docusaurus auto-generated blog index pages. Thin and
+             * duplicate-y; SEO audit flagged as crawl budget waste. The
+             * archive page is also disabled at the blog plugin level via
+             * archiveBasePath: null; /blog/authors/** is excluded from
+             * the sitemap. These exclusions keep llms.txt clean too.
+             */
+            '/blog/authors/**',
+            '/blog-preview',
+          ],
         },
         includeOrder: [
           '/about-silhouette',
@@ -162,6 +203,21 @@ const config: Config = {
       },
     ],
     '@stackql/docusaurus-plugin-structured-data',
+    /*
+     * Local postBuild pass that repairs malformed BreadcrumbList JSON-LD
+     * emitted by @stackql/docusaurus-plugin-structured-data. The upstream
+     * plugin has a bug where routes like /api/authentication and
+     * /concepts/tee fall through the case-1 switch (which only handles
+     * `docs` and `blog` as ancestor tokens), leaving `pageName` undefined
+     * and `elementIndex` at its init value of 1. The result is a
+     * BreadcrumbList with two position-1 entries and one `name: "undefined"`,
+     * which Google's Rich Results Test rejects and AI citation scorers
+     * ignore. See src/plugins/structured-data-fix/index.js for detail.
+     *
+     * Registration order matters: this plugin must run AFTER the stackql
+     * plugin so its postBuild sees the stackql-written JSON-LD.
+     */
+    './src/plugins/structured-data-fix',
     [
       '@scalar/docusaurus',
       {

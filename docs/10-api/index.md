@@ -39,3 +39,19 @@ Authentication uses [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/), whi
 5. [OpenAPI Specification](/api/openapi) - Generate strongly-typed client libraries from our OpenAPI spec
 
 For a higher-level integration, see the [Python SDK](/sdk).
+
+<TechArticleSchema
+  headline="Silhouette API Overview"
+  description="Programmatic access to shielded trading on Hyperliquid via the Silhouette API. Single-endpoint design with SIWE authentication."
+  proficiencyLevel="Advanced"
+  keywords={[
+    "Silhouette API",
+    "Hyperliquid API",
+    "trading API",
+    "shielded trading",
+    "SIWE authentication",
+    "programmatic trading",
+    "DeFi API",
+    "API reference",
+  ]}
+/>

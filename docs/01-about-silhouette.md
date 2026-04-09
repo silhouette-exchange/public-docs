@@ -61,3 +61,18 @@ If Hyperliquid is a finance company running on crypto rails and will "House all 
 ## Core Team
 
 The team behind Silhouette has roots in zero-knowledge cryptography, exchange engineering, and protocol design. With experience spanning DeFi teams like UMA, Across, and Etherfi, infrastructure at AWS, and centralized exchanges like Luno and Coinbase, we are building a product that bridges traditional capital markets rigor with crypto-native execution.
+
+<TechArticleSchema
+  headline="Silhouette Exchange: Shielded Trading on Hyperliquid"
+  description="Silhouette is shielded trading on Hyperliquid. Trade on the same order book with full liquidity while keeping your strategy, size, and intent private."
+  proficiencyLevel="Beginner"
+  keywords={[
+    "Silhouette Exchange",
+    "shielded trading",
+    "Hyperliquid trading",
+    "DeFi privacy",
+    "trade privacy",
+    "decentralized exchange",
+    "shielded execution",
+  ]}
+/>

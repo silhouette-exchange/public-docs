@@ -10,6 +10,7 @@ export default defineConfig({
       '@docusaurus/Link': path.resolve(__dirname, './src/test/mocks/Link.tsx'),
       '@docusaurus/router': path.resolve(__dirname, './src/test/mocks/router.ts'),
       '@docusaurus/BrowserOnly': path.resolve(__dirname, './src/test/mocks/BrowserOnly.tsx'),
+      '@docusaurus/Head': path.resolve(__dirname, './src/test/mocks/Head.tsx'),
     },
   },
   test: {
