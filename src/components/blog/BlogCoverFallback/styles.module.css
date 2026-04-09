@@ -105,6 +105,9 @@
 
 .title {
   position: relative;
+  /* Inter, not Orbitron. Brand rule: Orbitron is all-caps only with wide
+     tracking, but post titles are mixed case (e.g. "Information
+     Asymmetry"), so the title rule deliberately uses Inter. */
   font-family: var(--font-sans);
   /* Spec 4i: 24px. Sits between --fs-xl (22px) and --fs-2xl (28px).
      No exact token; raw value honours the spec. */
@@ -113,9 +116,15 @@
   line-height: 1.25;
   color: var(--text-default);
   margin: 0;
+  /* min-width: 0 lets a long unbroken word inside a flex item shrink and
+     wrap instead of pushing the card's intrinsic width. Cheap insurance
+     for pathological titles like a single long URL. */
+  min-width: 0;
+  max-width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }

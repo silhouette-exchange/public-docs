@@ -1725,16 +1725,28 @@ export default function BlogCoverFallback({
 
 .title {
   position: relative;
-  font-family: var(--font-display);
-  font-size: var(--fs-2xl);
+  /* IMPORTANT: Inter (--font-sans), NOT Orbitron (--font-display).
+     Brand rule: Orbitron is all-caps only with wide tracking. Post
+     titles are mixed case (e.g. "Information Asymmetry"), so the
+     title rule must use Inter. This was a trap in an earlier draft
+     of this plan; do not re-introduce var(--font-display) here. */
+  font-family: var(--font-sans);
+  /* Spec 4i: 24px. No exact token (--fs-xl=22px, --fs-2xl=28px). */
+  font-size: 24px;
   font-weight: var(--fw-semibold);
+  line-height: 1.25;
   color: var(--text-default);
   margin: 0;
+  /* Flex safety: lets long unbroken titles wrap instead of pushing
+     the card's intrinsic width. */
+  min-width: 0;
+  max-width: 100%;
   display: -webkit-box;
   -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
   text-wrap: balance;
+  overflow-wrap: anywhere;
 }
 ```
 
@@ -1742,7 +1754,9 @@ export default function BlogCoverFallback({
 
 **Step 5: Commit:**
 ```bash
-git add src/components/blog/BlogCoverFallback/
+git add src/components/blog/BlogCoverFallback/index.tsx \
+        src/components/blog/BlogCoverFallback/styles.module.css \
+        src/components/blog/BlogCoverFallback/BlogCoverFallback.test.tsx
 git commit -m "feat(blog): add BlogCoverFallback gradient card for coverless posts"
 ```
 

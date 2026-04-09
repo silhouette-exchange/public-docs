@@ -32,7 +32,7 @@ export interface BlogCoverFallbackProps {
 export default function BlogCoverFallback({
   title,
   className,
-}: BlogCoverFallbackProps): React.ReactElement {
+}: BlogCoverFallbackProps) {
   const rootClassName = className
     ? `${styles.fallback} ${className}`
     : styles.fallback;

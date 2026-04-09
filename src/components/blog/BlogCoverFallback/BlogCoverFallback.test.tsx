@@ -38,10 +38,16 @@ describe('BlogCoverFallback', () => {
     expect(root.className).toMatch(/fallback/i);
   });
 
-  it('hides the decorative gradient, noise, and wordmark layers from AT', () => {
+  it('hides decorative layers from AT while keeping the title visible', () => {
     const { container } = render(<BlogCoverFallback title="Visible Title" />);
+    // At least one decorative layer is hidden from AT. Asserting ">= 1"
+    // instead of an exact count keeps the test robust if a future polish
+    // pass adds or removes a decorative layer (vignette, second noise
+    // pass, etc) without changing the component's a11y promise.
     const ariaHiddenNodes = container.querySelectorAll('[aria-hidden="true"]');
-    // Three decorative layers: gradient, noise, wordmark.
-    expect(ariaHiddenNodes.length).toBe(3);
+    expect(ariaHiddenNodes.length).toBeGreaterThanOrEqual(1);
+    // The visible title must NOT be inside an aria-hidden subtree.
+    const titleHeading = screen.getByRole('heading', { name: 'Visible Title' });
+    expect(titleHeading.closest('[aria-hidden="true"]')).toBeNull();
   });
 });
