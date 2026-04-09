@@ -1,0 +1,121 @@
+/*
+ * BlogCoverFallback
+ *
+ * Gradient card placeholder for blog posts that ship without an `image`
+ * frontmatter. Rendered inside <BlogCoverImage> by Task 2.4.
+ *
+ * Token choices vs spec (design doc section 4i):
+ *
+ *  - Gradient midpoint colour: the design doc references
+ *    rgba(var(--accent-primary-rgb), 0.08) but the codebase does NOT
+ *    expose an `--accent-primary-rgb` triplet token. It does expose
+ *    `--silh-magenta-alpha-10` (#fa00ff19 = rgba(250, 0, 255, 0.098))
+ *    which is the nearest semantic token. Using the token so the
+ *    component inherits any future retuning of the brand magenta.
+ *
+ *  - Gradient endpoint colour: no semantic cyan-alpha token exists in
+ *    :root. Raw `rgba(0, 255, 242, 0.08)` used per the implementation
+ *    plan stub, matching the cyan alpha treatment BlogCategoryPills
+ *    already uses for its active gradient end.
+ *
+ *  - Inner border: the design doc calls for `rgba(255, 255, 255, 0.08)`.
+ *    No semantic token at that exact alpha. Raw rgba used.
+ *
+ *  - Title font: spec says "Inter Display 24px weight 600". Wayne's
+ *    hard rule: Orbitron (var(--font-display)) is all-caps only, so
+ *    mixed-case post titles MUST use Inter (var(--font-sans)), not
+ *    Orbitron. This deviates from the implementation plan's stub
+ *    (which used --font-display) and matches Wayne's brand rule.
+ *
+ *  - Title size: 24px has no token. --fs-xl is 22px, --fs-2xl is 28px.
+ *    Raw 24px used to honour the spec exactly.
+ *
+ *  - Wordmark font: Orbitron is correct here because SILHOUETTE is
+ *    literally all caps.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4i
+ */
+
+.fallback {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  background: var(--bg-base);
+  /* Inner 1px border per spec 4i. No semantic token at this alpha. */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  display: flex;
+  align-items: flex-end;
+  padding: var(--space-6);
+}
+
+.gradient {
+  position: absolute;
+  inset: 0;
+  /* 135deg base -> magenta -> cyan. Magenta uses the semantic token
+     --silh-magenta-alpha-10 which is the closest match to the spec's
+     rgba(var(--accent-primary-rgb), 0.08). Cyan endpoint has no
+     semantic token; raw rgba matches BlogCategoryPills' gradient end
+     and the implementation plan stub. */
+  background: linear-gradient(
+    135deg,
+    var(--bg-base) 0%,
+    var(--silh-magenta-alpha-10) 50%,
+    /* TODO: replace with --accent-secondary-alpha-08 if token is added */
+      rgba(0, 255, 242, 0.08) 100%
+  );
+}
+
+.noise {
+  position: absolute;
+  inset: 0;
+  opacity: 0.02;
+  /* 2% opacity radial-grain texture for depth per spec 4i. Two
+     offset radial gradients at different sizes produce a pseudo-
+     random dot field without needing a bitmap asset. */
+  background-image:
+    radial-gradient(
+      circle at 20% 30%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 2%
+    ),
+    radial-gradient(
+      circle at 70% 60%,
+      rgba(255, 255, 255, 0.3) 0%,
+      transparent 2%
+    );
+  background-size: 12px 12px, 18px 18px;
+}
+
+.wordmark {
+  position: absolute;
+  top: var(--space-6);
+  right: var(--space-6);
+  font-family: var(--font-display);
+  /* Spec 4i calls for 10px wordmark. No token at this size; raw. */
+  font-size: 10px;
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-muted);
+  /* Orbitron is all-caps only per brand rules; explicit uppercase
+     guards against any parent text-transform override. */
+  text-transform: uppercase;
+}
+
+.title {
+  position: relative;
+  font-family: var(--font-sans);
+  /* Spec 4i: 24px. Sits between --fs-xl (22px) and --fs-2xl (28px).
+     No exact token; raw value honours the spec. */
+  font-size: 24px;
+  font-weight: var(--fw-semibold);
+  line-height: 1.25;
+  color: var(--text-default);
+  margin: 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  text-wrap: balance;
+}
