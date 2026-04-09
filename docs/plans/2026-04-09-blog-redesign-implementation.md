@@ -2008,7 +2008,16 @@ function formatDate(
   format: 'month-year' | 'full'
 ): string {
   const date = typeof input === 'string' ? new Date(input) : input;
-  const month = date.toLocaleDateString('en-US', { month: 'short' }).toUpperCase();
+  // IMPORTANT: pin the locale call to timeZone: 'UTC' so the month
+  // is computed in the same calendar as getUTCDate / getUTCFullYear.
+  // An earlier draft of this stub omitted timeZone and produced
+  // wrong output near day boundaries (e.g. "2026-04-01" parsed as
+  // UTC midnight in a UTC-5 environment gave local month "MAR" +
+  // UTC day "01" → "MAR 01 2026"). Caught and fixed in commit
+  // ca86149. Do not re-introduce.
+  const month = date
+    .toLocaleDateString('en-US', { month: 'short', timeZone: 'UTC' })
+    .toUpperCase();
   const day = String(date.getUTCDate()).padStart(2, '0');
   const year = date.getUTCFullYear();
   return format === 'month-year' ? `${month} ${year}` : `${month} ${day} ${year}`;
