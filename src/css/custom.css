@@ -195,17 +195,26 @@
   --ifm-font-color-base:       var(--text-default);
   --ifm-font-color-base-inverse: var(--text-default);
   --ifm-font-family-base:      var(--font-sans);
-  --ifm-heading-font-family:   var(--font-display);
+  /* Orbitron is reserved for H1 only (and only when H1 is all-caps).
+     H2-H6 inherit Inter from this default so the heading hierarchy
+     reads as "loud H1, quiet structure" instead of "all loud, no
+     hierarchy". Component-level H1 rules can opt back into
+     var(--font-display) explicitly. */
+  --ifm-heading-font-family:   var(--font-sans);
   --ifm-font-family-monospace: var(--font-mono);
   --ifm-code-font-size: 92%;
   --ifm-hero-text-color: var(--ifm-font-color-base);
 
-  --ifm-h1-font-size: var(--fs-3xl);
-  --ifm-h2-font-size: var(--fs-2xl);
-  --ifm-h3-font-size: var(--fs-lg);
-  --ifm-h4-font-size: var(--fs-md);
-  --ifm-h5-font-size: var(--fs-base);
-  --ifm-h6-font-size: var(--fs-sm);
+  /* Mintlify-style heading scale. Aligned with the .markdown h2/h3
+     overrides below so theme-level headings (sidebar headings, blog
+     post page, footer headings, anywhere outside .markdown) read at
+     the same size as docs body headings. */
+  --ifm-h1-font-size: var(--fs-3xl); /* 36px */
+  --ifm-h2-font-size: var(--fs-xl);  /* 22px (was 2xl=28px) */
+  --ifm-h3-font-size: var(--fs-lg);  /* 20px */
+  --ifm-h4-font-size: var(--fs-md);  /* 18px */
+  --ifm-h5-font-size: var(--fs-base); /* 16px */
+  --ifm-h6-font-size: var(--fs-sm);  /* 14px */
 
   --docusaurus-highlighted-code-line-bg: rgba(250, 0, 255, 0.10);
 
@@ -1011,35 +1020,36 @@ article header h1 {
 }
 
 .markdown h2 {
-  font-family: var(--font-display);
-  font-size: var(--fs-2xl);
+  /* Mintlify-style: Inter at restrained size, medium weight (not
+     semibold), tight line-height, slight negative letter-spacing.
+     Section breaks come from spacing alone, not borders. Inherits
+     font-family: var(--font-sans) from --ifm-heading-font-family. */
+  font-size: var(--fs-xl);
   font-weight: var(--fw-medium);
-  line-height: var(--lh-snug);
-  letter-spacing: var(--tracking-wide);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
   color: var(--text-default);
-  margin-top: var(--space-12);
-  margin-bottom: var(--space-4);
-  padding-top: var(--space-6);
-  padding-bottom: var(--space-3);
-  border-top: 1px solid var(--border-subtle);
+  margin-top: var(--space-10);
+  margin-bottom: var(--space-3);
   text-wrap: balance;
 }
 
 .markdown h2:first-of-type {
-  border-top: none;
-  padding-top: 0;
-  margin-top: var(--space-8);
+  /* The first H2 sits closer to the page top because the page already
+     has top padding above it. */
+  margin-top: var(--space-6);
 }
 
 .markdown h3 {
-  font-family: var(--font-display);
+  /* Inherits Inter from --ifm-heading-font-family. Mintlify-style:
+     medium weight, tight line-height, slight negative tracking. */
   font-size: var(--fs-lg);
   font-weight: var(--fw-medium);
-  line-height: var(--lh-snug);
-  letter-spacing: var(--tracking-wide);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
   color: var(--text-default);
   margin-top: var(--space-8);
-  margin-bottom: var(--space-3);
+  margin-bottom: var(--space-2);
 }
 
 .markdown h4 {
