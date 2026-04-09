@@ -81,7 +81,4 @@ The next article in this series will look at the failed privacy experiments that
 
 For now, just remember: in DeFi, transparency is a double-edged sword. And right now, it’s cutting the wrong side.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

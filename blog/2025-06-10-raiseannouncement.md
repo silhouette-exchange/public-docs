@@ -45,7 +45,4 @@ Our industry fixed the speed and scale problem; Silhouette solves the privacy pr
 
 Silhouette is backed by a $3 million pre-seed round led by [RockawayX](https://www.rockawayx.com/), which includes investors such as [Amber Group](https://www.ambergroup.io/), [HiveMind](https://www.hivemind.capital/), [No Limit Holdings](https://nolimitholdings.xyz/), and [Protagonist](https://www.protagonist.co/). We are also extremely thankful for our angels from HyperActive.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

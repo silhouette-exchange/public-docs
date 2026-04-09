@@ -53,7 +53,4 @@ Markets do not need to see your plan before the trade gets filled. They do need 
 ## Up next
 Part three tests the hypothesis: keep intent secret, keep execution public. Trusted hardware makes that split possible. Same open ledger, zero alpha leak. Stay tuned.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

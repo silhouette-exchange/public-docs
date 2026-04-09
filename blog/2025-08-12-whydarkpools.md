@@ -103,7 +103,4 @@ Privacy, alone, is not a product. But usable, composable, shielded trading?
 
 That is a new foundation.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />
