@@ -3,11 +3,14 @@ import { describe, it, expect } from 'vitest';
 import BlogCoverFallback from './index';
 
 describe('BlogCoverFallback', () => {
-  it('renders the post title in a heading', () => {
+  it('renders the post title text inside the card', () => {
+    // The title is rendered as a div, NOT a heading element. The
+    // parent role="img" + aria-label exposes the whole card as one
+    // labelled image to AT. Using a heading here would inject a
+    // duplicate heading into the document outline whenever a parent
+    // (e.g. BlogPostCard) ALSO renders the title in its own heading.
     render(<BlogCoverFallback title="Information Asymmetry" />);
-    expect(
-      screen.getByRole('heading', { name: 'Information Asymmetry' })
-    ).toBeInTheDocument();
+    expect(screen.getByText('Information Asymmetry')).toBeInTheDocument();
   });
 
   it('renders the Silhouette wordmark in literal all caps', () => {
@@ -47,7 +50,7 @@ describe('BlogCoverFallback', () => {
     const ariaHiddenNodes = container.querySelectorAll('[aria-hidden="true"]');
     expect(ariaHiddenNodes.length).toBeGreaterThanOrEqual(1);
     // The visible title must NOT be inside an aria-hidden subtree.
-    const titleHeading = screen.getByRole('heading', { name: 'Visible Title' });
-    expect(titleHeading.closest('[aria-hidden="true"]')).toBeNull();
+    const titleEl = screen.getByText('Visible Title');
+    expect(titleEl.closest('[aria-hidden="true"]')).toBeNull();
   });
 });

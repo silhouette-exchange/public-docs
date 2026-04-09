@@ -44,7 +44,17 @@ export default function BlogCoverFallback({
       <span className={styles.wordmark} aria-hidden="true">
         SILHOUETTE
       </span>
-      <h3 className={styles.title}>{title}</h3>
+      {/*
+       * Title text is rendered in a div, NOT a heading element. The
+       * cover fallback's parent already exposes role="img" with the
+       * title as aria-label, so screen readers announce the card as
+       * one labelled image. Using an h3 here would inject a second
+       * heading into the document outline whenever a parent (like
+       * BlogPostCard) ALSO renders the title in its own heading,
+       * which produces a real double-announcement bug. Visual stays
+       * identical; only the semantic role changes.
+       */}
+      <div className={styles.title}>{title}</div>
     </div>
   );
 }
