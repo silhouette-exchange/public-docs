@@ -1,0 +1,57 @@
+/*
+ * BlogCoverImage
+ *
+ * Real-image branch styles. The fallback branch is owned by
+ * BlogCoverFallback (which has its own root frame). This file is only
+ * loaded when src is set.
+ *
+ * The wrapper holds the 16:9 frame, the inner border, and the hover
+ * overlay. The image fills the frame with object-fit: cover.
+ *
+ * All values reference :root tokens where one exists. The single raw
+ * rgba is the inner border alpha, which has no semantic token and
+ * matches the spec value used in BlogCoverFallback for visual parity.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4i
+ */
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  /* Inner border. No semantic token at 0.08 alpha; matches the value
+     used in BlogCoverFallback so the two cover paths look identical. */
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  background: var(--bg-base);
+}
+
+.image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  /* Subtle dark veil over the image at rest. Lifts on hover so the
+     image becomes more vivid. Spec 4i calls for "overlay fade" hover
+     treatment shared between real and fallback covers. */
+  background: rgba(0, 0, 0, 0.05);
+  opacity: 1;
+  transition: opacity var(--dur-base) var(--ease-out);
+}
+
+.wrapper:hover .overlay,
+.wrapper:focus-within .overlay {
+  opacity: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay {
+    transition: none;
+  }
+}
