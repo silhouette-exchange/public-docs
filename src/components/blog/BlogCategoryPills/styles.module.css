@@ -14,16 +14,21 @@
 /*
  * The toolbar container owns NO page-level layout. No max-width, no
  * margin-inline: auto, no horizontal page padding. The parent swizzle
- * provides the 1280px max-width plus responsive side padding, same as
- * BlogPublicationHeader. This row just flexes inside whatever its
- * parent gives it. Vertical padding stays here.
+ * provides the 1080px max-width plus responsive side padding, same as
+ * BlogPublicationHeader.
+ *
+ * Top padding is 0 because the sibling above (BlogPublicationHeader)
+ * already provides its own 24px bottom padding, and stacking another
+ * 32px on top of that bloats the subtitle-to-pills gap to 56px+. The
+ * bottom padding is the gap between the pill row and the hero card
+ * that follows.
  */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
   gap: var(--space-3);
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
+  padding-top: 0;
+  padding-bottom: var(--space-10);
 }
 
 .pill {
