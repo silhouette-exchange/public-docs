@@ -66,7 +66,7 @@ Privacy was often bolted on in ways that made usage painful. To trade, users had
 ### 3. The liquidity spiral
 Tight spreads attract flow. Flow attracts more liquidity. But when spreads are wide and depth is thin, users abandon ship. Dark pools struggled to bootstrap this cycle because the starting conditions were too constrained. Privacy was prioritised at the cost of usability.
 
-![Test image](./images/liquiditydifference.png)
+![Liquidity depth comparison chart showing thin onchain dark pool order books versus deep continuous liquidity on public venues](./images/liquiditydifference.png)
 
 The end result? Empty pools, despite good intentions.
 
