@@ -255,7 +255,7 @@ export default function BlogPreview(): React.ReactElement {
 
         <section style={sectionStyle}>
           <span style={sectionLabelStyle}>
-            2. BlogCategoryPills (interactive — current: {activeSlug ?? 'all'})
+            2. BlogCategoryPills (interactive - current: {activeSlug ?? 'all'})
           </span>
           <BlogCategoryPills
             activeSlug={activeSlug}
@@ -265,7 +265,7 @@ export default function BlogPreview(): React.ReactElement {
 
         <section style={sectionStyle}>
           <span style={sectionLabelStyle}>
-            3. BlogCoverFallback — short, medium, and long titles
+            3. BlogCoverFallback - short, medium, and long titles
           </span>
           <div style={gridStyle}>
             <div>
@@ -285,7 +285,7 @@ export default function BlogPreview(): React.ReactElement {
 
         <section style={sectionStyle}>
           <span style={sectionLabelStyle}>
-            4. BlogCoverImage — real image vs fallback delegation
+            4. BlogCoverImage - real image vs fallback delegation
           </span>
           <div style={gridStyle}>
             <div>
@@ -315,7 +315,7 @@ export default function BlogPreview(): React.ReactElement {
 
         <section style={sectionStyle}>
           <span style={sectionLabelStyle}>
-            5. BlogEyebrow — all 5 categories, both date formats
+            5. BlogEyebrow - all 5 categories, both date formats
           </span>
           <div
             style={{
@@ -360,7 +360,7 @@ export default function BlogPreview(): React.ReactElement {
 
         <section style={sectionStyle}>
           <span style={sectionLabelStyle}>
-            6. BlogByline — single, multi-author, initials fallback, sizes
+            6. BlogByline - single, multi-author, initials fallback, sizes
           </span>
           <div
             style={{

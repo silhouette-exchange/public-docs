@@ -18,9 +18,9 @@ keywords:
 
 Silhouette offers two trading modes with different fee structures:
 
-- **Naked** - Open, transparent trading through Silhouette's interface. Your transactions are visible on Hyperliquid like any standard trade. Silhouette applies a small fee via Hyperliquid's [builder code](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/builder-codes) system — a protocol-native mechanism that allows frontends built on Hyperliquid to charge a fee on fills. Naked fees are the same for all users as shown in the fee schedule below.
+- **Naked** - Open, transparent trading through Silhouette's interface. Your transactions are visible on Hyperliquid like any standard trade. Silhouette applies a small fee via Hyperliquid's [builder code](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/builder-codes) system - a protocol-native mechanism that allows frontends built on Hyperliquid to charge a fee on fills. Naked fees are the same for all users as shown in the fee schedule below.
 
-- **Shielded** - Private trading executed inside Silhouette's Trusted Execution Environment (TEE). Your transactions are not publicly visible onchain. Fees are calculated dynamically — Silhouette passes 95% of its aggregate HL volume discount directly to you.
+- **Shielded** - Private trading executed inside Silhouette's Trusted Execution Environment (TEE). Your transactions are not publicly visible onchain. Fees are calculated dynamically - Silhouette passes 95% of its aggregate HL volume discount directly to you.
 
 ## Naked Trading Fees
 
@@ -70,14 +70,14 @@ Assuming Silhouette's aggregated wallet is at HL Tier 3 (>$100M volume), and a n
 | | HL Tier | HL Spot Taker Rate | Shielded Rate | You Save |
 |---|---------|-------------------|---------------|----------|
 | **You** | Tier 0 (base) | 0.070% | ~0.042% | ~40% |
-| **Silhouette Wallet** | Tier 3 (>$100M) | 0.040% | — | — |
+| **Silhouette Wallet** | Tier 3 (>$100M) | 0.040% | - | - |
 
-### Example — Spot Maker
+### Example - Spot Maker
 
 | | HL Tier | HL Spot Maker Rate | Shielded Rate | You Save |
 |---|---------|-------------------|---------------|----------|
 | **You** | Tier 0 (base) | 0.040% | ~0.012% | ~70% |
-| **Silhouette Wallet** | Tier 3 (>$100M) | 0.010% | — | — |
+| **Silhouette Wallet** | Tier 3 (>$100M) | 0.010% | - | - |
 
 The spread between your rate and Silhouette's rate is where your saving comes from. The larger the gap, the more you save.
 

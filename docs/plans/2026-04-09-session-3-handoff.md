@@ -21,7 +21,7 @@ The session did not start Phase 3. The next push picks up at Phase 3.1 (BlogLayo
 ## Branch state at session close
 
 - **Branch:** `docs/overhaul-plan-2026-04-07`
-- **Head:** `83e0c5e` (BlogArchiveList) — note the next session will likely add a session-handoff commit on top of this
+- **Head:** `83e0c5e` (BlogArchiveList) - note the next session will likely add a session-handoff commit on top of this
 - **Commits ahead of origin/main:** 78+
 - **Commits ahead of private/main:** 0 (caught up via the explicit push at the end of session 3)
 - **Working tree:** clean apart from `.gitignore` (Vercel CLI added `.vercel` and `.env*.local` entries; left uncommitted pending Wayne's call) and `src/pages/blog-preview.tsx` (the harness page; will be committed in the same commit as this handoff doc)
@@ -106,11 +106,11 @@ This is now `feedback_orbitron_h1_only.md` in user memory.
 
 The cleanup audit found 5 violations across 3 files:
 
-1. `src/css/custom.css:198` `--ifm-heading-font-family` — global default (cascaded to all unstyled headings)
-2. `src/css/custom.css` `.markdown h2` — explicit Orbitron + wide tracking
-3. `src/css/custom.css` `.markdown h3` — same
-4. `src/pages/index.module.css` `.roleTitleInner` — wrapped an `<h2>` and force-uppercased "Three doors. One shielded venue." into Orbitron caps
-5. `src/components/RoleCard/styles.module.css` `.titleInner` — wrapped an `<h3>` and force-uppercased "Developers" / "Institutions" / "Traders"
+1. `src/css/custom.css:198` `--ifm-heading-font-family` - global default (cascaded to all unstyled headings)
+2. `src/css/custom.css` `.markdown h2` - explicit Orbitron + wide tracking
+3. `src/css/custom.css` `.markdown h3` - same
+4. `src/pages/index.module.css` `.roleTitleInner` - wrapped an `<h2>` and force-uppercased "Three doors. One shielded venue." into Orbitron caps
+5. `src/components/RoleCard/styles.module.css` `.titleInner` - wrapped an `<h3>` and force-uppercased "Developers" / "Institutions" / "Traders"
 
 All five were flipped to `var(--font-sans)` in commit `e1a8405`. Two further iterations followed Wayne's feedback after the first pass:
 - "Inter looks too big and spaced and bold" → reduced H2 from `--fs-2xl` (28px) to `--fs-xl` (22px), dropped semibold to medium, dropped wide tracking, removed border-top + padding ornaments. Adopted slight negative letter-spacing (-0.01em) for the Mintlify feel.
@@ -130,7 +130,7 @@ Wayne wanted to share the docs hero page with a designer asynchronously. The set
 **Setup gotchas (for future reference):**
 
 1. **First `vercel link` defaulted to the wrong scope.** It linked to `silhouette-exchange/silhouette-docs-preview` (the team scope, which turned out to be correct because the designer is on the team). I initially thought it was wrong and tried to delete the project, then Wayne clarified the designer is on the team. Re-linked with explicit `--scope silhouette-exchange`.
-2. **`vercel deploy --prod --yes` failed** because Docusaurus' `showLastUpdateTime` shells out to `git log` per file, and `vercel deploy` from local uploads the working files WITHOUT `.git`. The build crashed with `fatal: not a git repository`. **The fix is to deploy via the GitHub webhook instead** — `vercel git connect <repo>` connects the project, then any push triggers a build that clones the repo with full git history. We seeded the first auto-build with an empty commit (`3cc55cf`).
+2. **`vercel deploy --prod --yes` failed** because Docusaurus' `showLastUpdateTime` shells out to `git log` per file, and `vercel deploy` from local uploads the working files WITHOUT `.git`. The build crashed with `fatal: not a git repository`. **The fix is to deploy via the GitHub webhook instead** - `vercel git connect <repo>` connects the project, then any push triggers a build that clones the repo with full git history. We seeded the first auto-build with an empty commit (`3cc55cf`).
 3. **`.gitignore` got Vercel-augmented** with `.vercel` and `.env*.local` entries by `vercel link`. Both are sensible additions but they are currently uncommitted and need Wayne's call on whether to commit them.
 4. **Stable URL is publicly accessible (HTTP 200), deployment-specific URLs are gated by Vercel team auth (HTTP 401).** The designer can hit the stable URL without logging in. If Wayne wants to lock the stable URL down too, Vercel password protection or "team-only access" can be enabled.
 
@@ -150,20 +150,20 @@ Note: the file has a `DELETE BEFORE MERGE TO MAIN` comment at the top. The delet
 ### `BlogPostLike` is the canonical slim post shape
 
 The codebase has TWO `BlogPostLike` interfaces:
-1. **Slim presentation shape** at `src/components/blog/BlogPostCard/index.tsx` — exported and consumed by every component (BlogPostCard, BlogHero, BlogSeriesCard, BlogSeriesBand, BlogLatestBand, BlogArchiveList).
-2. **Docusaurus-compatible shape** at `src/lib/blog/series.ts` — has `metadata.frontMatter.*` nested structure. Used by the lib helpers (`getSeriesPosts`, `getSeriesNavigation`, `validateSeriesFrontmatter`).
+1. **Slim presentation shape** at `src/components/blog/BlogPostCard/index.tsx` - exported and consumed by every component (BlogPostCard, BlogHero, BlogSeriesCard, BlogSeriesBand, BlogLatestBand, BlogArchiveList).
+2. **Docusaurus-compatible shape** at `src/lib/blog/series.ts` - has `metadata.frontMatter.*` nested structure. Used by the lib helpers (`getSeriesPosts`, `getSeriesNavigation`, `validateSeriesFrontmatter`).
 
 The slim shape is the source of truth for component data. The Docusaurus shape is for the lib helpers. **The Phase 3 BlogListPage swizzle (Task 3.3) is the adapter layer** that converts Docusaurus-shaped posts into the slim shape before passing them to components.
 
 The slim shape grew TWO new optional fields this session as components needed them:
-- `authorImageUrl?: string` — added when BlogHero needed to show a 32px avatar in its byline footer (`0f3901f`). BlogPostCard ignores it (its slim footer has no avatar per spec 4g).
-- `series?: string` and `seriesOrder?: number` — added when BlogSeriesBand needed to filter and sort by series without importing the lib helper (`f428fcb`). Keeps the band decoupled from the Docusaurus shape.
+- `authorImageUrl?: string` - added when BlogHero needed to show a 32px avatar in its byline footer (`0f3901f`). BlogPostCard ignores it (its slim footer has no avatar per spec 4g).
+- `series?: string` and `seriesOrder?: number` - added when BlogSeriesBand needed to filter and sort by series without importing the lib helper (`f428fcb`). Keeps the band decoupled from the Docusaurus shape.
 
 ### Hand-rolled eyebrow / footer pattern (vs reusing BlogEyebrow / BlogByline)
 
 Both BlogPostCard (`157885c`) and BlogHero (`0f3901f`) hand-roll their own eyebrow row inline rather than reusing `<BlogEyebrow>`. The reason: BlogEyebrow requires a `date` prop and always renders it, but the §4g (post card) and §4e (hero) specs both put the date in the footer, not the eyebrow. Reusing BlogEyebrow would mean either passing the date and hiding it via CSS (ugly) or duplicating it (confusing). Hand-rolling uses the same Plex Mono / 11px / uppercase / wide-tracking typographic recipe but slims to category + reading time.
 
-BlogHero hand-rolls its footer too — the `HeroAvatar` child component duplicates BlogByline's `AuthorAvatar` pattern (~25 lines, useState + useEffect onError reset). Documented in the component comment that this duplication is intentional and a future refactor could extract a shared `<BlogAvatar>` primitive if a third consumer surfaces. For now: two consumers, two inlinings, the cost of inlining is lower than the cost of designing a shared primitive that bridges two slightly different shapes.
+BlogHero hand-rolls its footer too - the `HeroAvatar` child component duplicates BlogByline's `AuthorAvatar` pattern (~25 lines, useState + useEffect onError reset). Documented in the component comment that this duplication is intentional and a future refactor could extract a shared `<BlogAvatar>` primitive if a third consumer surfaces. For now: two consumers, two inlinings, the cost of inlining is lower than the cost of designing a shared primitive that bridges two slightly different shapes.
 
 ### Slug-hash-stable alternating glow (BlogPostCard)
 
@@ -198,9 +198,9 @@ Wayne flagged on 2026-04-09 that I was running `pnpm test` after every micro-edi
 
 Three new feedback entries written to `~/.claude/projects/-Users-waynempro/memory/`:
 
-- `feedback_orbitron_h1_only.md` — Orbitron is reserved for H1 only in the heading hierarchy. H2-H6 use Inter. Non-heading Orbitron uses still valid.
-- `feedback_test_run_frequency.md` — One test run per logical unit of work, not after every micro-edit.
-- `feedback_subagent_git_safety.md` (carried over from session 2, applied to every dispatch this session) — every subagent prompt explicitly forbids git stash / checkout / reset / clean / branch ops / worktrees / push.
+- `feedback_orbitron_h1_only.md` - Orbitron is reserved for H1 only in the heading hierarchy. H2-H6 use Inter. Non-heading Orbitron uses still valid.
+- `feedback_test_run_frequency.md` - One test run per logical unit of work, not after every micro-edit.
+- `feedback_subagent_git_safety.md` (carried over from session 2, applied to every dispatch this session) - every subagent prompt explicitly forbids git stash / checkout / reset / clean / branch ops / worktrees / push.
 
 `MEMORY.md` index updated to reference the new entries.
 

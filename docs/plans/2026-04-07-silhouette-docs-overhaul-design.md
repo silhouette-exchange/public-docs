@@ -1,12 +1,12 @@
-# Silhouette Docs Overhaul — Design Doc
+# Silhouette Docs Overhaul - Design Doc
 
 **Date:** 2026-04-07
 **Author:** Wayne (+ Claude research pass)
-**Status:** Approved — proceed to implementation plan
+**Status:** Approved - proceed to implementation plan
 **Target repo:** `silhouette-exchange/public-docs` (Docusaurus 3.9)
 **Branch:** `docs/overhaul-plan-2026-04-07`
 **Baseline score:** 3/10 (see audit findings below)
-**Target score:** 11/10 — MAG7-tier, agent-first docs site
+**Target score:** 11/10 - MAG7-tier, agent-first docs site
 **Platform decision:** Stay on Docusaurus, overhaul hard
 
 ---
@@ -26,7 +26,7 @@ This is the design doc, not the implementation plan. It captures:
 - Phased build plan (3 phases + parallel distribution track)
 - Success metrics and open questions
 
-A separate implementation plan — phase by phase, task by task with acceptance criteria — will be written next via `superpowers:writing-plans` and saved alongside this doc.
+A separate implementation plan - phase by phase, task by task with acceptance criteria - will be written next via `superpowers:writing-plans` and saved alongside this doc.
 
 ---
 
@@ -34,11 +34,11 @@ A separate implementation plan — phase by phase, task by task with acceptance 
 
 > **Every trade on a public orderbook is a confession to copytrade bots, signal-aware LPs, and every desk watching your wallet. Silhouette is where you stop confessing.**
 
-The docs today are a Docusaurus default install with workmanlike content on top. The raw material is there (the fees page buries a killer stat — "95% of our volume discount goes to you"; `about-silhouette` has the best sentence on the site; the dark-pools blog series is genuine thought leadership) but almost nothing is optimized for how integrators, institutions, and agents actually find Silhouette in 2026.
+The docs today are a Docusaurus default install with workmanlike content on top. The raw material is there (the fees page buries a killer stat - "95% of our volume discount goes to you"; `about-silhouette` has the best sentence on the site; the dark-pools blog series is genuine thought leadership) but almost nothing is optimized for how integrators, institutions, and agents actually find Silhouette in 2026.
 
-**The overhaul has one single thesis: `docs.silhouette.exchange` exists to get Silhouette cited by AI agents, adopted by integrators, and trusted by institutions — in that order.** Everything else (visual polish, editorial voice, blog cadence) serves those three jobs.
+**The overhaul has one single thesis: `docs.silhouette.exchange` exists to get Silhouette cited by AI agents, adopted by integrators, and trusted by institutions - in that order.** Everything else (visual polish, editorial voice, blog cadence) serves those three jobs.
 
-**The competitive opening:** Hyperliquid's docs are a GitBook default — jargon-first landing, no role-based entry, community-maintained SDKs listed without vetting, zero agentic features. Silhouette can leap-frog the entire Hyperliquid ecosystem on DX in one focused sprint.
+**The competitive opening:** Hyperliquid's docs are a GitBook default - jargon-first landing, no role-based entry, community-maintained SDKs listed without vetting, zero agentic features. Silhouette can leap-frog the entire Hyperliquid ecosystem on DX in one focused sprint.
 
 ### 1a. A note on MEV
 
@@ -46,10 +46,10 @@ Earlier versions of the docs (including the current `static/llms.txt`) talk abou
 
 What Silhouette actually protects against is concrete and more interesting:
 
-- **Strategy leakage** — public fills let observers reverse-engineer your alpha
-- **Copytrade exploitation** — bots replicate known-good wallets' trades
-- **Signaling risk on size** — large orders move books before they fill
-- **Adverse selection for LPs** — liquidity providers who can see your intent price against you
+- **Strategy leakage** - public fills let observers reverse-engineer your alpha
+- **Copytrade exploitation** - bots replicate known-good wallets' trades
+- **Signaling risk on size** - large orders move books before they fill
+- **Adverse selection for LPs** - liquidity providers who can see your intent price against you
 
 Every page, llms.txt included, must be updated to drop "MEV" and lean into these four named enemies. This reframe is load-bearing for both the voice and the SEO strategy.
 
@@ -128,7 +128,7 @@ docs.silhouette.exchange/
 ├── /sitemap.xml                       With <lastmod> on every entry
 │
 ├── /docs/                             REFERENCE TREE (evergreen, extractable, LLM-friendly)
-│   ├── introduction                   "What Silhouette is" — category definition
+│   ├── introduction                   "What Silhouette is" - category definition
 │   ├── why-silhouette                 Comparison page (NEW, high-priority)
 │   ├── quickstart                     5-step visual walkthrough
 │   ├── concepts/
@@ -274,7 +274,7 @@ Replace the entire token block in `src/css/custom.css`. Full mapping is in the r
 | Warning | `--warning` | `#fbbf24` |
 | Hyperliquid tint | `--hl-medium` | `#50d2c1` |
 
-Radius stays sharp (`--radius-none: 0` default; `--radius-sm: 4px` only for kbd chips and small inputs). Spacing scale from `tokens.json`.units (4px grid). Motion defaults: `120 / 200 / 320 / 480ms` with `cubic-bezier(0.4, 0, 0.2, 1)`. No drop shadows on cards (matches webapp austerity); glow only on hover for primary CTAs. Remove the current `static/img/main-bg.png` background image — adopt solid `--bg-base`.
+Radius stays sharp (`--radius-none: 0` default; `--radius-sm: 4px` only for kbd chips and small inputs). Spacing scale from `tokens.json`.units (4px grid). Motion defaults: `120 / 200 / 320 / 480ms` with `cubic-bezier(0.4, 0, 0.2, 1)`. No drop shadows on cards (matches webapp austerity); glow only on hover for primary CTAs. Remove the current `static/img/main-bg.png` background image - adopt solid `--bg-base`.
 
 ### 6b. Typography
 
@@ -284,7 +284,7 @@ Radius stays sharp (`--radius-none: 0` default; `--radius-sm: 4px` only for kbd 
 | Body headings (H3-H6) | **Inter Display** | 600 | Keeps density readable |
 | Body | **Inter** | 400/500 | 16px base, 1.6 line-height |
 | Mono / code | **IBM Plex Mono** | 400/500 | |
-| UI labels (tiny caps) | **IBM Plex Mono** | 500 | 0.16em tracking — matches webapp labels |
+| UI labels (tiny caps) | **IBM Plex Mono** | 500 | 0.16em tracking - matches webapp labels |
 
 Type scale: `12 / 14 / 16 / 18 / 20 / 22 / 28 / 36 / 48 / 64` px.
 
@@ -293,7 +293,7 @@ Type scale: `12 / 14 / 16 / 18 / 20 / 22 / 28 / 36 / 48 / 64` px.
 - H3 = 20px Inter Display 600
 - Body = 16px Inter 400, `1.6` line-height
 
-**Current docs uses Inter on everything — this is wrong.** Orbitron is already imported in `docusaurus.config.ts` but `--ifm-heading-font-family` is hardcoded to `"Inter"`. First fix of the visual pass: wire up `--font-display` and apply to headings.
+**Current docs uses Inter on everything - this is wrong.** Orbitron is already imported in `docusaurus.config.ts` but `--ifm-heading-font-family` is hardcoded to `"Inter"`. First fix of the visual pass: wire up `--font-display` and apply to headings.
 
 ### 6c. Custom MDX component library
 
@@ -326,7 +326,7 @@ Build under `src/components/`:
 │ (flat,   │                                      │  Section 1    │
 │ 2 deep)  │ H1 in Orbitron 500                   │  Section 2    │
 │          │                                      │               │
-│          │ Lead paragraph — definition-first    │               │
+│          │ Lead paragraph - definition-first    │               │
 │          │ self-contained in 40–60 words.       │               │
 │          │                                      │  ────────     │
 │          │ ## Section H2                        │  Author       │
@@ -346,7 +346,7 @@ Build under `src/components/`:
 
 1. **Definition-first paragraph on every page.** Self-contained, 40–60 words, answers "what is this page about" to a reader arriving from Google.
 2. **No em dashes.** Regular hyphens only.
-3. **No buzzword stacking.** "Seamless," "cutting-edge," "leverage," "streamline," "robust" — banned.
+3. **No buzzword stacking.** "Seamless," "cutting-edge," "leverage," "streamline," "robust" - banned.
 4. **No symmetric parallelism.** One sentence's structure does not mirror the next.
 5. **Active voice, concrete verbs.** "Silhouette encrypts your orders" not "Orders are encrypted by Silhouette."
 6. **Stats with dates and sources.** "As of 2026-04-07, Silhouette passes 95% of its Hyperliquid volume discount back to takers." Not "we save you money."
@@ -354,14 +354,14 @@ Build under `src/components/`:
 8. **Enemies are concrete.** Copytrade bots, signal-aware LPs, desks watching your wallet. Not "MEV."
 9. **Editorial voice on concept pages; clinical voice on reference pages.** Mirrors the two-tree IA.
 
-### 7b. Sample rewrite — home hero
+### 7b. Sample rewrite - home hero
 
 **Current:**
 
 - H1: "Welcome to Silhouette Docs"
 - Sub: "Learn how to trade on Hyperliquid"
 
-**Problems:** H1 targets no query. "Welcome" wastes the most valuable string on the site. Sub undersells — it's not a Hyperliquid tutorial site.
+**Problems:** H1 targets no query. "Welcome" wastes the most valuable string on the site. Sub undersells - it's not a Hyperliquid tutorial site.
 
 **Rewrite (recommended):**
 
@@ -373,7 +373,7 @@ Build under `src/components/`:
 
 **Why:** H1 is an exact match for "shielded trading hyperliquid" (priority #1 in the 20 target queries). Sub plants the narrative in one sentence, names the four concrete enemies, and follows with the hard stat. CTAs are role-routed.
 
-### 7c. Sample rewrite — `/about-silhouette`
+### 7c. Sample rewrite - `/about-silhouette`
 
 **Current opener (strongest sentence on the site):**
 
@@ -385,11 +385,11 @@ Build under `src/components/`:
 >
 > Silhouette is a shielded perpetuals exchange on Hyperliquid. It sits between you and Hyperliquid's public order book, encrypting your orders inside a Trusted Execution Environment and settling them through delegated wallets so the market sees your fills but never your strategy, size, or identity.
 >
-> Shielded trading is not a dark pool. Dark pools fragment liquidity. Silhouette uses Hyperliquid's book directly — the deepest on-chain liquidity in crypto — and adds a confidentiality layer on top. You get the same prices, the same fills, and the same funding rates public traders get. You just stop broadcasting your intent.
+> Shielded trading is not a dark pool. Dark pools fragment liquidity. Silhouette uses Hyperliquid's book directly - the deepest on-chain liquidity in crypto - and adds a confidentiality layer on top. You get the same prices, the same fills, and the same funding rates public traders get. You just stop broadcasting your intent.
 
 110 words, three self-contained claims, two stats-adjacent facts, zero buzzwords. Princeton GEO target length.
 
-### 7d. Sample rewrite — `/quickstart` lead
+### 7d. Sample rewrite - `/quickstart` lead
 
 **Current:**
 
@@ -430,7 +430,7 @@ Current state: hand-maintained `static/llms.txt` (270 lines) that drifts from co
 
 Target state: `@signalwire/docusaurus-plugin-llms-txt` generates both `llms.txt` and `llms-full.txt` at build time from the docs frontmatter + MDX. Per-page `.md` suffix routing is a free byproduct. The plugin respects frontmatter `description:`, page ordering, and categorized sections.
 
-Migration: delete `static/llms.txt`, configure the plugin to produce the same H1/summary/sections, verify the diff in a dry build before merging. Keep the hand-written `What is Silhouette?` summary paragraph as the plugin's `siteDescription` config — that's the single bit of hand-crafted copy worth preserving.
+Migration: delete `static/llms.txt`, configure the plugin to produce the same H1/summary/sections, verify the diff in a dry build before merging. Keep the hand-written `What is Silhouette?` summary paragraph as the plugin's `siteDescription` config - that's the single bit of hand-crafted copy worth preserving.
 
 ### 8d. Schema markup per page type
 
@@ -457,7 +457,7 @@ Visual: icon-only buttons in a row, aligned right under the article body, above 
 
 ---
 
-## 9. Blog CMS — Notion pipeline (Phase 3)
+## 9. Blog CMS - Notion pipeline (Phase 3)
 
 **Pattern:** custom ~200-line Node/TS sync script + GitHub Action (cron every 15 min + `workflow_dispatch` + `repository_dispatch` webhook). Script uses `@notionhq/client` + `notion-to-md@alpha` + `gray-matter` + `p-limit`. Commits generated markdown + downloaded images back to `blog/` under a `silhouette-notion-bot` identity.
 
@@ -536,7 +536,7 @@ Note: "MEV protection hyperliquid" was removed from the original 20 and replaced
 
 Three phases plus a parallel Phase 4 distribution track that starts the day Phase 1 ships.
 
-### Phase 1 — Look, feel, and findability
+### Phase 1 - Look, feel, and findability
 
 *Everything that changes how the site presents itself to humans and agents, without rewriting content.*
 
@@ -583,19 +583,19 @@ Three phases plus a parallel Phase 4 distribution track that starts the day Phas
 - Lighthouse visual regression diff passes in PR
 - Wayne signs off on the visual shell
 
-### Phase 2 — Content and what's missing
+### Phase 2 - Content and what's missing
 
 *Rewrite hero pages with the new voice. Build the missing pages. Ship the proof surfaces. Turn the shell into a product.*
 
 **Voice pass on existing pages**
 
-- `/docs/introduction` — rewrite per §7c sample
-- `/docs/quickstart` — rewrite per §7d sample, add real screenshots, add HowTo schema
-- `/docs/trading/shielded-trading` — add Mermaid sequence diagram, add `<ComparisonTable>` vs Naked
-- `/docs/trading/fees` — surface "95% volume discount passthrough" as the hero stat
-- `/docs/architecture/overview` — replace ASCII diagram with Mermaid sequence diagrams
-- `/docs/faq` — add `FAQPage` JSON-LD, rewrite any thin answers
-- All concept pages — add definition-first paragraph, named author, last-updated
+- `/docs/introduction` - rewrite per §7c sample
+- `/docs/quickstart` - rewrite per §7d sample, add real screenshots, add HowTo schema
+- `/docs/trading/shielded-trading` - add Mermaid sequence diagram, add `<ComparisonTable>` vs Naked
+- `/docs/trading/fees` - surface "95% volume discount passthrough" as the hero stat
+- `/docs/architecture/overview` - replace ASCII diagram with Mermaid sequence diagrams
+- `/docs/faq` - add `FAQPage` JSON-LD, rewrite any thin answers
+- All concept pages - add definition-first paragraph, named author, last-updated
 
 **Build missing pages (per §10 content gap list)**
 
@@ -614,7 +614,7 @@ Three phases plus a parallel Phase 4 distribution track that starts the day Phas
 - `/guides/for-developers/` landing + "Build an autonomous trading agent" recipe + "Building a market-making bot" + "Integrating Silhouette into a trading frontend" + "Testnet playbook"
 - `/guides/for-institutions/` landing + "Compliance and custody" + "Attestation walkthrough" + "Onboarding your desk" + "Reporting and audit trail"
 - `/guides/for-traders/` landing + "Your first shielded trade" + "Choosing an order type" + "Understanding fees" + "Common mistakes"
-- `/guides/comparisons/` — the 6 vs-pages
+- `/guides/comparisons/` - the 6 vs-pages
 
 **API reference**
 
@@ -638,7 +638,7 @@ Three phases plus a parallel Phase 4 distribution track that starts the day Phas
 - Vale (style linter) passes on every page
 - Wayne signs off on content
 
-### Phase 3 — Blog hosting
+### Phase 3 - Blog hosting
 
 *Non-technical team can publish from Notion. The six existing posts survive the migration.*
 
@@ -661,16 +661,16 @@ Three phases plus a parallel Phase 4 distribution track that starts the day Phas
 - Sync failures surface in Notion (`Sync Error` property) and Slack
 - Existing 6 posts render identically to before the migration
 
-### Phase 4 — Distribution (parallel, post-Phase-1, non-blocking)
+### Phase 4 - Distribution (parallel, post-Phase-1, non-blocking)
 
 *Not part of the docs overhaul. Starts the day Phase 1 ships and runs in parallel with Phases 2–3. Flagged here so it doesn't disappear.*
 
 - **MCP server** on Cloudflare Worker at `mcp.silhouette.exchange/docs`, exposing `search_docs(query)`, `get_page(path)`, `list_pages()`. Stretch: `get_fee_schedule()`, `get_funding_rate(market)` as read-only on-chain tools. Get listed in `context7` registry. Announce on X with a walkthrough.
-- **Wikipedia draft** — drafted by Wayne with legal review. Target: published within 180 days.
-- **Third-party entity presence** — pitch Messari, DeFiLlama, CoinGecko, CoinMarketCap listings with full metadata. Update the `Organization` JSON-LD `sameAs` array as each lands.
-- **Reddit + community presence** — genuine, helpful explainers in r/CryptoCurrency, r/Hyperliquid, r/defi that naturally reference Silhouette.
-- **ZipTie monthly report** — tracks the baseline vs current for 20 target queries. First report at 30 days, then monthly.
-- **X announcement** — the "we rebuilt our docs and shipped an MCP server" launch post, timed to Phase 2 wrap.
+- **Wikipedia draft** - drafted by Wayne with legal review. Target: published within 180 days.
+- **Third-party entity presence** - pitch Messari, DeFiLlama, CoinGecko, CoinMarketCap listings with full metadata. Update the `Organization` JSON-LD `sameAs` array as each lands.
+- **Reddit + community presence** - genuine, helpful explainers in r/CryptoCurrency, r/Hyperliquid, r/defi that naturally reference Silhouette.
+- **ZipTie monthly report** - tracks the baseline vs current for 20 target queries. First report at 30 days, then monthly.
+- **X announcement** - the "we rebuilt our docs and shipped an MCP server" launch post, timed to Phase 2 wrap.
 
 ---
 
@@ -706,16 +706,16 @@ These block no work but will change implementation details. Answering during Pha
 2. **Motion tokens.** `tokens.json` doesn't export durations or easings. Current design doc defaults are `120 / 200 / 320 / 480ms` with `cubic-bezier(0.4, 0, 0.2, 1)`. Confirm or replace with the app's real motion presets.
 3. **Screenshots for auth-gated flows.** Puppeteer handles marketing site and public docs. For Naked→Shielded toggle, Connect Shielded, Deposit dialog, and Order submission, Wayne needs to capture. A shot-list will be delivered during Phase 2.
 4. **Author bylines.** Who's on the masthead? Wayne for editorial, Jason / Chandler / Stent / Rory / Ciaran for technical posts, or do we name founding engineers for credibility? Named authors with credentials give +25–30% citation lift per the Princeton GEO study.
-5. **Orbitron on docs.** Confirm Orbitron matching marketing 1:1. It's a strong geometric display face — great for brand, heavier reading cost on long headings. Fallback plan: Inter Display for H2-H6 and keep Orbitron only on H1 (home + page headers).
+5. **Orbitron on docs.** Confirm Orbitron matching marketing 1:1. It's a strong geometric display face - great for brand, heavier reading cost on long headings. Fallback plan: Inter Display for H2-H6 and keep Orbitron only on H1 (home + page headers).
 6. **Changelog content source.** Git tags? Internal Slack? Notion? Or start fresh from today?
-7. **Wikipedia page authorship.** Wayne drafts, legal reviews, or Silhouette engages someone external? Blocking criterion: notability per Wikipedia's NCRYPTO guidelines (need multiple independent secondary sources — fundraise coverage + RockawayX + Impossible Finance + DL News should qualify).
+7. **Wikipedia page authorship.** Wayne drafts, legal reviews, or Silhouette engages someone external? Blocking criterion: notability per Wikipedia's NCRYPTO guidelines (need multiple independent secondary sources - fundraise coverage + RockawayX + Impossible Finance + DL News should qualify).
 8. **Testnet access for agents.** For the "Build an autonomous trading agent" recipe, can agents get an unmetered testnet API key? Having the recipe work out of the box with a public testnet key is a force multiplier.
 
 ---
 
 ## 15. Ground-truth corrections to the original audit
 
-The research audit scored the site 3/10 with the assumption that `llms.txt` was 404. That was a bot fetch failure — verified via `curl -sI`, the file returns 200. Corrections to the audit, logged for transparency:
+The research audit scored the site 3/10 with the assumption that `llms.txt` was 404. That was a bot fetch failure - verified via `curl -sI`, the file returns 200. Corrections to the audit, logged for transparency:
 
 | Audit claim | Correction |
 |---|---|

@@ -62,6 +62,53 @@ function main(): void {
       }
     }
 
+    // Description validation (SEO requirement - meta desc is the SERP snippet)
+    if (data.description !== undefined) {
+      if (typeof data.description !== 'string') {
+        errors.push(`${rel}: description must be a string`);
+      } else {
+        const desc = data.description.trim();
+        if (desc.length < 120) {
+          errors.push(
+            `${rel}: description is ${desc.length} chars; target 120-160 for SERP snippet`,
+          );
+        }
+        if (desc.length > 180) {
+          errors.push(
+            `${rel}: description is ${desc.length} chars; Google truncates around 160`,
+          );
+        }
+        // Reject the pre-2026-04-09 boilerplate pattern. The old template
+        // for every post was `<title> - Silhouette Exchange documentation.`
+        // which is keyword-free and repeats the title. Catch any drift
+        // back to that pattern or any similar "- Silhouette documentation"
+        // trailer.
+        if (/- Silhouette Exchange documentation\.?$/i.test(desc)) {
+          errors.push(
+            `${rel}: description uses the legacy "- Silhouette Exchange documentation." boilerplate; rewrite with a unique, keyword-rich SERP snippet`,
+          );
+        }
+      }
+    }
+
+    // Alt text validation on inline images - the raw body is a markdown
+    // string with `![alt](path)` patterns. Every alt must be descriptive.
+    // "Test image" is the historical copy-paste placeholder that the
+    // traditional SEO audit flagged as a P0 accessibility + SEO issue.
+    const altMatches = raw.matchAll(/!\[([^\]]*)\]\([^)]+\)/g);
+    for (const match of altMatches) {
+      const alt = match[1]?.trim() ?? '';
+      if (alt.length === 0) {
+        errors.push(
+          `${rel}: inline image has empty alt text; use a descriptive alt that reflects the image content`,
+        );
+      } else if (/^(test image|image|img|placeholder|tbd)$/i.test(alt)) {
+        errors.push(
+          `${rel}: inline image uses the placeholder alt "${alt}"; use a descriptive alt that reflects the image content`,
+        );
+      }
+    }
+
     // Build a BlogPostLike shape for the series validator
     posts.push({
       metadata: {

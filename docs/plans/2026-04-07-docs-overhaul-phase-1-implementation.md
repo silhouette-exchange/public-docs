@@ -1,14 +1,14 @@
-# Docs Overhaul — Phase 1 Implementation Plan
+# Docs Overhaul - Phase 1 Implementation Plan
 
 > **For Claude:** REQUIRED SUB-SKILL: Use superpowers:executing-plans to implement this plan task-by-task.
 
 **Goal:** Ship the look, feel, layout, information architecture, and agentic findability foundation for `docs.silhouette.exchange` in a single integrated sprint. Turns the site from a Docusaurus default install into a MAG7-tier shell that matches the Silhouette webapp 1:1, with full agentic plumbing (llms.txt, robots.txt, schema, Copy-for-LLM, dates, authors) wired before any content rewrites.
 
-**Architecture:** Stay on Docusaurus 3.9. Replace the current `src/css/custom.css` token schema with `tokens.json`-derived values. Wire Orbitron + Inter + IBM Plex Mono. Bundle three new Docusaurus plugins (`@signalwire/docusaurus-plugin-llms-txt`, `@stackql/docusaurus-plugin-structured-data`, `@scalar/docusaurus` — the last one is Phase 2, noted here for reference). Swizzle `@theme/DocItem/Layout` for the Copy-for-LLM row. Build a custom MDX component library. Restructure sidebars into a two-tree IA with a second `@docusaurus/plugin-content-docs` instance for `/guides`. Ship a static `robots.txt`. Add stub `description:` frontmatter to every existing page. Delete `static/llms.txt` and replace with plugin-generated output. No content rewrites in Phase 1.
+**Architecture:** Stay on Docusaurus 3.9. Replace the current `src/css/custom.css` token schema with `tokens.json`-derived values. Wire Orbitron + Inter + IBM Plex Mono. Bundle three new Docusaurus plugins (`@signalwire/docusaurus-plugin-llms-txt`, `@stackql/docusaurus-plugin-structured-data`, `@scalar/docusaurus` - the last one is Phase 2, noted here for reference). Swizzle `@theme/DocItem/Layout` for the Copy-for-LLM row. Build a custom MDX component library. Restructure sidebars into a two-tree IA with a second `@docusaurus/plugin-content-docs` instance for `/guides`. Ship a static `robots.txt`. Add stub `description:` frontmatter to every existing page. Delete `static/llms.txt` and replace with plugin-generated output. No content rewrites in Phase 1.
 
 **Tech Stack:** Docusaurus 3.9.2, React 19, TypeScript, pnpm, MDX, Mermaid, Orbitron / Inter / IBM Plex Mono (Google Fonts), custom CSS properties, Swizzle (eject), GitHub Actions (existing), Vale (existing).
 
-**Design doc:** [`2026-04-07-silhouette-docs-overhaul-design.md`](./2026-04-07-silhouette-docs-overhaul-design.md) — read this first.
+**Design doc:** [`2026-04-07-silhouette-docs-overhaul-design.md`](./2026-04-07-silhouette-docs-overhaul-design.md) - read this first.
 
 **Branch:** `docs/overhaul-plan-2026-04-07` (already created, tracking `origin/main`).
 
@@ -51,11 +51,11 @@ If `git branch --show-current` is not `docs/overhaul-plan-2026-04-07`, STOP and 
 
 Read the following before the first task:
 
-- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/docusaurus.config.ts` — current config
-- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/sidebars.ts` — current sidebar
-- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/src/css/custom.css` — current tokens
-- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/tokens.json` — source of truth for visual tokens
-- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/docs/plans/2026-04-07-silhouette-docs-overhaul-design.md` — the design doc
+- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/docusaurus.config.ts` - current config
+- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/sidebars.ts` - current sidebar
+- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/src/css/custom.css` - current tokens
+- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/tokens.json` - source of truth for visual tokens
+- `/Users/waynempro/Desktop/Projects/Silhouette Exchange/Code/public-docs/docs/plans/2026-04-07-silhouette-docs-overhaul-design.md` - the design doc
 
 ---
 
@@ -582,8 +582,8 @@ function stub(file: string): boolean {
   // Use the H1 as fallback stub description
   const h1Match = parsed.content.match(/^#\s+(.+)$/m);
   const stub = h1Match
-    ? `${h1Match[1]} — Silhouette Exchange documentation.`
-    : `${path.basename(file, path.extname(file))} — Silhouette Exchange documentation.`;
+    ? `${h1Match[1]} - Silhouette Exchange documentation.`
+    : `${path.basename(file, path.extname(file))} - Silhouette Exchange documentation.`;
 
   parsed.data.description = stub;
   fs.writeFileSync(file, matter.stringify(parsed.content, parsed.data), 'utf8');
@@ -669,7 +669,7 @@ Replace lines 8–185 (the `:root` block) with the new canonical tokens from the
 ```css
 :root {
   /* ============================================
-     SILHOUETTE DESIGN SYSTEM — canonical
+     SILHOUETTE DESIGN SYSTEM - canonical
      Source: tokens.json + silhouette.exchange
      ============================================ */
 
@@ -708,7 +708,7 @@ Replace lines 8–185 (the `:root` block) with the new canonical tokens from the
   --silh-zinc-900: #18181b;
   --silh-zinc-950: #09090b;
 
-  /* ---------- Semantic — surfaces ---------- */
+  /* ---------- Semantic - surfaces ---------- */
   --bg-base:       #13161a;
   --bg-secondary:  #18181b;
   --bg-tertiary:   #27272a;
@@ -717,7 +717,7 @@ Replace lines 8–185 (the `:root` block) with the new canonical tokens from the
   --bg-muted:      #171717;
   --bg-overlay:    rgba(0, 0, 0, 0.16);
 
-  /* ---------- Semantic — text ---------- */
+  /* ---------- Semantic - text ---------- */
   --text-default:   #f9f9f9;
   --text-secondary: #d4d4d8;
   --text-muted:     #a1a1aa;
@@ -727,7 +727,7 @@ Replace lines 8–185 (the `:root` block) with the new canonical tokens from the
   --text-success:   #88ffe3;
   --text-error:     #ff65b4;
 
-  /* ---------- Semantic — borders ---------- */
+  /* ---------- Semantic - borders ---------- */
   --border-subtle:     rgba(255, 255, 255, 0.04);
   --border-default:    #27272a;
   --border-strong:     #3f3f46;
@@ -877,7 +877,7 @@ html {
 }
 ```
 
-Do not delete the file yet — Phase 2 may reuse it as a hero decoration.
+Do not delete the file yet - Phase 2 may reuse it as a hero decoration.
 
 **Step 5: Build**
 
@@ -1000,7 +1000,7 @@ Part of Phase 1 visual overhaul."
 
 ---
 
-## Task 9: Build the MDX component library — `ShieldedCallout`
+## Task 9: Build the MDX component library - `ShieldedCallout`
 
 **Files:**
 
@@ -1136,7 +1136,7 @@ First component in the Phase 1 MDX component library."
 
 ---
 
-## Task 10: Build MDX components — `AuthorByline`
+## Task 10: Build MDX components - `AuthorByline`
 
 **Files:**
 
@@ -1316,7 +1316,7 @@ Part of Phase 1 MDX component library."
 
 ---
 
-## Task 11: Build MDX components — `ComparisonTable`, `RoleCard`, `Hero`
+## Task 11: Build MDX components - `ComparisonTable`, `RoleCard`, `Hero`
 
 **Rationale:** Three components in one task because each is straightforward and they're composition primitives for the home page rewrite (Task 14).
 
@@ -2177,7 +2177,7 @@ Part of Phase 1 layout."
 
 ---
 
-## Task 16: Two-tree IA — add `/guides` plugin instance
+## Task 16: Two-tree IA - add `/guides` plugin instance
 
 **Rationale:** Full two-tree split. This task is deferred-friendly: if Phase 1 timeline is tight, ship Tasks 1-15 + 17-20 and do Task 16 at the start of Phase 2. But if there's appetite, do it now while the config is already being touched.
 
@@ -2264,10 +2264,10 @@ description: How-to guides, integration walkthroughs, and comparison content for
 
 Narrative walkthroughs, integration playbooks, and comparisons. Pick a role to get started.
 
-- [**For Developers**](/guides/for-developers) — Build bots, agents, and integrations.
-- [**For Institutions**](/guides/for-institutions) — Due-diligence, onboarding, and compliance.
-- [**For Traders**](/guides/for-traders) — Your first shielded trade, choosing order types, common mistakes.
-- [**Comparisons**](/guides/comparisons) — Silhouette versus other venues.
+- [**For Developers**](/guides/for-developers) - Build bots, agents, and integrations.
+- [**For Institutions**](/guides/for-institutions) - Due-diligence, onboarding, and compliance.
+- [**For Traders**](/guides/for-traders) - Your first shielded trade, choosing order types, common mistakes.
+- [**Comparisons**](/guides/comparisons) - Silhouette versus other venues.
 ```
 
 Create the four subdirectory `index.md` files with the same "Coming in Phase 2" pattern as Task 15.
@@ -2436,7 +2436,7 @@ title: AI visibility baseline 2026-04-07
 description: Pre-overhaul baseline of Silhouette docs AI citation rate across 20 target queries.
 ---
 
-# AI visibility baseline — 2026-04-07
+# AI visibility baseline - 2026-04-07
 
 Baseline captured before Phase 1 ships. Tracked via ZipTie + manual Google Sheet. Source sheet: [link when created].
 
@@ -2526,7 +2526,7 @@ Run Lighthouse against `http://localhost:3000/`:
 npx lighthouse http://localhost:3000/ --only-categories=seo,accessibility --preset=desktop --quiet --chrome-flags="--headless"
 ```
 
-Expected: SEO score >= 95. Accessibility >= 90. If accessibility drops, the most likely culprit is color contrast on `--text-tertiary` over `--bg-base` — verify against WCAG AA.
+Expected: SEO score >= 95. Accessibility >= 90. If accessibility drops, the most likely culprit is color contrast on `--text-tertiary` over `--bg-base` - verify against WCAG AA.
 
 Kill the server.
 
@@ -2584,7 +2584,7 @@ EOF
 **Step 3: Tag Wayne for review**
 
 ```bash
-# Wayne's GitHub handle — confirm before running
+# Wayne's GitHub handle - confirm before running
 gh pr edit --add-reviewer wizzle93
 ```
 
@@ -2611,7 +2611,7 @@ Once Phase 1 is merged, Task 1 of Phase 2 is: **re-baseline the 20 queries** to 
 
 ## Notes for the executing engineer
 
-**Do not touch branches you did not create.** This is a Silhouette standing rule. The `docs/overhaul-plan-2026-04-07` branch is yours. If you discover uncommitted work in the repo root when you start, stop and ask — never stash, reset, or clean.
+**Do not touch branches you did not create.** This is a Silhouette standing rule. The `docs/overhaul-plan-2026-04-07` branch is yours. If you discover uncommitted work in the repo root when you start, stop and ask - never stash, reset, or clean.
 
 **Do not use em dashes in any copy.** Use regular hyphens. This is Wayne's standing rule.
 
