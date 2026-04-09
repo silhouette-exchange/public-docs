@@ -1321,7 +1321,13 @@ export default function BlogPublicationHeader({
 }
 
 .title {
-  font-family: var(--font-display);
+  /* IMPORTANT: Inter (--font-sans), NOT Orbitron (--font-display).
+     Brand rule: Orbitron is all-caps only with wide tracking. The
+     publication title is mixed case ("Silhouette Stories" or
+     similar), so the title rule must use Inter. Earlier draft of
+     this stub had var(--font-display) here and bit the Task 2.1
+     implementer (caught in commit 088d2b6). Do not re-introduce. */
+  font-family: var(--font-sans);
   font-size: var(--fs-4xl);
   font-weight: var(--fw-semibold);
   letter-spacing: var(--tracking-tighter);
