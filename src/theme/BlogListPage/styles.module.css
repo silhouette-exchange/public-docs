@@ -19,6 +19,13 @@
  */
 
 .main {
+  /*
+   * position: relative so the absolutely-positioned .atmosphere layer
+   * (first child) is contained to the listing main instead of
+   * escaping to the viewport. The global .main-wrapper::before
+   * atmosphere is viewport-fixed and complements this local layer.
+   */
+  position: relative;
   margin-inline: auto;
   max-width: 1080px;
   /*
@@ -32,6 +39,89 @@
    */
   padding-block: var(--space-10) var(--space-24);
   padding-inline: var(--space-5);
+}
+
+/*
+ * Calmer atmospheric layer behind the listing content. Deliberately
+ * quieter than the homepage Hero (grid alpha ~half, single magenta
+ * glow instead of the paired glow + scanline + vignette treatment).
+ * Fades out via mask before the card grid starts so the bands below
+ * the hero never have to compete with the pattern.
+ */
+.atmosphere {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+  /* Let the browser skip layer promotion; this is static decoration. */
+  will-change: auto;
+  /* Overflow to the vertical extent of the content but never beyond
+     the main box horizontally. */
+  overflow: hidden;
+  /*
+   * Mask fades the whole atmosphere out before the content below the
+   * hero starts competing for attention. Top-anchored, dies off by
+   * ~85% down the main element.
+   */
+  -webkit-mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 40%,
+    transparent 85%
+  );
+          mask-image: linear-gradient(
+    to bottom,
+    #000 0%,
+    #000 40%,
+    transparent 85%
+  );
+  /*
+   * Grid pattern at ~0.012 alpha. Half the homepage Hero's 0.025
+   * so it reads as a whisper rather than a statement. Plus a single
+   * soft magenta radial glow positioned behind the hero card area
+   * (top third of the main element) at ~0.05 alpha. No semantic
+   * tokens exist at these exact values; raw rgba with inline
+   * explanations.
+   */
+  background-image:
+    /* Soft magenta glow behind the hero area. rgba(250, 0, 255) is
+       the --silh-magenta-100 triplet; 0.05 alpha is below any
+       existing magenta-alpha token (--silh-magenta-alpha-20 is 0.20). */
+    radial-gradient(
+      circle at 30% 15%,
+      rgba(250, 0, 255, 0.05) 0%,
+      transparent 60%
+    ),
+    /* Vertical grid lines at 0.012 alpha. */
+    linear-gradient(
+      to right,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px
+    ),
+    /* Horizontal grid lines at 0.012 alpha. */
+    linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.012) 1px,
+      transparent 1px
+    );
+  background-size:
+    100% 100%,
+    56px 56px,
+    56px 56px;
+  background-position:
+    0 0,
+    -1px -1px,
+    -1px -1px;
+  background-repeat: no-repeat, repeat, repeat;
+}
+
+/*
+ * Content wrapper sits above the atmosphere layer. The swizzle mounts
+ * this as a direct child of <main> so it wraps every listing band.
+ */
+.content {
+  position: relative;
+  z-index: 1;
 }
 
 @media (min-width: 640px) {

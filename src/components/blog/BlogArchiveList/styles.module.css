@@ -28,6 +28,22 @@
   padding: 0;
   margin: 0;
   width: 100%;
+  /*
+   * Top-down stagger entrance on the blog listing. Last in sequence
+   * (header 0ms, pills 80ms, hero 160ms, series 240ms, latest 320ms,
+   * archive 400ms). Shared fadeSlideUp keyframe lives in
+   * src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 400ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .list {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .item {

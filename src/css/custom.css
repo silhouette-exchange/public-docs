@@ -327,6 +327,18 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
+/*
+ * Shared entrance keyframe for top-down stagger reveals (used by the
+ * blog listing components via per-component animation-delay). Kept
+ * global so multiple components can reference the same name without
+ * duplicating the keyframe. transform+opacity only so it never
+ * causes layout shift.
+ */
+@keyframes fadeSlideUp {
+  from { opacity: 0; transform: translateY(8px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .main-wrapper {
     animation: none;

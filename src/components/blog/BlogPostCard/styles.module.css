@@ -111,19 +111,24 @@
  * Both glow rgba triples are raw because the codebase does not
  * expose --accent-primary-rgb or --accent-secondary-rgb triplet
  * tokens. The source hexes are --silh-magenta-100 (#fa00ff -> 250,
- * 0, 255) and --silh-cyan-100 (#00fff2 -> 0, 255, 242). Spec 4g
- * alpha is 0.08 for both.
+ * 0, 255) and --silh-cyan-100 (#00fff2 -> 0, 255, 242).
+ *
+ * Alpha was originally 0.08 per design doc §4g draft but the
+ * frontend-design audit on 2026-04-09 flagged that value as
+ * imperceptible on dark #13161a. Bumped to 0.22 with a 48px spread
+ * so the glow is actually the visual differentiator the cards were
+ * designed around. Matching values on BlogHero (see its module).
  */
 .glowMagenta:hover,
 .glowMagenta:focus-visible {
-  /* rgba(250, 0, 255, 0.08) maps to var(--silh-magenta-100) at 8% */
-  box-shadow: 0 0 32px rgba(250, 0, 255, 0.08);
+  /* rgba(250, 0, 255, 0.22) maps to var(--silh-magenta-100) at 22% */
+  box-shadow: 0 0 48px rgba(250, 0, 255, 0.22);
 }
 
 .glowCyan:hover,
 .glowCyan:focus-visible {
-  /* rgba(0, 255, 242, 0.08) maps to var(--silh-cyan-100) at 8% */
-  box-shadow: 0 0 32px rgba(0, 255, 242, 0.08);
+  /* rgba(0, 255, 242, 0.22) maps to var(--silh-cyan-100) at 22% */
+  box-shadow: 0 0 48px rgba(0, 255, 242, 0.22);
 }
 
 .cover {

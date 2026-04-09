@@ -23,6 +23,21 @@
   gap: var(--space-10);
   width: 100%;
   margin-top: var(--space-16);
+  /*
+   * Top-down stagger entrance on the blog listing. After the series
+   * band (240ms), so delay is 320ms. Shared fadeSlideUp keyframe
+   * lives in src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 320ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ==================================================================
@@ -45,7 +60,31 @@
 .divider {
   flex: 1;
   height: 1px;
-  background: rgba(255, 255, 255, 0.08);
+  /*
+   * Gradient dividers replace the old flat rgba(255, 255, 255, 0.08)
+   * bar. Each side fades from transparent at the viewport edge up to
+   * --border-soft-white at the label, framing the label as the focal
+   * point instead of reading as a 1997-era horizontal rule. The left
+   * divider brightens toward its right edge, the right divider
+   * brightens toward its left edge. Layout unchanged: still two
+   * flex-grow spans in a row.
+   */
+}
+
+.dividerRow .divider:first-child {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-soft-white) 100%
+  );
+}
+
+.dividerRow .divider:last-child {
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--border-soft-white) 100%
+  );
 }
 
 .label {
@@ -59,6 +98,14 @@
   color: var(--text-default);
   margin: 0;
   white-space: nowrap;
+  /*
+   * Merest hint of cyan glow behind the label glyphs. Raw rgba
+   * because the codebase has no cyan alpha token at 0.15. Subtle
+   * enough to read as atmosphere rather than a neon sign. Disabled
+   * under prefers-reduced-motion is not strictly required since
+   * text-shadow is static, but we keep the label readable either way.
+   */
+  text-shadow: 0 0 12px rgba(0, 255, 242, 0.15);
 }
 
 /* ==================================================================

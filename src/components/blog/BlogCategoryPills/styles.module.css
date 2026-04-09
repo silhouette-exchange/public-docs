@@ -29,6 +29,21 @@
   gap: var(--space-3);
   padding-top: 0;
   padding-bottom: var(--space-10);
+  /*
+   * Top-down stagger entrance. Second in sequence behind
+   * BlogPublicationHeader (0ms), so delay is 80ms. Shared
+   * fadeSlideUp keyframe lives in src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 80ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .pill {
@@ -38,7 +53,16 @@
      system if the token is ever retuned. */
   border: 1px solid var(--border-soft-white);
   background: transparent;
-  padding: var(--space-2) var(--space-4);
+  /*
+   * 44px minimum touch target per WCAG 2.2 and the site-wide rule.
+   * Math: 2 * var(--space-3) (12px) + 14px font + 2 * 1px border = 40px.
+   * var(--space-3)+2px extra via min-height gets us to 44px without
+   * the pills feeling bloated. Height is enforced to min-height so
+   * multi-line category labels (if any author ever lands that) wrap
+   * instead of squashing the touch target.
+   */
+  min-height: 44px;
+  padding: var(--space-3) var(--space-5);
   border-radius: var(--radius-full);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);

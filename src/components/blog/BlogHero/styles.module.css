@@ -50,16 +50,26 @@
     transform var(--dur-base) var(--ease-out),
     border-color var(--dur-base) var(--ease-out),
     box-shadow var(--dur-base) var(--ease-out);
+  /*
+   * Top-down stagger entrance on the blog listing. Third in sequence
+   * (header 0ms, pills 80ms, hero 160ms). Shared fadeSlideUp
+   * keyframe lives in src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 160ms;
 }
 
 .hero:hover,
 .hero:focus-visible {
   /* Border brightens, card lifts slightly, accent glow appears.
-     prefers-reduced-motion handles the translate suppression below. */
+     prefers-reduced-motion handles the translate suppression below.
+     Alpha bumped from 0.08 to 0.22 on 2026-04-09 after the
+     frontend-design audit flagged the original as imperceptible on
+     #13161a. Matches BlogPostCard glow intensity. */
   border-color: rgba(255, 255, 255, 0.12);
   transform: translateY(-2px);
-  /* rgba(250, 0, 255, 0.08) is --silh-magenta-100 at 8% alpha. */
-  box-shadow: 0 0 48px rgba(250, 0, 255, 0.08);
+  /* rgba(250, 0, 255, 0.22) is --silh-magenta-100 at 22% alpha. */
+  box-shadow: 0 0 64px rgba(250, 0, 255, 0.22);
 }
 
 .hero:focus-visible {
@@ -307,6 +317,13 @@
     transition:
       border-color var(--dur-base) var(--ease-out),
       box-shadow var(--dur-base) var(--ease-out);
+    /*
+     * Entrance animation suppressed. Hero still appears; it just
+     * skips the translate + fade.
+     */
+    animation: none;
+    opacity: 1;
+    transform: none;
   }
   .hero:hover,
   .hero:focus-visible {

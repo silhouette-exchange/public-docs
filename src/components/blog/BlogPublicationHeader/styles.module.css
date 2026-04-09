@@ -32,6 +32,22 @@
   padding-top: 0;
   padding-bottom: var(--space-6);
   text-align: left;
+  /*
+   * Top-down stagger entrance on the blog listing. First in sequence
+   * so delay is 0ms. Keyframe is defined globally in custom.css so
+   * every listing component reuses the same motion primitive.
+   * transform+opacity only so layout does not shift post-reveal.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 .title {

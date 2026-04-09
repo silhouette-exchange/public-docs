@@ -26,6 +26,21 @@
   flex-direction: column;
   gap: var(--space-6);
   width: 100%;
+  /*
+   * Top-down stagger entrance on the blog listing. Between the hero
+   * (160ms) and the latest band (320ms), so delay is 240ms. Shared
+   * fadeSlideUp keyframe lives in src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 240ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
 }
 
 /* ==================================================================
