@@ -1,0 +1,211 @@
+/*
+ * BlogByline
+ *
+ * Author byline row. Avatar cluster + name/title stack. Used on blog
+ * listing cards (avatarSize="sm") and on article page headers
+ * (avatarSize="md"). Handles multi-author overlap, initials fallback,
+ * and name-block linking.
+ *
+ * Token choices vs spec (design doc section 5c):
+ *
+ *  - Avatar border: spec calls for 1px rgba(255, 255, 255, 0.1). No
+ *    semantic token at this exact alpha; --border-soft-white is close
+ *    but not guaranteed to stay at 0.1 through future retunes. Raw
+ *    rgba used so the byline stays pinned to the spec value. Same
+ *    justification used in BlogCoverImage / BlogCoverFallback for
+ *    their 0.08 inner border.
+ *
+ *  - Avatar gap (12px between avatar and name block): --space-3 is
+ *    exactly 12px so the token is used.
+ *
+ *  - Multi-author overlap (24px): expressed as a local CSS custom
+ *    property --blog-byline-overlap set to -24px so the inline style
+ *    from index.tsx stays declarative. No semantic spacing token is
+ *    negative; raw pixel value is the right call here.
+ *
+ *  - Name typography: Inter 15px / 500 weight. --fs-sm is 14px and
+ *    --fs-base is 16px so 15px sits between tokens. Raw 15px used to
+ *    honour the spec exactly (same deviation pattern as
+ *    BlogCoverFallback's 24px title).
+ *
+ *  - Role typography: Inter 13px / 400 weight. 13px sits between
+ *    --fs-xs (12px) and --fs-sm (14px). Raw 13px used.
+ *
+ *  - Initials gradient: 135deg magenta -> cyan, matching the
+ *    BlogCoverFallback treatment. --silh-magenta-alpha-20 for the
+ *    magenta side (the stronger alpha reads legibly at 32-40px scale
+ *    where alpha-10 washes out). Cyan side has no semantic token so
+ *    raw rgba(0, 255, 242, 0.20) is used with an inline comment, matching
+ *    the BlogCategoryPills / BlogCoverFallback convention.
+ *
+ *  - Initials typography: Orbitron (var(--font-display)) is the one
+ *    legitimate use in this component because the initials are
+ *    single-character all-caps glyphs. Wide tracking from
+ *    --tracking-widest for visual consistency with other Orbitron
+ *    usages in the site (wordmark, section tags).
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 5c
+ */
+
+.byline {
+  /* Local custom property so the JS inline style can reference
+     var(--blog-byline-overlap) without repeating the magic number.
+     Negative because subsequent avatars pull LEFT to stack over the
+     previous one. */
+  --blog-byline-overlap: -24px;
+
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.cluster {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  /* isolate creates a fresh stacking context so the z-index values
+     on each avatar slot only compete with each other, not with
+     whatever sits around the byline on the page. */
+  isolation: isolate;
+}
+
+.avatarSlot {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  /* The slot IS the sized box. The child <img> or initials span fills
+     it. This lets marginLeft on the slot drive the overlap without the
+     child needing to know its own offset. */
+  flex: 0 0 auto;
+}
+
+.avatar {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  object-fit: cover;
+  /* Spec 5c: 1px rgba(255, 255, 255, 0.1) border. No semantic token at
+     this exact alpha; raw rgba matches spec value. */
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  /* Match the root background so the overlap notch reads as a clean
+     ring rather than a bleed-through of whatever sits behind the row. */
+  background: var(--bg-base);
+}
+
+.avatarSm,
+.avatarSm.avatarSlot {
+  width: 32px;
+  height: 32px;
+}
+
+.avatarMd,
+.avatarMd.avatarSlot {
+  width: 40px;
+  height: 40px;
+}
+
+.initials {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  /* 135deg magenta -> cyan gradient. Magenta side uses the semantic
+     --silh-magenta-alpha-20 token. Cyan side has no semantic token so
+     raw rgba is used - matches the pattern established by
+     BlogCoverFallback and BlogCategoryPills. */
+  background: linear-gradient(
+    135deg,
+    var(--silh-magenta-alpha-20) 0%,
+    /* TODO: replace with --accent-secondary-alpha-20 if token is added */
+      rgba(0, 255, 242, 0.2) 100%
+  );
+  color: var(--text-default);
+  /* Orbitron. Legitimate use: single-character all-caps glyph. Wide
+     tracking keeps the letter visually anchored inside the circle. */
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-widest);
+  text-transform: uppercase;
+  /* The Orbitron caps sit slightly below optical centre by default
+     because the font has generous descender space. A tiny negative
+     text-indent cancels the built-in letter-spacing offset so the
+     glyph centres optically inside the circle. */
+  text-indent: var(--tracking-widest);
+}
+
+.initialsSm {
+  /* Spec: ~13px at 32px avatar. */
+  font-size: 13px;
+  line-height: 1;
+}
+
+.initialsMd {
+  /* Spec: ~16px at 40px avatar. */
+  font-size: 16px;
+  line-height: 1;
+}
+
+.meta {
+  display: flex;
+  flex-direction: column;
+  /* min-width: 0 lets long comma-joined name strings shrink and wrap
+     instead of pushing the row wider than its parent. */
+  min-width: 0;
+}
+
+.nameLink {
+  text-decoration: none;
+  color: inherit;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+
+.nameLink:hover .name,
+.nameLink:focus-visible .name {
+  color: var(--accent-secondary);
+}
+
+.nameLink:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+  border-radius: var(--radius-sm);
+}
+
+.name {
+  /* Spec 5c: Inter 15px / 500 weight / --text-default. 15px is not a
+     token; raw value used. */
+  font-family: var(--font-sans);
+  font-size: 15px;
+  font-weight: var(--fw-medium);
+  color: var(--text-default);
+  line-height: 1.3;
+  /* Prevent a giant comma-joined string from breaking the row; ellipsis
+     on horizontal overflow. Multi-author clusters collapse to "+N more"
+     but the first two names plus suffix can still be long. */
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+.title {
+  /* Spec 5c: Inter 13px / 400 weight / --text-muted. 13px is not a
+     token; raw value used. */
+  font-family: var(--font-sans);
+  font-size: 13px;
+  font-weight: var(--fw-regular);
+  color: var(--text-muted);
+  line-height: 1.3;
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  max-width: 100%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nameLink {
+    transition: none;
+  }
+}
