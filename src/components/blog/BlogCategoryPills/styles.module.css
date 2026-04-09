@@ -1,0 +1,84 @@
+/*
+ * BlogCategoryPills
+ *
+ * Horizontal row of filter pills for the /blog listing. Dumb component:
+ * parent BlogListPage swizzle (Phase 3 Task 3.3) owns URL query param
+ * sync and passes activeSlug as a prop. This file handles visual style
+ * only. All values reference :root tokens from src/css/custom.css where
+ * a token exists. Where a spec value has no matching semantic token,
+ * raw rgba is used with an inline comment flagging it.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4c
+ */
+
+/*
+ * The toolbar container owns NO page-level layout. No max-width, no
+ * margin-inline: auto, no horizontal page padding. The parent swizzle
+ * provides the 1280px max-width plus responsive side padding, same as
+ * BlogPublicationHeader. This row just flexes inside whatever its
+ * parent gives it. Vertical padding stays here.
+ */
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+}
+
+.pill {
+  /* Idle border. Spec says rgba(255,255,255,0.1); --border-soft-white is
+     rgba(255,255,255,0.16). 0.06 alpha delta is imperceptible and using
+     the semantic token keeps the component in sync with the design
+     system if the token is ever retuned. */
+  border: 1px solid var(--border-soft-white);
+  background: transparent;
+  padding: var(--space-2) var(--space-4);
+  border-radius: var(--radius-full);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition:
+    border-color var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out),
+    background var(--dur-fast) var(--ease-out);
+}
+
+.pill:hover {
+  /* Hover border. No existing semantic token for this alpha; raw rgba
+     used. */
+  border-color: rgba(255, 255, 255, 0.18);
+  color: var(--text-default);
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.pillActive {
+  /* Active fill: magenta-cyan gradient per design spec 4c. Magenta side
+     uses the semantic token --accent-primary-muted (resolves to
+     silh-magenta-alpha-20, a 5% alpha delta from the spec's 0.15 which
+     is imperceptible). Cyan side has no equivalent semantic token. */
+  background: linear-gradient(
+    135deg,
+    var(--accent-primary-muted),
+    /* TODO: replace with --accent-secondary-muted token if added later */
+      rgba(0, 255, 242, 0.15)
+  );
+  /* Active border. No existing semantic token for this alpha; raw rgba
+     used. */
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--text-default);
+}
+
+.pillActive:hover {
+  /* Keep the active styling stable on hover so the active pill does
+     not flicker back to the hover border. */
+  border-color: rgba(255, 255, 255, 0.3);
+  color: var(--text-default);
+}
