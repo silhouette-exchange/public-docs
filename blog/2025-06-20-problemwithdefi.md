@@ -4,12 +4,11 @@ title: 'The Problem with DeFi, Transparency as an Attack Surface'
 authors:
   - silhouette-team
 category: research
-description: >-
-  The Problem with DeFi, Transparency as an Attack Surface - Silhouette Exchange
-  documentation.
+description: 'Part one of the Silhouette shielded trading series. Why radical transparency in DeFi is an attack surface: strategy leakage, copytrade exposure, adverse selection.'
+image: ./images/defi-problem-header.png
 ---
 
-![Test image](./images/defi-problem-header.png)
+![The Problem with DeFi series header showing transparency as an attack surface](./images/defi-problem-header.png)
 
 _Part one of a three-part series on the future of shielded trading._
 

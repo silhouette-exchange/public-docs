@@ -4,10 +4,11 @@ title: Why Dark Pools Haven’t Worked Onchain
 authors:
   - silhouette-team
 category: research
-description: Why Dark Pools Haven’t Worked Onchain - Silhouette Exchange documentation.
+description: Part three of the Silhouette shielded trading series. Onchain dark pools promised privacy and delivered liquidity deserts. Why they failed and how shielded trading fixes it.
+image: ./images/darkpoolsdontwork.png
 ---
 
-![Test image](./images/darkpoolsdontwork.png)
+![Why Dark Pools Haven’t Worked Onchain series header with a fragmented liquidity visual](./images/darkpoolsdontwork.png)
 
 *Part three in our series on shielded trading*
 

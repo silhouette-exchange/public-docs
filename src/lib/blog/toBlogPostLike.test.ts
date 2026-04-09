@@ -18,6 +18,11 @@ function makeItem(
      * a custom slug.
      */
     frontMatter?: Record<string, unknown>;
+    /**
+     * Bundler-processed assets. Simulates what Docusaurus puts on
+     * item.content.assets after resolving relative `image:` paths.
+     */
+    assets?: { image?: string };
   } = {},
 ): DocusaurusBlogItem {
   return {
@@ -32,6 +37,7 @@ function makeItem(
         ...overrides.metadata,
       },
       frontMatter: overrides.frontMatter ?? { category: 'research' },
+      assets: overrides.assets,
     },
   };
 }
@@ -70,6 +76,45 @@ describe('toBlogPostLike', () => {
       expect(post.coverImage).toBe('/img/cover.png');
       expect(post.series).toBe('silhouette-primer');
       expect(post.seriesOrder).toBe(2);
+    });
+
+    it('prefers Docusaurus standard `image` frontmatter over custom `cover`', () => {
+      const post = toBlogPostLike(
+        makeItem({
+          frontMatter: {
+            category: 'research',
+            image: '/img/from-image-field.png',
+            cover: '/img/from-cover-field.png',
+          },
+        }),
+      );
+      expect(post.coverImage).toBe('/img/from-image-field.png');
+    });
+
+    it('prefers bundler-processed assets.image (hashed URL) over raw frontmatter paths', () => {
+      const post = toBlogPostLike(
+        makeItem({
+          frontMatter: {
+            category: 'research',
+            image: './images/foo.png',
+          },
+          assets: { image: '/assets/images/foo-abc123hash.png' },
+        }),
+      );
+      expect(post.coverImage).toBe('/assets/images/foo-abc123hash.png');
+    });
+
+    it('falls back to frontmatter image when assets.image is undefined (external URL)', () => {
+      const post = toBlogPostLike(
+        makeItem({
+          frontMatter: {
+            category: 'research',
+            image: 'https://cdn.example.com/foo.png',
+          },
+          assets: { image: undefined },
+        }),
+      );
+      expect(post.coverImage).toBe('https://cdn.example.com/foo.png');
     });
   });
 

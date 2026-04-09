@@ -4,12 +4,11 @@ title: The Privacy Mirage - Why Complete Darkness Breaks DeFi
 authors:
   - silhouette-team
 category: research
-description: >-
-  The Privacy Mirage - Why Complete Darkness Breaks DeFi - Silhouette Exchange
-  documentation.
+description: Part two of the Silhouette shielded trading series. Why full-darkness privacy solutions (mixers, shielded L1s, early dark pools) broke DeFi and what to build instead.
+image: ./images/problemwithprivacy.png
 ---
 
-![Test image](./images/problemwithprivacy.png)
+![The Privacy Mirage series header contrasting full darkness with shielded trading](./images/problemwithprivacy.png)
 
 *Part two of our three-part look at shielded trading.*
 

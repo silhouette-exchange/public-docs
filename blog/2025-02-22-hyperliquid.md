@@ -4,10 +4,11 @@ title: Why We Chose Hyperliquid
 authors:
   - silhouette-team
 category: research
-description: Why We Chose Hyperliquid - Silhouette Exchange documentation.
+description: 'Why Silhouette built on Hyperliquid: an EVM-compatible L1 with the speed, scale and matching engine depth to support shielded trading at institutional size.'
+image: ./images/hyperliquid.png
 ---
 
-![Test image](./images/hyperliquid.png)
+![Silhouette and Hyperliquid partnership banner showing stacked Silhouette and Hyperliquid wordmarks](./images/hyperliquid.png)
 
 ***TL;DR***
 

@@ -54,6 +54,16 @@ export interface DocusaurusBlogItem {
       }>;
     };
     readonly frontMatter: Record<string, unknown>;
+    /**
+     * Bundler-processed assets. Docusaurus resolves relative `image:`
+     * frontmatter paths (e.g. `./images/foo.png`) into hashed URLs at
+     * build time and exposes them here. For external URLs in `image:`,
+     * `assets.image` is undefined and we should fall back to
+     * `frontMatter.image` directly.
+     */
+    readonly assets?: {
+      readonly image?: string;
+    };
   };
 }
 
@@ -92,7 +102,7 @@ function deriveSlugFromPermalink(permalink: string): string {
  * mistakes fail loudly in local dev instead of silently masking.
  */
 export function toBlogPostLike(item: DocusaurusBlogItem): BlogPostLike {
-  const { metadata, frontMatter } = item.content;
+  const { metadata, frontMatter, assets } = item.content;
 
   const category = readString(frontMatter, "category");
   if (!category) {
@@ -117,7 +127,21 @@ export function toBlogPostLike(item: DocusaurusBlogItem): BlogPostLike {
   const readingTime = Math.max(1, Math.round(rawReadingTime));
 
   const dek = metadata.description.length > 0 ? metadata.description : undefined;
-  const coverImage = readString(frontMatter, "cover");
+  // Docusaurus resolves a relative `image:` frontmatter path (e.g.
+  // `./images/foo.png`) into a hashed asset URL at build time and exposes
+  // it on `item.content.assets.image`. That is the URL we want to render -
+  // the raw `frontMatter.image` string is only relative to the post's MDX
+  // file and does not resolve when the listing page tries to render it.
+  // Order of preference:
+  //   1. assets.image - the bundler-processed hashed URL (collocated)
+  //   2. frontMatter.image - external URLs that the bundler did not touch
+  //   3. frontMatter.cover - legacy custom field from the earlier adapter
+  const coverImage =
+    (typeof assets?.image === "string" && assets.image.length > 0
+      ? assets.image
+      : undefined) ??
+    readString(frontMatter, "image") ??
+    readString(frontMatter, "cover");
   const series = readString(frontMatter, "series");
   const seriesOrder = readNumber(frontMatter, "series_order");
 

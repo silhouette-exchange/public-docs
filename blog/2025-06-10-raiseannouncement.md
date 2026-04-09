@@ -4,10 +4,11 @@ title: Redefining DeFi with Silhouette
 authors:
   - silhouette-team
 category: announcements
-description: Redefining DeFi with Silhouette - Silhouette Exchange documentation.
+description: Silhouette closes a seed round led by RockawayX to build shielded trading on Hyperliquid. Strategies stay private, the orderbook stays public, the execution stays fast.
+image: ./images/raise-announcement-banner.png
 ---
 
-![Test image](./images/raise-announcement-banner.png)
+![Silhouette seed round announcement banner with RockawayX, Amber Group and HiveMind logos](./images/raise-announcement-banner.png)
 
 Decentralised Finance has come a long way since the DeFi Summer of 2020. What began as a movement for open, permissionless transactions has now matured into a high-speed, scalable ecosystem. But it is all out in the open – every move is completely visible to anyone watching.
 
