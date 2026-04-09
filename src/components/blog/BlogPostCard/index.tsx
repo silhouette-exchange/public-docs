@@ -21,6 +21,13 @@ export interface BlogPostLike {
   readingTime: number;
   /** First author's display name. Only one author shows on the listing card. */
   authorName: string;
+  /**
+   * First author's avatar image URL. Optional. Used by BlogHero for the
+   * 32px avatar in its byline footer; BlogPostCard ignores this field
+   * because the standard listing card has no avatar in its slim footer.
+   * Hero falls back to Orbitron initials if missing or onError fires.
+   */
+  authorImageUrl?: string;
   /** Publication date (ISO string or Date). Rendered in the footer. */
   date: string | Date;
 }
