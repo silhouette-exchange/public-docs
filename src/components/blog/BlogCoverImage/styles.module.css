@@ -37,10 +37,13 @@
 .overlay {
   position: absolute;
   inset: 0;
-  /* Subtle dark veil over the image at rest. Lifts on hover so the
-     image becomes more vivid. Spec 4i calls for "overlay fade" hover
-     treatment shared between real and fallback covers. */
-  background: rgba(0, 0, 0, 0.05);
+  /* Dark veil over the image at rest, lifts to fully transparent on
+     hover so the image "wakes up". Spec 4i calls for "overlay fade"
+     hover treatment shared between real and fallback covers. The
+     0.15 alpha is the threshold where the lift is perceptible
+     without making the rest state look broken or muddy; an earlier
+     0.05 value was below the perception threshold. */
+  background: rgba(0, 0, 0, 0.15);
   opacity: 1;
   transition: opacity var(--dur-base) var(--ease-out);
 }
