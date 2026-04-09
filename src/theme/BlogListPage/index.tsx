@@ -154,58 +154,49 @@ function BlogListPageContent(props: Props): ReactNode {
     >
       <SearchMetadata tag="blog_posts_list" />
       <main className={styles.main}>
-        {/*
-         * Decorative atmospheric layer behind the listing content.
-         * Absolutely positioned inside the relative main. Calm
-         * single-glow + faint grid variant of the homepage Hero
-         * treatment. Aria-hidden since it is purely visual.
-         */}
-        <div className={styles.atmosphere} aria-hidden="true" />
-        <div className={styles.content}>
-          <BlogPublicationHeader
-            title="Blog"
-            subtitle="Writing on shielded trading, TEE architecture, and the road to private perps"
-          />
+        <BlogPublicationHeader
+          title="Blog"
+          subtitle="Writing on shielded trading, TEE architecture, and the road to private perps"
+        />
 
-          <BlogCategoryPills
-            activeSlug={activeFilter}
-            onChange={handleFilterChange}
-          />
+        <BlogCategoryPills
+          activeSlug={activeFilter}
+          onChange={handleFilterChange}
+        />
 
-          {hasNoResults ? (
-            <p className={styles.emptyState} role="status">
-              No posts in this category yet. Check back soon, or browse{" "}
-              <button
-                type="button"
-                className={styles.emptyResetButton}
-                onClick={() => handleFilterChange(null)}
-              >
-                everything
-              </button>
-              .
-            </p>
-          ) : (
-            <>
-              {partition.hero && <BlogHero post={partition.hero} />}
+        {hasNoResults ? (
+          <p className={styles.emptyState} role="status">
+            No posts in this category yet. Check back soon, or browse{" "}
+            <button
+              type="button"
+              className={styles.emptyResetButton}
+              onClick={() => handleFilterChange(null)}
+            >
+              everything
+            </button>
+            .
+          </p>
+        ) : (
+          <>
+            {partition.hero && <BlogHero post={partition.hero} />}
 
-              <BlogSeriesBand
-                allPosts={allPosts}
-                activeFilter={activeFilter}
-                seriesSlug="silhouette-primer"
-              />
+            <BlogSeriesBand
+              allPosts={allPosts}
+              activeFilter={activeFilter}
+              seriesSlug="silhouette-primer"
+            />
 
-              <BlogLatestBand
-                posts={partition.latest}
-                activeFilter={activeFilter}
-                maxPosts={MAX_LATEST}
-              />
+            <BlogLatestBand
+              posts={partition.latest}
+              activeFilter={activeFilter}
+              maxPosts={MAX_LATEST}
+            />
 
-              {partition.archive.length > 0 && (
-                <BlogArchiveList posts={partition.archive} />
-              )}
-            </>
-          )}
-        </div>
+            {partition.archive.length > 0 && (
+              <BlogArchiveList posts={partition.archive} />
+            )}
+          </>
+        )}
       </main>
     </Layout>
   );

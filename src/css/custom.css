@@ -347,20 +347,13 @@ body {
 
 /* ============================================
    AMBIENT BACKGROUND ATMOSPHERE
-   Subtle radial glows + dot grid behind content for depth.
-   Heavy effects disabled on mobile for performance.
+   Just the subtle dot grid behind content for depth.
+   The radial glow gradients (previously on .main-wrapper::before)
+   were removed on Wayne's call 2026-04-09: the magenta tint bled
+   into the gutters outside the blog content column and read as
+   noise rather than atmosphere. Card hover glow on BlogPostCard
+   and BlogHero is a separate layer and stays untouched.
    ============================================ */
-.main-wrapper::before {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background:
-    radial-gradient(ellipse 80% 60% at 50% -20%, rgba(0, 255, 242, 0.035), transparent 60%),
-    radial-gradient(ellipse 50% 50% at 100% 0%, rgba(250, 0, 255, 0.025), transparent 50%),
-    radial-gradient(ellipse 40% 40% at 0% 100%, rgba(0, 255, 242, 0.018), transparent 50%);
-}
 
 .main-wrapper::after {
   content: '';
