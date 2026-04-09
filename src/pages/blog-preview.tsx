@@ -33,7 +33,7 @@ import { CATEGORIES } from '@site/src/data/blog/categories';
 const heroPost: BlogPostLike = {
   slug: 'shielded-execution-explained',
   title: 'Shielded Execution Explained: Why Public Orderbooks Leak Strategy',
-  permalink: '/blog/shielded-execution-explained',
+  permalink: 'https://example.com/preview-mock/shielded-execution-explained',
   category: 'research',
   dek: 'Public orderbooks leak strategy to copytrade bots and signal-aware liquidity providers. Shielded execution closes the leakage by encrypting orders until match. Here is how the system works end to end.',
   coverImage: '/img/hero.png',
@@ -47,7 +47,7 @@ const latestPosts: BlogPostLike[] = [
   {
     slug: 'why-tee-not-zk',
     title: 'Why TEEs and Not Zero Knowledge for Shielded Trading',
-    permalink: '/blog/why-tee-not-zk',
+    permalink: 'https://example.com/preview-mock/why-tee-not-zk',
     category: 'explainers',
     dek: 'A pragmatic look at the latency, throughput, and developer-experience trade-offs that pushed Silhouette to a TEE-first design.',
     coverImage: '/img/hero.png',
@@ -58,7 +58,7 @@ const latestPosts: BlogPostLike[] = [
   {
     slug: 'fee-rebate-mechanism',
     title: '95 Percent of the Hyperliquid Volume Discount, Returned',
-    permalink: '/blog/fee-rebate-mechanism',
+    permalink: 'https://example.com/preview-mock/fee-rebate-mechanism',
     category: 'product',
     dek: 'How Silhouette routes the Hyperliquid taker rebate back to the trader who actually moved the size, with an on-chain proof for every payout.',
     readingTime: 4,
@@ -68,7 +68,7 @@ const latestPosts: BlogPostLike[] = [
   {
     slug: 'first-week-numbers',
     title: 'Our First Week on Mainnet, Numbers and Lessons',
-    permalink: '/blog/first-week-numbers',
+    permalink: 'https://example.com/preview-mock/first-week-numbers',
     category: 'announcements',
     dek: 'Volume, fills, latency, the boring failure modes, and the one thing we did not see coming.',
     coverImage: '/img/hero.png',
@@ -79,7 +79,7 @@ const latestPosts: BlogPostLike[] = [
   {
     slug: 'order-router-internals',
     title: 'Inside the Order Router: From Encryption to Match',
-    permalink: '/blog/order-router-internals',
+    permalink: 'https://example.com/preview-mock/order-router-internals',
     category: 'research',
     dek: 'A walkthrough of the path your order takes from the moment it leaves the keystore to the moment a fill notification reaches your client.',
     readingTime: 8,
@@ -92,7 +92,7 @@ const seriesPosts: BlogPostLike[] = [
   {
     slug: 'what-is-silhouette',
     title: 'What Is Silhouette?',
-    permalink: '/blog/what-is-silhouette',
+    permalink: 'https://example.com/preview-mock/what-is-silhouette',
     category: 'explainers',
     dek: 'A 4-minute primer on shielded perpetuals and why a private orderbook matters when bots watch every wallet.',
     readingTime: 4,
@@ -104,7 +104,7 @@ const seriesPosts: BlogPostLike[] = [
   {
     slug: 'why-shielded',
     title: 'Why Shielded Trading Matters',
-    permalink: '/blog/why-shielded',
+    permalink: 'https://example.com/preview-mock/why-shielded',
     category: 'explainers',
     dek: 'Strategy leakage is not theoretical. We measured it. The cost surprised us.',
     readingTime: 6,
@@ -116,7 +116,7 @@ const seriesPosts: BlogPostLike[] = [
   {
     slug: 'tee-architecture',
     title: 'TEE Architecture for Crypto Orderbooks',
-    permalink: '/blog/tee-architecture',
+    permalink: 'https://example.com/preview-mock/tee-architecture',
     category: 'research',
     dek: 'Attestation, side-channel hardening, and the operational realities of running a TEE in production.',
     readingTime: 10,
@@ -128,7 +128,7 @@ const seriesPosts: BlogPostLike[] = [
   {
     slug: 'how-orders-encrypt',
     title: 'How Your Orders Get Encrypted',
-    permalink: '/blog/how-orders-encrypt',
+    permalink: 'https://example.com/preview-mock/how-orders-encrypt',
     category: 'guides',
     dek: 'A guided tour of the client-side encryption flow, with diagrams.',
     readingTime: 5,
@@ -140,7 +140,7 @@ const seriesPosts: BlogPostLike[] = [
   {
     slug: 'matching-engine',
     title: 'Inside the Matching Engine',
-    permalink: '/blog/matching-engine',
+    permalink: 'https://example.com/preview-mock/matching-engine',
     category: 'research',
     dek: 'How Silhouette settles a trade without ever exposing the resting book to the operator.',
     readingTime: 8,
@@ -155,7 +155,7 @@ const archivePosts: BlogPostLike[] = [
   {
     slug: 'origin-story',
     title: 'The Silhouette Origin Story: Three Years and a Thesis',
-    permalink: '/blog/origin-story',
+    permalink: 'https://example.com/preview-mock/origin-story',
     category: 'announcements',
     readingTime: 7,
     authorName: 'Wayne van Niekerk',
@@ -164,7 +164,7 @@ const archivePosts: BlogPostLike[] = [
   {
     slug: 'pre-launch-checklist',
     title: 'The Pre-Launch Audit Checklist We Used',
-    permalink: '/blog/pre-launch-checklist',
+    permalink: 'https://example.com/preview-mock/pre-launch-checklist',
     category: 'guides',
     readingTime: 9,
     authorName: 'Sydney',
@@ -173,7 +173,7 @@ const archivePosts: BlogPostLike[] = [
   {
     slug: 'what-we-learned-on-testnet',
     title: 'What We Learned From Six Weeks on Testnet',
-    permalink: '/blog/what-we-learned-on-testnet',
+    permalink: 'https://example.com/preview-mock/what-we-learned-on-testnet',
     category: 'product',
     readingTime: 6,
     authorName: 'Wayne van Niekerk',
