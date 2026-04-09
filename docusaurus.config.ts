@@ -169,15 +169,38 @@ const config: Config = {
         route: '/api/explorer',
         showNavLink: false, // we add it to the docs sidebar instead
         configuration: {
+          /*
+           * OpenAPI spec source URLs.
+           *
+           * Vercel deploys (preview at silhouette-docs-preview.vercel.app
+           * and any future Vercel-hosted public deploy) use relative URLs
+           * that get proxied to api.silhouette.exchange via the rewrites
+           * defined in vercel.json. The proxy makes the spec fetch
+           * same-origin from the browser's perspective, which avoids the
+           * Silhouette API server's allowlist-based CORS policy that
+           * only reflects known origins (localhost:3100 and the public
+           * docs.silhouette.exchange).
+           *
+           * Local dev (`pnpm start`) and any non-Vercel production deploy
+           * use the absolute URL because the API server allows their
+           * origins natively. Switched via process.env.VERCEL which is
+           * set to "1" by Vercel during builds.
+           */
           sources: [
             {
-              url: 'https://api.silhouette.exchange/v0/openapi.json',
+              url:
+                process.env.VERCEL === '1'
+                  ? '/openapi/v0.json'
+                  : 'https://api.silhouette.exchange/v0/openapi.json',
               title: 'v0 (current)',
               slug: 'v0',
               default: true,
             },
             {
-              url: 'https://api.silhouette.exchange/v1/openapi.json',
+              url:
+                process.env.VERCEL === '1'
+                  ? '/openapi/v1.json'
+                  : 'https://api.silhouette.exchange/v1/openapi.json',
               title: 'v1 (next)',
               slug: 'v1',
             },
