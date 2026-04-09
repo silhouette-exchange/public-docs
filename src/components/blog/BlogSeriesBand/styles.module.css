@@ -1,0 +1,125 @@
+/*
+ * BlogSeriesBand
+ *
+ * Conditional band wrapper that holds the Silhouette Series cards.
+ * Header with dashed dividers flanking the label, sub-line below, then
+ * a responsive grid of cards.
+ *
+ * Token choices vs spec (design doc section 4f):
+ *
+ *  - Label: Orbitron 13px uppercase letter-spacing 0.16em
+ *    var(--accent-secondary). Legitimate Orbitron use (single-line
+ *    all-caps band label).
+ *  - Dividers: thin 1px rgba(255, 255, 255, 0.08) rules. Raw rgba; no
+ *    semantic token at this exact alpha. Same convention used by the
+ *    cover components for their inner borders.
+ *  - Sub-line: Inter 15px weight 400 muted, max-width 560px. 15px
+ *    raw (sits between --fs-sm 14px and --fs-base 16px).
+ *  - Grid: 4 columns desktop, 3 columns tablet, mobile horizontal
+ *    scroll with snap. Mobile-first definition; media queries widen.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4f
+ */
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  width: 100%;
+}
+
+/* ==================================================================
+   Header
+   ================================================================== */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-3);
+  text-align: center;
+}
+
+.dividerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.divider {
+  flex: 1;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+.label {
+  /* Orbitron is the legit case here: a short all-caps band label, not
+     a heading. Spec calls for 13px / 0.16em tracking / accent secondary. */
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--accent-secondary);
+  margin: 0;
+  white-space: nowrap;
+}
+
+.subline {
+  font-family: var(--font-sans);
+  /* 15px raw; no exact token. Same deviation pattern used elsewhere
+     in the blog components when the spec calls for 15px. */
+  font-size: 15px;
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-normal);
+  color: var(--text-muted);
+  margin: 0;
+  max-width: 560px;
+}
+
+/* ==================================================================
+   Card grid
+   ================================================================== */
+.grid {
+  display: grid;
+  /*
+   * Mobile-first: horizontal scroll with snap. Each card claims ~72%
+   * of the viewport width per spec. Cards do not wrap on mobile;
+   * they overflow horizontally and snap into place as the user scrolls.
+   */
+  grid-auto-flow: column;
+  grid-auto-columns: 72%;
+  gap: var(--space-4);
+  overflow-x: auto;
+  scroll-snap-type: x proximity;
+  scroll-padding-inline: var(--space-4);
+  /* Hide scrollbar on supporting browsers; the snap + overflow makes
+     the affordance discoverable without a visible bar. */
+  scrollbar-width: thin;
+}
+
+.grid > * {
+  scroll-snap-align: start;
+  /* Ensure each card is a flex item with a stable height even when
+     the dek length varies between cards in the row. */
+  min-height: 100%;
+}
+
+@media (min-width: 996px) {
+  .grid {
+    /* Tablet: 3 columns wrapping naturally, no horizontal scroll. */
+    grid-auto-flow: row;
+    grid-auto-columns: auto;
+    grid-template-columns: repeat(3, 1fr);
+    overflow-x: visible;
+    scroll-snap-type: none;
+  }
+}
+
+@media (min-width: 1280px) {
+  .grid {
+    /* Desktop: 4 columns. Posts in a 7-essay series wrap to 2 rows
+       (4 + 3). */
+    grid-template-columns: repeat(4, 1fr);
+  }
+}

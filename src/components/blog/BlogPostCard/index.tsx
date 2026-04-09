@@ -30,6 +30,20 @@ export interface BlogPostLike {
   authorImageUrl?: string;
   /** Publication date (ISO string or Date). Rendered in the footer. */
   date: string | Date;
+  /**
+   * Optional editorial series slug (e.g. "silhouette-primer"). Posts in
+   * a series are surfaced by BlogSeriesBand in series_order; posts
+   * without this field are not part of any series. BlogPostCard itself
+   * does not render anything related to series; the field travels with
+   * the post so the band can filter and sort without a separate lookup.
+   */
+  series?: string;
+  /**
+   * 1-indexed position of this post within its series. Required when
+   * `series` is set; ignored otherwise. Used for the "PART N OF M"
+   * indicator on BlogSeriesCard.
+   */
+  seriesOrder?: number;
 }
 
 export interface BlogPostCardProps {
