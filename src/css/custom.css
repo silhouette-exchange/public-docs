@@ -347,31 +347,19 @@ body {
 
 /* ============================================
    AMBIENT BACKGROUND ATMOSPHERE
-   Just the subtle dot grid behind content for depth.
-   The radial glow gradients (previously on .main-wrapper::before)
-   were removed on Wayne's call 2026-04-09: the magenta tint bled
-   into the gutters outside the blog content column and read as
-   noise rather than atmosphere. Card hover glow on BlogPostCard
-   and BlogHero is a separate layer and stays untouched.
+   Removed entirely on Wayne's call 2026-04-09.
+
+   The previous implementation used .main-wrapper::before (three
+   radial glow gradients) and .main-wrapper::after (a dot grid with
+   a radial mask). Both created visible horizontal transition bands
+   across every page: the ::before radials faded out around 60% of
+   the viewport, and the ::after grid mask was an oval that cut to
+   transparent around the midpoint. On any page with flat content
+   below the fold, the edge of those fade-outs read as a hard
+   "grey upper / dark lower" discontinuity across every page. Card
+   hover glow on BlogPostCard and BlogHero is a separate box-shadow
+   layer on the card elements themselves and stays intact.
    ============================================ */
-
-.main-wrapper::after {
-  content: '';
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  z-index: 0;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.014) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.014) 1px, transparent 1px);
-  background-size: 80px 80px;
-  -webkit-mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000, transparent);
-          mask-image: radial-gradient(ellipse 80% 50% at 50% 0%, #000, transparent);
-}
-
-@media screen and (max-width: 768px) {
-  .main-wrapper::after { display: none; }
-}
 
 /* ============================================
    NAVBAR - thin transparent bar with backdrop blur
