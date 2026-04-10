@@ -365,9 +365,17 @@ body {
    NAVBAR - thin transparent bar with backdrop blur
    ============================================ */
 .navbar {
-  background: rgba(19, 22, 26, 0.72);
-  backdrop-filter: blur(var(--blur-md)) saturate(1.4);
-  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(1.4);
+  /*
+   * Opaque background matching the body base. Was rgba(19, 22, 26, 0.72)
+   * + backdrop-filter: blur(md) saturate(1.4), which created a frosted
+   * glass effect. Now that the global ambient atmosphere layers have been
+   * removed, the blur is just frosting a flat dark body, and the 72%
+   * alpha makes the navbar visibly lighter than the #13161a below it.
+   * That bottom edge is the "dipstick" band Wayne sees on every page.
+   * Switching to opaque base eliminates the brightness mismatch entirely.
+   * The 1px border-bottom still provides a clean separation signal.
+   */
+  background: var(--bg-base);
   border-bottom: 1px solid var(--border-subtle);
   height: 60px;
   padding: 0;
