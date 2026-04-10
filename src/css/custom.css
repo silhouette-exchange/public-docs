@@ -365,17 +365,9 @@ body {
    NAVBAR - thin transparent bar with backdrop blur
    ============================================ */
 .navbar {
-  /*
-   * Opaque background matching the body base. Was rgba(19, 22, 26, 0.72)
-   * + backdrop-filter: blur(md) saturate(1.4), which created a frosted
-   * glass effect. Now that the global ambient atmosphere layers have been
-   * removed, the blur is just frosting a flat dark body, and the 72%
-   * alpha makes the navbar visibly lighter than the #13161a below it.
-   * That bottom edge is the "dipstick" band Wayne sees on every page.
-   * Switching to opaque base eliminates the brightness mismatch entirely.
-   * The 1px border-bottom still provides a clean separation signal.
-   */
-  background: var(--bg-base);
+  background: rgba(19, 22, 26, 0.72);
+  backdrop-filter: blur(var(--blur-md)) saturate(1.4);
+  -webkit-backdrop-filter: blur(var(--blur-md)) saturate(1.4);
   border-bottom: 1px solid var(--border-subtle);
   height: 60px;
   padding: 0;
@@ -664,18 +656,9 @@ main[class*="docMainContainer"] {
   border-right: 1px solid var(--border-subtle);
   width: var(--doc-sidebar-width) !important;
   max-width: var(--doc-sidebar-width) !important;
-  /*
-   * Opaque background matching the body base. Was rgba(19, 22, 26, 0.4)
-   * + backdrop-filter: blur, which on GPU-composited layers rendered as
-   * a visibly lighter grey than the body #13161a. Where the sidebar
-   * content ended, the tinted background stopped, creating a horizontal
-   * "dipstick" band across every docs page. Wayne flagged this on
-   * 2026-04-09. Fix: flat opaque background, no blur, no compositing
-   * artefact. The semi-transparent treatment was designed for a global
-   * ambient atmosphere layer that has since been removed, so there is
-   * nothing behind the sidebar to blur anymore.
-   */
-  background: var(--bg-base);
+  background: rgba(19, 22, 26, 0.4);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
   overflow: hidden;
 }
 
