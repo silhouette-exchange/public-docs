@@ -656,9 +656,18 @@ main[class*="docMainContainer"] {
   border-right: 1px solid var(--border-subtle);
   width: var(--doc-sidebar-width) !important;
   max-width: var(--doc-sidebar-width) !important;
-  background: rgba(19, 22, 26, 0.4);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
+  /*
+   * Opaque background matching the body base. Was rgba(19, 22, 26, 0.4)
+   * + backdrop-filter: blur, which on GPU-composited layers rendered as
+   * a visibly lighter grey than the body #13161a. Where the sidebar
+   * content ended, the tinted background stopped, creating a horizontal
+   * "dipstick" band across every docs page. Wayne flagged this on
+   * 2026-04-09. Fix: flat opaque background, no blur, no compositing
+   * artefact. The semi-transparent treatment was designed for a global
+   * ambient atmosphere layer that has since been removed, so there is
+   * nothing behind the sidebar to blur anymore.
+   */
+  background: var(--bg-base);
   overflow: hidden;
 }
 
