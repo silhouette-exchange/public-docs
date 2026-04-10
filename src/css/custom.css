@@ -347,7 +347,6 @@ body {
    PAGE LOAD FADE-IN
    ============================================ */
 .main-wrapper {
-  animation: pageIn var(--dur-slow) var(--ease-emphasis);
   background: var(--bg-base);
 }
 
@@ -356,11 +355,6 @@ body {
 #__docusaurus,
 .theme-layout-main {
   background: var(--bg-base);
-}
-
-@keyframes pageIn {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
 }
 
 /*
@@ -375,11 +369,9 @@ body {
   to   { opacity: 1; transform: translateY(0); }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .main-wrapper {
-    animation: none;
-  }
-}
+/* pageIn animation removed — even opacity-only keyframes create a
+   stacking context on .main-wrapper during the animation, trapping the
+   mobile navbar-sidebar behind the page content. */
 
 /* ============================================
    AMBIENT BACKGROUND ATMOSPHERE
@@ -1629,57 +1621,85 @@ article header h1 {
 }
 
 /* ============================================
-   MOBILE SIDEBAR
-   Keep Docusaurus native panel mechanics; only apply light styling.
+   MOBILE (<=996px)
    ============================================ */
+
+/* Mobile drawer must sit above everything. Applied globally (not
+   inside a media query) because Docusaurus can render the sidebar
+   markup at any width and toggle visibility with classes. */
+.navbar-sidebar {
+  z-index: 10000 !important;
+}
+
+.navbar-sidebar__backdrop {
+  z-index: 9999 !important;
+}
+
 @media screen and (max-width: 996px) {
+  /* Drawer colors */
   .navbar-sidebar {
-    width: 320px;
-    max-width: 85vw;
     background: var(--bg-base);
-    border-right: 1px solid var(--border-subtle);
-    box-shadow: var(--shadow-lg);
-    overflow-x: hidden;
   }
 
   .navbar-sidebar__brand {
-    padding: var(--space-3) var(--space-4);
     border-bottom: 1px solid var(--border-subtle);
   }
 
   /* Touch targets - WCAG 2.2 SC 2.5.8 */
-  .menu__link {
-    min-height: 44px;
-  }
-
   .navbar-sidebar .menu__link {
     min-height: 44px;
-    padding: var(--space-3) var(--space-4);
-    font-size: var(--fs-base);
   }
 
-  /* Keep mobile drawer scrollbar/gutter from painting a wide strip. */
-  .navbar-sidebar .menu.thin-scrollbar {
-    overflow-x: hidden;
-    scrollbar-gutter: auto !important;
-    padding-right: 0 !important;
+  /* Hide desktop-only navbar controls */
+  .navbar__search {
+    display: none !important;
   }
 
-  .navbar-sidebar .menu.thin-scrollbar::-webkit-scrollbar {
-    width: 6px;
+  .navbar__items--right .navbar__link[href*="app.silhouette"],
+  .navbar__items--right .navbar__link[href*="://"] {
+    display: none !important;
   }
 
-  .navbar-sidebar .menu.thin-scrollbar::-webkit-scrollbar-track {
-    background: transparent;
+  /* Responsive doc content */
+  .theme-doc-markdown {
+    max-width: 100%;
+    padding: var(--space-6) var(--space-4) var(--space-8);
   }
 
-  .navbar-sidebar .menu.thin-scrollbar::-webkit-scrollbar-thumb {
-    background: rgba(255, 255, 255, 0.12);
-    border-radius: var(--radius-sm);
+  .markdown h1 {
+    font-size: clamp(1.75rem, 7vw, 2.25rem);
+    line-height: 1.15;
   }
 
-  .navbar__link {
-    min-height: 44px;
+  .markdown h2 {
+    font-size: clamp(1.25rem, 5vw, 1.5rem);
+    line-height: 1.2;
+  }
+
+  .markdown h3 {
+    font-size: clamp(1.1rem, 4.5vw, 1.3rem);
+  }
+
+  .markdown p,
+  .markdown li {
+    font-size: 1rem;
+    line-height: 1.65;
+  }
+
+  .markdown,
+  .markdown * {
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}
+
+/* Tablet (768–996px): search bar already hidden above; keep Launch App
+   button compact so it doesn't overlap other controls. */
+@media screen and (min-width: 768px) and (max-width: 996px) {
+  .navbar__items--right .navbar__link[href*="app.silhouette"],
+  .navbar__items--right .navbar__link[href*="://"] {
+    padding: var(--space-1) var(--space-3);
+    font-size: 11px;
   }
 }
 
