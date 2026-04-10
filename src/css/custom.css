@@ -257,6 +257,20 @@
    specificity (an attribute selector beats :root in the cascade). */
 html[data-theme='dark'] {
   --ifm-menu-link-sublist-icon-filter: none;
+
+  /* Infima dark mode hardcodes --ifm-background-color to #1b1b1d and
+     --ifm-background-surface-color to #242526. Those are visibly lighter
+     than our --bg-base (#13161a), and because html[data-theme='dark'] has
+     higher specificity (0-1-1) than :root (0-1-0), the :root overrides
+     in the Docusaurus bridge section above lose the cascade fight.
+     Declaring here at the same selector ensures we win. */
+  --ifm-background-color: var(--bg-base);
+  --ifm-background-surface-color: var(--bg-base);
+  --ifm-hero-background-color: var(--bg-base);
+  --ifm-card-background-color: var(--bg-base);
+  --ifm-footer-background-color: var(--bg-base);
+  --ifm-navbar-background-color: var(--bg-base);
+  --ifm-dropdown-background-color: var(--bg-base);
 }
 
 /* ============================================
@@ -317,6 +331,7 @@ body {
   font-feature-settings: 'cv02', 'cv03', 'cv04', 'cv11';
   font-family: var(--font-sans);
   color: var(--text-secondary);
+  background: var(--bg-base);
 }
 
 ::selection {
@@ -333,6 +348,14 @@ body {
    ============================================ */
 .main-wrapper {
   animation: pageIn var(--dur-slow) var(--ease-emphasis);
+  background: var(--bg-base);
+}
+
+/* Keep the whole docs shell on one solid surface to avoid viewport-
+   dependent color seams between wrappers/rails. */
+#__docusaurus,
+.theme-layout-main {
+  background: var(--bg-base);
 }
 
 @keyframes pageIn {
@@ -655,40 +678,131 @@ main[class*="docMainContainer"] {
 
 /* ============================================
    SIDEBAR (left) - mono section headers, glowing active
-   Docusaurus uses --doc-sidebar-width (300px default) and a CSS module
-   class .docSidebarContainer that sets the width. We bump the width to
-   320px so the chevron has visible breathing room and force overflow
-   hidden on every wrapper to stop any inner element bleeding behind
-   the main content area.
+   Docusaurus sets --doc-sidebar-width: 300px on :root and applies
+   width: var(--doc-sidebar-width) on BOTH the aside (.docSidebarContainer_*)
+   and the inner desktop shell (.sidebar_* from DocSidebar/Desktop). Simply
+   setting the variable on .theme-doc-sidebar-container is not enough: the
+   aside is a flex child of .docRoot (display:flex) with default
+   min-width:auto, so long labels / badges can inflate the used width past
+   the authored width (computed width stuck at ~300px + visual spill).
+   Fix: (1) redefine --doc-sidebar-width at :root for desktop, (2) flex-basis
+   + max-width + min-width:0 on the aside, (3) cap inner module wrappers.
+   Breakpoint 997px matches Docusaurus doc layout.
    ============================================ */
-:root {
-  --doc-sidebar-width: 320px;
+@media screen and (min-width: 997px) {
+  :root {
+    --doc-sidebar-width: 260px;
+  }
+
+  .theme-doc-sidebar-container {
+    --doc-sidebar-width: 260px;
+    flex: 0 0 var(--doc-sidebar-width);
+    width: var(--doc-sidebar-width) !important;
+    max-width: var(--doc-sidebar-width) !important;
+    /* Defeat flex item min-size:auto so width/max-width stay authoritative */
+    min-width: 0 !important;
+  }
+
+  /* Hashed CSS-module shells: sidebarViewport_*, sidebar_* (desktop) */
+  .theme-doc-sidebar-container [class*='sidebarViewport'],
+  .theme-doc-sidebar-container [class*='sidebar_'] {
+    max-width: 100% !important;
+    min-width: 0;
+    box-sizing: border-box;
+  }
 }
 
 .theme-doc-sidebar-container {
   border-right: 1px solid var(--border-subtle);
-  width: var(--doc-sidebar-width) !important;
-  max-width: var(--doc-sidebar-width) !important;
-  background: rgba(19, 22, 26, 0.4);
-  backdrop-filter: blur(var(--blur-sm));
-  -webkit-backdrop-filter: blur(var(--blur-sm));
-  overflow: hidden;
+  background: var(--bg-base);
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  /* Prevent mask clipping artifacts on long docs scroll. */
+  clip-path: none !important;
 }
 
 aside.theme-doc-sidebar-container {
-  padding: var(--space-8) var(--space-4) var(--space-8) var(--space-6);
+  padding: 0;
   box-sizing: border-box;
+  overflow-x: hidden;
 }
 
-/* Constrain every inner wrapper so nothing can break out horizontally */
-.theme-doc-sidebar-container .sidebarViewport_node_modules-\@docusaurus-theme-classic-lib-theme-DocRoot-Layout-Sidebar-styles-module,
+/* Constrain inner doc chrome so nothing breaks out horizontally */
 .theme-doc-sidebar-container [class*='sidebarViewport'],
 .theme-doc-sidebar-container nav.theme-doc-sidebar-menu,
 .theme-doc-sidebar-container .menu,
 .theme-doc-sidebar-container .menu__list,
 .theme-doc-sidebar-container .menu__list-item {
+  width: 100%;
   max-width: 100%;
   box-sizing: border-box;
+}
+
+/* Keep the sidebar's own scroll thumb contained inside the rail so it
+   doesn't visually spill into the content column on long pages. */
+.theme-doc-sidebar-container [class*='sidebarViewport'] {
+  overflow-y: auto;
+  overflow-x: hidden;
+  /* Avoid a permanently reserved gutter band while still keeping
+     scroll paint confined to the sidebar column. */
+  scrollbar-gutter: auto;
+  contain: paint;
+  padding-right: 2px;
+}
+
+.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border: 0;
+  border-radius: var(--radius-sm);
+}
+
+.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+/* Docusaurus desktop sidebar menu nav is the actual scroll container
+   (`nav.menu.thin-scrollbar`), and it ships with scrollbar-gutter: stable.
+   Override it directly to remove the reserved gutter strip and stop
+   right-edge spill into main content. */
+.theme-doc-sidebar-container nav.menu.thin-scrollbar,
+.theme-doc-sidebar-container nav[class*='menu_'] {
+  overflow-y: auto;
+  overflow-x: hidden;
+  scrollbar-gutter: auto !important;
+  padding-right: 0 !important;
+  padding-left: var(--space-4);
+  padding-top: var(--space-8);
+  padding-bottom: var(--space-8);
+  background: transparent;
+}
+
+.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar,
+.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar {
+  width: 6px;
+}
+
+.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar-track,
+.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar-thumb,
+.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.12);
+  border-radius: var(--radius-sm);
+}
+
+.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar-thumb:hover,
+.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar-thumb:hover {
+  background: rgba(255, 255, 255, 0.2);
 }
 
 @media screen and (max-width: 996px) {
@@ -1291,6 +1405,7 @@ article header h1 {
   min-width: 200px;
   max-width: 240px;
   padding: var(--space-12) var(--space-4) var(--space-12) var(--space-6);
+  background: var(--bg-base);
 }
 
 .table-of-contents {
