@@ -28,7 +28,7 @@
   flex-wrap: wrap;
   gap: var(--space-3);
   padding-top: 0;
-  padding-bottom: var(--space-10);
+  padding-bottom: var(--space-6);
   /*
    * Top-down stagger entrance. Second in sequence behind
    * BlogPublicationHeader (0ms), so delay is 80ms. Shared
@@ -61,8 +61,7 @@
    * multi-line category labels (if any author ever lands that) wrap
    * instead of squashing the touch target.
    */
-  min-height: 44px;
-  padding: var(--space-3) var(--space-5);
+  padding: var(--space-2) var(--space-4);
   border-radius: var(--radius-full);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
@@ -110,4 +109,13 @@
      not flicker back to the hover border. */
   border-color: rgba(255, 255, 255, 0.3);
   color: var(--text-default);
+}
+
+/* 44px touch target on mobile only. Desktop mouse clicks are fine at
+   the natural ~32px height from padding + font. */
+@media (pointer: coarse) {
+  .pill {
+    min-height: 44px;
+    padding: var(--space-3) var(--space-5);
+  }
 }
