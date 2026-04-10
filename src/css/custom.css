@@ -677,138 +677,13 @@ main[class*="docMainContainer"] {
 }
 
 /* ============================================
-   SIDEBAR (left) - mono section headers, glowing active
-   Docusaurus sets --doc-sidebar-width: 300px on :root and applies
-   width: var(--doc-sidebar-width) on BOTH the aside (.docSidebarContainer_*)
-   and the inner desktop shell (.sidebar_* from DocSidebar/Desktop). Simply
-   setting the variable on .theme-doc-sidebar-container is not enough: the
-   aside is a flex child of .docRoot (display:flex) with default
-   min-width:auto, so long labels / badges can inflate the used width past
-   the authored width (computed width stuck at ~300px + visual spill).
-   Fix: (1) redefine --doc-sidebar-width at :root for desktop, (2) flex-basis
-   + max-width + min-width:0 on the aside, (3) cap inner module wrappers.
-   Breakpoint 997px matches Docusaurus doc layout.
+   SIDEBAR (left) - visual chrome only.
+   Sizing and layout are owned by swizzled theme files under src/theme.
    ============================================ */
-@media screen and (min-width: 997px) {
-  :root {
-    --doc-sidebar-width: 260px;
-  }
-
-  .theme-doc-sidebar-container {
-    --doc-sidebar-width: 260px;
-    flex: 0 0 var(--doc-sidebar-width);
-    width: var(--doc-sidebar-width) !important;
-    max-width: var(--doc-sidebar-width) !important;
-    /* Defeat flex item min-size:auto so width/max-width stay authoritative */
-    min-width: 0 !important;
-  }
-
-  /* Hashed CSS-module shells: sidebarViewport_*, sidebar_* (desktop) */
-  .theme-doc-sidebar-container [class*='sidebarViewport'],
-  .theme-doc-sidebar-container [class*='sidebar_'] {
-    max-width: 100% !important;
-    min-width: 0;
-    box-sizing: border-box;
-  }
-}
-
 .theme-doc-sidebar-container {
   border-right: 1px solid var(--border-subtle);
   background: var(--bg-base);
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
-  /* Prevent mask clipping artifacts on long docs scroll. */
-  clip-path: none !important;
-}
-
-aside.theme-doc-sidebar-container {
-  padding: 0;
   box-sizing: border-box;
-  overflow-x: hidden;
-}
-
-/* Constrain inner doc chrome so nothing breaks out horizontally */
-.theme-doc-sidebar-container [class*='sidebarViewport'],
-.theme-doc-sidebar-container nav.theme-doc-sidebar-menu,
-.theme-doc-sidebar-container .menu,
-.theme-doc-sidebar-container .menu__list,
-.theme-doc-sidebar-container .menu__list-item {
-  width: 100%;
-  max-width: 100%;
-  box-sizing: border-box;
-}
-
-/* Keep the sidebar's own scroll thumb contained inside the rail so it
-   doesn't visually spill into the content column on long pages. */
-.theme-doc-sidebar-container [class*='sidebarViewport'] {
-  overflow-y: auto;
-  overflow-x: hidden;
-  /* Avoid a permanently reserved gutter band while still keeping
-     scroll paint confined to the sidebar column. */
-  scrollbar-gutter: auto;
-  contain: paint;
-  padding-right: 2px;
-}
-
-.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar {
-  width: 6px;
-}
-
-.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border: 0;
-  border-radius: var(--radius-sm);
-}
-
-.theme-doc-sidebar-container [class*='sidebarViewport']::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-/* Docusaurus desktop sidebar menu nav is the actual scroll container
-   (`nav.menu.thin-scrollbar`), and it ships with scrollbar-gutter: stable.
-   Override it directly to remove the reserved gutter strip and stop
-   right-edge spill into main content. */
-.theme-doc-sidebar-container nav.menu.thin-scrollbar,
-.theme-doc-sidebar-container nav[class*='menu_'] {
-  overflow-y: auto;
-  overflow-x: hidden;
-  scrollbar-gutter: auto !important;
-  padding-right: 0 !important;
-  padding-left: var(--space-4);
-  padding-top: var(--space-8);
-  padding-bottom: var(--space-8);
-  background: transparent;
-}
-
-.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar,
-.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar {
-  width: 6px;
-}
-
-.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar-track,
-.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar-thumb,
-.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar-thumb {
-  background: rgba(255, 255, 255, 0.12);
-  border-radius: var(--radius-sm);
-}
-
-.theme-doc-sidebar-container nav.menu.thin-scrollbar::-webkit-scrollbar-thumb:hover,
-.theme-doc-sidebar-container nav[class*='menu_']::-webkit-scrollbar-thumb:hover {
-  background: rgba(255, 255, 255, 0.2);
-}
-
-@media screen and (max-width: 996px) {
-  aside.theme-doc-sidebar-container {
-    padding: var(--space-6);
-  }
 }
 
 .menu {
@@ -1755,50 +1630,16 @@ article header h1 {
 
 /* ============================================
    MOBILE SIDEBAR
-   Only renders below 997px. Hidden completely on desktop where the
-   permanent left rail (.theme-doc-sidebar-container) takes over.
+   Keep Docusaurus native panel mechanics; only apply light styling.
    ============================================ */
-.navbar-sidebar,
-.navbar-sidebar__backdrop {
-  display: none;
-}
-
 @media screen and (max-width: 996px) {
   .navbar-sidebar {
-    display: flex;
-    flex-direction: column;
-    height: 100vh;
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 500;
+    width: 320px;
+    max-width: 85vw;
     background: var(--bg-base);
-    transform: translateX(-100%);
-    transition: transform var(--dur-slow) var(--ease-emphasis);
-    width: 320px !important;
-    max-width: 85vw !important;
+    border-right: 1px solid var(--border-subtle);
     box-shadow: var(--shadow-lg);
     overflow-x: hidden;
-    overflow-y: auto;
-    border-right: 1px solid var(--border-subtle);
-  }
-
-  /* Constrain the inner panels container - Docusaurus uses a 200% wide
-     flex strip containing two panels, sliding horizontally between
-     main menu and secondary doc menu. Each panel is 100% of the parent
-     navbar-sidebar (320px). */
-  .navbar-sidebar__items {
-    display: flex;
-    width: 200%;
-    height: 100%;
-    overflow: hidden;
-  }
-
-  .navbar-sidebar__item {
-    width: 50%;  /* 50% of the 200% strip = 100% of navbar-sidebar */
-    flex-shrink: 0;
-    overflow-y: auto;
-    padding: var(--space-4) var(--space-2);
   }
 
   .navbar-sidebar__brand {
@@ -1806,41 +1647,37 @@ article header h1 {
     border-bottom: 1px solid var(--border-subtle);
   }
 
-  .navbar-sidebar--show {
-    /* Slide the wrapper open */
-  }
-
-  .navbar.navbar-sidebar--show .navbar-sidebar,
-  body.navbar-sidebar--show .navbar-sidebar {
-    transform: translateX(0);
-  }
-
-  .navbar.navbar-sidebar--show .navbar-sidebar__backdrop,
-  body.navbar-sidebar--show .navbar-sidebar__backdrop {
-    display: block;
-    position: fixed;
-    inset: 0;
-    background: rgba(0, 0, 0, 0.7);
-    backdrop-filter: blur(var(--blur-sm));
-    -webkit-backdrop-filter: blur(var(--blur-sm));
-    z-index: calc(var(--ifm-z-index-fixed) + 1);
-    cursor: pointer;
-  }
-
-  body.navbar-sidebar--show,
-  html.navbar-sidebar--show {
-    overflow: hidden;
-  }
-
   /* Touch targets - WCAG 2.2 SC 2.5.8 */
   .menu__link {
     min-height: 44px;
   }
+
   .navbar-sidebar .menu__link {
     min-height: 44px;
     padding: var(--space-3) var(--space-4);
     font-size: var(--fs-base);
   }
+
+  /* Keep mobile drawer scrollbar/gutter from painting a wide strip. */
+  .navbar-sidebar .menu.thin-scrollbar {
+    overflow-x: hidden;
+    scrollbar-gutter: auto !important;
+    padding-right: 0 !important;
+  }
+
+  .navbar-sidebar .menu.thin-scrollbar::-webkit-scrollbar {
+    width: 6px;
+  }
+
+  .navbar-sidebar .menu.thin-scrollbar::-webkit-scrollbar-track {
+    background: transparent;
+  }
+
+  .navbar-sidebar .menu.thin-scrollbar::-webkit-scrollbar-thumb {
+    background: rgba(255, 255, 255, 0.12);
+    border-radius: var(--radius-sm);
+  }
+
   .navbar__link {
     min-height: 44px;
   }
