@@ -187,6 +187,19 @@
 
   /* ---------- Docusaurus bridge ---------- */
   --ifm-background-color:      var(--bg-base);
+  /*
+   * Infima dark mode defaults --ifm-background-surface-color to #242526
+   * which is visibly lighter than our --bg-base (#13161a). That surface
+   * color flows into --ifm-hero-background-color, --ifm-navbar-background-
+   * color, --ifm-card-background-color, and --ifm-dropdown-background-color.
+   * Any Infima container using these tokens rendered at #242526 instead of
+   * #13161a, creating the "dipstick" horizontal band Wayne flagged across
+   * every page. Override them all to match the body base.
+   */
+  --ifm-background-surface-color: var(--bg-base);
+  --ifm-hero-background-color:    var(--bg-base);
+  --ifm-card-background-color:    var(--bg-base);
+  --ifm-footer-background-color:  var(--bg-base);
   --ifm-color-primary:         var(--accent-secondary-text);
   --ifm-color-primary-dark:    var(--silh-cyan-100);
   --ifm-color-primary-darker:  var(--silh-cyan-100);
