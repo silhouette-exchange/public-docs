@@ -13,7 +13,7 @@ export default function Home(): ReactNode {
       <Hero
         eyebrow="Shield Everything"
         status="live"
-        headline="Shielded trading on Hyperliquid."
+        headline="Shielded trading on Hyperliquid"
         accentWord="Shielded"
         sub="Every trade on a public order book is a confession to copy trade bots, signal-aware LPs, and every desk watching your wallet. Silhouette encrypts your orders until match and passes 95% of the Hyperliquid volume discount back to you."
         ctas={[
