@@ -22,7 +22,7 @@ const config: Config = {
   onBrokenLinks: 'throw',
 
   future: {
-    faster: {
+    experimental_faster: {
       swcJsLoader: true,
       swcJsMinimizer: true,
       swcHtmlMinimizer: true,
