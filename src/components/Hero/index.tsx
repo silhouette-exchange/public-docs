@@ -101,17 +101,7 @@ export default function Hero({
                   to={c.href}
                   className={`${styles.cta} ${styles[c.variant || 'primary']}`}
                 >
-                  <span className={styles.ctaLabel}>{c.label}</span>
-                  <span className={styles.ctaArrow} aria-hidden="true">
-                    <svg width="14" height="10" viewBox="0 0 14 10" fill="none">
-                      <path
-                        d="M0 5h12M8 1l4 4-4 4"
-                        stroke="currentColor"
-                        strokeWidth="1.5"
-                        strokeLinecap="square"
-                      />
-                    </svg>
-                  </span>
+                  {c.label}
                 </Link>
               ))}
             </div>
