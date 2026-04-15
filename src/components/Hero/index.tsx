@@ -157,6 +157,13 @@ export default function Hero({
             <div className={styles.panelFooter}>
               <span className={styles.panelTimestamp}>Quote v0.4.2</span>
               <span className={styles.panelPing} aria-hidden="true">
+                <span className={styles.panelPingGhost}>
+                  <span className={styles.panelPingBarGhost} />
+                  <span className={styles.panelPingBarGhost} />
+                  <span className={styles.panelPingBarGhost} />
+                  <span className={styles.panelPingBarGhost} />
+                  <span className={styles.panelPingBarGhost} />
+                </span>
                 <span className={styles.panelPingBar} />
                 <span className={styles.panelPingBar} />
                 <span className={styles.panelPingBar} />

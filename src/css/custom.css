@@ -22,6 +22,7 @@
   --silh-cyan-tint-30: #4dfff6;
   --silh-cyan-tint-40: #66fff7;
   --silh-cyan-tint-50: #80fff9;
+  --silh-cyan-tint-60: #94fff9;
 
   --silh-lilac-100: #ce7fff;
 
@@ -444,6 +445,8 @@ body {
 .navbar__items--right {
   margin-left: auto;
   gap: var(--space-3);
+  display: flex;
+  align-items: center;
 }
 
 .navbar__item {
@@ -493,26 +496,35 @@ body {
 /* External "Launch App" button on the right */
 .navbar__items--right .navbar__link[href*="app.silhouette"],
 .navbar__items--right .navbar__link[href*="://"] {
-  padding: var(--space-2) var(--space-4);
-  background: var(--accent-secondary);
+  padding: 6px var(--space-5);
+  background: var(--silh-cyan-tint-60);
   color: var(--text-inverse);
-  border: 1px solid var(--accent-secondary);
-  box-shadow:
-    0 0 0 1px rgba(0, 255, 242, 0.3),
-    0 6px 20px rgba(0, 255, 242, 0.18);
+  border: 1px solid transparent;
+  border-radius: var(--radius-md);
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  text-transform: none;
+  letter-spacing: normal;
+  box-shadow: none;
+  order: 10;
 }
 
 .navbar__items--right .navbar__link[href*="app.silhouette"]:hover,
 .navbar__items--right .navbar__link[href*="://"]:hover {
-  background: var(--accent-secondary-hover);
+  background: var(--silh-cyan-100);
   color: var(--text-inverse);
-  box-shadow:
-    0 0 0 1px rgba(0, 255, 242, 0.5),
-    0 8px 28px rgba(0, 255, 242, 0.3);
+  box-shadow: none;
 }
 
 .navbar__items--right .navbar__link[href*="app.silhouette"]::after,
 .navbar__items--right .navbar__link[href*="://"]::after {
+  display: none;
+}
+
+/* Hide external link icon on Launch App */
+.navbar__items--right .navbar__link[href*="app.silhouette"] svg,
+.navbar__items--right .navbar__link[href*="://"] svg {
   display: none;
 }
 
@@ -543,6 +555,7 @@ body {
 .navbar__search {
   position: relative;
   min-width: 220px;
+  order: 5;
 }
 
 @media screen and (max-width: 996px) {
@@ -558,8 +571,8 @@ body {
   align-items: center;
   padding: 6px var(--space-16) 6px var(--space-8);
   background: rgba(255, 255, 255, 0.04);
-  border: 1px solid var(--border-contrast);
-  border-radius: var(--radius-xs);
+  border: none;
+  border-radius: var(--radius-lg);
   color: var(--text-secondary);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
@@ -579,14 +592,14 @@ body {
 }
 
 .navbar__search-input:hover {
-  border-color: var(--border-contrast);
+  border: none;
 }
 
 .navbar__search-input:focus {
   outline: none;
-  border-color: var(--accent-secondary);
+  border: none;
   background: rgba(0, 255, 242, 0.04);
-  box-shadow: 0 0 0 3px rgba(0, 255, 242, 0.12);
+  box-shadow: 0 0 0 2px rgba(0, 255, 242, 0.12);
 }
 
 .navbar__search::before {
@@ -620,16 +633,17 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 20px;
-  height: 18px;
+  min-width: 24px;
+  height: 24px;
   padding: 0 var(--space-1);
-  border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
+  border: none;
+  border-radius: var(--radius-md);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: 12px;
   font-style: normal;
-  color: var(--text-tertiary);
-  background: var(--bg-secondary);
+  color: var(--text-muted);
+  background: rgba(255, 255, 255, 0.06);
+  box-shadow: none;
 }
 
 .navbar__search kbd[class*="searchHint"]:first-child {

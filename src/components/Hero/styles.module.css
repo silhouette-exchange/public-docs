@@ -313,7 +313,8 @@
   font-weight: var(--fw-medium);
   text-transform: capitalize;
   text-decoration: none !important;
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-md);
+  border: none;
   transition:
     transform var(--dur-base) var(--ease-emphasis),
     box-shadow var(--dur-base) var(--ease-emphasis),
@@ -337,16 +338,14 @@
 }
 
 .secondary {
-  background: rgba(250, 0, 255, 0.08);
-  color: rgba(250, 140, 255, 0.85);
-  border: 1px solid rgba(250, 0, 255, 0.3);
+  background: var(--silh-magenta-alpha-10);
+  color: var(--silh-magenta-tint-70);
 }
 
 .secondary:hover {
-  background: rgba(250, 0, 255, 0.15);
-  border-color: rgba(250, 0, 255, 0.5);
+  background: var(--silh-magenta-alpha-20);
   box-shadow: 0 4px 16px rgba(250, 0, 255, 0.2);
-  color: rgba(255, 170, 255, 0.95);
+  color: #ffd6ff;
 }
 
 .ghost {
@@ -535,11 +534,38 @@
 }
 
 .panelPing {
+  position: relative;
   display: inline-flex;
   align-items: flex-end;
   gap: 2.4px;
   height: 14.5px;
 }
+
+.panelPingGhost {
+  position: absolute;
+  inset: 0;
+  display: inline-flex;
+  align-items: flex-end;
+  gap: 2.4px;
+  transform: translate(2px, -1px);
+  opacity: 0.45;
+  pointer-events: none;
+  z-index: -1;
+}
+
+.panelPingBarGhost {
+  width: 2.4px;
+  background: var(--silh-magenta-tint-50);
+  border-radius: 1.2px;
+  animation: ping 1.4s ease-in-out infinite;
+  transform-origin: bottom;
+}
+
+.panelPingBarGhost:nth-child(1) { height: 30%; animation-delay: 0s;   }
+.panelPingBarGhost:nth-child(2) { height: 50%; animation-delay: 0.1s; }
+.panelPingBarGhost:nth-child(3) { height: 100%; animation-delay: 0.2s; }
+.panelPingBarGhost:nth-child(4) { height: 70%; animation-delay: 0.3s; }
+.panelPingBarGhost:nth-child(5) { height: 40%; animation-delay: 0.4s; }
 
 .panelPingBar {
   width: 2.4px;
@@ -581,7 +607,8 @@
 @media (prefers-reduced-motion: reduce) {
   .statusDot::after,
   .panelStatusDot,
-  .panelPingBar { animation: none; }
+  .panelPingBar,
+  .panelPingBarGhost { animation: none; }
   .eyebrow, .headline, .sub, .ctaRow, .stats, .panel {
     animation: none;
     opacity: 1;
