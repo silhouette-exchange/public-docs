@@ -379,23 +379,23 @@ const config: Config = {
       },
       style: 'dark',
       links: [
-        // {
-        //   title: 'GitHub',
-        //   items: [
-        //     {
-        //       label: 'Contract',
-        //       href: '#',
-        //     },
-        //     {
-        //       label: 'Hyperliquid token IDs',
-        //       href: '#',
-        //     },
-        //     {
-        //       label: 'Deployment',
-        //       href: '#',
-        //     },
-        //   ],
-        // },
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'Docs',
+              href: '/about-silhouette',
+            },
+            {
+              label: 'Guides',
+              href: '/guides',
+            },
+            {
+              label: 'API',
+              href: '/api',
+            },
+          ],
+        },
         {
           title: 'Ecosystem',
           items: [
