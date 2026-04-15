@@ -8,22 +8,6 @@ const sidebars: SidebarsConfig = {
 
     {
       type: 'category',
-      label: 'Core Concepts',
-      collapsed: false,
-      items: [
-        'concepts/shielded-trading',
-        'concepts/tee',
-        'concepts/strategy-leakage',
-        'concepts/copytrade-exposure',
-        'concepts/signaling-risk',
-        'concepts/adverse-selection',
-        'concepts/hyperliquid-integration',
-        'concepts/naked-vs-shielded',
-      ],
-    },
-
-    {
-      type: 'category',
       label: 'Onboarding',
       collapsed: true,
       items: [
@@ -39,7 +23,6 @@ const sidebars: SidebarsConfig = {
       items: [
         'trading/shielded-trading',
         'trading/naked-trading',
-        'trading/order-types',
         'trading/order-lifecycle',
         'trading/fees',
       ],
@@ -53,6 +36,22 @@ const sidebars: SidebarsConfig = {
         'architecture/overview',
         'architecture/tee',
         'architecture/hyperliquid',
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'Core Concepts',
+      collapsed: true,
+      items: [
+        'concepts/shielded-trading',
+        'concepts/tee',
+        'concepts/strategy-leakage',
+        'concepts/copytrade-exposure',
+        'concepts/signaling-risk',
+        'concepts/adverse-selection',
+        'concepts/hyperliquid-integration',
+        'concepts/naked-vs-shielded',
       ],
     },
 

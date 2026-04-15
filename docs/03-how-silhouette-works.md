@@ -19,7 +19,7 @@ keywords:
 
 Silhouette adds a shielded execution layer on top of Hyperliquid. From the outside, your trading activity is invisible. From the inside, you get the same order book, the same liquidity, and the same execution quality, without broadcasting your intent.
 
-<img src="/img/app-screenshots/trade-full.png" alt="Silhouette Exchange trade page overview" className="app-screenshot" />
+<img src="/img/app-screenshots/trade-full.png" alt="Silhouette Exchange trade page overview" className="app-screenshot app-screenshot--lg" />
 
 Here's what happens when you trade on Silhouette, step by step:
 
@@ -29,7 +29,7 @@ You connect your wallet to Silhouette - the same wallet you use across Hyperliqu
 
 Your deposit is the last publicly visible action until you withdraw. Everything that happens inside Silhouette stays between you and the system.
 
-<img src="/img/app-screenshots/portfolio-sidebar.png" alt="Portfolio sidebar showing account structure and balances" className="app-screenshot" />
+<img src="/img/app-screenshots/portfolio-sidebar.png" alt="Portfolio sidebar showing account structure and balances" className="app-screenshot app-screenshot--sm" />
 
 ## 2. Choose Your Mode
 

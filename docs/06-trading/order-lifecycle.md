@@ -73,6 +73,4 @@ Naked orders do not interact with the TEE or delegated wallets. They are standar
 | **Cancelled** | The order was cancelled (for example by IoC expiry) |
 | **Expired** | A limit order reached its expiry time without being fully filled |
 
-<img src="/img/app-screenshots/openPositions.png" alt="Open positions panel showing active orders" className="app-screenshot" />
-
 To learn more about [shielded trading](/trading/shielded-trading) or the available [order types](/trading/order-types), visit the relevant pages.

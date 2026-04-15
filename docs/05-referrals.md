@@ -17,7 +17,7 @@ keywords:
 
 Silhouette currently exposes referral registration and referral codes in the app. Trading-fee rebates and claimable rewards are configured for future rollout, but the current live implementation does not yet apply non-zero referral fee rates.
 
-<img src="/img/app-screenshots/ReferralPage.png" alt="Silhouette referral page" className="app-screenshot" />
+<img src="/img/app-screenshots/ReferralPage.png" alt="Silhouette referral page" className="app-screenshot app-screenshot--md" />
 
 ## How It Works
 

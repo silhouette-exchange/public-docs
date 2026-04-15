@@ -2,7 +2,7 @@
 title: Shielded Trading
 sidebar_label: Shielded Trading
 pagination_label: Shielded Trading
-description: "Shielded trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full order book."
+description: "Shielded trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full order book. Spot markets live, perpetuals on the roadmap."
 keywords:
   - shielded trading
   - Silhouette Exchange
@@ -19,25 +19,9 @@ Shielded trading on Silhouette keeps your orders inside a secure execution envir
 
 ## How It Works
 
-When you place a shielded order, it is routed to Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment hosted on AWS Nitro Enclaves. The TEE runs Silhouette's matching engine in a private environment that ensures orders are processed securely and confidentially. Trade data remains private to each user. Data inside the TEE is inaccessible to the Silhouette team.
+When you place a shielded order, it is routed to Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment hosted on AWS Nitro Enclaves. The TEE processes your order and executes it on Hyperliquid's order book through delegated wallets - agent wallets controlled by the TEE that aggregate volume from multiple users. Individual activity is obscured within the wallet's total volume.
 
-The TEE processes your order and executes it on Hyperliquid's order book through delegated wallets - agent wallets controlled by the TEE that aggregate volume from multiple users. Individual activity is obscured within the wallet's total volume, shielding your trading strategies.
-
-After execution, Silhouette updates your shielded account state and reports the result back to the app through authenticated API responses and events.
-
-## What Is Currently Live
-
-The current implementation of shielded trading on Silhouette works as follows:
-
-- The TEE places orders on Hyperliquid via agent wallets it controls
-- All orders execute as IoC (Immediate or Cancel), with no resting orders or pending states
-- Market-intent orders are submitted with a client-derived price cap
-- When trades fill, Silhouette updates your shielded account balances and order state
-- You access Hyperliquid's full order book depth without broadcasting your identity
-
-This allows you to trade on the deepest liquidity in DeFi without publicly broadcasting your alpha. Your trades are anonymized, shielding your strategies from copy-trading bots, front-runners, and whale trackers.
-
-<img src="/img/app-screenshots/shielded_SpotMarketOrder_BUY.png" alt="Shielded spot market buy order on Silhouette" className="app-screenshot" />
+After execution, Silhouette updates your shielded account state and reports the result back to the app through authenticated API responses and events. Trade data remains private to each user. Data inside the TEE is inaccessible to the Silhouette team.
 
 ## What Stays Private
 
@@ -48,15 +32,41 @@ This allows you to trade on the deepest liquidity in DeFi without publicly broad
 | Aggregate volume from delegated wallets | Your balance inside Silhouette |
 | | Your strategy and intent |
 
-Once you have deposited, shielded trades update your account state inside Silhouette without creating a direct public link between delegated-wallet executions and your wallet.
-
-<img src="/img/app-screenshots/balances-panel.png" alt="Balances panel showing shielded spot holdings" className="app-screenshot" />
+<img src="/img/app-screenshots/balances-panel.png" alt="Balances panel showing shielded spot holdings" className="app-screenshot app-screenshot--md" />
 
 ## Supported Markets
 
-Shielded trading currently supports **spot markets** on Hyperliquid. We are building shielded perpetuals, TWAP, VWAP, and RFQ [order types](/trading/order-types).
+| Market | Status |
+|--------|--------|
+| Spot | Live |
+| Perpetuals | On the roadmap |
 
-<img src="/img/app-screenshots/ShieldedMarketsSelector.png" alt="Shielded markets asset selector showing available spot pairs" className="app-screenshot" />
+<img src="/img/app-screenshots/ShieldedMarketsSelector.png" alt="Shielded markets asset selector showing available spot pairs" className="app-screenshot app-screenshot--sm" />
+
+## Order Types
+
+### Market Orders
+
+Market orders are live in shielded mode. The webapp computes a price cap from your slippage settings and submits the order to the TEE as a delegated IoC (Immediate or Cancel). If enough liquidity is available within that price cap, it fills immediately; otherwise the unfilled portion cancels.
+
+<div className="screenshot-pair">
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/shielded_SpotMarketOrder_BUY.png" alt="Shielded spot market buy order" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Shielded spot market buy</figcaption>
+</figure>
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/shielded_SpotMarketOrder_SELL.png" alt="Shielded spot market sell order" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Shielded spot market sell</figcaption>
+</figure>
+</div>
+
+### Limit Orders - Coming Soon
+
+Shielded limit orders are in development. In the current flow, shielded orders are submitted as delegated IoC orders, so they do not rest on the public book. Resting shielded limits will allow you to set your price and wait for the market to come to you, without revealing your intent.
+
+### Advanced Orders - Coming Soon
+
+TWAP, Scale, VWAP, and RFQ order types are planned for shielded mode. Each will extend the shielded layer to more trading strategies - same order book, same liquidity, without showing your hand.
 
 ## Why Trade Shielded
 
@@ -64,7 +74,7 @@ Every trade you place on a transparent ledger is information. That information h
 
 - **Accumulate without signalling.** Buy HYPE for staking, HIP-3 deployment, or portfolio building without the market front-running your intent.
 - **Protect your strategy.** Your research, your thesis, your timing - these are your intellectual property. Shielded execution keeps them yours.
-- **Eliminate the watchers.** Copy-trading bots, whale trackers, and MEV searchers cannot extract value from trades they cannot see.
+- **Eliminate the watchers.** Copy-trading bots, whale trackers, and signal-aware LPs cannot extract value from trades they cannot see.
 - **Trade at scale.** Large orders move markets when they are visible. Shielded execution lets you trade size without market impact signalling.
 
-Compare shielded trading with [naked trading](/trading/naked-trading) to understand when each mode is appropriate. Ready to get started? See [Start Trading](/onboarding/start-trading).
+Compare shielded trading with [naked trading](/trading/naked-trading) to understand when each mode is appropriate. For the full order flow, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).

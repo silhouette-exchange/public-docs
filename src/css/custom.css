@@ -1676,10 +1676,75 @@ article header h1 {
    APP SCREENSHOTS - soft feathered edge
    ============================================ */
 .app-screenshot {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
   border-radius: 8px;
   -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
           mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+  height: auto;
+  margin: var(--space-4) 0;
+}
+
+/* Size variants */
+.app-screenshot--sm {
+  max-width: 380px;
+  max-height: 520px;
+  object-fit: contain;
+  object-position: top;
+  width: 100%;
+}
+
+.app-screenshot--md {
+  max-width: 560px;
+  width: 100%;
+}
+
+.app-screenshot--lg {
+  max-width: 720px;
+  width: 100%;
+}
+
+/* Side-by-side pair wrapper */
+.screenshot-pair {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+  margin: var(--space-4) 0;
+}
+
+/* Figure with caption */
+.screenshot-figure {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  margin: 0;
+}
+
+.screenshot-caption {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  text-align: center;
+}
+
+.screenshot-pair .screenshot-figure {
+  flex: 1 1 280px;
+  max-width: 380px;
+}
+
+.screenshot-pair .app-screenshot {
+  flex: 1 1 280px;
+  max-width: 380px;
+  max-height: 480px;
+  object-fit: contain;
+  object-position: top;
+  margin: 0;
 }
 
 /* ============================================
