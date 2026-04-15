@@ -1570,10 +1570,9 @@ article header h1 {
 
 @media (min-width: 1024px) {
   .footer__columns {
-    grid-template-columns: repeat(3, max-content);
-    gap: var(--space-16);
-    width: auto;
-    justify-content: flex-end;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-12);
+    flex: 1;
   }
 }
 
