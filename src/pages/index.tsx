@@ -15,7 +15,7 @@ export default function Home(): ReactNode {
         status="live"
         headline="Shielded trading on Hyperliquid"
         accentWord="Shielded"
-        sub="Every trade on a public order book is a confession to copy trade bots, signal-aware LPs, and every desk watching your wallet. Silhouette encrypts your orders until match and passes 95% of the Hyperliquid volume discount back to you."
+        sub="Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain."
         ctas={[
           { label: 'Read the docs', href: '/about-silhouette', variant: 'primary' },
           { label: 'Build on Silhouette', href: '/api', variant: 'secondary' },
