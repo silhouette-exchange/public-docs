@@ -22,6 +22,8 @@ To deposit funds into Silhouette, you need assets on HyperCore (Hyperliquid's hi
 2. Select the asset and amount you want to deposit
 3. Confirm the transaction in your wallet
 
+<img src="/img/app-screenshots/transfer-modal.png" alt="Transfer funds modal for depositing into Silhouette" className="app-screenshot" />
+
 <!-- DOCS_REWRITE: removed legacy encrypted-balance wording from onboarding flow -->
 Your deposit will be detected by Silhouette's system and your account state will be updated in the shielded service. Deposits are publicly visible on Hyperliquid; once your funds are inside Silhouette, your trading activity is [shielded](/trading/shielded-trading).
 
@@ -34,6 +36,12 @@ To withdraw funds from Silhouette back to HyperCore:
 3. Confirm the transaction
 
 Your funds return to your wallet on HyperCore. There is no waiting period and no approval process.
+
+Your balances are visible in the Account Dashboard. The Balances panel shows your shielded spot holdings, and the Portfolio sidebar shows your total account value at a glance.
+
+<img src="/img/app-screenshots/balances-panel.png" alt="Balances panel showing shielded spot coin holdings" className="app-screenshot" />
+
+<img src="/img/app-screenshots/portfolio-sidebar.png" alt="Portfolio sidebar showing account values" className="app-screenshot" />
 
 ## Supported Assets
 

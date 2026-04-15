@@ -23,6 +23,8 @@ When you select naked mode, your order bypasses Silhouette's [shielded execution
 
 Perpetuals and spot markets are both supported via naked trading.
 
+<img src="/img/app-screenshots/naked_SpotMarketOrder_BUY.png" alt="Naked spot market buy order on Silhouette" className="app-screenshot" />
+
 ## When to Trade Naked
 
 Naked trading exists because visibility is not always a disadvantage. There are times when you want the market to see what you are doing:

@@ -28,6 +28,10 @@ A market order is the fastest way to request immediate execution. In naked mode,
 
 **How it works with shielded trading:** The webapp computes a price cap for your market-intent order and submits it to the TEE. The TEE then places a delegated IoC (Immediate or Cancel) order on Hyperliquid. If enough liquidity is available within that price cap, it fills immediately; otherwise the unfilled portion cancels.
 
+<img src="/img/app-screenshots/naked_SpotMarketOrder_BUY.png" alt="Spot market buy order" className="app-screenshot" />
+
+<img src="/img/app-screenshots/naked_PerpsMarket_LONG.png" alt="Perpetuals market long order" className="app-screenshot" />
+
 ## Limit Orders
 
 A limit order executes at your specified price or better. You set the asset, the size, and the price you are willing to pay (or receive).
@@ -39,11 +43,26 @@ A limit order executes at your specified price or better. You set the asset, the
 
 **How it works with shielded trading:** In the current live flow, shielded limit orders are also submitted as delegated IoC orders. They are price-capped at your chosen limit price, and any unfilled remainder cancels rather than resting indefinitely.
 
+<img src="/img/app-screenshots/naked_SpotLimitOrder_BUY.png" alt="Spot limit buy order" className="app-screenshot" />
+
+<img src="/img/app-screenshots/naked_PerpsLimit_LONG.png" alt="Perpetuals limit long order" className="app-screenshot" />
+
 ## Coming Soon
 
 Silhouette is building towards a full suite of order types, each benefiting from [shielded execution](/trading/shielded-trading):
 
 - **TWAP (Time-Weighted Average Price)**: Break large orders into optimized slices executed over time. Accumulate or distribute positions without leaving a visible footprint.
+
+<img src="/img/app-screenshots/naked_SpotTWAP_BUY.png" alt="Spot TWAP buy order" className="app-screenshot" />
+
+<img src="/img/app-screenshots/naked_PerpsTWAP_LONG.png" alt="Perpetuals TWAP long order" className="app-screenshot" />
+
+- **Scale Orders**: Distribute your order across a price range with customizable distribution, allowing you to ladder into or out of positions gradually.
+
+<img src="/img/app-screenshots/naked_SpotSCALE_BUY.png" alt="Spot scale buy order" className="app-screenshot" />
+
+<img src="/img/app-screenshots/naked_PerpsSCALE_LONG.png" alt="Perpetuals scale long order" className="app-screenshot" />
+
 - **VWAP (Volume-Weighted Average Price)**: Execute orders proportionally to market volume, minimizing market impact.
 - **RFQ (Request for Quote)**: Connect with market makers for block-sized trades with competitive pricing, all within the shielded environment.
 

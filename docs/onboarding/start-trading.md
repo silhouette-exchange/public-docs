@@ -44,16 +44,26 @@ Spot markets are available in both [Naked](/trading/naked-trading) and [Shielded
 4. Use the slider or type in your desired size
 5. Click **Place Order**, then **Confirm** in the modal. Tick "Don't show this again" to skip confirmation on future orders.
 
+<img src="/img/app-screenshots/naked_SpotMarketOrder_BUY.png" alt="Spot market buy order on Silhouette" className="app-screenshot" />
+
+For precise entries, you can also use a limit order to set your exact price:
+
+<img src="/img/app-screenshots/naked_SpotLimitOrder_BUY.png" alt="Spot limit buy order on Silhouette" className="app-screenshot" />
+
 ## Trading Perpetuals
 
 Perpetual markets are live in **Naked** mode only. Shielded perpetuals are on the roadmap. Trades in naked mode are visible onchain and route directly to Hyperliquid via Builder Codes.
 
 With perpetual contracts, you use USDC as collateral to go long or short on a token - rather than buying it directly.
 
+<img src="/img/app-screenshots/naked_MARGINMode_Select.png" alt="Margin mode selector for perpetuals trading" className="app-screenshot" />
+
 1. Verify you have USDC in your perps account via the **Balances** tab in the Account Dashboard
 2. Select your perps pair using the token selector
 3. Choose **long** (expecting price increase) or **short** (expecting price decrease)
 4. Set your position size - position size equals leverage multiplied by collateral
 5. Click **Place Order**, then **Confirm**
+
+<img src="/img/app-screenshots/naked_PerpsMarket_LONG.png" alt="Perpetuals market long order on Silhouette" className="app-screenshot" />
 
 For details on available order types, see [Order Types](/trading/order-types). To manage your funds, see [Deposits and Withdrawals](/onboarding/withdraw).
