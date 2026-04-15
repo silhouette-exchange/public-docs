@@ -1656,6 +1656,16 @@ article header h1 {
 }
 
 /* ============================================
+   APP SCREENSHOTS - soft feathered edge
+   ============================================ */
+.app-screenshot {
+  border-radius: 8px;
+  -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
+          mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
+  box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
+}
+
+/* ============================================
    MOBILE (<=996px)
    ============================================ */
 
