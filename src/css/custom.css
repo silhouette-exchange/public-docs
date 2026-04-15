@@ -1527,7 +1527,8 @@ article header h1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  gap: var(--space-4);
+  justify-content: space-between;
+  align-self: stretch;
   flex-shrink: 0;
 }
 
@@ -1544,20 +1545,23 @@ article header h1 {
   font-family: var(--font-sans);
   font-size: 14px;
   font-weight: var(--fw-medium);
-  background: #94fff9;
-  color: #09090b;
+  background: transparent;
+  color: #94fff9;
+  border: 1px solid rgba(102, 255, 247, 0.3);
   border-radius: var(--radius-xs);
   text-decoration: none !important;
   white-space: nowrap;
   transition:
     background var(--dur-base) var(--ease-standard),
+    border-color var(--dur-base) var(--ease-standard),
     transform var(--dur-base) var(--ease-emphasis);
 }
 
 .footer__launch-btn:hover {
-  background: #a8fffc;
+  background: rgba(102, 255, 247, 0.08);
+  border-color: rgba(102, 255, 247, 0.5);
   transform: translateY(-1px);
-  color: #09090b;
+  color: #94fff9;
   text-decoration: none;
 }
 
