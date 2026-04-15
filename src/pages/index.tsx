@@ -45,9 +45,6 @@ export default function Home(): ReactNode {
               </span>
             </h2>
           </div>
-          <p className={styles.roleHint}>
-            Whatever brought you here, the docs are organised so you don't have to read them in order.
-          </p>
         </header>
 
         <div className={styles.roleGrid}>
