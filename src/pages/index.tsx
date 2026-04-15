@@ -27,7 +27,6 @@ export default function Home(): ReactNode {
         ]}
         panelTitle="SLH/SYS"
         panelRows={[
-          { label: 'Engine', value: 'TEE attested' },
           { label: 'Settlement', value: 'HyperCore' },
           { label: 'Orderbook', value: 'Public' },
           { label: 'Order flow', value: 'Shielded', highlight: true },
