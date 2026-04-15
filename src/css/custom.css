@@ -1502,7 +1502,7 @@ article header h1 {
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   border-top: 1px solid var(--border-subtle);
-  padding: var(--space-16) var(--space-6) var(--space-10);
+  padding: var(--space-16) 0 var(--space-10);
   width: 100%;
   margin: 0;
   position: relative;
@@ -1521,8 +1521,9 @@ article header h1 {
 }
 
 .footer__container-wrapper {
-  max-width: 1280px;
+  max-width: 1440px;
   margin: 0 auto;
+  padding: 0 var(--space-6);
   display: flex;
   flex-direction: column;
   gap: var(--space-12);
@@ -1534,6 +1535,7 @@ article header h1 {
     justify-content: space-between;
     align-items: flex-start;
     gap: var(--space-20);
+    padding: 0 var(--space-10);
   }
 }
 
@@ -1541,41 +1543,42 @@ article header h1 {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  justify-content: space-between;
-  align-self: stretch;
+  justify-content: flex-start;
+  gap: var(--space-10);
   flex-shrink: 0;
+  min-width: 280px;
 }
 
 .footer__logo {
   height: 20px;
   width: auto;
+  display: block;
+  margin-top: -2px;
 }
 
 .footer__launch-btn {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 8px 16px;
+  padding: 10px var(--space-6);
   font-family: var(--font-sans);
-  font-size: 14px;
+  font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
-  background: transparent;
-  color: #94fff9;
-  border: 1px solid rgba(102, 255, 247, 0.3);
-  border-radius: var(--radius-xs);
+  background: rgba(0, 255, 242, 0.1);
+  color: var(--silh-cyan-tint-60);
+  border: none;
+  border-radius: var(--radius-lg);
   text-decoration: none !important;
   white-space: nowrap;
   transition:
     background var(--dur-base) var(--ease-standard),
-    border-color var(--dur-base) var(--ease-standard),
     transform var(--dur-base) var(--ease-emphasis);
 }
 
 .footer__launch-btn:hover {
-  background: rgba(102, 255, 247, 0.08);
-  border-color: rgba(102, 255, 247, 0.5);
+  background: rgba(0, 255, 242, 0.16);
   transform: translateY(-1px);
-  color: #94fff9;
+  color: var(--silh-cyan-tint-60);
   text-decoration: none;
 }
 
@@ -1589,7 +1592,7 @@ article header h1 {
 @media (min-width: 1024px) {
   .footer__columns {
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--space-12);
+    gap: var(--space-10);
     flex: 1;
   }
 }
