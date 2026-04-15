@@ -159,7 +159,7 @@ const config: Config = {
       {
         siteTitle: 'Silhouette',
         siteDescription:
-          'Silhouette is a shielded perpetuals exchange on Hyperliquid. Orders are encrypted inside a Trusted Execution Environment and settled through delegated wallets, so the market sees fills but never strategy, size, or identity. Silhouette passes 95% of its Hyperliquid volume discount back to takers.',
+          'Silhouette is a shielded trading platform on Hyperliquid. Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain.',
         depth: 2,
         enableDescriptions: true,
         runOnPostBuild: true,
@@ -312,7 +312,7 @@ const config: Config = {
           'https://github.com/silhouette-exchange',
         ],
         description:
-          'Silhouette is a shielded perpetuals exchange on Hyperliquid. Orders are encrypted inside a Trusted Execution Environment and settled through delegated wallets.',
+          'Silhouette is a shielded trading platform on Hyperliquid. Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain.',
         logo: {
           '@type': 'ImageObject',
           inLanguage: 'en-US',

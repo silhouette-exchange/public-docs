@@ -37,6 +37,8 @@ The current implementation of shielded trading on Silhouette works as follows:
 
 This allows you to trade on the deepest liquidity in DeFi without publicly broadcasting your alpha. Your trades are anonymized, shielding your strategies from copy-trading bots, front-runners, and whale trackers.
 
+<img src="/img/app-screenshots/shielded_SpotMarketOrder_BUY.png" alt="Shielded spot market buy order on Silhouette" className="app-screenshot" />
+
 ## What Stays Private
 
 | What the public sees | What stays private |
@@ -48,9 +50,13 @@ This allows you to trade on the deepest liquidity in DeFi without publicly broad
 
 Once you have deposited, shielded trades update your account state inside Silhouette without creating a direct public link between delegated-wallet executions and your wallet.
 
+<img src="/img/app-screenshots/balances-panel.png" alt="Balances panel showing shielded spot holdings" className="app-screenshot" />
+
 ## Supported Markets
 
 Shielded trading currently supports **spot markets** on Hyperliquid. We are building shielded perpetuals, TWAP, VWAP, and RFQ [order types](/trading/order-types).
+
+<img src="/img/app-screenshots/ShieldedMarketsSelector.png" alt="Shielded markets asset selector showing available spot pairs" className="app-screenshot" />
 
 ## Why Trade Shielded
 

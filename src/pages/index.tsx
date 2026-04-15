@@ -8,7 +8,7 @@ export default function Home(): ReactNode {
   return (
     <Layout
       title="Shielded trading on Hyperliquid"
-      description="Silhouette is a shielded perpetuals exchange on Hyperliquid. Orders are encrypted until match. 95% of the Hyperliquid volume discount passes back to takers."
+      description="Silhouette is a shielded trading platform on Hyperliquid. Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain."
     >
       <Hero
         eyebrow="Shield Everything"
