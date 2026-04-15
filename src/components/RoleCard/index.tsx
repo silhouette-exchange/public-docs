@@ -26,7 +26,11 @@ export default function RoleCard({
   return (
     <Link to={href} className={`${styles.card} ${styles[role]}`}>
       <div className={styles.cardAccent} aria-hidden="true" />
-      <div className={styles.cardCorner} aria-hidden="true">
+      <div className={`${styles.cardCorner} ${styles.cardCornerBL}`} aria-hidden="true">
+        <span className={styles.cornerLine} />
+        <span className={styles.cornerLine} />
+      </div>
+      <div className={`${styles.cardCorner} ${styles.cardCornerBR}`} aria-hidden="true">
         <span className={styles.cornerLine} />
         <span className={styles.cornerLine} />
       </div>

@@ -2,17 +2,17 @@
   position: relative;
   display: flex;
   flex-direction: column;
-  padding: var(--space-7) var(--space-6) var(--space-6);
+  padding: var(--space-8) var(--space-8) var(--space-6);
   background: linear-gradient(
     180deg,
-    rgba(24, 24, 27, 0.6) 0%,
-    rgba(19, 22, 26, 0.6) 100%
+    rgba(30, 33, 38, 0.7) 0%,
+    rgba(24, 27, 32, 0.55) 100%
   );
-  border: 1px solid var(--border-strong);
+  border: none;
   border-radius: var(--radius-xs);
   color: var(--text-default);
   text-decoration: none !important;
-  min-height: 280px;
+  min-height: 320px;
   overflow: hidden;
   isolation: isolate;
   transition:
@@ -30,7 +30,7 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 1px;
+  height: 2px;
   transform-origin: left center;
   transition: transform var(--dur-slow) var(--ease-emphasis);
 }
@@ -48,14 +48,22 @@
   box-shadow: 0 0 24px rgba(206, 127, 255, 0.5);
 }
 
-/* Corner brackets - bottom right */
+/* Corner brackets */
 .cardCorner {
   position: absolute;
-  bottom: var(--space-4);
-  right: var(--space-4);
   width: 14px;
   height: 14px;
   pointer-events: none;
+}
+
+.cardCornerBL {
+  bottom: 0;
+  left: 0;
+}
+
+.cardCornerBR {
+  bottom: 0;
+  right: 0;
 }
 
 .cornerLine {
@@ -64,11 +72,20 @@
   transition: background var(--dur-base) var(--ease-standard);
 }
 
-.cornerLine:nth-child(1) {
+.cardCornerBL .cornerLine:nth-child(1) {
+  bottom: 0; left: 0;
+  width: 14px; height: 1px;
+}
+.cardCornerBL .cornerLine:nth-child(2) {
+  bottom: 0; left: 0;
+  width: 1px; height: 14px;
+}
+
+.cardCornerBR .cornerLine:nth-child(1) {
   bottom: 0; right: 0;
   width: 14px; height: 1px;
 }
-.cornerLine:nth-child(2) {
+.cardCornerBR .cornerLine:nth-child(2) {
   bottom: 0; right: 0;
   width: 1px; height: 14px;
 }
@@ -100,20 +117,17 @@
 .card:hover .cardAccent { transform: scaleX(1.02); }
 
 .card.developer:hover {
-  border-color: rgba(0, 255, 242, 0.4);
-  box-shadow: var(--glow-cyan), 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.8);
 }
 .card.developer:hover .cornerLine { background: var(--silh-cyan-100); }
 
 .card.institution:hover {
-  border-color: rgba(250, 0, 255, 0.4);
-  box-shadow: var(--glow-magenta), 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.8);
 }
 .card.institution:hover .cornerLine { background: var(--silh-magenta-100); }
 
 .card.trader:hover {
-  border-color: rgba(206, 127, 255, 0.4);
-  box-shadow: 0 0 24px rgba(206, 127, 255, 0.35), 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.8);
 }
 .card.trader:hover .cornerLine { background: var(--silh-lilac-100); }
 
@@ -121,9 +135,9 @@
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-8);
   font-family: var(--font-mono);
-  font-size: 10px;
+  font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   text-transform: uppercase;
   letter-spacing: var(--tracking-widest);
@@ -183,7 +197,7 @@
      line-height, slight negative tracking. Part of the Orbitron-
      overuse cleanup Wayne flagged on 2026-04-09. */
   font-family: var(--font-sans);
-  font-size: var(--fs-lg);
+  font-size: var(--fs-2xl);
   font-weight: var(--fw-semibold);
   line-height: var(--lh-tight);
   letter-spacing: -0.01em;
@@ -192,7 +206,7 @@
 
 .description {
   font-family: var(--font-sans);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-base);
   line-height: var(--lh-relaxed);
   color: var(--text-secondary);
   margin: 0 0 var(--space-6);
