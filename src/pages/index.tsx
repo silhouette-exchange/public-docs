@@ -21,9 +21,9 @@ export default function Home(): ReactNode {
           { label: 'Build on Silhouette', href: '/api', variant: 'secondary' },
         ]}
         stats={[
-          { label: 'Taker rebate', value: '95%' },
-          { label: 'Order leakage', value: '0 bytes' },
-          { label: 'Settlement', value: 'L1' },
+          { label: 'Taker fee', value: '-95%' },
+          { label: 'Order leakage', value: 'None' },
+          { label: 'Settlement', value: 'HyperCore' },
         ]}
         panelTitle="SLH/SYS"
         panelRows={[
@@ -31,7 +31,7 @@ export default function Home(): ReactNode {
           { label: 'Orderbook', value: 'Public' },
           { label: 'Order flow', value: 'Shielded', highlight: true },
           { label: 'Identity', value: 'Delegated' },
-          { label: 'Leakage', value: '0 bytes', highlight: true },
+          { label: 'Leakage', value: 'None', highlight: true },
         ]}
       />
 

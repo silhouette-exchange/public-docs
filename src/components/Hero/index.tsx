@@ -66,6 +66,7 @@ export default function Hero({
         <div className={styles.grid} />
         <div className={styles.scanline} />
         <div className={styles.vignette} />
+        <div className={styles.chartBg} />
       </div>
 
       <div className={styles.shellLeft} aria-hidden="true">
