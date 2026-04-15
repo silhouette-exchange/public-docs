@@ -76,7 +76,6 @@ const config: Config = {
           routeBasePath: '/',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
-          editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
           exclude: ['plans/**'],
         },
         blog: {
@@ -84,7 +83,6 @@ const config: Config = {
           routeBasePath: '/blog',
           showLastUpdateTime: true,
           showLastUpdateAuthor: true,
-          editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
           /*
            * blogTitle flows into the `<title>` of /blog and into the
            * og:title / twitter:title meta tags. Previously defaulted to
