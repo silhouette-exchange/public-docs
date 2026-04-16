@@ -21,7 +21,7 @@ This page walks through the complete lifecycle of an order on Silhouette, from t
 
 ### 1. Submission
 
-You place an order through the Silhouette UI - selecting your asset, size, [order type](/trading/order-types) (market or limit), and shielded mode. The order is submitted to Silhouette's Trusted Execution Environment (TEE).
+You place an order through the Silhouette UI - selecting your asset, size, order type (market or limit), and shielded mode. The order is submitted to Silhouette's Trusted Execution Environment (TEE).
 
 At this point, no information about your order has touched the public ledger. Your intent is confidential.
 
@@ -73,4 +73,4 @@ Naked orders do not interact with the TEE or delegated wallets. They are standar
 | **Cancelled** | The order was cancelled (for example by IoC expiry) |
 | **Expired** | A limit order reached its expiry time without being fully filled |
 
-To learn more about [shielded trading](/trading/shielded-trading) or the available [order types](/trading/order-types), visit the relevant pages.
+To learn more about [shielded trading](/trading/shielded-trading) or [naked trading](/trading/naked-trading), visit the relevant pages.
