@@ -313,7 +313,7 @@
   font-weight: var(--fw-medium);
   text-transform: capitalize;
   text-decoration: none !important;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   border: none;
   transition:
     transform var(--dur-base) var(--ease-emphasis),
@@ -328,24 +328,23 @@
 .cta:active { transform: translateY(0); }
 
 .primary {
-  background: #94fff9;
-  color: #09090b;
+  background: var(--silh-cyan-tint-60);
+  color: var(--text-inverse);
 }
 
 .primary:hover {
-  background: #a8fffc;
-  box-shadow: 0 4px 16px rgba(0, 255, 242, 0.25);
+  background: #51d2cc;
+  color: var(--text-inverse);
 }
 
 .secondary {
-  background: var(--silh-magenta-alpha-10);
-  color: var(--silh-magenta-tint-70);
+  background: rgba(253, 128, 255, 0.12);
+  color: #fea6ff;
 }
 
 .secondary:hover {
-  background: var(--silh-magenta-alpha-20);
-  box-shadow: 0 4px 16px rgba(250, 0, 255, 0.2);
-  color: #ffd6ff;
+  background: rgba(253, 128, 255, 0.30);
+  color: #fea6ff;
 }
 
 .ghost {
