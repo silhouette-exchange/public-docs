@@ -2,7 +2,7 @@
 title: Architecture Overview
 sidebar_label: Overview
 pagination_label: Architecture Overview
-description: "Learn how Silhouette Exchange enables shielded trading on Hyperliquid."
+description: "Silhouette architecture overview: how the web app, TEE matching engine, delegated wallets, and Hyperliquid settlement layer work together to enable shielded trading."
 keywords:
   - Silhouette Exchange
   - architecture
@@ -95,7 +95,7 @@ The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the 
 
 <TechArticleSchema
   headline="Silhouette Architecture Overview"
-  description="Learn how Silhouette Exchange enables shielded trading on Hyperliquid."
+  description="Silhouette architecture overview: how the web app, TEE matching engine, delegated wallets, and Hyperliquid settlement layer work together to enable shielded trading."
   proficiencyLevel="Intermediate"
   keywords={['Silhouette Exchange', 'architecture', 'shielded trading', 'Hyperliquid', 'TEE', 'trusted execution environment']}
 />

@@ -58,15 +58,12 @@ export default function TechArticleSchema({
     return null;
   }
 
-  const resolvedDateModified = dateModified ?? new Date().toISOString().split('T')[0];
-
   const schema: Record<string, unknown> = {
     '@context': 'https://schema.org',
     '@type': 'TechArticle',
     headline,
     description,
     datePublished,
-    dateModified: resolvedDateModified,
     author: {
       '@type': 'Organization',
       name: 'Silhouette Exchange',
@@ -88,6 +85,10 @@ export default function TechArticleSchema({
       '@id': `${SITE_URL}/#website`,
     },
   };
+
+  if (dateModified) {
+    schema.dateModified = dateModified;
+  }
 
   if (keywords && keywords.length > 0) {
     schema.keywords = keywords;

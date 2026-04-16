@@ -34,14 +34,21 @@ describe('TechArticleSchema', () => {
     expect(schema.keywords).toEqual(['SIWE', 'Silhouette API']);
   });
 
-  it('defaults dateModified to today when omitted', () => {
+  it('omits dateModified when not provided', () => {
     const { container } = render(
       <TechArticleSchema headline="Quickstart" description="Start trading in five steps." />
     );
     const schema = readEmittedSchema(container);
-    const today = new Date().toISOString().split('T')[0];
-    expect(schema.dateModified).toBe(today);
+    expect(schema.dateModified).toBeUndefined();
     expect(schema.datePublished).toBe('2025-01-01');
+  });
+
+  it('includes dateModified when explicitly provided', () => {
+    const { container } = render(
+      <TechArticleSchema headline="Test" description="Test." dateModified="2026-04-10" />
+    );
+    const schema = readEmittedSchema(container);
+    expect(schema.dateModified).toBe('2026-04-10');
   });
 
   it('omits keywords when none supplied', () => {

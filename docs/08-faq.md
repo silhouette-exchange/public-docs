@@ -7,11 +7,11 @@ description: "Find answers to common questions about Silhouette - shielded tradi
 keywords:
   - FAQ
   - shielded trading
-  - Hyperliquid API
-  - Silhouette API
-  - DeFi API
-  - trading API
-  - SIWE authentication
+  - Silhouette Exchange
+  - Hyperliquid
+  - DeFi privacy
+  - shielded execution
+  - trading fees
 ---
 
 # Frequently Asked Questions

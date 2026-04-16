@@ -8,11 +8,11 @@ description: "Comprehensive glossary of technical terms used in Silhouette docum
 keywords:
   - glossary
   - shielded trading
-  - Hyperliquid API
-  - Silhouette API
-  - DeFi API
-  - trading API
-  - programmatic trading
+  - Silhouette Exchange
+  - Hyperliquid
+  - TEE
+  - DeFi terminology
+  - HyperCore
 ---
 
 # Glossary
@@ -122,5 +122,5 @@ The cost traders pay because their activity is visible on a public ledger. Inclu
   headline="Silhouette Glossary"
   description="Comprehensive glossary of technical terms used in Silhouette documentation, covering shielded trading, TEE, HyperCore, and DeFi concepts."
   proficiencyLevel="Beginner"
-  keywords={['glossary', 'shielded trading', 'Hyperliquid API', 'Silhouette API', 'DeFi API', 'trading API']}
+  keywords={['glossary', 'shielded trading', 'Silhouette Exchange', 'Hyperliquid', 'TEE', 'DeFi terminology']}
 />

@@ -110,7 +110,34 @@ const config: Config = {
         },
         sitemap: {
           changefreq: 'weekly',
-          priority: 0.7,
+          priority: 0.5,
+          createSitemapItems: async (params) => {
+            const { defaultCreateSitemapItems, ...rest } = params;
+            const items = await defaultCreateSitemapItems(rest);
+            return items.map((item) => {
+              const path = new URL(item.url).pathname;
+              if (path === '/' || path === '/about-silhouette') {
+                return { ...item, priority: 0.9 };
+              }
+              if (
+                path === '/quickstart' ||
+                path === '/how-silhouette-works' ||
+                path.startsWith('/trading/') ||
+                path === '/faq'
+              ) {
+                return { ...item, priority: 0.8 };
+              }
+              if (
+                path.startsWith('/architecture/') ||
+                path.startsWith('/api/') ||
+                path === '/sdk' ||
+                path.startsWith('/blog/')
+              ) {
+                return { ...item, priority: 0.7 };
+              }
+              return { ...item, priority: 0.5 };
+            });
+          },
           /*
            * /plans/** are in-repo execution notes, excluded from public
            * discovery. /blog/authors/** is a thin Docusaurus auto-generated

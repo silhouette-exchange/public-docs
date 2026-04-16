@@ -2,7 +2,7 @@
 title: Custody & Settlement
 sidebar_label: Custody & Settlement
 pagination_label: Custody & Settlement
-description: "Learn how Silhouette manages custody and settles trades on Hyperliquid."
+description: "How Silhouette manages custody through TEE-controlled delegated wallets and settles shielded trades on Hyperliquid's HyperCore order book."
 keywords:
   - custody
   - settlement
@@ -55,7 +55,7 @@ For an overview of how all components fit together, see [Architecture Overview](
 
 <TechArticleSchema
   headline="Custody and Settlement on Silhouette"
-  description="Learn how Silhouette manages custody and settles trades on Hyperliquid."
+  description="How Silhouette manages custody through TEE-controlled delegated wallets and settles shielded trades on Hyperliquid's HyperCore order book."
   proficiencyLevel="Intermediate"
   keywords={['custody', 'settlement', 'Silhouette Exchange', 'Hyperliquid', 'TEE', 'shielded trading']}
 />

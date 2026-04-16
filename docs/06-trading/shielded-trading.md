@@ -40,21 +40,21 @@ Shielded trading currently supports **spot markets** on Hyperliquid. Shielded pe
 
 | Token | Description | Markets |
 |-------|-------------|---------|
-| <img src="/img/tokens/usdc.png" className="token-icon" alt="" /> USDC | USD Coin | Base pair |
-| <img src="/img/tokens/hype.png" className="token-icon" alt="" /> HYPE | Hyperliquid | HYPE/USDC, HYPE/USDH |
-| <img src="/img/tokens/usdh.jpg" className="token-icon" alt="" /> USDH | Hyperliquid Dollar | USDH/USDC |
-| <img src="/img/tokens/btc.png" className="token-icon" alt="" /> BTC | Bitcoin | UBTC/USDC, UBTC/USDH |
-| <img src="/img/tokens/eth.png" className="token-icon" alt="" /> ETH | Ethereum | UETH/USDC, UETH/USDH |
-| <img src="/img/tokens/sol.png" className="token-icon" alt="" /> SOL | Solana | USOL/USDC |
-| <img src="/img/tokens/zec.png" className="token-icon" alt="" /> ZEC | Zcash | UZEC/USDC |
-| <img src="/img/tokens/usdt.svg" className="token-icon" alt="" /> USDT | Tether | USDT0/USDC |
-| <img src="/img/tokens/fart.svg" className="token-icon" alt="" /> FART | Fartcoin | UFART/USDC |
-| <img src="/img/tokens/pump.svg" className="token-icon" alt="" /> PUMP | Pump Fun | UPUMP/USDC |
-| <img src="/img/tokens/usde.svg" className="token-icon" alt="" /> USDe | Ethena USDe | USDE/USDC |
-| <img src="/img/tokens/purr.svg" className="token-icon" alt="" /> PURR | Purr | PURR/USDC |
-| <img src="/img/tokens/xaut.svg" className="token-icon" alt="" /> XAUT | Tether Gold | XAUT0/USDC |
-| <img src="/img/tokens/kntq.svg" className="token-icon" alt="" /> KNTQ | Kinetiq | KNTQ/USDH |
-| <img src="/img/tokens/khype.svg" className="token-icon" alt="" /> KHYPE | Kinetiq Staked HYPE | KHYPE/USDH |
+| <img src="/img/tokens/usdc.png" className="token-icon" alt="USDC token icon" /> USDC | USD Coin | Base pair |
+| <img src="/img/tokens/hype.png" className="token-icon" alt="HYPE token icon" /> HYPE | Hyperliquid | HYPE/USDC, HYPE/USDH |
+| <img src="/img/tokens/usdh.jpg" className="token-icon" alt="USDH token icon" /> USDH | Hyperliquid Dollar | USDH/USDC |
+| <img src="/img/tokens/btc.png" className="token-icon" alt="BTC token icon" /> BTC | Bitcoin | UBTC/USDC, UBTC/USDH |
+| <img src="/img/tokens/eth.png" className="token-icon" alt="ETH token icon" /> ETH | Ethereum | UETH/USDC, UETH/USDH |
+| <img src="/img/tokens/sol.png" className="token-icon" alt="SOL token icon" /> SOL | Solana | USOL/USDC |
+| <img src="/img/tokens/zec.png" className="token-icon" alt="ZEC token icon" /> ZEC | Zcash | UZEC/USDC |
+| <img src="/img/tokens/usdt.svg" className="token-icon" alt="USDT token icon" /> USDT | Tether | USDT0/USDC |
+| <img src="/img/tokens/fart.svg" className="token-icon" alt="FART token icon" /> FART | Fartcoin | UFART/USDC |
+| <img src="/img/tokens/pump.svg" className="token-icon" alt="PUMP token icon" /> PUMP | Pump Fun | UPUMP/USDC |
+| <img src="/img/tokens/usde.svg" className="token-icon" alt="USDe token icon" /> USDe | Ethena USDe | USDE/USDC |
+| <img src="/img/tokens/purr.svg" className="token-icon" alt="PURR token icon" /> PURR | Purr | PURR/USDC |
+| <img src="/img/tokens/xaut.svg" className="token-icon" alt="XAUT token icon" /> XAUT | Tether Gold | XAUT0/USDC |
+| <img src="/img/tokens/kntq.svg" className="token-icon" alt="KNTQ token icon" /> KNTQ | Kinetiq | KNTQ/USDH |
+| <img src="/img/tokens/khype.svg" className="token-icon" alt="KHYPE token icon" /> KHYPE | Kinetiq Staked HYPE | KHYPE/USDH |
 
 Additional pairs are added as Hyperliquid's spot market offering expands.
 
