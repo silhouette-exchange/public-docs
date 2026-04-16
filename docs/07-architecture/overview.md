@@ -92,3 +92,10 @@ The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the 
 ## Design Principles
 
 **Separated responsibilities.** The app handles authentication and UX and the TEE handles shielded execution and account state.
+
+<TechArticleSchema
+  headline="Silhouette Architecture Overview"
+  description="Learn how Silhouette Exchange enables shielded trading on Hyperliquid."
+  proficiencyLevel="Intermediate"
+  keywords={['Silhouette Exchange', 'architecture', 'shielded trading', 'Hyperliquid', 'TEE', 'trusted execution environment']}
+/>

@@ -5,6 +5,13 @@ authors:
   - silhouette-team
 category: product
 description: Shielded spot trading is live on Hyperliquid. Execute HYPE/USDC orders through a TEE-attested matching engine with zero strategy leakage and 95% passthrough on the HL fee discount.
+keywords:
+  - shielded spot trading
+  - Hyperliquid
+  - Silhouette Exchange
+  - TEE matching engine
+  - HYPE/USDC
+  - DeFi privacy
 image: ./images/shieldedspot.png
 ---
 

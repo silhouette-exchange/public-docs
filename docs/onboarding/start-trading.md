@@ -81,3 +81,10 @@ With perpetual contracts, you use USDC as collateral to go long or short on a to
 </div>
 
 For details on available order types, see [Naked Trading](/trading/naked-trading) or [Shielded Trading](/trading/shielded-trading). To manage your funds, see [Deposits and Withdrawals](/onboarding/withdraw).
+
+<TechArticleSchema
+  headline="Start Trading on Silhouette"
+  description="Get started trading on Silhouette Exchange with shielded and naked modes. Connect your wallet, deposit funds, and trade on Hyperliquid privately."
+  proficiencyLevel="Beginner"
+  keywords={['Silhouette Exchange', 'shielded trading', 'Hyperliquid', 'crypto trading', 'private trading', 'DeFi privacy']}
+/>

@@ -119,7 +119,28 @@ const config: Config = {
            * yet). /blog/archive is disabled at the plugin level via
            * archiveBasePath: null.
            */
-          ignorePatterns: ['/plans/**', '/blog/authors/**'],
+          ignorePatterns: [
+            '/plans/**',
+            '/blog/authors/**',
+            '/blog-preview',
+            '/search',
+            /*
+             * Phase 2 stub pages: 8 concept explainers + 4 guide
+             * sub-section indexes. Each contains a single ShieldedCallout
+             * with a link to the real content. Excluded from the sitemap
+             * to avoid thin-content crawl signals. Re-add when Phase 2
+             * content ships.
+             */
+            '/concepts/**',
+            '/guides/for-developers',
+            '/guides/for-developers/**',
+            '/guides/for-institutions',
+            '/guides/for-institutions/**',
+            '/guides/for-traders',
+            '/guides/for-traders/**',
+            '/guides/comparisons',
+            '/guides/comparisons/**',
+          ],
           filename: 'sitemap.xml',
           lastmod: 'date',
         },
@@ -183,12 +204,26 @@ const config: Config = {
              */
             '/blog/authors/**',
             '/blog-preview',
+            /*
+             * Phase 2 stub pages. Each is a single ShieldedCallout
+             * redirecting to real content. Excluded from llms.txt to
+             * avoid polluting AI context with placeholder pages.
+             */
+            '/concepts/**',
+            '/guides/for-developers',
+            '/guides/for-developers/**',
+            '/guides/for-institutions',
+            '/guides/for-institutions/**',
+            '/guides/for-traders',
+            '/guides/for-traders/**',
+            '/guides/comparisons',
+            '/guides/comparisons/**',
           ],
         },
         includeOrder: [
           '/about-silhouette',
           '/quickstart',
-          '/concepts/**',
+          /* /concepts/** excluded until Phase 2 content ships */
           '/trading/**',
           '/architecture/**',
           '/api/**',

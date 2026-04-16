@@ -8,6 +8,7 @@ import EndpointCard from '@site/src/components/EndpointCard';
 import JoinUs from '@site/src/components/JoinUs';
 import FAQSchema from '@site/src/components/FAQSchema';
 import TechArticleSchema from '@site/src/components/TechArticleSchema';
+import HowToSchema from '@site/src/components/HowToSchema';
 
 export default {
   ...MDXComponents,
@@ -20,4 +21,5 @@ export default {
   JoinUs,
   FAQSchema,
   TechArticleSchema,
+  HowToSchema,
 };

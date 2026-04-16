@@ -5,6 +5,13 @@ authors:
   - silhouette-team
 category: research
 description: 'Why Silhouette built on Hyperliquid: an EVM-compatible L1 with the speed, scale and matching engine depth to support shielded trading at institutional size.'
+keywords:
+  - Hyperliquid
+  - Silhouette Exchange
+  - shielded trading
+  - decentralized exchange
+  - HyperEVM
+  - DeFi liquidity
 image: ./images/hyperliquid.png
 ---
 

@@ -114,3 +114,10 @@ The choice between naked and shielded is available on every trade. You can place
 The question is simple: does this trade benefit from confidentiality? If yes, trade [shielded](/trading/shielded-trading). If not, trade naked.
 
 To understand the full flow of how orders move through the system, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).
+
+<TechArticleSchema
+  headline="Naked Trading on Silhouette Exchange"
+  description="Naked trading on Silhouette routes orders directly to Hyperliquid via Builder Codes. Full visibility, full order type support across spot and perpetuals."
+  proficiencyLevel="Intermediate"
+  keywords={['naked trading', 'Silhouette Exchange', 'Hyperliquid', 'market order', 'limit order', 'TWAP', 'perpetuals']}
+/>

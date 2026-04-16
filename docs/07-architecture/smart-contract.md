@@ -52,3 +52,10 @@ When using Silhouette's shielded mode, you trust:
 The TEE cannot expose your balance or trading activity because it operates in an isolated environment. For more on how the TEE works, see [Trusted Execution Environment](/architecture/tee).
 
 For an overview of how all components fit together, see [Architecture Overview](/architecture/overview).
+
+<TechArticleSchema
+  headline="Custody and Settlement on Silhouette"
+  description="Learn how Silhouette manages custody and settles trades on Hyperliquid."
+  proficiencyLevel="Intermediate"
+  keywords={['custody', 'settlement', 'Silhouette Exchange', 'Hyperliquid', 'TEE', 'shielded trading']}
+/>

@@ -74,3 +74,10 @@ Naked orders do not interact with the TEE or delegated wallets. They are standar
 | **Expired** | A limit order reached its expiry time without being fully filled |
 
 To learn more about [shielded trading](/trading/shielded-trading) or [naked trading](/trading/naked-trading), visit the relevant pages.
+
+<TechArticleSchema
+  headline="Order Lifecycle on Silhouette Exchange"
+  description="Follow the complete lifecycle of shielded and naked orders on Silhouette Exchange, from submission through TEE processing to Hyperliquid settlement."
+  proficiencyLevel="Intermediate"
+  keywords={['order lifecycle', 'shielded trading', 'Silhouette Exchange', 'shielded execution', 'Hyperliquid']}
+/>

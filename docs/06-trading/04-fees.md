@@ -16,6 +16,8 @@ keywords:
 
 # Fees
 
+## How much does Silhouette cost?
+
 Silhouette offers two trading modes with different fee structures:
 
 - **Naked** - Open, transparent trading through Silhouette's interface. Your transactions are visible on Hyperliquid like any standard trade. Silhouette applies a small fee via Hyperliquid's [builder code](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/builder-codes) system - a protocol-native mechanism that allows frontends built on Hyperliquid to charge a fee on fills. Naked fees are the same for all users as shown in the fee schedule below.
@@ -131,3 +133,10 @@ Silhouette does not charge fees on deposits or withdrawals. Standard Hyperliquid
 ## Referral Discounts
 
 Silhouette's [referral program](/referrals) provides additional fee savings. See [Referrals](/referrals) for details.
+
+<TechArticleSchema
+  headline="Silhouette Exchange Fees"
+  description="Silhouette Exchange fee structure for naked and shielded trading on Hyperliquid. Transparent builder code fees and dynamic shielded savings."
+  proficiencyLevel="Beginner"
+  keywords={['Silhouette Exchange', 'trading fees', 'Hyperliquid', 'builder code', 'maker fees', 'taker fees', 'shielded trading']}
+/>

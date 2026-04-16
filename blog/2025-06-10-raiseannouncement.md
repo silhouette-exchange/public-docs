@@ -5,6 +5,13 @@ authors:
   - silhouette-team
 category: announcements
 description: Silhouette closes a seed round led by RockawayX to build shielded trading on Hyperliquid. Strategies stay private, the orderbook stays public, the execution stays fast.
+keywords:
+  - Silhouette Exchange
+  - seed round
+  - RockawayX
+  - shielded trading
+  - Hyperliquid
+  - DeFi funding
 image: ./images/raise-announcement-banner.png
 ---
 

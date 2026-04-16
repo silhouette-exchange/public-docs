@@ -66,3 +66,10 @@ print(f"Order placed: {order['orderId']}")
 - [Quick Start](/api/quick-start) - Set up prerequisites and make your first API call
 - [Troubleshooting](/api/troubleshooting) - Common errors and solutions
 - [OpenAPI Specification](/api/openapi) - Generate typed clients in other languages
+
+<TechArticleSchema
+  headline="Silhouette Python SDK"
+  description="Official Python SDK for Silhouette - build trading bots and automate shielded trading on Hyperliquid."
+  proficiencyLevel="Advanced"
+  keywords={['Python SDK', 'Silhouette API', 'Hyperliquid API', 'trading API', 'shielded trading']}
+/>

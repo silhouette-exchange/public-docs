@@ -68,6 +68,37 @@ For more detail on how shielded trading works, see [Shielded Trading](/trading/s
 - [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading) - Understand the two trading modes
 - [How Silhouette Works](/how-silhouette-works) - End-to-end walkthrough of the system
 
+<HowToSchema
+  name="How to Start Shielded Trading on Silhouette"
+  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and trade on Hyperliquid without showing your hand."
+  steps={[
+    {
+      name: "Connect Your Wallet",
+      text: "Go to app.silhouette.exchange and click Connect Wallet. Silhouette supports MetaMask, Rabby, WalletConnect, Coinbase Wallet, and email login.",
+      image: "/img/flows/connect.png"
+    },
+    {
+      name: "Switch to Shielded Mode",
+      text: "Toggle the switch at the top of the page between Naked and Shielded. Shielded mode routes your orders through Silhouette's secure execution environment.",
+      image: "/img/app-screenshots/shield-naked-switch.gif"
+    },
+    {
+      name: "Connect to Shielded Trading",
+      text: "In Shielded mode, click the Connect Shielded button in the Accounts Dashboard. This establishes your encrypted connection with Silhouette's TEE.",
+      image: "/img/flows/connect-shielded.png"
+    },
+    {
+      name: "Deposit Funds",
+      text: "Transfer funds from HyperCore to Silhouette via the Accounts Dashboard, or deposit from any chain via the Li.Fi cross-chain bridge.",
+      image: ["/img/app-screenshots/transfer-modal.png", "/img/app-screenshots/deposit-modal.png"]
+    },
+    {
+      name: "Start Trading",
+      text: "Place shielded spot orders on any supported pair. Your orders are processed inside the TEE and settled on Hyperliquid without anyone seeing your strategy."
+    }
+  ]}
+/>
+
 <TechArticleSchema
   headline="Silhouette Quickstart: Start Shielded Trading in Five Steps"
   description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and trade on Hyperliquid without showing your hand."

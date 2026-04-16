@@ -23,7 +23,7 @@ Silhouette changes this. We sit between you and Hyperliquid's order book, proces
 
 **Trade on Hyperliquid without showing your hand.**
 
-## Shielded Trading on Hyperliquid
+## What is Silhouette?
 
 Silhouette is a shielded layer on top of Hyperliquid. We are not a separate exchange. Every trade settles on Hyperliquid's order book, allowing you to keep access to the deepest liquidity in DeFi. We add confidentiality to your execution - we don't replace the stack.
 

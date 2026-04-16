@@ -117,3 +117,10 @@ The cost traders pay because their activity is visible on a public ledger. Inclu
 ---
 
 > This documentation is for informational purposes only and does not constitute financial advice.
+
+<TechArticleSchema
+  headline="Silhouette Glossary"
+  description="Comprehensive glossary of technical terms used in Silhouette documentation, covering shielded trading, TEE, HyperCore, and DeFi concepts."
+  proficiencyLevel="Beginner"
+  keywords={['glossary', 'shielded trading', 'Hyperliquid API', 'Silhouette API', 'DeFi API', 'trading API']}
+/>

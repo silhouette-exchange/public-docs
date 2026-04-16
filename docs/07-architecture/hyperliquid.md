@@ -44,3 +44,10 @@ Silhouette is built on Hyperliquid because it is the best execution venue in DeF
 Silhouette does not compete with Hyperliquid. We extend it. Every trade on Silhouette is a trade on Hyperliquid - just with a shielded route to get there.
 
 For a full picture of how Silhouette's components interact with Hyperliquid, see [Architecture Overview](/architecture/overview). To understand the role of the [TEE](/architecture/tee) in executing trades, see [Trusted Execution Environments](/architecture/tee).
+
+<TechArticleSchema
+  headline="Hyperliquid Integration"
+  description="Learn how Silhouette integrates with Hyperliquid's HyperCore to deliver shielded trading with deep liquidity and fast execution."
+  proficiencyLevel="Intermediate"
+  keywords={['Hyperliquid', 'HyperEVM', 'shielded trading', 'decentralized exchange', 'DeFi privacy', 'Silhouette Exchange']}
+/>

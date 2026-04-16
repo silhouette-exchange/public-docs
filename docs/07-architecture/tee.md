@@ -19,6 +19,8 @@ keywords:
 This page explains TEE fundamentals that matter for every trader. The [Technical Verification](#verifiable-execution) section provides deeper detail for auditors and developers who want to independently verify the system.
 :::
 
+## What is a TEE?
+
 Silhouette's core matching engine runs inside a Trusted Execution Environment (TEE) - a secure, isolated computing environment that ensures orders are processed confidentially. No one can access the data inside the TEE, not even the Silhouette team.
 
 ## AWS Nitro Enclaves
@@ -76,3 +78,10 @@ You do not need to trust Silhouette. The combination of hardware-isolated execut
 Your orders enter a sealed environment that no one can inspect. They are processed according to rules that anyone can verify. And the results settle on [Hyperliquid's](/architecture/hyperliquid) public order book, where the execution is transparent even though your identity is not.
 
 For an overview of how the TEE fits into Silhouette's broader architecture, see [Architecture Overview](/architecture/overview).
+
+<TechArticleSchema
+  headline="Trusted Execution Environments (TEE) at Silhouette"
+  description="Discover how Silhouette uses AWS Nitro Enclaves and trusted execution environments to enable confidential, verifiable shielded trading."
+  proficiencyLevel="Advanced"
+  keywords={['trusted execution environment', 'TEE', 'AWS Nitro', 'attestation', 'shielded trading', 'DeFi privacy']}
+/>

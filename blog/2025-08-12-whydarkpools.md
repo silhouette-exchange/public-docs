@@ -5,6 +5,13 @@ authors:
   - silhouette-team
 category: research
 description: Part three of the Silhouette shielded trading series. Onchain dark pools promised privacy and delivered liquidity deserts. Why they failed and how shielded trading fixes it.
+keywords:
+  - dark pools
+  - onchain dark pool
+  - DeFi privacy
+  - dark pool liquidity
+  - shielded trading
+  - Silhouette Exchange
 image: ./images/darkpoolsdontwork.png
 ---
 

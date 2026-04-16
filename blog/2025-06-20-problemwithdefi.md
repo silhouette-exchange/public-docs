@@ -5,6 +5,13 @@ authors:
   - silhouette-team
 category: research
 description: 'Part one of the Silhouette shielded trading series. Why radical transparency in DeFi is an attack surface: strategy leakage, copytrade exposure, adverse selection.'
+keywords:
+  - DeFi transparency
+  - strategy leakage
+  - copytrade exposure
+  - adverse selection
+  - MEV
+  - shielded trading
 image: ./images/defi-problem-header.png
 ---
 

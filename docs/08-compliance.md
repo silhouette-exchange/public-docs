@@ -56,3 +56,10 @@ KYC verification will be handled through a third-party identity provider. Detail
 - **Developers** - API access is also gated by the compliance engine. Authenticated sessions require a screened address.
 
 For details on how Silhouette's architecture separates shielded execution from compliance, see [Architecture Overview](/architecture/overview).
+
+<TechArticleSchema
+  headline="Silhouette Compliance"
+  description="How Silhouette screens addresses, supports AML/CTF obligations, and plans for KYC-gated features."
+  proficiencyLevel="Intermediate"
+  keywords={['compliance', 'AML', 'CTF', 'sanctions screening', 'KYC', 'Silhouette Exchange']}
+/>

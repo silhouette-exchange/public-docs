@@ -15,6 +15,8 @@ keywords:
 
 # Shielded Trading
 
+## What is shielded trading?
+
 Shielded trading on Silhouette keeps your orders inside a secure execution environment and settles them on Hyperliquid through delegated wallets. The market can see delegated-wallet executions, but it does not get a direct mapping back to your wallet, size, or strategy.
 
 ## How It Works
@@ -104,3 +106,10 @@ Every trade you place on a transparent ledger is information. That information h
 - **Trade at scale.** Large orders move markets when they are visible. Shielded execution lets you trade size without market impact signalling.
 
 Compare shielded trading with [naked trading](/trading/naked-trading) to understand when each mode is appropriate. For the full order flow, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).
+
+<TechArticleSchema
+  headline="Shielded Trading on Silhouette Exchange"
+  description="Shielded trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full order book. Spot markets live, perpetuals on the roadmap."
+  proficiencyLevel="Intermediate"
+  keywords={['shielded trading', 'Silhouette Exchange', 'DeFi privacy', 'private trading', 'shielded execution', 'Hyperliquid', 'crypto trading']}
+/>

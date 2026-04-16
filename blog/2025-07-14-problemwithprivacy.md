@@ -5,6 +5,13 @@ authors:
   - silhouette-team
 category: research
 description: Part two of the Silhouette shielded trading series. Why full-darkness privacy solutions (mixers, shielded L1s, early dark pools) broke DeFi and what to build instead.
+keywords:
+  - DeFi privacy
+  - privacy mirage
+  - mixers
+  - shielded L1
+  - dark pools
+  - shielded trading
 image: ./images/problemwithprivacy.png
 ---
 
