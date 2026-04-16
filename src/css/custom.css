@@ -1008,7 +1008,7 @@ main[class*="docMainContainer"] {
    from the article > header > h1 rule above. Inline h2/h3 stay sentence
    case but use Orbitron for character.
    ============================================ */
-article header h1 {
+.markdown header h1 {
   margin-top: 0;
   margin-bottom: var(--space-5);
   padding-top: 0;
