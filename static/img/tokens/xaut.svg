@@ -1,0 +1,23 @@
+<svg
+   width="48"
+   height="48"
+   viewBox="0 0 48 48"
+   fill="none"
+   version="1.1"
+   id="svg6"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <defs
+     id="defs6" />
+  <sodipodi:namedview
+     id="namedview6"
+     pagecolor="#ffffff"
+     bordercolor="#000000"
+     borderopacity="0.25" />
+  <path
+     d="m 23.999968,0 c 13.2549,0 24,10.7452 24,24 0,13.2548 -10.7451,24 -24,24 C 10.745168,48 0,37.2548 0,24 0,10.7452 10.745168,0 23.999968,0 Z m 2.7276,22.3633 v 10.9092 h -5.4541 v 5.455 h 5.455 v -5.455 h 5.4532 V 22.3633 Z m -10.9092,0 v 10.9092 h 5.4541 V 22.3633 Z m -4.0908,-10.9092 v 5.4551 h 9.5449 v 5.4541 h 5.4551 v -5.4541 h 4.77245 4.77245 v -5.4551 z"
+     fill="#d09803"
+     id="path6"
+     sodipodi:nodetypes="ssssscccccccccccccccccccccccc" />
+</svg>

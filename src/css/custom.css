@@ -1162,41 +1162,80 @@ article header h1 {
   font-weight: var(--fw-semibold);
 }
 
-/* Tables */
+/* Tables - Stripe-style, subtle alternating rows */
 .markdown table {
-  width: 100%;
-  border-collapse: collapse;
-  margin: var(--space-6) 0;
+  display: table !important;
+  width: 100% !important;
+  table-layout: fixed;
+  border-collapse: separate;
+  border-spacing: 0;
+  margin: var(--space-6) auto;
   font-size: var(--fs-sm);
-  border: 1px solid var(--border-default);
-  background: rgba(255, 255, 255, 0.015);
+  border: none;
+  background: transparent;
+  overflow: hidden;
+  border-radius: var(--radius-lg);
 }
 
 .markdown table th,
 .markdown table td {
   padding: var(--space-3) var(--space-4);
-  border-bottom: 1px solid var(--border-default);
+  border: none;
   text-align: left;
   vertical-align: top;
 }
 
 .markdown table thead th {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wider);
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.025);
+  background: rgba(255, 255, 255, 0.04);
+  padding: var(--space-3) var(--space-4);
 }
 
 .markdown table tbody td {
   color: var(--text-secondary);
 }
 
-.markdown table tbody tr:last-child td {
-  border-bottom: none;
+/* Wide cropped screenshot - 16:8 aspect, full content width */
+.app-screenshot--wide {
+  width: 100%;
+  max-width: none;
+  aspect-ratio: 16 / 8;
+  object-fit: cover;
+  object-position: top;
 }
+
+/* Inline token icons in tables */
+.token-icon {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  vertical-align: middle;
+  margin-right: 8px;
+  display: inline-block;
+}
+
+.markdown table tbody tr {
+  background: transparent;
+}
+
+.markdown table tbody tr:nth-child(2n) {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.markdown table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+/* Rounded corners on outer cells */
+.markdown table thead th:first-child { border-top-left-radius: var(--radius-lg); }
+.markdown table thead th:last-child { border-top-right-radius: var(--radius-lg); }
+.markdown table tbody tr:last-child td:first-child { border-bottom-left-radius: var(--radius-lg); }
+.markdown table tbody tr:last-child td:last-child { border-bottom-right-radius: var(--radius-lg); }
 
 /* ============================================
    ADMONITIONS - left border accent + token colors
@@ -1684,7 +1723,7 @@ article header h1 {
           mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);
   height: auto;
-  margin: var(--space-4) 0;
+  margin: var(--space-4) auto;
 }
 
 /* Size variants */

@@ -39,13 +39,26 @@ Your funds return to your wallet on HyperCore. There is no waiting period and no
 
 Your balances are visible in the Account Dashboard. The Balances panel shows your shielded spot holdings, and the Portfolio sidebar shows your total account value at a glance.
 
-<img src="/img/app-screenshots/balances-panel.png" alt="Balances panel showing shielded spot coin holdings" className="app-screenshot app-screenshot--md" />
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/balance-switch.gif" alt="Switching between spot and perps balances in the Account Dashboard" className="app-screenshot app-screenshot--lg" />
+<figcaption className="screenshot-caption">Toggle between spot and perps balances in the Account Dashboard</figcaption>
+</figure>
 
 <img src="/img/app-screenshots/portfolio-sidebar.png" alt="Portfolio sidebar showing account values" className="app-screenshot app-screenshot--sm" />
 
 ## Supported Assets
 
-Silhouette currently supports deposits and withdrawals of **USDC** and **HYPE**. Additional assets will be supported as new spot pairs are added.
+How you fund your account depends on which mode you are trading in.
+
+### Shielded mode
+
+Deposits and withdrawals move assets between HyperCore and Silhouette's shielded environment via the Transfer modal. You can deposit and withdraw any asset that has a shielded spot market - see the full list on [Shielded Trading](/trading/shielded-trading#supported-markets).
+
+Your deposit is the last publicly visible action until you withdraw. Everything inside Silhouette stays between you and the system.
+
+### Naked mode
+
+Naked trading uses your HyperCore balance directly - there is no separate deposit step. You fund your Hyperliquid account the normal way (bridge, CEX withdrawal, or L1 transfer) and trade immediately. All spot and perpetual markets on Hyperliquid are available - see [Naked Trading](/trading/naked-trading#supported-markets) for details.
 
 ## Fees
 

@@ -21,25 +21,40 @@ Get trading on Silhouette in five steps. You will need an EVM wallet and funds o
 
 Go to [app.silhouette.exchange](https://app.silhouette.exchange) and click **Connect Wallet**. Silhouette supports MetaMask, Rabby, WalletConnect, Coinbase Wallet, and email login.
 
-<img src="/img/flows/connect.png" alt="Connect wallet" width="252" height="372" />
+<img src="/img/flows/connect.png" alt="Connect wallet" className="app-screenshot app-screenshot--sm" />
 
-## 2. Switch to Shielded Mode
+## 2. Switch between Naked and Shielded Mode
 
-At the top of the page, toggle the switch from **Naked** to **Shielded**. This enables Silhouette's shielded trading flow, routing your orders through the secure execution environment. To understand the difference, see [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading).
+At the top of the page, toggle the switch between **Naked** and **Shielded**. Shielded mode routes your orders through the secure execution environment. Naked mode routes directly to Hyperliquid. To understand the difference, see [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading).
 
-<img src="/img/flows/shielded.png" alt="Switch to Shielded mode" />
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/shield-naked-switch.gif" alt="Switching between Naked and Shielded mode" className="app-screenshot app-screenshot--lg" />
+<figcaption className="screenshot-caption">Toggle between Naked and Shielded mode in the top bar</figcaption>
+</figure>
 
 ## 3. Connect to Shielded Trading
 
 Once in Shielded mode, you will be prompted to click the **Connect Shielded** button in the Accounts Dashboard. This establishes your encrypted connection with Silhouette's TEE.
 
-<img src="/img/flows/connect-shielded.png" alt="Connect Shielded" />
+<img src="/img/flows/connect-shielded.png" alt="Connect Shielded" className="app-screenshot app-screenshot--sm" />
 
 ## 4. Deposit Funds
 
-If you have assets on HyperCore, deposit them to Silhouette by clicking **To Silhouette** in the Accounts Dashboard (when in Naked mode), or by clicking **Transfer to/from Silhouette** in the Balances section at any time. Your funds then enter Silhouette's shielded custody flow on Hyperliquid.
+There are two ways to get funds into Silhouette:
 
-<img src="/img/flows/deposit-withdraw.png" alt="Deposit funds" />
+**From HyperCore** - If you already have assets on Hyperliquid, click **To Silhouette** in the Accounts Dashboard or **Transfer to/from Silhouette** in the Balances section. This moves funds from your HyperCore balance into Silhouette's shielded environment.
+
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/transfer-modal.png" alt="Transfer funds from HyperCore to Silhouette" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Transfer from HyperCore to Silhouette</figcaption>
+</figure>
+
+**From any chain via Li.Fi** - Click **Deposit** in the app to open the cross-chain bridge. This deposits directly into your Silhouette account from Ethereum, Arbitrum, Base, or any supported chain - skipping the HyperCore transfer step entirely.
+
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/deposit-modal.png" alt="Deposit from any chain via Li.Fi bridge" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Cross-chain deposit via Li.Fi - funds go straight into Silhouette</figcaption>
+</figure>
 
 ## 5. Start Trading
 

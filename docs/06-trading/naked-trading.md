@@ -36,10 +36,12 @@ Visibility is not always a disadvantage. There are times when you want the marke
 
 ## Supported Markets
 
-| Market | Status |
-|--------|--------|
-| Spot | Live |
-| Perpetuals | Live |
+Naked mode routes directly to Hyperliquid via Builder Codes. You have access to the full Hyperliquid market set - every spot pair and perpetual contract available on Hyperliquid is tradeable through Silhouette in naked mode.
+
+- **Spot**: All [spot pairs](https://app.hyperliquid.xyz/trade) listed on Hyperliquid
+- **Perpetuals**: All 100+ [perpetual contracts](https://app.hyperliquid.xyz/trade) listed on Hyperliquid
+
+Markets update automatically as Hyperliquid adds new listings.
 
 ## Order Types
 

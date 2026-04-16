@@ -32,16 +32,34 @@ After execution, Silhouette updates your shielded account state and reports the 
 | Aggregate volume from delegated wallets | Your balance inside Silhouette |
 | | Your strategy and intent |
 
-<img src="/img/app-screenshots/balances-panel.png" alt="Balances panel showing shielded spot holdings" className="app-screenshot app-screenshot--md" />
-
 ## Supported Markets
 
-| Market | Status |
-|--------|--------|
-| Spot | Live |
-| Perpetuals | On the roadmap |
+Shielded trading currently supports **spot markets** on Hyperliquid. Shielded perpetuals are on the roadmap.
 
-<img src="/img/app-screenshots/ShieldedMarketsSelector.png" alt="Shielded markets asset selector showing available spot pairs" className="app-screenshot app-screenshot--sm" />
+| Token | Description | Markets |
+|-------|-------------|---------|
+| <img src="/img/tokens/usdc.png" className="token-icon" alt="" /> USDC | USD Coin | Base pair |
+| <img src="/img/tokens/hype.png" className="token-icon" alt="" /> HYPE | Hyperliquid | HYPE/USDC, HYPE/USDH |
+| <img src="/img/tokens/usdh.jpg" className="token-icon" alt="" /> USDH | Hyperliquid Dollar | USDH/USDC |
+| <img src="/img/tokens/btc.png" className="token-icon" alt="" /> BTC | Bitcoin | UBTC/USDC, UBTC/USDH |
+| <img src="/img/tokens/eth.png" className="token-icon" alt="" /> ETH | Ethereum | UETH/USDC, UETH/USDH |
+| <img src="/img/tokens/sol.png" className="token-icon" alt="" /> SOL | Solana | USOL/USDC |
+| <img src="/img/tokens/zec.png" className="token-icon" alt="" /> ZEC | Zcash | UZEC/USDC |
+| <img src="/img/tokens/usdt.svg" className="token-icon" alt="" /> USDT | Tether | USDT0/USDC |
+| <img src="/img/tokens/fart.svg" className="token-icon" alt="" /> FART | Fartcoin | UFART/USDC |
+| <img src="/img/tokens/pump.svg" className="token-icon" alt="" /> PUMP | Pump Fun | UPUMP/USDC |
+| <img src="/img/tokens/usde.svg" className="token-icon" alt="" /> USDe | Ethena USDe | USDE/USDC |
+| <img src="/img/tokens/purr.svg" className="token-icon" alt="" /> PURR | Purr | PURR/USDC |
+| <img src="/img/tokens/xaut.svg" className="token-icon" alt="" /> XAUT | Tether Gold | XAUT0/USDC |
+| <img src="/img/tokens/kntq.svg" className="token-icon" alt="" /> KNTQ | Kinetiq | KNTQ/USDH |
+| <img src="/img/tokens/khype.svg" className="token-icon" alt="" /> KHYPE | Kinetiq Staked HYPE | KHYPE/USDH |
+
+Additional pairs are added as Hyperliquid's spot market offering expands.
+
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/ShieldedMarketsSelector.png" alt="Shielded markets asset selector showing available spot pairs" className="app-screenshot app-screenshot--wide" />
+<figcaption className="screenshot-caption">Select the asset selector in the top-left of the trading terminal to browse available shielded spot markets</figcaption>
+</figure>
 
 ## Order Types
 
