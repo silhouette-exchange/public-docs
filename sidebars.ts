@@ -55,6 +55,7 @@ const sidebars: SidebarsConfig = {
       ],
     },
 
+    { type: 'doc', id: 'compliance', label: 'Compliance' },
     { type: 'doc', id: 'referrals', label: 'Referrals' },
     { type: 'doc', id: 'faq', label: 'FAQs' },
     { type: 'doc', id: 'glossary', label: 'Glossary' },

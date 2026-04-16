@@ -84,7 +84,15 @@ Shielded limit orders are in development. In the current flow, shielded orders a
 
 ### Advanced Orders - Coming Soon
 
-TWAP, Scale, VWAP, and RFQ order types are planned for shielded mode. Each will extend the shielded layer to more trading strategies - same order book, same liquidity, without showing your hand.
+TWAP, Scale, and VWAP order types are planned for shielded mode. Each will extend the shielded layer to more trading strategies - same order book, same liquidity, without showing your hand.
+
+### Request for Quote (RFQ) - Coming Soon
+
+RFQ will allow traders to request block-sized quotes from market makers within the shielded environment. This is designed for large orders where direct market execution would create significant impact. RFQ will be the first [KYC-gated](/compliance#kyc-gated-features) feature on Silhouette, ensuring verified counterparties on both sides.
+
+### Shielded Binary Outcomes (HIP-4) - Coming Soon
+
+Silhouette plans to support shielded execution for Hyperliquid's HIP-4 binary outcome markets. This will let you take positions on binary events without revealing your conviction or size to other market participants.
 
 ## Why Trade Shielded
 
