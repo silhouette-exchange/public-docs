@@ -151,7 +151,6 @@ const config: Config = {
         sidebarPath: require.resolve('./guidesSidebars.ts'),
         showLastUpdateTime: true,
         showLastUpdateAuthor: true,
-        editUrl: 'https://github.com/silhouette-exchange/public-docs/tree/main/',
       },
     ],
     [
