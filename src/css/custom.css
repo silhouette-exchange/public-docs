@@ -929,12 +929,12 @@ main[class*="docMainContainer"] {
    ============================================ */
 .theme-doc-markdown {
   max-width: 760px;
-  padding: var(--space-10) var(--space-6) var(--space-12);
+  padding: var(--space-5) var(--space-6) var(--space-12);
 }
 
 @media screen and (min-width: 1024px) {
   .theme-doc-markdown {
-    padding: var(--space-12) var(--space-8) var(--space-16);
+    padding: var(--space-6) var(--space-8) var(--space-16);
   }
 }
 
@@ -942,7 +942,7 @@ main[class*="docMainContainer"] {
    BREADCRUMBS - mono with cyan accent
    ============================================ */
 .theme-doc-breadcrumbs {
-  margin-bottom: var(--space-6);
+  margin-bottom: var(--space-3);
   padding-bottom: 0;
   display: flex;
   align-items: center;
