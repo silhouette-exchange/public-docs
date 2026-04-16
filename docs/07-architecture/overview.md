@@ -55,14 +55,23 @@ The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the 
 
 ## How They Work Together
 
-```
-┌─────────────┐     ┌─────────────────┐     ┌──────────────┐
-│             │     │                 │     │              │
-│   Your      │────▶│   Silhouette    │────▶│  Hyperliquid │
-│   Browser   │     │   TEE           │     │  Order Book  │
-│             │◀────│                 │◀────│              │
-└─────────────┘     └─────────────────┘     └──────────────┘
-```
+<div className="arch-flow">
+<div className="arch-node">
+<div className="arch-node-label">Your Browser</div>
+</div>
+<div className="arch-arrow">
+<span className="arch-arrow-line" />
+</div>
+<div className="arch-node arch-node--accent">
+<div className="arch-node-label">Silhouette TEE</div>
+</div>
+<div className="arch-arrow">
+<span className="arch-arrow-line" />
+</div>
+<div className="arch-node">
+<div className="arch-node-label">Hyperliquid Order Book</div>
+</div>
+</div>
 
 **Deposit flow:**
 1. You deposit funds from your wallet to the Silhouette address

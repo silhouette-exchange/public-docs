@@ -1166,7 +1166,6 @@ article header h1 {
 .markdown table {
   display: table !important;
   width: 100% !important;
-  table-layout: fixed;
   border-collapse: separate;
   border-spacing: 0;
   margin: var(--space-6) auto;
@@ -1182,7 +1181,16 @@ article header h1 {
   padding: var(--space-3) var(--space-4);
   border: none;
   text-align: left;
-  vertical-align: top;
+  vertical-align: middle;
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 767px) {
+  .markdown table {
+    display: block !important;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
 }
 
 .markdown table thead th {
@@ -1236,6 +1244,144 @@ article header h1 {
 .markdown table thead th:last-child { border-top-right-radius: var(--radius-lg); }
 .markdown table tbody tr:last-child td:first-child { border-bottom-left-radius: var(--radius-lg); }
 .markdown table tbody tr:last-child td:last-child { border-bottom-right-radius: var(--radius-lg); }
+
+/* ============================================
+   ARCHITECTURE FLOW DIAGRAM
+   ============================================ */
+.arch-flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0;
+  margin: var(--space-8) 0;
+  padding: var(--space-4) 0;
+}
+
+.arch-node {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-1);
+  padding: var(--space-3) var(--space-4);
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-lg);
+  text-align: center;
+  flex-shrink: 0;
+}
+
+.arch-node {
+  transition: background var(--dur-base) var(--ease-standard),
+              border-color var(--dur-base) var(--ease-standard),
+              box-shadow var(--dur-base) var(--ease-standard);
+  cursor: default;
+}
+
+.arch-node:hover {
+  background: rgba(255, 255, 255, 0.06);
+  border-color: var(--border-strong);
+}
+
+.arch-node--accent {
+  background: rgba(0, 255, 242, 0.06);
+  border-color: rgba(0, 255, 242, 0.2);
+}
+
+.arch-node--accent:hover {
+  background: rgba(0, 255, 242, 0.1);
+  border-color: rgba(0, 255, 242, 0.4);
+  box-shadow: 0 0 16px rgba(0, 255, 242, 0.12);
+}
+
+.arch-node-label {
+  font-family: var(--font-sans);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
+  color: var(--text-default);
+  white-space: nowrap;
+}
+
+.arch-node--accent .arch-node-label {
+  color: var(--silh-cyan-tint-60);
+}
+
+.arch-arrow {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 0 var(--space-2);
+  flex-shrink: 0;
+}
+
+.arch-arrow-line {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  width: 32px;
+}
+
+.arch-arrow-line::before,
+.arch-arrow-line::after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 1px;
+}
+
+.arch-arrow-line::before {
+  background: linear-gradient(90deg, transparent, var(--silh-cyan-tint-30));
+  animation: archPulseCyan 2.4s ease-in-out infinite;
+}
+
+.arch-arrow-line::after {
+  background: linear-gradient(270deg, transparent, var(--silh-magenta-tint-50));
+  animation: archPulseMagenta 2.4s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+
+@keyframes archPulseCyan {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@keyframes archPulseMagenta {
+  0%, 100% { opacity: 0.3; }
+  50% { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .arch-arrow-line::before,
+  .arch-arrow-line::after {
+    animation: none;
+    opacity: 0.7;
+  }
+}
+
+.arch-arrow-label {
+  font-family: var(--font-mono);
+  font-size: 9px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  white-space: nowrap;
+}
+
+@media screen and (max-width: 600px) {
+  .arch-flow {
+    flex-direction: column;
+    gap: var(--space-2);
+  }
+  .arch-arrow {
+    padding: var(--space-1) 0;
+  }
+  .arch-arrow-line {
+    width: 1px;
+    height: 24px;
+    background: linear-gradient(180deg, var(--border-strong), var(--silh-cyan-tint-30), var(--border-strong));
+  }
+}
 
 /* ============================================
    ADMONITIONS - left border accent + token colors
