@@ -271,6 +271,8 @@ html[data-theme='dark'] {
   --ifm-card-background-color: var(--bg-base);
   --ifm-footer-background-color: var(--bg-base);
   --ifm-navbar-background-color: var(--bg-base);
+  --ifm-navbar-padding-vertical: 0;
+  --ifm-navbar-padding-horizontal: 0;
   --ifm-dropdown-background-color: var(--bg-base);
 }
 
@@ -556,6 +558,9 @@ body {
   position: relative;
   min-width: 220px;
   order: 5;
+  display: flex;
+  align-items: center;
+  align-self: center;
 }
 
 @media screen and (max-width: 996px) {
@@ -774,9 +779,9 @@ main[class*="docMainContainer"] {
   padding-right: var(--space-3) !important;
   max-width: 100%;
   box-sizing: border-box;
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: var(--fs-xs);
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wider);
   color: var(--text-default);
@@ -869,9 +874,9 @@ main[class*="docMainContainer"] {
 }
 
 .sidebar-section-title {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 11px;
-  font-weight: var(--fw-medium);
+  font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-widest);
   color: var(--text-tertiary);

@@ -17,11 +17,11 @@ keywords:
 
 # How Silhouette Works
 
-<img src="/img/app-screenshots/trade-full.png" alt="Silhouette Exchange trade page overview" className="app-screenshot app-screenshot--lg" />
-
 ## How does Silhouette work?
 
 Silhouette adds a shielded execution layer on top of Hyperliquid. From the outside, your trading activity is invisible. From the inside, you get the same order book, the same liquidity, and the same execution quality, without broadcasting your intent.
+
+<img src="/img/app-screenshots/trade-full.png" alt="Silhouette Exchange trade page overview" className="app-screenshot app-screenshot--lg" />
 
 Here's what happens when you trade on Silhouette, step by step:
 
