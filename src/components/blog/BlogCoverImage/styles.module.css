@@ -21,7 +21,7 @@
   aspect-ratio: 16 / 9;
   /* Inner border. No semantic token at 0.08 alpha; matches the value
      used in BlogCoverFallback so the two cover paths look identical. */
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: var(--radius-xl);
   overflow: hidden;
   background: var(--bg-base);

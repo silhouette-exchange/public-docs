@@ -73,7 +73,7 @@
   background: var(--bg-secondary);
   /* Spec 4g: 1px rgba(255, 255, 255, 0.06). No semantic token at this
      alpha; raw rgba honours the spec value. */
-  border: 1px solid rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: var(--radius-xl);
   overflow: hidden;
   text-decoration: none;

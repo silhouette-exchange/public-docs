@@ -6,7 +6,7 @@
   background: var(--bg-card);
   backdrop-filter: blur(var(--blur-sm));
   -webkit-backdrop-filter: blur(var(--blur-sm));
-  border-radius: var(--radius-none);
+  border-radius: var(--radius-sm);
   font-size: var(--fs-base);
   line-height: var(--lh-relaxed);
   color: var(--text-secondary);

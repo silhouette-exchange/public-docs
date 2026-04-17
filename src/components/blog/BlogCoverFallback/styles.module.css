@@ -42,7 +42,7 @@
   aspect-ratio: 16 / 9;
   background: var(--bg-base);
   /* Inner 1px border per spec 4i. No semantic token at this alpha. */
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   border-radius: var(--radius-xl);
   overflow: hidden;
   display: flex;

@@ -37,7 +37,7 @@
 }
 
 .categoryLink {
-  transition: color var(--dur-fast) var(--ease-out);
+  transition: color var(--dur-base) var(--ease-out);
 }
 
 .categoryLink:hover {

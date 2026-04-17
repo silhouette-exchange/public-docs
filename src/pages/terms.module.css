@@ -55,7 +55,7 @@
   font-size: 12px;
   line-height: 16px;
   text-transform: uppercase;
-  color: var(--cyan-tint-40);
+  color: var(--silh-cyan-tint-40);
 }
 
 .section {
@@ -127,7 +127,7 @@
 }
 
 .cyanLink {
-  color: var(--cyan-link);
+  color: var(--accent-secondary-text);
 }
 
 @media screen and (max-width: 996px) {

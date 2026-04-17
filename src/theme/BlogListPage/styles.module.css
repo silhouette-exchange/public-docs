@@ -71,7 +71,7 @@
   text-decoration: underline;
   text-underline-offset: 3px;
   cursor: pointer;
-  transition: color 0.15s ease;
+  transition: color var(--dur-base) var(--ease-standard);
 }
 
 .emptyResetButton:hover,
@@ -82,5 +82,5 @@
 .emptyResetButton:focus-visible {
   outline: 2px solid var(--silh-cyan-100);
   outline-offset: 2px;
-  border-radius: 2px;
+  border-radius: var(--radius-xs);
 }

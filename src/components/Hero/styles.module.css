@@ -338,7 +338,7 @@
 }
 
 .secondary {
-  background: rgba(253, 128, 255, 0.12);
+  background: rgba(253, 128, 255, 0.16);
   color: #fea6ff;
 }
 
@@ -413,7 +413,7 @@
     padding: 30px;
     background: rgba(19, 22, 26, 0.92);
     border: 1.2px solid rgba(46, 65, 66, 0.42);
-    border-radius: 5px;
+    border-radius: var(--radius-sm);
     backdrop-filter: blur(40px);
     -webkit-backdrop-filter: blur(40px);
     box-shadow: 0 36px 183px rgba(6, 7, 13, 0.91);
@@ -465,7 +465,7 @@
 }
 
 .panelDivider {
-  height: 1.2px;
+  height: 1px;
   background: linear-gradient(
     to right,
     transparent 0%,

@@ -249,6 +249,9 @@
   --search-local-hit-color: var(--text-default);
   --search-local-muted-color: var(--text-muted);
   --search-local-hit-active-color: var(--text-inverse);
+  /* Kill the blue/cyan focus outline on the search input inside the
+     dropdown. DS says no outline - just bg change to white@8%. */
+  --search-local-input-active-border-color: transparent;
 }
 
 /* Infima ships an invert(100%) filter at html[data-theme='dark'] meant to
@@ -335,6 +338,22 @@ body {
   font-family: var(--font-sans);
   color: var(--text-secondary);
   background: var(--bg-base);
+}
+
+/* Slashed zeros in all monospace contexts - prevents 0/O confusion in
+   technical docs. Matches dapp DS 'zero' 1 on inputs, tabs, tooltips. */
+code, pre, kbd, samp,
+.breadcrumbs__link,
+.navbar__link,
+.footer__title,
+.footer__copyright,
+.sidebar-section-title,
+.table-of-contents__heading,
+.pagination-nav__label,
+.screenshot-caption,
+.arch-arrow-label,
+.theme-admonition .admonition-heading {
+  font-feature-settings: 'zero' 1;
 }
 
 ::selection {
@@ -502,7 +521,7 @@ body {
   background: var(--silh-cyan-tint-60);
   color: var(--text-inverse);
   border: 1px solid transparent;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-sm);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
@@ -577,13 +596,14 @@ body {
   padding: 6px var(--space-16) 6px var(--space-8);
   background: rgba(255, 255, 255, 0.04);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   color: var(--text-secondary);
   font-family: var(--font-sans);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   font-weight: var(--fw-regular);
+  font-feature-settings: 'zero' 1;
   cursor: pointer;
-  height: 36px;
+  height: 40px;
   width: 100%;
   line-height: normal;
   box-sizing: border-box;
@@ -592,19 +612,20 @@ body {
 }
 
 .navbar__search-input::placeholder {
-  color: var(--text-muted);
+  color: var(--silh-zinc-500);
   font-family: var(--font-sans);
 }
 
 .navbar__search-input:hover {
   border: none;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 .navbar__search-input:focus {
   outline: none;
   border: none;
-  background: rgba(0, 255, 242, 0.04);
-  box-shadow: 0 0 0 2px rgba(0, 255, 242, 0.12);
+  background: rgba(255, 255, 255, 0.08);
+  box-shadow: none;
 }
 
 .navbar__search::before {
@@ -614,9 +635,9 @@ body {
   top: 50%;
   transform: translateY(-50%);
   z-index: 10;
-  width: 14px;
-  height: 14px;
-  background-image: url("data:image/svg+xml,%3Csvg width='14' height='14' viewBox='0 0 14 14' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='6' cy='6' r='5' stroke='%23a1a1aa' stroke-width='1.5'/%3E%3Cpath d='M10 10L13 13' stroke='%23a1a1aa' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
+  width: 16px;
+  height: 16px;
+  background-image: url("data:image/svg+xml,%3Csvg width='16' height='16' viewBox='0 0 16 16' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Ccircle cx='7' cy='7' r='5.5' stroke='%2371717a' stroke-width='1.5'/%3E%3Cpath d='M11 11L14.5 14.5' stroke='%2371717a' stroke-width='1.5' stroke-linecap='round'/%3E%3C/svg%3E");
   background-size: contain;
   background-repeat: no-repeat;
   background-position: center;
@@ -638,16 +659,16 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  min-width: 24px;
-  height: 24px;
+  min-width: 20px;
+  height: 20px;
   padding: 0 var(--space-1);
   border: none;
-  border-radius: var(--radius-md);
+  border-radius: var(--radius-xs);
   font-family: var(--font-mono);
-  font-size: 12px;
+  font-size: var(--fs-xs);
   font-style: normal;
   color: var(--text-muted);
-  background: rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.04);
   box-shadow: none;
 }
 
@@ -665,6 +686,22 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Search modal dropdown - override plugin's hardcoded styles */
+.navbar__search [class*="dropdownMenu"] {
+  border-radius: var(--radius-sm) !important;
+}
+
+/* Kill all blue/cyan focus outlines on the plugin's internal search
+   input. DS: no outline, just bg change to white@8%. */
+.navbar__search [class*="searchInput"]:focus,
+.navbar__search input:focus,
+.navbar__search input:focus-visible {
+  outline: none !important;
+  border-color: transparent !important;
+  box-shadow: none !important;
+  background: rgba(255, 255, 255, 0.08);
 }
 
 /* ============================================
@@ -720,7 +757,7 @@ main[class*="docMainContainer"] {
   font-weight: var(--fw-regular);
   line-height: var(--lh-snug);
   color: var(--text-muted);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   border: 1px solid transparent;
   min-height: 30px;
   transition: color var(--dur-base) var(--ease-standard),
@@ -911,8 +948,8 @@ main[class*="docMainContainer"] {
   top: 50%;
   transform: translateY(-50%);
   font-family: var(--font-mono);
-  font-size: 9px;
-  font-weight: var(--fw-medium);
+  font-size: 10px;
+  font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wider);
   color: var(--accent-primary-text);
@@ -1228,12 +1265,13 @@ main[class*="docMainContainer"] {
   height: 20px;
   border-radius: 50%;
   vertical-align: middle;
-  margin-right: 8px;
+  margin-right: var(--space-2);
   display: inline-block;
 }
 
 .markdown table tbody tr {
   background: transparent;
+  transition: background var(--dur-base) var(--ease-standard);
 }
 
 .markdown table tbody tr:nth-child(2n) {
@@ -1395,7 +1433,7 @@ main[class*="docMainContainer"] {
   background: rgba(255, 255, 255, 0.025);
   border: 1px solid var(--border-default);
   border-left-width: 2px;
-  border-radius: 0;
+  border-radius: var(--radius-sm);
   padding: var(--space-4) var(--space-5);
   margin: var(--space-6) 0;
 }
@@ -1423,7 +1461,7 @@ main[class*="docMainContainer"] {
 .alert--info,
 .alert--secondary {
   border-left-color: var(--accent-secondary);
-  background: rgba(0, 255, 242, 0.04);
+  background: rgba(0, 255, 242, 0.08);
 }
 .theme-admonition-info .admonition-heading,
 .alert--info .admonition-heading,
@@ -1541,9 +1579,9 @@ main[class*="docMainContainer"] {
   flex-direction: column;
   gap: var(--space-2);
   min-height: 76px;
-  background: rgba(255, 255, 255, 0.02);
+  background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   padding: var(--space-4) var(--space-5);
   transition: transform var(--dur-base) var(--ease-emphasis),
               border-color var(--dur-base) var(--ease-standard),
@@ -1553,7 +1591,7 @@ main[class*="docMainContainer"] {
 }
 
 .pagination-nav__link:hover {
-  background: rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.08);
   border-color: var(--border-strong);
   text-decoration: none;
   transform: translateY(-2px);
@@ -1625,7 +1663,7 @@ main[class*="docMainContainer"] {
    ============================================ */
 .theme-code-block {
   border: 1px solid var(--border-default);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   overflow: hidden;
   margin: var(--space-6) 0;
   background: rgba(0, 0, 0, 0.4);
@@ -1663,7 +1701,7 @@ main[class*="docMainContainer"] {
 .theme-code-block-copy-button {
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid var(--border-strong);
-  border-radius: var(--radius-xs);
+  border-radius: var(--radius-sm);
   color: var(--text-muted);
   font-family: var(--font-mono);
   font-size: var(--fs-xs);
@@ -1750,14 +1788,14 @@ main[class*="docMainContainer"] {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  padding: 10px var(--space-6);
+  padding: 8px var(--space-6);
   font-family: var(--font-sans);
   font-size: var(--fs-sm);
   font-weight: var(--fw-medium);
   background: rgba(0, 255, 242, 0.1);
   color: var(--silh-cyan-tint-60);
   border: none;
-  border-radius: var(--radius-lg);
+  border-radius: var(--radius-sm);
   text-decoration: none !important;
   white-space: nowrap;
   transition:
@@ -1869,7 +1907,7 @@ main[class*="docMainContainer"] {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 8px;
+  border-radius: var(--radius-lg);
   -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
           mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
   box-shadow: 0 4px 24px rgba(0, 0, 0, 0.4);

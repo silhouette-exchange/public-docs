@@ -63,7 +63,7 @@
   padding: var(--space-6) 0;
   text-decoration: none;
   color: inherit;
-  transition: background var(--dur-fast) var(--ease-out);
+  transition: background var(--dur-base) var(--ease-out);
 }
 
 .row:hover,
@@ -117,7 +117,7 @@
   /* 4px margin-top per spec. --space-1 is 4px. */
   margin-top: var(--space-1);
   text-wrap: balance;
-  transition: color var(--dur-fast) var(--ease-out);
+  transition: color var(--dur-base) var(--ease-out);
 }
 
 .row:hover .title,

@@ -3,6 +3,7 @@
   overflow-x: auto;
   border: 1px solid var(--border-default);
   background: var(--bg-card);
+  border-radius: var(--radius-sm);
 }
 
 .table {

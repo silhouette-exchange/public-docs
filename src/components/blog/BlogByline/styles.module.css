@@ -89,7 +89,7 @@
   object-fit: cover;
   /* Spec 5c: 1px rgba(255, 255, 255, 0.1) border. No semantic token at
      this exact alpha; raw rgba matches spec value. */
-  border: 1px solid rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.04);
   /* Match the root background so the overlap notch reads as a clean
      ring rather than a bleed-through of whatever sits behind the row. */
   background: var(--bg-base);
@@ -158,7 +158,7 @@
 .nameLink {
   text-decoration: none;
   color: inherit;
-  transition: color var(--dur-fast) var(--ease-out);
+  transition: color var(--dur-base) var(--ease-out);
 }
 
 .nameLink:hover .name,
