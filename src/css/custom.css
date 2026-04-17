@@ -426,6 +426,8 @@ button, a, [role="button"], input, select, textarea {
   -webkit-backdrop-filter: blur(var(--blur-md)) saturate(1.4);
   border-bottom: 1px solid var(--border-subtle);
   height: 60px;
+  padding-left: env(safe-area-inset-left, 0);
+  padding-right: env(safe-area-inset-right, 0);
   padding: 0;
   box-shadow: none;
 }
@@ -1749,7 +1751,7 @@ main[class*="docMainContainer"] {
   backdrop-filter: blur(var(--blur-md));
   -webkit-backdrop-filter: blur(var(--blur-md));
   border-top: 1px solid var(--border-subtle);
-  padding: var(--space-16) 0 var(--space-10);
+  padding: var(--space-16) 0 calc(var(--space-10) + env(safe-area-inset-bottom, 0));
   width: 100%;
   margin: 0;
   position: relative;

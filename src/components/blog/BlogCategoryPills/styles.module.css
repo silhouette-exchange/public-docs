@@ -1,39 +1,18 @@
 /*
  * BlogCategoryPills
  *
- * Horizontal row of filter pills for the /blog listing. Dumb component:
- * parent BlogListPage swizzle (Phase 3 Task 3.3) owns URL query param
- * sync and passes activeSlug as a prop. This file handles visual style
- * only. All values reference :root tokens from src/css/custom.css where
- * a token exists. Where a spec value has no matching semantic token,
- * raw rgba is used with an inline comment flagging it.
+ * Horizontal row of filter pills for the /blog listing. Styled to match
+ * the dapp DS tab-group pattern: small, bordered, no full-radius pills.
  *
- * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4c
+ * Spec: dapp-beta-design-system-guidelines.md §10b Tab Groups
  */
 
-/*
- * The toolbar container owns NO page-level layout. No max-width, no
- * margin-inline: auto, no horizontal page padding. The parent swizzle
- * provides the 1080px max-width plus responsive side padding, same as
- * BlogPublicationHeader.
- *
- * Top padding is 0 because the sibling above (BlogPublicationHeader)
- * already provides its own 24px bottom padding, and stacking another
- * 32px on top of that bloats the subtitle-to-pills gap to 56px+. The
- * bottom padding is the gap between the pill row and the hero card
- * that follows.
- */
 .toolbar {
   display: flex;
   flex-wrap: wrap;
-  gap: var(--space-3);
+  gap: var(--space-2);
   padding-top: 0;
   padding-bottom: var(--space-6);
-  /*
-   * Top-down stagger entrance. Second in sequence behind
-   * BlogPublicationHeader (0ms), so delay is 80ms. Shared
-   * fadeSlideUp keyframe lives in src/css/custom.css.
-   */
   animation: fadeSlideUp 480ms var(--ease-out) both;
   animation-delay: 80ms;
 }
@@ -47,39 +26,27 @@
 }
 
 .pill {
-  /* Idle border. Spec says rgba(255,255,255,0.1); --border-soft-white is
-     rgba(255,255,255,0.16). 0.06 alpha delta is imperceptible and using
-     the semantic token keeps the component in sync with the design
-     system if the token is ever retuned. */
-  border: 1px solid var(--border-soft-white);
+  border: 1px solid var(--border-default);
   background: transparent;
-  /*
-   * 44px minimum touch target per WCAG 2.2 and the site-wide rule.
-   * Math: 2 * var(--space-3) (12px) + 14px font + 2 * 1px border = 40px.
-   * var(--space-3)+2px extra via min-height gets us to 44px without
-   * the pills feeling bloated. Height is enforced to min-height so
-   * multi-line category labels (if any author ever lands that) wrap
-   * instead of squashing the touch target.
-   */
-  padding: var(--space-2) var(--space-4);
-  border-radius: var(--radius-full);
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-sm);
   font-family: var(--font-sans);
-  font-size: var(--fs-sm);
+  font-size: var(--fs-xs);
   font-weight: var(--fw-medium);
   line-height: 1;
   color: var(--text-muted);
   cursor: pointer;
+  white-space: nowrap;
   transition:
-    border-color var(--dur-base) var(--ease-out),
-    color var(--dur-base) var(--ease-out),
-    background var(--dur-base) var(--ease-out);
+    border-color var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard),
+    background var(--dur-base) var(--ease-standard);
 }
 
 .pill:hover {
-  /* Hover border. No existing semantic token for this alpha; raw rgba
-     used. */
-  border-color: rgba(255, 255, 255, 0.18);
+  border-color: var(--border-strong);
   color: var(--text-default);
+  background: rgba(255, 255, 255, 0.04);
 }
 
 .pill:focus-visible {
@@ -88,34 +55,21 @@
 }
 
 .pillActive {
-  /* Active fill: magenta-cyan gradient per design spec 4c. Magenta side
-     uses the semantic token --accent-primary-muted (resolves to
-     silh-magenta-alpha-20, a 5% alpha delta from the spec's 0.15 which
-     is imperceptible). Cyan side has no equivalent semantic token. */
-  background: linear-gradient(
-    135deg,
-    var(--accent-primary-muted),
-    /* TODO: replace with --accent-secondary-muted token if added later */
-      rgba(0, 255, 242, 0.15)
-  );
-  /* Active border. No existing semantic token for this alpha; raw rgba
-     used. */
-  border-color: rgba(255, 255, 255, 0.3);
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
   color: var(--text-default);
 }
 
 .pillActive:hover {
-  /* Keep the active styling stable on hover so the active pill does
-     not flicker back to the hover border. */
-  border-color: rgba(255, 255, 255, 0.3);
+  border-color: var(--border-strong);
   color: var(--text-default);
 }
 
-/* 44px touch target on mobile only. Desktop mouse clicks are fine at
-   the natural ~32px height from padding + font. */
 @media (pointer: coarse) {
   .pill {
     min-height: 44px;
-    padding: var(--space-3) var(--space-5);
+    padding: var(--space-2) var(--space-4);
+    display: inline-flex;
+    align-items: center;
   }
 }

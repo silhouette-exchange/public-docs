@@ -44,6 +44,13 @@ const config: Config = {
   },
   headTags: [
     {
+      tagName: 'meta',
+      attributes: {
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
+      },
+    },
+    {
       tagName: 'link',
       attributes: {
         rel: 'preconnect',
