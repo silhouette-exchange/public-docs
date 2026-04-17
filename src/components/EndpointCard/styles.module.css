@@ -209,3 +209,10 @@
     display: none;
   }
 }
+
+@media (pointer: coarse) {
+  .tryLink {
+    min-height: 44px;
+    padding: 0 var(--space-3);
+  }
+}

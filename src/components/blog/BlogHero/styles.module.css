@@ -72,6 +72,10 @@
   box-shadow: 0 0 64px rgba(250, 0, 255, 0.22);
 }
 
+.hero:active {
+  transform: translateY(-1px);
+}
+
 .hero:focus-visible {
   outline: 2px solid var(--focus-ring-color);
   outline-offset: 2px;
@@ -85,7 +89,6 @@
    */
   .split {
     grid-template-columns: 3fr 2fr;
-    max-height: 360px;
     overflow: hidden;
   }
 }

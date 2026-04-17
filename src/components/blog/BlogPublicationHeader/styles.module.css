@@ -58,6 +58,13 @@
   letter-spacing: var(--tracking-tighter);
   line-height: var(--lh-tight);
   color: var(--text-default);
+  text-wrap: balance;
+}
+
+@media screen and (max-width: 640px) {
+  .title {
+    font-size: clamp(1.5rem, 7vw, 2.25rem);
+  }
 }
 
 .subtitle {

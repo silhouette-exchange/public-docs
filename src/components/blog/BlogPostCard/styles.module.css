@@ -98,6 +98,10 @@
   transform: translateY(-2px);
 }
 
+.card:active {
+  transform: translateY(-1px);
+}
+
 .card:focus-visible {
   outline: 2px solid var(--focus-ring-color);
   outline-offset: 2px;

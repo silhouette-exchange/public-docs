@@ -122,6 +122,12 @@
   min-height: 100%;
 }
 
+@media (max-width: 380px) {
+  .grid {
+    grid-auto-columns: 85%;
+  }
+}
+
 @media (min-width: 996px) {
   .grid {
     /* Tablet: 3 columns wrapping naturally, no horizontal scroll. */
