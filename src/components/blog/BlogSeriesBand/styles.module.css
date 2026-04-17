@@ -106,6 +106,8 @@
   grid-auto-columns: 72%;
   gap: var(--space-4);
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  overscroll-behavior-x: contain;
   scroll-snap-type: x proximity;
   scroll-padding-inline: var(--space-4);
   /* Hide scrollbar on supporting browsers; the snap + overflow makes

@@ -356,6 +356,12 @@ code, pre, kbd, samp,
   font-feature-settings: 'zero' 1;
 }
 
+/* ---------- Mobile touch fundamentals ---------- */
+button, a, [role="button"], input, select, textarea {
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
+}
+
 ::selection {
   background: rgba(0, 255, 242, 0.25);
   color: var(--text-default);
@@ -430,6 +436,7 @@ code, pre, kbd, samp,
   margin: 0 auto;
   padding: 0 var(--space-6);
   display: flex;
+  flex-wrap: nowrap;
   align-items: center;
   justify-content: space-between;
   gap: var(--space-6);
@@ -986,6 +993,7 @@ main[class*="docMainContainer"] {
 }
 
 .breadcrumbs {
+  flex-wrap: wrap;
   margin: 0;
   padding: 0;
   display: flex;
@@ -1218,8 +1226,7 @@ main[class*="docMainContainer"] {
   border-radius: var(--radius-lg);
 }
 
-.markdown table th,
-.markdown table td {
+.markdown table th {
   padding: var(--space-3) var(--space-4);
   border: none;
   text-align: left;
@@ -1227,11 +1234,19 @@ main[class*="docMainContainer"] {
   white-space: nowrap;
 }
 
+.markdown table td {
+  padding: var(--space-3) var(--space-4);
+  border: none;
+  text-align: left;
+  vertical-align: middle;
+}
+
 @media screen and (max-width: 767px) {
   .markdown table {
     display: block !important;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
+    max-width: 100%;
   }
 }
 
@@ -1907,6 +1922,7 @@ main[class*="docMainContainer"] {
   display: block;
   margin-left: auto;
   margin-right: auto;
+  max-width: 100%;
   border-radius: var(--radius-lg);
   -webkit-mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
           mask-image: radial-gradient(ellipse 95% 90% at 50% 50%, #000 60%, transparent 100%);
@@ -2076,6 +2092,47 @@ main[class*="docMainContainer"] {
   .markdown * {
     overflow-wrap: anywhere;
     word-break: break-word;
+  }
+
+  /* Catch raw MDX-embedded images without .app-screenshot class */
+  .theme-doc-markdown img {
+    max-width: 100%;
+    height: auto;
+  }
+
+  /* Reduce nested list indentation on mobile */
+  .markdown ul ul,
+  .markdown ol ol,
+  .markdown ul ol,
+  .markdown ol ul {
+    padding-left: var(--space-4);
+  }
+
+  /* Footer brand min-width overflows at 320px */
+  .footer__brand {
+    min-width: 0;
+    width: 100%;
+  }
+
+  /* Code block inner scroll */
+  .theme-code-block pre {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  /* Touch targets on code copy button */
+  .theme-code-block button[class*="copyButton"],
+  .theme-code-block-copy-button {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+}
+
+/* Pagination single-column on narrow screens */
+@media screen and (max-width: 480px) {
+  .pagination-nav {
+    grid-template-columns: 1fr;
   }
 }
 

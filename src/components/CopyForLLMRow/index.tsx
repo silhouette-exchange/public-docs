@@ -63,23 +63,25 @@ function CopyForLLMRowInner(): ReactNode {
   return (
     <div className={styles.row} aria-label="Open this page in an AI assistant">
       <span className={styles.label}>Use with AI</span>
-      <button type="button" className={styles.btn} onClick={handleCopy}>
-        {copied ? 'Copied' : 'Copy as Markdown'}
-      </button>
-      <button type="button" className={styles.btn} onClick={handleOpenInChatGPT}>
-        Open in ChatGPT
-      </button>
-      <button type="button" className={styles.btn} onClick={handleOpenInClaude}>
-        Open in Claude
-      </button>
-      <a
-        className={styles.btn}
-        href={mdUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-      >
-        View .md
-      </a>
+      <div className={styles.btnGroup}>
+        <button type="button" className={styles.btn} onClick={handleCopy}>
+          {copied ? 'Copied' : 'Copy as Markdown'}
+        </button>
+        <button type="button" className={styles.btn} onClick={handleOpenInChatGPT}>
+          Open in ChatGPT
+        </button>
+        <button type="button" className={styles.btn} onClick={handleOpenInClaude}>
+          Open in Claude
+        </button>
+        <a
+          className={styles.btn}
+          href={mdUrl}
+          target="_blank"
+          rel="noopener noreferrer"
+        >
+          View .md
+        </a>
+      </div>
     </div>
   );
 }

@@ -1,6 +1,7 @@
 .wrap {
   margin: var(--space-6) 0;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   border: 1px solid var(--border-default);
   background: var(--bg-card);
   border-radius: var(--radius-sm);
