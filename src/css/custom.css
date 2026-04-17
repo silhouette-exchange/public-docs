@@ -1982,8 +1982,16 @@ main[class*="docMainContainer"] {
 /* Mobile drawer must sit above everything. Applied globally (not
    inside a media query) because Docusaurus can render the sidebar
    markup at any width and toggle visibility with classes. */
+/* When the mobile drawer is open, the parent <nav> must expand to full
+   viewport height. Without this, .navbar { height: 60px } clips the
+   sidebar to 59px and the nav links are invisible. */
+.navbar-sidebar--show {
+  height: 100vh;
+}
+
 .navbar-sidebar {
   z-index: 10000 !important;
+  height: 100%;
 }
 
 .navbar-sidebar__backdrop {
@@ -1998,6 +2006,29 @@ main[class*="docMainContainer"] {
 
   .navbar-sidebar__brand {
     border-bottom: 1px solid var(--border-subtle);
+    padding: 0 var(--space-4);
+  }
+
+  .navbar-sidebar__close {
+    padding: var(--space-2);
+    margin-right: var(--space-1);
+    min-width: 44px;
+    min-height: 44px;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .navbar-sidebar__back {
+    font-family: var(--font-sans);
+    font-size: var(--fs-sm);
+    font-weight: var(--fw-medium);
+    color: var(--text-muted);
+    background: rgba(255, 255, 255, 0.04);
+    padding: var(--space-3) var(--space-4);
+    margin: 0;
+    width: 100%;
+    top: 0;
+    border-radius: 0;
   }
 
   /* Touch targets - WCAG 2.2 SC 2.5.8 */
