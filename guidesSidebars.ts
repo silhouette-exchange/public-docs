@@ -24,8 +24,8 @@ const guidesSidebars: SidebarsConfig = {
     {
       type: 'category',
       label: 'Comparisons',
-      collapsed: true,
-      items: ['comparisons/index'],
+      collapsed: false,
+      items: ['comparisons/index', 'comparisons/tee-vs-zk-vs-mpc'],
     },
   ],
 };
