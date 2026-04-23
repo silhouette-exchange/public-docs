@@ -1212,7 +1212,7 @@ article:has(header h1) {
 
 /* Table of Contents (right sidebar) - ensure it's on the right */
 .theme-doc-toc-desktop {
-  min-width: 200px !important;
+  min-width: 240px !important;
   max-width: none !important;
   width: auto !important;
   padding-left: 24px !important;
@@ -1236,6 +1236,7 @@ article:has(header h1) {
   display: block !important;
   border-radius: 0 !important;
   transition: all 0.2s ease !important;
+  white-space: nowrap !important;
 }
 
 .table-of-contents__link:hover {

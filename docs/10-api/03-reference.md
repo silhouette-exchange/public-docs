@@ -336,11 +336,11 @@ curl https://api.silhouette.exchange/v0 \
 
 - Save the returned `orderId` to track the order or correlate it with delegated-order records later.
 
-**Related operations**: Use `getUserOrders` to view your orders, and `getBalances` to check available funds.
+**Related operations**: Use `listDelegatedOrders` to view your orders, and `getBalances` to check available funds.
 
-## getUserOrders
+## listDelegatedOrders
 
-Retrieve a list of your orders, optionally filtered by status. This shows all order details including amounts, prices, and current status.
+Retrieve a paginated list of delegated orders for the authenticated user, optionally filtered by status, order type, or creation time. This is the primary way to enumerate orders placed on your behalf via `createOrder`.
 
 **Endpoint**: `POST https://api.silhouette.exchange/v0`
 
@@ -350,8 +350,13 @@ Retrieve a list of your orders, optionally filtered by status. This shows all or
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| operation | string | Yes | Must be `"getUserOrders"` |
-| status | string | No | Filter orders by status: `"pending"`, `"open"`, `"filled"`, `"partially_filled"`, `"cancelled"`, `"expired"`, or `"failed"`. Omit to get all orders. |
+| operation | string | Yes | Must be `"listDelegatedOrders"` |
+| status | string | No | Filter orders by status: `"pending"`, `"open"`, `"filled"`, `"partially_filled"`, `"cancelled"`, `"expired"`, or `"failed"` |
+| orderType | string | No | Filter orders by order type: `"limit"` or `"market"` |
+| createdAfter | number | No | Unix timestamp in milliseconds. Only return orders created after this time. |
+| createdBefore | number | No | Unix timestamp in milliseconds. Only return orders created before this time. |
+| limit | number | No | Maximum orders to return, from 1 to 100 |
+| cursor | string | No | Pagination cursor returned by a previous response |
 
 **Example request (all orders)**:
 
@@ -360,19 +365,21 @@ curl https://api.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
-    "operation": "getUserOrders"
+    "operation": "listDelegatedOrders"
   }'
 ```
 
-**Example request (filtered by status)**:
+**Example request (filtered and paginated)**:
 
 ```bash
 curl https://api.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
-    "operation": "getUserOrders",
-    "status": "open"
+    "operation": "listDelegatedOrders",
+    "status": "open",
+    "orderType": "limit",
+    "limit": 50
   }'
 ```
 
@@ -380,40 +387,23 @@ curl https://api.silhouette.exchange/v0 \
 
 ```json
 {
-  "operation": "getUserOrders",
+  "operation": "listDelegatedOrders",
   "orders": [
     {
-      "orderId": "550e8400-e29b-41d4-a716-446655440000",
+      "orderId": "dord_1234567890abcdef",
+      "clientOrderId": "client_abc123",
       "side": "buy",
       "orderType": "limit",
       "baseToken": "HYPE",
-      "quoteToken": "USDC",
-      "amount": "100000000",
-      "amountFloat": "100.0",
-      "price": "1250000",
-      "priceFloat": "1.25",
       "status": "open",
-      "createdAt": 1705313400000,
-      "updatedAt": 1705313400000
-    },
-    {
-      "orderId": "650e8400-e29b-41d4-a716-446655440001",
-      "side": "sell",
-      "orderType": "market",
-      "baseToken": "HYPE",
-      "quoteToken": "USDC",
-      "amount": "50000000",
-      "amountFloat": "50.0",
-      "price": "1180000",
-      "priceFloat": "1.18",
-      "status": "filled",
-      "createdAt": 1705313200000,
-      "updatedAt": 1705313250000
+      "createdAt": 1704067200000
     }
   ],
+  "pagination": {
+    "nextCursor": "eyJpZCI6ImRvcmRfMTIzNDU2Nzg5MGFiY2RlZiJ9"
+  },
   "responseMetadata": {
-    "timestamp": 1705313400,
-    "requestId": "750e8400-e29b-41d4-a716-446655440002"
+    "timestamp": 1704067200000
   }
 }
 ```
@@ -422,36 +412,110 @@ curl https://api.silhouette.exchange/v0 \
 
 | Field | Type | Description |
 |-------|------|-------------|
-| orderId | string | Unique identifier for the order |
-| side | string | Order side: `"buy"` or `"sell"` |
-| orderType | string | Order type: `"limit"` or `"market"` |
-| baseToken | string | The token being traded |
-| quoteToken | string | The token used for pricing |
-| amount | string | Order amount in the token's smallest unit |
-| amountFloat | string | Order amount as a human-readable decimal |
-| price | string | Submitted execution price in scaled format |
-| priceFloat | string | Submitted execution price as a human-readable decimal |
-| status | string | Current order status |
-| createdAt | number | Unix timestamp (milliseconds) when the order was created |
-| updatedAt | number | Unix timestamp (milliseconds) when the order was last updated |
+| orders | array | Delegated-order summaries for the current page |
+| orders[].orderId | string | Unique delegated-order identifier, prefixed with `dord_` |
+| orders[].clientOrderId | string | Client-provided order identifier, when supplied |
+| orders[].side | string | Order side: `"buy"` or `"sell"` |
+| orders[].orderType | string | Order type: `"limit"` or `"market"` |
+| orders[].baseToken | string | Base token symbol |
+| orders[].status | string | Current order status |
+| orders[].createdAt | number | Unix timestamp (milliseconds) when the order was created |
+| pagination.nextCursor | string | Cursor to pass as `cursor` on the next request to fetch the following page. Absent on the final page. |
 
-**Order status values**:
+**Notes**:
 
-- `"pending"`: Order created but not yet processed
-- `"open"`: Order is active and can be filled
-- `"filled"`: Order has been completely executed
-- `"partially_filled"`: Order has been partially executed
-- `"cancelled"`: Order was cancelled before completion
-- `"expired"`: Order expired before being filled
-- `"failed"`: Order failed to process
+- Results are returned in reverse chronological order (newest first)
+- To retrieve full order detail, call `getDelegatedOrder` with a single `orderId` or `batchGetDelegatedOrders` with multiple IDs
+- Only orders belonging to the authenticated user are returned
+
+**Related operations**: Use `getDelegatedOrder` or `batchGetDelegatedOrders` to fetch full detail, and `createOrder` to place new orders.
+
+## getDelegatedOrder
+
+Retrieve full details for a single delegated order by its order ID.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"getDelegatedOrder"` |
+| orderId | string | Yes | Unique identifier of the delegated order, prefixed with `dord_` |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "getDelegatedOrder",
+    "orderId": "dord_1234567890abcdef"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "getDelegatedOrder",
+  "order": {
+    "orderId": "dord_1234567890abcdef",
+    "side": "buy",
+    "orderType": "limit",
+    "baseToken": "HYPE",
+    "quoteToken": "USDC",
+    "amount": "1000000",
+    "amountFloat": "0.01",
+    "price": "40000000",
+    "priceFloat": "40",
+    "status": "filled",
+    "expiry": 1704153600,
+    "createdAt": 1704067200000,
+    "updatedAt": 1704070800000,
+    "filledAmount": "1000000",
+    "filledPrice": "39500000",
+    "remainingAmount": "0",
+    "clearingVenue": "hyperliquid"
+  },
+  "responseMetadata": {
+    "timestamp": 1704070800000
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| order.orderId | string | Unique delegated-order identifier |
+| order.side | string | Order side: `"buy"` or `"sell"` |
+| order.orderType | string | Order type: `"limit"` or `"market"` |
+| order.baseToken | string | Base token symbol |
+| order.quoteToken | string | Quote token symbol |
+| order.amount | string | Order amount in the token's smallest unit |
+| order.amountFloat | string | Order amount as a human-readable decimal |
+| order.price | string | Order price in the smallest unit, for limit orders |
+| order.priceFloat | string | Order price as a human-readable decimal |
+| order.status | string | Current order status |
+| order.expiry | number | Order expiry as a Unix timestamp (seconds) |
+| order.createdAt | number | Unix timestamp (milliseconds) when the order was created |
+| order.updatedAt | number | Unix timestamp (milliseconds) when the order was last updated |
+| order.filledAmount | string | Amount filled, for `filled` or `partially_filled` orders |
+| order.filledPrice | string | Execution price, for `filled` or `partially_filled` orders |
+| order.remainingAmount | string | Unfilled amount in the token's smallest unit |
+| order.clearingVenue | string | Venue where the order is executed (currently always `"hyperliquid"`) |
 
 **Error responses**:
 
 ```json
 {
-  "operation": "getUserOrders",
-  "error": "Invalid status filter.",
-  "code": "VALIDATION_ERROR",
+  "operation": "getDelegatedOrder",
+  "error": "Delegated order with ID 'dord_1234567890abcdef' not found for user",
+  "code": "NOT_FOUND",
   "responseMetadata": {
     "timestamp": 1705313400
   }
@@ -460,10 +524,93 @@ curl https://api.silhouette.exchange/v0 \
 
 **Notes**:
 
-- Orders are returned in reverse chronological order (newest first)
-- If you have no orders, the `orders` array will be empty
-- Both raw and float representations are provided for amounts and prices
-- Use the `status` filter to find specific orders.
+- You can only retrieve delegated orders that belong to the authenticated user. Looking up another user's order returns `NOT_FOUND`
+- To retrieve several orders in a single request, use `batchGetDelegatedOrders`
+
+**Related operations**: Use `listDelegatedOrders` to enumerate orders, and `batchGetDelegatedOrders` to fetch multiple orders in one call.
+
+## batchGetDelegatedOrders
+
+Retrieve full details for up to 100 delegated orders in a single request.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"batchGetDelegatedOrders"` |
+| orderIds | array of strings | Yes | Delegated-order IDs to retrieve. Between 1 and 100 entries. |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "batchGetDelegatedOrders",
+    "orderIds": [
+      "dord_1234567890abcdef",
+      "dord_fedcba0987654321"
+    ]
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "batchGetDelegatedOrders",
+  "orders": [
+    {
+      "orderId": "dord_1234567890abcdef",
+      "side": "buy",
+      "orderType": "limit",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "amount": "1000000",
+      "amountFloat": "0.01",
+      "price": "40000000",
+      "priceFloat": "40",
+      "status": "open",
+      "expiry": 1704153600,
+      "createdAt": 1704067200000,
+      "updatedAt": 1704067200000,
+      "remainingAmount": "1000000",
+      "clearingVenue": "hyperliquid"
+    }
+  ],
+  "notFound": [
+    "dord_fedcba0987654321"
+  ],
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| orders | array | Full order detail for each ID that matched an order you own. Entries use the same shape as `getDelegatedOrder`. |
+| notFound | array of strings | Order IDs from the request that could not be resolved, either because they do not exist or do not belong to you |
+
+**Notes**:
+
+- Request up to 100 `orderIds` per call
+- Missing or foreign orders are reported through `notFound` rather than an error, so partial results are always returned when at least one ID resolves
+
+**Related operations**: Use `listDelegatedOrders` to discover order IDs, and `getDelegatedOrder` to fetch a single order.
+
+## getUserOrders
+
+:::danger Decommissioned
+`getUserOrders` has been fully decommissioned. Use the delegated-order operations instead: `listDelegatedOrders` to enumerate and paginate orders, `getDelegatedOrder` for a single order, or `batchGetDelegatedOrders` to fetch multiple orders in one call.
+:::
 
 ## initiateWithdrawal
 
