@@ -9,6 +9,8 @@ tags: [article]
 
 Over the last few months, we’ve been working with a series of traders and users refining the shielded experience. Today, we go live in an open beta.
 
+<!-- truncate -->
+
 ## What Is Available
 
 Spot HYPE/USDC using our shielded feature.

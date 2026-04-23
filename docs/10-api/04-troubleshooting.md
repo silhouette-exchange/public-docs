@@ -192,7 +192,7 @@ Causes:
 Solutions:
 
 - Verify the order ID is correct
-- Use `getUserOrders` to check your current orders
+- Use `listDelegatedOrders` to check your current orders
 
 ### Withdrawal Not Found
 
