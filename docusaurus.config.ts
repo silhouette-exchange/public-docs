@@ -284,63 +284,48 @@ const config: Config = {
      * plugin so its postBuild sees the stackql-written JSON-LD.
      */
     './src/plugins/structured-data-fix',
-    [
-      '@scalar/docusaurus',
-      {
-        label: 'API Explorer',
-        route: '/api/explorer',
-        showNavLink: false, // we add it to the docs sidebar instead
-        configuration: {
-          /*
-           * OpenAPI spec source URLs.
-           *
-           * Vercel deploys (preview at silhouette-docs-preview.vercel.app
-           * and any future Vercel-hosted public deploy) use relative URLs
-           * that get proxied to api.silhouette.exchange via the rewrites
-           * defined in vercel.json. The proxy makes the spec fetch
-           * same-origin from the browser's perspective, which avoids the
-           * Silhouette API server's allowlist-based CORS policy that
-           * only reflects known origins (localhost:3100 and the public
-           * docs.silhouette.exchange).
-           *
-           * Local dev (`pnpm start`) and any non-Vercel production deploy
-           * use the absolute URL because the API server allows their
-           * origins natively. Switched via process.env.VERCEL which is
-           * set to "1" by Vercel during builds.
-           */
-          sources: [
-            {
-              url:
-                process.env.VERCEL === '1'
-                  ? '/openapi/v0.json'
-                  : 'https://api.silhouette.exchange/v0/openapi.json',
-              title: 'v0 (current)',
-              slug: 'v0',
-              default: true,
-            },
-            {
-              url:
-                process.env.VERCEL === '1'
-                  ? '/openapi/v1.json'
-                  : 'https://api.silhouette.exchange/v1/openapi.json',
-              title: 'v1 (next)',
-              slug: 'v1',
-            },
-          ],
-          darkMode: true,
-          hideClientButton: false,
-          hideDarkModeToggle: true,
-          telemetry: false, // privacy: do not phone home from the docs site
-          theme: 'none', // we override CSS variables in custom.css
-          layout: 'modern',
-          hiddenClients: ['c', 'clojure', 'http', 'ocaml', 'powershell', 'objc', 'r'],
-          defaultHttpClient: {
-            targetKey: 'shell',
-            clientKey: 'curl',
-          },
-        },
-      },
-    ],
+    // Scalar API Explorer temporarily disabled for public docs launch.
+    // Re-enable by uncommenting the block below.
+    // [
+    //   '@scalar/docusaurus',
+    //   {
+    //     label: 'API Explorer',
+    //     route: '/api/explorer',
+    //     showNavLink: false,
+    //     configuration: {
+    //       sources: [
+    //         {
+    //           url:
+    //             process.env.VERCEL === '1'
+    //               ? '/openapi/v0.json'
+    //               : 'https://api.silhouette.exchange/v0/openapi.json',
+    //           title: 'v0 (current)',
+    //           slug: 'v0',
+    //           default: true,
+    //         },
+    //         {
+    //           url:
+    //             process.env.VERCEL === '1'
+    //               ? '/openapi/v1.json'
+    //               : 'https://api.silhouette.exchange/v1/openapi.json',
+    //           title: 'v1 (next)',
+    //           slug: 'v1',
+    //         },
+    //       ],
+    //       darkMode: true,
+    //       hideClientButton: false,
+    //       hideDarkModeToggle: true,
+    //       telemetry: false,
+    //       theme: 'none',
+    //       layout: 'modern',
+    //       hiddenClients: ['c', 'clojure', 'http', 'ocaml', 'powershell', 'objc', 'r'],
+    //       defaultHttpClient: {
+    //         targetKey: 'shell',
+    //         clientKey: 'curl',
+    //       },
+    //     },
+    //   },
+    // ],
   ],
 
   themeConfig: {
@@ -433,7 +418,8 @@ const config: Config = {
       },
       items: [
         { to: '/about-silhouette', label: 'Docs', position: 'left' },
-        { to: '/guides', label: 'Guides', position: 'left' },
+        // Guides nav entry temporarily hidden for public launch; re-add when content is ready.
+        // { to: '/guides', label: 'Guides', position: 'left' },
         { to: '/blog', label: 'Blog', position: 'left' },
         { href: 'https://app.silhouette.exchange', label: 'Launch App', position: 'right' },
       ],

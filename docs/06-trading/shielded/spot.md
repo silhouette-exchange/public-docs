@@ -1,9 +1,11 @@
 ---
-title: Shielded Trading
-sidebar_label: Shielded Trading
-pagination_label: Shielded Trading
-description: "Shielded trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full order book. Spot markets live, perpetuals on the roadmap."
+title: Shielded Spot Trading
+sidebar_label: Spot
+pagination_label: Shielded Spot Trading
+slug: /trading/shielded-trading
+description: "Shielded spot trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full spot order book."
 keywords:
+  - shielded spot trading
   - shielded trading
   - Silhouette Exchange
   - DeFi privacy
@@ -13,11 +15,13 @@ keywords:
   - crypto trading
 ---
 
-# Shielded Trading
+# Shielded Spot Trading
 
-## What is shielded trading?
+## What is shielded spot trading?
 
-Shielded trading on Silhouette keeps your orders inside a secure execution environment and settles them on Hyperliquid through delegated wallets. The market can see delegated-wallet executions, but it does not get a direct mapping back to your wallet, size, or strategy.
+Shielded spot trading on Silhouette keeps your orders inside a secure execution environment and settles them on Hyperliquid through delegated wallets. The market can see delegated-wallet executions, but it does not get a direct mapping back to your wallet, size, or strategy.
+
+Spot is the first of three shielded products. [Request for Quote (RFQ)](/trading/shielded/rfq) and [Binary Outcomes (HIP-4)](/trading/shielded/binary-outcomes) are on the roadmap.
 
 ## How It Works
 
@@ -36,7 +40,7 @@ After execution, Silhouette updates your shielded account state and reports the 
 
 ## Supported Markets
 
-Shielded trading currently supports **spot markets** on Hyperliquid. Shielded perpetuals are on the roadmap.
+Shielded spot trading is live across Hyperliquid's spot order book. Shielded perpetuals are on the roadmap.
 
 | Token | Description | Markets |
 |-------|-------------|---------|
@@ -88,14 +92,6 @@ Shielded limit orders are in development. In the current flow, shielded orders a
 
 TWAP, Scale, and VWAP order types are planned for shielded mode. Each will extend the shielded layer to more trading strategies - same order book, same liquidity, without showing your hand.
 
-### Request for Quote (RFQ) - Coming Soon
-
-RFQ will allow traders to request block-sized quotes from market makers within the shielded environment. This is designed for large orders where direct market execution would create significant impact. RFQ will be the first [KYC-gated](/compliance#kyc-gated-features) feature on Silhouette, ensuring verified counterparties on both sides.
-
-### Shielded Binary Outcomes (HIP-4) - Coming Soon
-
-Silhouette plans to support shielded execution for Hyperliquid's HIP-4 binary outcome markets. This will let you take positions on binary events without revealing your conviction or size to other market participants.
-
 ## Why Trade Shielded
 
 Every trade you place on a transparent ledger is information. That information has value - and right now, you are giving it away for free.
@@ -108,8 +104,8 @@ Every trade you place on a transparent ledger is information. That information h
 Compare shielded trading with [naked trading](/trading/naked-trading) to understand when each mode is appropriate. For the full order flow, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).
 
 <TechArticleSchema
-  headline="Shielded Trading on Silhouette Exchange"
-  description="Shielded trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full order book. Spot markets live, perpetuals on the roadmap."
+  headline="Shielded Spot Trading on Silhouette Exchange"
+  description="Shielded spot trading keeps your orders, identity, and strategy private while you trade on Hyperliquid's full spot order book."
   proficiencyLevel="Intermediate"
-  keywords={['shielded trading', 'Silhouette Exchange', 'DeFi privacy', 'private trading', 'shielded execution', 'Hyperliquid', 'crypto trading']}
+  keywords={['shielded spot trading', 'shielded trading', 'Silhouette Exchange', 'DeFi privacy', 'private trading', 'shielded execution', 'Hyperliquid', 'crypto trading']}
 />

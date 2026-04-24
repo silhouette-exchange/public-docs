@@ -21,7 +21,26 @@ const sidebars: SidebarsConfig = {
       label: 'Trading',
       collapsed: true,
       items: [
-        'trading/shielded-trading',
+        {
+          type: 'category',
+          label: 'Shielded Trading',
+          collapsed: false,
+          items: [
+            'trading/shielded/spot',
+            {
+              type: 'doc',
+              id: 'trading/shielded/rfq',
+              label: 'Request for Quote (RFQ)',
+              className: 'sidebar-item-coming-soon',
+            },
+            {
+              type: 'doc',
+              id: 'trading/shielded/binary-outcomes',
+              label: 'Binary Outcomes (HIP-4)',
+              className: 'sidebar-item-coming-soon',
+            },
+          ],
+        },
         'trading/naked-trading',
         'trading/order-lifecycle',
         'trading/fees',
@@ -76,7 +95,12 @@ const sidebars: SidebarsConfig = {
         'api/quick-start',
         'api/authentication',
         'api/reference',
-        { type: 'link', label: 'Interactive Explorer', href: '/api/explorer' },
+        {
+          type: 'link',
+          label: 'Interactive Explorer',
+          href: '#',
+          className: 'sidebar-item-coming-soon sidebar-item-disabled',
+        },
         'api/troubleshooting',
         'api/openapi',
       ],

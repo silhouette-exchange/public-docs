@@ -830,10 +830,10 @@ main[class*="docMainContainer"] {
   max-width: 100%;
   box-sizing: border-box;
   font-family: var(--font-sans);
-  font-size: var(--fs-xs);
+  font-size: var(--fs-sm);
   font-weight: var(--fw-semibold);
-  text-transform: uppercase;
-  letter-spacing: var(--tracking-wider);
+  text-transform: none;
+  letter-spacing: 0;
   color: var(--text-default);
   margin-top: var(--space-3);
 }
@@ -953,20 +953,34 @@ main[class*="docMainContainer"] {
   padding-right: var(--space-3);
 }
 
+.sidebar-item-disabled .menu__link {
+  pointer-events: none;
+  color: var(--text-tertiary);
+  cursor: not-allowed;
+}
+
+.sidebar-item-disabled .menu__link:hover {
+  background: transparent;
+  color: var(--text-tertiary);
+}
+
 .sidebar-item-coming-soon .menu__link--sublist::before,
 .sidebar-item-coming-soon .menu__link::before {
   content: 'Soon';
   position: absolute;
+  left: auto;
   right: var(--space-7);
   top: 50%;
+  bottom: auto;
+  width: auto;
   transform: translateY(-50%);
   font-family: var(--font-mono);
   font-size: 10px;
   font-weight: var(--fw-semibold);
   text-transform: uppercase;
   letter-spacing: var(--tracking-wider);
-  color: var(--accent-primary-text);
-  background: var(--accent-primary-muted);
+  color: var(--silh-cyan-tint-50);
+  background: rgba(0, 255, 242, 0.12);
   padding: 2px var(--space-2);
   border-radius: var(--radius-xs);
   display: inline-flex;

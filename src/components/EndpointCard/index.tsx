@@ -91,7 +91,7 @@ export default function EndpointCard({
   tryUrl,
 }: EndpointCardProps) {
   const methodClass = styles[method.toLowerCase()] ?? '';
-  const href = tryUrl ?? '/api/explorer';
+  const href = tryUrl ?? `/api/reference#${operation}`;
   const isBearer = auth === 'bearer';
   const authTitle = isBearer
     ? `Requires a bearer JWT. Call login first to obtain one.`
@@ -144,9 +144,9 @@ export default function EndpointCard({
           className={styles.tryLink}
           href={href}
           data-testid="endpoint-card-try"
-          aria-label={`Try ${operation} in the API explorer`}
+          aria-label={`Open ${operation} in the API reference`}
         >
-          <span>Try it</span>
+          <span>View</span>
           <ArrowIcon />
         </a>
       </div>

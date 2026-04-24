@@ -17,10 +17,6 @@ keywords:
 The Silhouette API and SDK are in beta. We are actively adding new operations.
 :::
 
-:::tip Interactive explorer
-Prefer to click around instead of generating a client? The full API is rendered live at [`/api/explorer`](/api/explorer) with v0 and v1 spec tabs. No setup, no install.
-:::
-
 ## Overview
 
 For developers who want to build strongly-typed integrations, we provide an OpenAPI specification for the Silhouette API. The spec is available at:

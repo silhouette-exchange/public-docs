@@ -46,15 +46,15 @@ describe('<EndpointCard>', () => {
     expect(screen.getByText(/Authenticate via SIWE/)).toBeInTheDocument();
   });
 
-  it('links the Try-it affordance to /api/explorer by default', () => {
+  it('links the View affordance to the API reference anchor by default', () => {
     render(<EndpointCard operation="createOrder" />);
     const link = screen.getByTestId('endpoint-card-try');
-    expect(link).toHaveAttribute('href', expect.stringContaining('/api/explorer'));
+    expect(link).toHaveAttribute('href', '/api/reference#createOrder');
   });
 
   it('respects an explicit tryUrl prop', () => {
-    render(<EndpointCard operation="createOrder" tryUrl="/api/explorer#createOrder" />);
-    expect(screen.getByTestId('endpoint-card-try')).toHaveAttribute('href', '/api/explorer#createOrder');
+    render(<EndpointCard operation="createOrder" tryUrl="/api/reference#createOrder" />);
+    expect(screen.getByTestId('endpoint-card-try')).toHaveAttribute('href', '/api/reference#createOrder');
   });
 
   it('gives the Try-it affordance an accessible label', () => {
