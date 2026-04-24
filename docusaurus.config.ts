@@ -434,10 +434,6 @@ const config: Config = {
               href: '/about-silhouette',
             },
             {
-              label: 'Guides',
-              href: '/guides',
-            },
-            {
               label: 'API',
               href: '/api',
             },
