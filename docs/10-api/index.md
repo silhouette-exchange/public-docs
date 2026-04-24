@@ -19,7 +19,7 @@ The Silhouette API and SDK are in beta. We are actively adding new operations.
 
 ## Overview
 
-The Silhouette API provides programmatic access to shielded trading on Hyperliquid. Deposit funds, place and manage orders, and process withdrawals - all through a single endpoint.
+The Silhouette API provides programmatic access to shielded trading on Hyperliquid. Deposits, order management, and withdrawals are exposed through a single endpoint.
 
 :::info
 **Mainnet**: `https://api.silhouette.exchange/`

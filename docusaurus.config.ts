@@ -159,13 +159,11 @@ const config: Config = {
             '/blog-preview',
             '/search',
             /*
-             * Phase 2 stub pages: 8 concept explainers + 4 guide
-             * sub-section indexes. Each contains a single ShieldedCallout
-             * with a link to the real content. Excluded from the sitemap
-             * to avoid thin-content crawl signals. Re-add when Phase 2
-             * content ships.
+             * Phase 2 stub pages for guide sub-sections. Each contains a
+             * single ShieldedCallout with a link to the real content.
+             * Excluded from the sitemap to avoid thin-content crawl
+             * signals. Re-add when Phase 2 content ships.
              */
-            '/concepts/**',
             '/guides/for-developers',
             '/guides/for-developers/**',
             '/guides/for-institutions',
@@ -239,11 +237,10 @@ const config: Config = {
             '/blog/authors/**',
             '/blog-preview',
             /*
-             * Phase 2 stub pages. Each is a single ShieldedCallout
+             * Phase 2 guide stub pages. Each is a single ShieldedCallout
              * redirecting to real content. Excluded from llms.txt to
              * avoid polluting AI context with placeholder pages.
              */
-            '/concepts/**',
             '/guides/for-developers',
             '/guides/for-developers/**',
             '/guides/for-institutions',
@@ -257,7 +254,6 @@ const config: Config = {
         includeOrder: [
           '/about-silhouette',
           '/quickstart',
-          /* /concepts/** excluded until Phase 2 content ships */
           '/trading/**',
           '/architecture/**',
           '/api/**',
@@ -387,7 +383,6 @@ const config: Config = {
       breadcrumbLabelMap: {
         'about-silhouette': 'About',
         'quickstart': 'Quickstart',
-        'concepts': 'Core Concepts',
         'trading': 'Trading',
         'architecture': 'Architecture',
         'api': 'API',

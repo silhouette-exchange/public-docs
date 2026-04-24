@@ -19,7 +19,7 @@ The Silhouette API and SDK are in beta. We are actively adding new operations.
 
 ## Overview
 
-For developers who want to build strongly-typed integrations, we provide an OpenAPI specification for the Silhouette API. The spec is available at:
+An OpenAPI specification is published for generating strongly-typed client integrations. The spec is available at:
 
 ```text
 https://api.silhouette.exchange/v0/openapi.json

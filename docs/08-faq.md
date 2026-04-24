@@ -20,11 +20,11 @@ keywords:
 
 ### What Is Silhouette?
 
-Silhouette is shielded trading on Hyperliquid. We give you the ability to trade on Hyperliquid's order book without exposing your strategy, size, or intent. Your trades settle on the same order book, with the same liquidity - the difference is that no one sees you coming.
+Silhouette is shielded trading on Hyperliquid. Orders route through Silhouette's execution environment so strategy, size, and intent are not attributable to the user's wallet on the public orderbook. Trades settle on Hyperliquid against the same liquidity used by any other Hyperliquid frontend.
 
 ### Is Silhouette a Separate Exchange?
 
-No. Every trade on Silhouette settles on Hyperliquid. We are not a separate venue with separate liquidity. We are a shielded route to the same order book everyone else uses.
+No. Every trade on Silhouette settles on Hyperliquid. Silhouette is not a separate venue with separate liquidity; it is a shielded route to the Hyperliquid order book.
 
 ### Is Silhouette a Mixer?
 
@@ -95,11 +95,11 @@ Click the **FEEDBACK** button at the bottom right of the Silhouette app to repor
   questions={[
     {
       q: "What is Silhouette?",
-      a: "Silhouette is shielded trading on Hyperliquid. It gives you the ability to trade on Hyperliquid's order book without exposing your strategy, size, or intent. Trades settle on the same order book with the same liquidity, the difference is that no one sees you coming.",
+      a: "Silhouette is shielded trading on Hyperliquid. Orders route through Silhouette's execution environment so strategy, size, and intent are not attributable to the user's wallet on the public orderbook. Trades settle on Hyperliquid against the same liquidity used by any other Hyperliquid frontend.",
     },
     {
       q: "Is Silhouette a separate exchange?",
-      a: "No. Every trade on Silhouette settles on Hyperliquid. Silhouette is not a separate venue with separate liquidity. It is a shielded route to the same order book everyone else uses.",
+      a: "No. Every trade on Silhouette settles on Hyperliquid. Silhouette is not a separate venue with separate liquidity; it is a shielded route to the Hyperliquid order book.",
     },
     {
       q: "Is Silhouette a mixer?",

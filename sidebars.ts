@@ -58,22 +58,6 @@ const sidebars: SidebarsConfig = {
       ],
     },
 
-    {
-      type: 'category',
-      label: 'Core Concepts',
-      collapsed: true,
-      items: [
-        'concepts/shielded-trading',
-        'concepts/tee',
-        'concepts/strategy-leakage',
-        'concepts/copytrade-exposure',
-        'concepts/signaling-risk',
-        'concepts/adverse-selection',
-        'concepts/hyperliquid-integration',
-        'concepts/naked-vs-shielded',
-      ],
-    },
-
     { type: 'doc', id: 'compliance', label: 'Compliance' },
     { type: 'doc', id: 'referrals', label: 'Referrals' },
     { type: 'doc', id: 'faq', label: 'FAQs' },

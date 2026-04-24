@@ -109,10 +109,10 @@ Trading on Silhouette where your orders are processed inside the TEE and execute
 ## T
 
 **TEE (Trusted Execution Environment)**
-A secure, hardware-isolated computing environment that enables confidential computation. Silhouette uses AWS Nitro Enclaves. No one - including the Silhouette team and the cloud provider - can access data inside the TEE.
+A hardware-isolated computing environment that enables confidential computation. Silhouette uses AWS Nitro Enclaves. Data inside the enclave is not readable by the Silhouette team or the cloud provider.
 
 **Transparency Tax**
-The cost traders pay because their activity is visible on a public ledger. Includes losses from front-running, copy trading, liquidation hunting, and strategy decay.
+Aggregate execution cost attributable to public-ledger visibility of trading activity, including front-running, copy trading, liquidation hunting, and strategy decay.
 
 ---
 
