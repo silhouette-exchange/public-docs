@@ -52,11 +52,13 @@ When code is deployed to a Nitro Enclave, it is packaged into an Enclave Image F
 
 The Nitro Hypervisor - the hardware layer managed by AWS - produces attestation documents for each enclave. These are CBOR-encoded, COSE-signed documents that include the PCR0 value, definitively identifying the exact code running inside the enclave.
 
-The hypervisor's signatures can be [verified](https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html) through the certificate chain leading to the AWS root certificate. This means anyone can verify that:
+The hypervisor's signatures can be [verified](https://docs.aws.amazon.com/enclaves/latest/user/verify-root.html) through the certificate chain leading to the AWS root certificate. Once verified, an attestation document confirms:
 
-1. The enclave is running on genuine AWS Nitro hardware
-2. The code inside the enclave matches a specific, known hash
-3. No one has tampered with the enclave's contents
+1. The enclave is running on genuine AWS Nitro Enclave hardware
+2. The code inside the enclave matches a specific, known PCR0 hash
+3. The enclave's contents have not been tampered with
+
+Signed attestation documents are available on request from the Silhouette team in the interim. A self-service verification flow is under development and will be published ahead of the attestation endpoint going live.
 
 ### Reproducible Builds
 
@@ -68,7 +70,7 @@ This means anyone in the community will be able to:
 3. Compare it against the attestation from the running enclave
 4. Verify that the code running in production matches the public source
 
-Signed attestation documents will be made available via an endpoint, allowing community members to verify the running enclave at any time.
+When the self-service verification flow is live, community members will be able to fetch a signed attestation from the running enclave at any time and reproduce the PCR0 hash locally, matching the one in the attestation. Until then, the Silhouette team will provide signed attestations on request.
 
 ## Summary
 
