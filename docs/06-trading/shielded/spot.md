@@ -71,7 +71,7 @@ Additional pairs are added as Hyperliquid's spot market offering expands.
 
 ### Market Orders
 
-Market orders are live in shielded mode. The webapp computes a price cap from your slippage settings and submits the order to the TEE as a delegated IoC (Immediate or Cancel). If enough liquidity is available within that price cap, it fills immediately; otherwise the unfilled portion cancels.
+Market orders are live in shielded mode. Hyperliquid has no native market-order primitive - every order on Hyperliquid is a limit order with a time-in-force. A "market" order is a limit order with a slippage-derived price cap and an IoC (Immediate or Cancel) time-in-force. The webapp computes that price cap from your slippage settings, then submits the order to the TEE as a delegated IoC. If enough liquidity is available within the cap, it fills immediately; otherwise the unfilled portion cancels.
 
 <div className="screenshot-pair">
 <figure className="screenshot-figure">
@@ -84,9 +84,9 @@ Market orders are live in shielded mode. The webapp computes a price cap from yo
 </figure>
 </div>
 
-### Limit Orders - Coming Soon
+### Resting Limit Orders (GTC) - Coming Soon
 
-Shielded limit orders are in development. In the current flow, shielded orders are submitted as delegated IoC orders, so they do not rest on the public book. Resting shielded limits will allow you to set your price and wait for the market to come to you, without revealing your intent.
+Shielded GTC (Good Till Cancelled) limit orders are in development. In the current flow, every shielded order is submitted as a delegated IoC, so nothing rests on the public book. Resting shielded limits will let you set your price and wait for the market to come to you, without revealing your intent. The mechanism for how GTC orders work inside the shielded execution model will be detailed closer to launch.
 
 ### Advanced Orders - Coming Soon
 
