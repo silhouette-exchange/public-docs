@@ -51,7 +51,7 @@ The TEE hosts Silhouette's matching engine and acts as the bridge between users 
 - Tracks shielded account balances and order state
 - Monitors HyperCore for deposit and withdrawal events
 
-The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the code runs confidentially. No one can access the data inside, not even the Silhouette team or AWS. For more details, see [Trusted Execution Environments](/architecture/tee).
+The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the code runs confidentially. Data inside the enclave is not readable by anyone, including the Silhouette team or AWS. For more details, see [Trusted Execution Environments](/architecture/tee).
 
 ## How They Work Together
 

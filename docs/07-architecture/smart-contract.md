@@ -38,9 +38,9 @@ From the outside, trades appear as activity from Silhouette's address. Individua
 
 ## Deposits and Withdrawals
 
-**Deposits**: When you deposit, your funds move from your wallet to Silhouette's address on Hyperliquid. The TEE credits your encrypted balance.
+**Deposits**: When you deposit, your funds move from your wallet to Silhouette's address on Hyperliquid. The TEE credits your shielded balance.
 
-**Withdrawals**: When you withdraw, the TEE debits your encrypted balance and sends funds from Silhouette's address back to your wallet. Withdrawals are processed promptly with no waiting period.
+**Withdrawals**: When you withdraw, the TEE debits your shielded balance and sends funds from Silhouette's address back to your wallet. Withdrawals are processed promptly with no waiting period.
 
 ## Trust Model
 

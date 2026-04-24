@@ -44,9 +44,9 @@ You can switch between modes at any time. There is no commitment, no lockup, no 
 
 ## 3. Shielded Execution
 
-When you trade shielded, your order enters Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment that no one can access, not even the Silhouette team.
+When you trade shielded, your order enters Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment. Data inside the enclave is not readable by anyone, including the Silhouette team.
 
-Inside the TEE, your order is processed and matched. When it is time to settle, the trade is executed on Hyperliquid's order book via agent wallets. These wallets aggregate activity from multiple users, so individual trades cannot be traced back to you. The market sees volume, but not who is behind it. Your balance is securely updated within Silhouette's TEE.
+Inside the TEE, your order is processed and matched. When it is time to settle, the trade is executed on Hyperliquid's order book via delegated wallets. These wallets aggregate activity from multiple users, so individual trades cannot be traced back to you. The market sees volume, but not who is behind it. Your shielded balance is updated inside Silhouette's TEE.
 
 ## 4. Settlement
 
@@ -60,7 +60,7 @@ Everything between those two events - your trades, your balances, your strategy 
 
 ## 5. Withdraw Anytime
 
-When you are ready to withdraw, you withdraw from Silhouette through your wallet like any other DeFi application. Your funds return to your address on HyperCore. No waiting period, no approval process.
+When you are ready to withdraw, you withdraw from Silhouette through your wallet like any other DeFi application. Your funds return to your address on HyperCore. Withdrawals are processed promptly with no waiting period.
 
 ## What the Public Ledger Sees
 

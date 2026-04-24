@@ -21,9 +21,9 @@ This page is for institutions, compliance teams, and traders who need to underst
 
 ## Why Compliance Matters on a Shielded Platform
 
-Shielded trading protects your strategy - not bad actors. Privacy and compliance are not in tension. The goal is to shield legitimate trading activity from copy bots, signal-aware LPs, and whale trackers, while ensuring the platform is not used for money laundering, terrorist financing, or sanctions evasion.
+Silhouette's shielded execution is designed to protect legitimate trading strategy from public-ledger exposure. The compliance layer is designed to deter and block use by sanctioned or high-risk actors. Shielding and screening operate as complementary controls, not as trade-offs.
 
-Without a compliance layer, shielded execution becomes a liability for every serious participant. Institutions cannot touch it. Regulated desks cannot justify it. The compliance engine is what makes shielded trading viable for professional use.
+Shielded execution without a compliance layer is not viable for institutional participation. Funds, desks, and regulated entities require documented screening controls before they can engage with a platform that obscures onchain activity. The compliance engine is a baseline requirement for that engagement, not an optional add-on.
 
 ## How Screening Works
 

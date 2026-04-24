@@ -42,7 +42,7 @@ The delegated wallet aggregates activity from multiple users. The market sees th
 
 ### 4. Balance Update
 
-After execution, the TEE updates your encrypted balance in the Silhouette TEE. The update reflects your new position - the asset you bought or sold, and the resulting balance. Your encrypted balance is not viewable by anyone, including by Silhouette.
+After execution, the TEE updates your shielded balance. The update reflects your new position - the asset you bought or sold, and the resulting balance. Your shielded balance sits inside the TEE and is not readable by anyone, including Silhouette.
 
 ### 5. Settlement Complete
 
