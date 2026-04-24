@@ -91,7 +91,7 @@ The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the 
 
 ## Design Principles
 
-**Separated responsibilities.** The app handles authentication and UX and the TEE handles shielded execution and account state.
+**Separated responsibilities.** The app handles authentication and the user interface. The TEE handles shielded execution and account state.
 
 <TechArticleSchema
   headline="Silhouette Architecture Overview"

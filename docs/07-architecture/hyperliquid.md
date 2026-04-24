@@ -19,7 +19,7 @@ keywords:
 This page explains how Silhouette integrates with Hyperliquid. Useful context for understanding performance and settlement, especially for traders familiar with Hyperliquid.
 :::
 
-Silhouette is built directly on Hyperliquid - the highest-performance decentralised exchange in crypto. Every shielded trade settles on Hyperliquid's order book. Understanding how Hyperliquid works helps explain why Silhouette is built the way it is.
+Silhouette is built on Hyperliquid. Every shielded trade settles on Hyperliquid's order book. The sections below describe the parts of Hyperliquid that Silhouette depends on.
 
 ## One Blockchain, Two Components
 
@@ -29,19 +29,19 @@ Hyperliquid is a single blockchain with two execution environments: **HyperCore*
 
 ### HyperCore
 
-The high-performance trading engine. Purpose-built for financial primitives with sub-millisecond execution. This is where Hyperliquid's spot and perpetuals order books live, and where Silhouette's shielded trades ultimately settle.
+Hyperliquid's trading engine. It hosts the spot and perpetuals order books and is the settlement layer for Silhouette's shielded trades.
 
-HyperCore blocks are included approximately every **70ms**, supporting around 200,000 orders per second.
+HyperCore blocks are produced approximately every **70ms** and support throughput of around 200,000 orders per second.
 
-## Why Hyperliquid
+## Integration Dependencies
 
-Silhouette is built on Hyperliquid because it is the best execution venue in DeFi:
+Silhouette depends on three properties of Hyperliquid:
 
-- **Deepest liquidity**: More volume than any other decentralized exchange
-- **Fastest execution**: Sub-second finality on HyperCore
-- **Builder Codes**: A native framework for building execution infrastructure on top of Hyperliquid's order book
+- **Liquidity.** Hyperliquid's spot and perpetuals order books supply the fills for both shielded and naked orders on Silhouette.
+- **Block time.** HyperCore blocks are produced every ~70ms, which supports the latency profile required for order-book execution through the TEE.
+- **Builder Codes.** The native framework through which Silhouette registers as an execution integrator on top of Hyperliquid's order book.
 
-Silhouette does not compete with Hyperliquid. We extend it. Every trade on Silhouette is a trade on Hyperliquid - just with a shielded route to get there.
+Silhouette is an execution layer on top of Hyperliquid, not an alternative venue. Every trade placed through Silhouette settles on Hyperliquid's order book.
 
 For a full picture of how Silhouette's components interact with Hyperliquid, see [Architecture Overview](/architecture/overview). To understand the role of the [TEE](/architecture/tee) in executing trades, see [Trusted Execution Environments](/architecture/tee).
 
