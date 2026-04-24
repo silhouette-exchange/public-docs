@@ -28,17 +28,13 @@ Silhouette offers two trading modes with different fee structures:
 
 Silhouette charges a small builder code fee on top of Hyperliquid's standard trading fees. **Your total cost = Hyperliquid's base fee (based on your HL tier) + the Silhouette builder code fee below.**
 
-| Tier | 30-Day Rolling Volume (USD) | Perps Builder Code Fee | Spot Builder Code Fee |
-|------|----------------------------|------------------------|----------------------|
-| 1 | 0 – 500k | 0.02% | 0.10% |
-| 2 | 500k – 2M | 0.018% | 0.08% |
-| 3 | 2M – 5M | 0.015% | 0.06% |
-| 4 | 5M – 10M | 0.012% | 0.04% |
-| 5 | 10M+ | 0.01% | 0.02% |
+### Silhouette Fixed Builder Code Fee
 
-The builder code fee is set at a fixed rate as shown in the table above. These are standard fees applied uniformly - only **shielded** trading uses dynamic, per-user fee calculations.
+| Tier | Spot | Perps |
+|------|------|-------|
+| All Tiers | 0.0600% | 0.0150% |
 
-These fees are applied on top of your existing [Hyperliquid fee tier](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/fees), which is calculated separately by Hyperliquid based on your **14-day rolling volume**. Your HL volume tier, HYPE staking discounts, and any other HL-native fee reductions still apply to the base portion of your fee as normal.
+These are fixed rates applied uniformly, no per-user dynamic calculation. Your Hyperliquid volume tier, HYPE staking discounts, and any other Hyperliquid-native fee reductions still apply to the base portion of your fee. See the [Hyperliquid fee tiers](#hyperliquid-fee-tiers-reference) reference below for the underlying rates.
 
 ## Shielded Trading Fees (Spot Only)
 
