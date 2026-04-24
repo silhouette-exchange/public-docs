@@ -3,7 +3,7 @@ id: quickstart
 title: Quickstart
 sidebar_label: Quickstart
 pagination_label: Quickstart
-description: "Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and trade on Hyperliquid without showing your hand."
+description: "Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and place shielded orders on Hyperliquid."
 keywords:
   - Silhouette Exchange
   - shielded trading
@@ -58,7 +58,7 @@ There are two ways to get funds into Silhouette:
 
 ## 5. Start Trading
 
-You are ready to trade. Place shielded spot orders on any supported pair shown in the app. Your orders are processed inside the TEE and settled on Hyperliquid--without anyone seeing your strategy.
+You are ready to trade. Place shielded spot orders on any supported pair shown in the app. Orders are processed inside the TEE and settled on Hyperliquid; order details are not exposed on the public ledger.
 
 For more detail on how shielded trading works, see [Shielded Trading](/trading/shielded-trading).
 
@@ -70,7 +70,7 @@ For more detail on how shielded trading works, see [Shielded Trading](/trading/s
 
 <HowToSchema
   name="How to Start Shielded Trading on Silhouette"
-  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and trade on Hyperliquid without showing your hand."
+  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and place shielded orders on Hyperliquid."
   steps={[
     {
       name: "Connect Your Wallet",
@@ -94,14 +94,14 @@ For more detail on how shielded trading works, see [Shielded Trading](/trading/s
     },
     {
       name: "Start Trading",
-      text: "Place shielded spot orders on any supported pair. Your orders are processed inside the TEE and settled on Hyperliquid without anyone seeing your strategy."
+      text: "Place shielded spot orders on any supported pair. Orders are processed inside the TEE and settled on Hyperliquid; order details are not exposed on the public ledger."
     }
   ]}
 />
 
 <TechArticleSchema
   headline="Silhouette Quickstart: Start Shielded Trading in Five Steps"
-  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and trade on Hyperliquid without showing your hand."
+  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and place shielded orders on Hyperliquid."
   proficiencyLevel="Beginner"
   keywords={[
     "Silhouette Exchange",

@@ -19,7 +19,7 @@ keywords:
 
 ## How does Silhouette work?
 
-Silhouette adds a shielded execution layer on top of Hyperliquid. From the outside, your trading activity is invisible. From the inside, you get the same order book, the same liquidity, and the same execution quality, without broadcasting your intent.
+Silhouette adds a shielded execution layer on top of Hyperliquid. Trading activity is not exposed on the public ledger. Orders route to the same Hyperliquid order book and access the same liquidity used by any other Hyperliquid frontend.
 
 <img src="/img/app-screenshots/trade-full.png" alt="Silhouette Exchange trade page overview" className="app-screenshot app-screenshot--lg" />
 
@@ -29,7 +29,7 @@ Here's what happens when you trade on Silhouette, step by step:
 
 You connect your wallet to Silhouette - the same wallet you use across Hyperliquid. When you deposit, your funds move into Silhouette's secure environment. The TEE manages your balance internally and executes trades on your behalf. Learn more in [Architecture Overview](/architecture/overview) and [TEE documentation](/architecture/tee).
 
-Your deposit is the last publicly visible action until you withdraw. Everything that happens inside Silhouette stays between you and the system.
+Deposits and withdrawals are visible onchain and attributable to the user's wallet. Everything in between - individual orders, fill prices, sizes, and balances inside Silhouette - is not attributable. Silhouette's delegated wallets trade on Hyperliquid, and those fills are publicly visible, but the mapping from any given fill back to an individual user is not. The more users routing through delegated wallets, the larger the anonymity set.
 
 <img src="/img/app-screenshots/portfolio-sidebar.png" alt="Portfolio sidebar showing account structure and balances" className="app-screenshot app-screenshot--sm" />
 
@@ -40,7 +40,7 @@ You decide how to execute every trade:
 - **Shielded**: Your order is routed through Silhouette's secure execution environment. Your intent, size and strategy are hidden from the public ledger.
 - **Naked**: Your order routes directly to Hyperliquid via Builder Codes. Fully visible, same as trading on any other Hyperliquid frontend.
 
-You can switch between modes at any time. There is no commitment, no lockup, no penalty. The choice is yours on every single trade. See [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading) for a deeper comparison.
+Mode can be changed on a per-trade basis. There is no lockup or minimum duration for either mode. See [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading) for a deeper comparison.
 
 ## 3. Shielded Execution
 
@@ -50,13 +50,13 @@ Inside the TEE, your order is processed and matched. When it is time to settle, 
 
 ## 4. Settlement
 
-All shielded trades settle on Hyperliquid. Instead of an off-chain orderbook, Silhouette is a shielded route to the same order book everyone else uses. You get real execution against real liquidity at real prices. For more detail, see [Order Lifecycle](/trading/order-lifecycle).
+All shielded trades settle on Hyperliquid. Silhouette does not operate a separate off-chain orderbook; it is a shielded route to the Hyperliquid order book. Execution occurs against Hyperliquid's live liquidity at prevailing market prices. For more detail, see [Order Lifecycle](/trading/order-lifecycle).
 
 The only onchain actions that are publicly visible are:
 - **Deposits** into Silhouette
 - **Withdrawals** from Silhouette
 
-Everything between those two events - your trades, your balances, your strategy - remains shielded.
+Between those two events, the mapping from individual orders, fills, and balances to the user is not exposed. Delegated-wallet activity on Hyperliquid is visible, but it aggregates flow from all Silhouette users and is not attributable to any one of them.
 
 ## 5. Withdraw Anytime
 
@@ -64,22 +64,19 @@ When you are ready to withdraw, you withdraw from Silhouette through your wallet
 
 ## What the Public Ledger Sees
 
-When you trade shielded on Silhouette, here is what is visible onchain versus what stays private:
+When trading shielded on Silhouette, the public ledger distinguishes between what is attributable to the user and what is not:
 
-| Visible onchain | Private to you |
+| Attributable to the user's wallet | Not attributable to the user |
 |---|---|
-| Your deposit into Silhouette | Your trading activity |
-| Your withdrawal from Silhouette | Your balances inside Silhouette |
-| Aggregate volume from delegated wallets | Your individual orders and fills |
-| | Your strategy and intent |
+| Deposits into Silhouette | Individual orders and fills (visible as delegated-wallet activity, but with no onchain mapping back to the user) |
+| Withdrawals from Silhouette | Balances inside Silhouette |
+| | Strategy and intent |
 
-The result: you trade with the full depth of Hyperliquid's liquidity, and the market sees none of your moves.
+Delegated-wallet fills are publicly visible on Hyperliquid. Silhouette's privacy model is unlinkability: the anonymity set is all Silhouette users routing through the same delegated wallets. As more users trade through Silhouette, the difficulty of attributing any given fill to any given user increases.
 
-## Why This Matters
+## Rationale
 
-On a fully transparent ledger, every trade is a signal. The moment you place an order, copy-trading bots can mirror your position, front-runners can extract value from your execution, and whale-tracking accounts can broadcast your activity.
-
-Silhouette removes you from that equation. Same market, same prices, same liquidity. But your strategy stays yours.
+On a transparent ledger, orders placed from a known wallet are publicly attributable at the point of placement. Copy-trading bots can mirror the position, front-runners can extract value from the execution path, and wallet-tracking accounts can broadcast the activity to followers. Shielded execution addresses these costs by routing orders through a TEE that settles on Hyperliquid via delegated wallets. The fills remain visible on Hyperliquid, but the mapping from a given fill to a specific user is not exposed, while execution still occurs against the same order book, prices, and liquidity.
 
 <TechArticleSchema
   headline="How Silhouette Works: Deposit, Shielded Execution, Settlement"

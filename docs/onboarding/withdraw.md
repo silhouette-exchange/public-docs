@@ -54,7 +54,7 @@ How you fund your account depends on which mode you are trading in.
 
 Deposits and withdrawals move assets between HyperCore and Silhouette's shielded environment via the Transfer modal. You can deposit and withdraw any asset that has a shielded spot market - see the full list on [Shielded Trading](/trading/shielded-trading#supported-markets).
 
-Your deposit is the last publicly visible action until you withdraw. Everything inside Silhouette stays between you and the system.
+Deposits and withdrawals are visible onchain and attributable to the user's wallet. The trading activity between deposit and withdrawal, including fill prices, sizes, and balances inside Silhouette, is not attributable to the user. Silhouette's delegated wallets execute on Hyperliquid and those fills are publicly visible, but they aggregate flow from all Silhouette users.
 
 ### Naked mode
 
