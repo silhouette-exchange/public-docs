@@ -15,7 +15,7 @@ keywords:
 image: ./images/shieldedspot.png
 ---
 
-![Silhouette shielded spot trading product launch banner with the HYPE/USDC pair](./images/shieldedspot.png)
+![Cyberpunk illustration of a trader at a multi-monitor terminal executing shielded orders on Hyperliquid while a crowd watches in the background](./images/shieldedspot.png)
 
 Over the last few months, we’ve been working with a series of traders and users refining the shielded experience. Today, we go live in an open beta.
 
