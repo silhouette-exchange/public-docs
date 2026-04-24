@@ -21,12 +21,12 @@ Shielded execution for HIP-4 markets is planned. This page describes the planned
 
 ## What it is
 
-Silhouette plans to support shielded execution for Hyperliquid's HIP-4 binary outcome markets. This will let you take positions on binary events without revealing your conviction or size to other market participants.
+Silhouette plans to support shielded execution for Hyperliquid's HIP-4 binary outcome markets. Order size and account attribution will not be exposed to other market participants.
 
 ## How it fits
 
 Spot, [RFQ](/trading/shielded/rfq), and Binary Outcomes are the three shielded products. Each runs through the same TEE-attested execution layer, each is a distinct venue.
 
-- [Shielded Spot](/trading/shielded-trading) - live, order book execution for day-to-day flow.
-- [RFQ](/trading/shielded/rfq) - quote-driven, for size that would move the book.
-- **Binary Outcomes (HIP-4)** - shielded positioning on binary event markets.
+- [Shielded Spot](/trading/shielded-trading) - order book execution for standard order sizes.
+- [RFQ](/trading/shielded/rfq) - quote-driven execution for block sizes.
+- **Binary Outcomes (HIP-4)** - shielded execution on binary event markets.

@@ -23,7 +23,7 @@ This page walks through the complete lifecycle of an order on Silhouette, from t
 
 You place an order through the Silhouette UI in shielded mode - selecting your asset, size, and order type. The order is submitted to Silhouette's Trusted Execution Environment (TEE).
 
-At this point, no information about your order has touched the public ledger. Your intent is confidential.
+At this point, no order information has been written to the public ledger.
 
 Hyperliquid has no native market-order primitive. A "market" order in the UI is a limit order with a slippage-derived price cap and an IoC (Immediate or Cancel) time-in-force. Shielded currently submits every order as a delegated IoC. Resting GTC limit orders for shielded are on the roadmap.
 
@@ -48,7 +48,7 @@ After execution, the TEE updates your shielded balance. The update reflects your
 
 Your trade is now settled on Hyperliquid's order book. Your balance is updated inside the Silhouette TEE. The trade is final.
 
-From the public ledger's perspective, all that happened was a trade from a delegated wallet on Hyperliquid - no connection to your identity, your strategy, or your position.
+From the public ledger's perspective, the settled transaction is a fill from a delegated wallet on Hyperliquid. The fill itself is visible, but it is not attributable to an individual user, strategy, or account balance.
 
 ## Naked Order Lifecycle
 

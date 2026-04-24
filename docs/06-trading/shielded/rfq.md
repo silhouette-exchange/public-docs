@@ -29,6 +29,6 @@ RFQ will be the first [KYC-gated](/compliance#kyc-gated-features) feature on Sil
 
 Spot, RFQ, and [Binary Outcomes (HIP-4)](/trading/shielded/binary-outcomes) are the three shielded products. Each runs through the same TEE-attested execution layer, each is a distinct venue.
 
-- [Shielded Spot](/trading/shielded-trading) - live, order book execution for day-to-day flow.
-- **RFQ** - quote-driven, for size that would move the book.
-- [Binary Outcomes (HIP-4)](/trading/shielded/binary-outcomes) - shielded positioning on binary event markets.
+- [Shielded Spot](/trading/shielded-trading) - order book execution for standard order sizes.
+- **RFQ** - quote-driven execution for block sizes that would cause significant market impact if routed to the order book.
+- [Binary Outcomes (HIP-4)](/trading/shielded/binary-outcomes) - shielded execution on binary event markets.

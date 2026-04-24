@@ -27,12 +27,12 @@ Both **spot** and **perpetuals** markets are supported in naked mode.
 
 ## When to Trade Naked
 
-Visibility is not always a disadvantage. There are times when you want the market to see what you are doing:
+Public visibility is appropriate in several cases:
 
-- **Signalling conviction.** A large, visible buy can communicate confidence to the market.
-- **Perpetuals trading.** Shielded perps are on the roadmap but not yet live. Naked mode gives you access to Hyperliquid's full perpetuals market today.
-- **Low-stakes trades.** If the size or asset does not warrant confidentiality, naked trading is simpler and equally effective.
-- **Building a public track record.** Some traders want their performance visible and verifiable onchain.
+- **Public signalling.** A visible buy or sell communicates intent onchain and can be used deliberately as a signal.
+- **Perpetuals.** Shielded perpetuals are not yet available. Naked mode supports Hyperliquid's full perpetuals market today.
+- **Small orders.** Orders that do not require confidentiality can be routed directly to Hyperliquid without the TEE execution path.
+- **Public track record.** Trades routed in naked mode are recorded onchain and attributable to the user's wallet, producing a verifiable trading history.
 
 ## Supported Markets
 
@@ -79,7 +79,7 @@ A limit order executes at your specified price or better. You set the asset, the
 
 #### TWAP (Time-Weighted Average Price)
 
-Break large orders into optimized slices executed over time. Accumulate or distribute positions without leaving a visible footprint.
+Break a large order into smaller suborders executed over a configured duration. In naked mode, each suborder is visible onchain as it executes.
 
 <div className="screenshot-pair">
 <figure className="screenshot-figure">
@@ -94,7 +94,7 @@ Break large orders into optimized slices executed over time. Accumulate or distr
 
 #### Scale Orders
 
-Distribute your order across a price range with customizable distribution, allowing you to ladder into or out of positions gradually.
+Distribute an order across a configured price range. The distribution across the range is adjustable, supporting laddered entries and exits.
 
 <div className="screenshot-pair">
 <figure className="screenshot-figure">
@@ -109,9 +109,7 @@ Distribute your order across a price range with customizable distribution, allow
 
 ## Naked vs Shielded
 
-The choice between naked and shielded is available on every trade. You can place a [shielded spot order](/trading/shielded-trading) and follow it with a naked perps order in the same session.
-
-The question is simple: does this trade benefit from confidentiality? If yes, trade [shielded](/trading/shielded-trading). If not, trade naked.
+Mode is selected per trade. A [shielded spot order](/trading/shielded-trading) can be placed in the same session as a naked perps order. Shielded is appropriate when a trade requires confidentiality; naked is appropriate otherwise.
 
 To understand the full flow of how orders move through the system, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).
 

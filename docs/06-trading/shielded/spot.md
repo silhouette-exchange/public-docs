@@ -19,7 +19,7 @@ keywords:
 
 ## What is shielded spot trading?
 
-Shielded spot trading on Silhouette keeps your orders inside a secure execution environment and settles them on Hyperliquid through delegated wallets. The market can see delegated-wallet executions, but it does not get a direct mapping back to your wallet, size, or strategy.
+Shielded spot trading routes orders through Silhouette's Trusted Execution Environment (TEE) and settles them on Hyperliquid through delegated wallets. Delegated-wallet fills are publicly visible, but the mapping from a given fill to an individual user's wallet is not exposed on the public ledger.
 
 Spot is the first of three shielded products. [Request for Quote (RFQ)](/trading/shielded/rfq) and [Binary Outcomes (HIP-4)](/trading/shielded/binary-outcomes) are on the roadmap.
 
@@ -90,18 +90,18 @@ Shielded GTC (Good Till Cancelled) limit orders are in development. In the curre
 
 ### Advanced Orders - Coming Soon
 
-TWAP, Scale, and VWAP order types are planned for shielded mode. Each will extend the shielded layer to more trading strategies - same order book, same liquidity, without showing your hand.
+TWAP, Scale, and VWAP order types are planned for shielded mode. These will route through the same Hyperliquid order book and liquidity used by shielded market orders today.
 
-## Why Trade Shielded
+## Use Cases
 
-Every trade you place on a transparent ledger is information. That information has value - and right now, you are giving it away for free.
+Orders placed from a known wallet on a public ledger are attributable to that wallet at the point of placement. Shielded execution addresses a specific set of costs that follow from that attribution:
 
-- **Accumulate without signalling.** Buy HYPE for staking, HIP-3 deployment, or portfolio building without the market front-running your intent.
-- **Protect your strategy.** Your research, your thesis, your timing - these are your intellectual property. Shielded execution keeps them yours.
-- **Eliminate the watchers.** Copy-trading bots, whale trackers, and signal-aware LPs cannot extract value from trades they cannot see.
-- **Trade at scale.** Large orders move markets when they are visible. Shielded execution lets you trade size without market impact signalling.
+- **Large accumulation.** Buying activity for staking, HIP-3 deployment, or longer-term positioning is not attributable to the user's wallet. This reduces the opportunity for front-running during extended accumulation.
+- **Strategy confidentiality.** Order flow that would otherwise reveal research, thesis, or timing is not exposed to onchain observers. Individual fills aggregate into delegated-wallet volume.
+- **Resistance to order-flow analysis.** Copy-trading bots, wallet trackers, and signal-aware liquidity providers have no onchain mapping from delegated-wallet fills back to individual users.
+- **Size execution.** Large orders that would signal market impact when placed from a known wallet are executed within aggregated delegated-wallet volume.
 
-Compare shielded trading with [naked trading](/trading/naked-trading) to understand when each mode is appropriate. For the full order flow, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).
+Compare shielded trading with [naked trading](/trading/naked-trading) for a breakdown of when each mode is appropriate. For the full order flow, see [Order Lifecycle](/trading/order-lifecycle). For fee details, see [Fees](/trading/fees).
 
 <TechArticleSchema
   headline="Shielded Spot Trading on Silhouette Exchange"

@@ -59,7 +59,7 @@ Your shielded fee is calculated dynamically based on the difference between your
 
 - **No builder code fee in shielded mode** - Silhouette's 5% of the spread is the only markup. There is no separate builder code fee.
 - **Fee cap** - your shielded fee will not exceed your individual HL fee rate. If your personal HL tier matches or beats Silhouette's aggregate tier, you pay your standard HL rate.
-- **Savings improve over time** - as Silhouette's aggregate volume grows and unlocks better HL tiers, shielded users benefit automatically
+- **Tier-linked rate** - as Silhouette's aggregate wallet volume reaches higher HL tiers, the baseline shielded rate decreases for all users routed through that wallet
 
 ### Example - Spot Taker
 
@@ -77,9 +77,9 @@ Assuming Silhouette's aggregated wallet is at HL Tier 3 (>$100M volume), and a n
 | **You** | Tier 0 (base) | 0.040% | ~0.012% | ~70% |
 | **Silhouette Wallet** | Tier 3 (>$100M) | 0.010% | - | - |
 
-The spread between your rate and Silhouette's rate is where your saving comes from. The larger the gap, the more you save.
+The user's discount is derived from the difference between their individual HL rate and Silhouette's aggregate HL rate. A larger spread produces a larger discount.
 
-*Actual savings depend on Silhouette's current HL tier. As aggregate volume grows, Silhouette unlocks better tiers and all shielded users benefit. HYPE staking discounts on Silhouette's wallet will further reduce costs in a future update.*
+*Effective rate depends on Silhouette's current HL tier. As aggregate volume grows, Silhouette qualifies for lower HL tiers and the shielded baseline decreases for all users routed through the aggregate wallet. HYPE staking discounts on Silhouette's wallet are planned in a future update.*
 
 ## Hyperliquid Fee Tiers (Reference)
 
