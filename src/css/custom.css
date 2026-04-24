@@ -814,16 +814,14 @@ main[class*="docMainContainer"] {
 }
 
 /* Sidebar collapsible categories. Flex layout with justify-content:
-   flex-start + gap so the chevron follows immediately after the
-   category label text, instead of floating at the sidebar's right
-   edge. Label is flex:0 0 auto (don't grow) so it only takes its
-   natural width. */
+   space-between so the chevron always aligns to the right edge,
+   regardless of label length. */
 .menu__link--sublist,
 [class*='categoryLink'].menu__link--sublist {
   position: relative;
   display: flex !important;
   align-items: center;
-  justify-content: flex-start !important;
+  justify-content: space-between !important;
   gap: var(--space-2);
   overflow: visible !important;
   padding-right: var(--space-3) !important;
@@ -838,10 +836,10 @@ main[class*="docMainContainer"] {
   margin-top: var(--space-3);
 }
 
-/* Label takes its natural width, doesn't grow to push the chevron away */
+/* Label grows to fill remaining space, pushing the chevron to the right. */
 .menu__link--sublist [class*='categoryLinkLabel'],
 .menu__link--sublist > span {
-  flex: 0 0 auto !important;
+  flex: 1 1 auto !important;
   min-width: 0;
   max-width: none;
   overflow: visible;
