@@ -113,23 +113,19 @@ The easiest way to authenticate is via the login assistant at https://login.silh
 
 ### Available Operations
 
-**Authentication:**
+**Public operations:**
 - `login` — Authenticate via SIWE to get a JWT bearer token. No auth required.
-
-**Balances:**
-- `getBalances` — Get available, locked, and total balances for all tokens. Auth required.
-
-**Discovery & Health:**
 - `getTokens` — Get metadata for supported tokens.
 - `getMarkets` — Get metadata for supported markets.
 - `getHealth`, `getHealthFeatures`, `getHealthInfo`, `getHealthReady` — Health and feature discovery endpoints.
 
-**Orders:**
+**Authenticated operations:**
+- `getBalances` — Get available, locked, and total balances for all tokens. Auth required.
+- `getFees` — Get authenticated-user spot maker and taker fee rates. Auth required.
 - `createOrder` — Place a buy or sell shielded spot order. The current live flow requires `price` and submits the order as a delegated IoC. Auth required.
-- `getUserOrders` — List orders, optionally filtered by `status` (pending, open, filled, partially_filled, cancelled, expired, failed). Auth required.
+- `cancelOrder` — Cancel a cancellable GTC limit order using the `orderId` returned by `createOrder`. Auth required.
 - `listDelegatedOrders`, `getDelegatedOrder`, `batchGetDelegatedOrders` — Query delegated-order records. Auth required.
-
-**Withdrawals:**
+- `getUserOrders` — Decommissioned. Use the delegated-order operations instead.
 - `initiateWithdrawal` — Request withdrawal of an enabled token symbol for `amount`. Only one pending withdrawal at a time. Auth required.
 - `getWithdrawalStatus` — Check status of a withdrawal by `withdrawalId`. States: pending, completed, failed. Auth required.
 - `getUserWithdrawals` — List all your withdrawals. Auth required.
@@ -181,6 +177,8 @@ Amounts in API responses come in two formats:
 - Human-readable float strings (e.g., `"1000.0"`)
 
 When sending amounts in requests (createOrder, initiateWithdrawal), use human-readable decimal strings (e.g., `"100"` or `"100.5"`). Values are automatically scaled.
+
+Delegated-order detail responses (`getDelegatedOrder` and `batchGetDelegatedOrders`) return accounting-sensitive numeric fields as exact integer strings, not JavaScript numbers. Parse these fields as arbitrary-precision integers, such as JavaScript `BigInt`, and apply the documented scale when formatting values for display. `amount`, `filledAmount`, and `remainingAmount` are base-token amounts scaled by `10^baseToken.weiDecimals`; get `weiDecimals` from the public `getTokens` operation. `price` and `averageFillPrice` are price fields scaled by `10^8`; divide by `100,000,000` to convert to a decimal price. `amountFloat` and `priceFloat` are convenience strings for display. `filledPrice` is deprecated; use `averageFillPrice`.
 
 ### Supported Tokens
 
