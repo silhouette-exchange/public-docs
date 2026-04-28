@@ -121,7 +121,9 @@ The easiest way to authenticate is via the login assistant at https://login.silh
 
 **Authenticated operations:**
 - `getBalances` — Get available, locked, and total balances for all tokens. Auth required.
+- `getFees` — Get authenticated-user spot maker and taker fee rates. Auth required.
 - `createOrder` — Place a buy or sell shielded spot order. The current live flow requires `price` and submits the order as a delegated IoC. Auth required.
+- `cancelOrder` — Cancel a cancellable GTC limit order using the `orderId` returned by `createOrder`. Auth required.
 - `listDelegatedOrders`, `getDelegatedOrder`, `batchGetDelegatedOrders` — Query delegated-order records. Auth required.
 - `getUserOrders` — Decommissioned. Use the delegated-order operations instead.
 - `initiateWithdrawal` — Request withdrawal of an enabled token symbol for `amount`. Only one pending withdrawal at a time. Auth required.

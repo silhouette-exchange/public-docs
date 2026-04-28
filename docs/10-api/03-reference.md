@@ -410,6 +410,81 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `createOrder` to trade with your available balance, or `initiateWithdrawal` to withdraw available funds.
 
+### getFees
+
+Retrieve the spot maker and taker fee rates for the authenticated user.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"getFees"` |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "getFees"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "getFees",
+  "fees": {
+    "spot": {
+      "takerRate": "0.000700",
+      "makerRate": "0.000200",
+      "takerRatePpm": "700",
+      "makerRatePpm": "200"
+    }
+  },
+  "responseMetadata": {
+    "timestamp": 1704067200000,
+    "requestId": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| fees.spot.takerRate | string | Spot taker fee as a decimal fraction. For example, `"0.000700"` is 0.07%. |
+| fees.spot.makerRate | string | Spot maker fee as a decimal fraction. For example, `"0.000200"` is 0.02%. |
+| fees.spot.takerRatePpm | string | Spot taker fee in parts per million |
+| fees.spot.makerRatePpm | string | Spot maker fee in parts per million |
+
+**Error responses**:
+
+```json
+{
+  "operation": "getFees",
+  "error": "Unauthorized",
+  "code": "UNAUTHORIZED",
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+**Notes**:
+
+- Fee rates are scoped to the authenticated user
+- Decimal rate fields are strings for exact transport and display
+- PPM fields are integer strings; for example, `"700"` means 700 parts per million, or 0.07%
+
+**Related operations**: Use `createOrder` to place orders that use these fee rates.
+
 ### createOrder
 
 Create a new spot order to buy or sell tokens. All orders require an explicit `price` and are submitted to Hyperliquid as IOC (Immediate or Cancel) orders.
@@ -529,6 +604,97 @@ curl https://api.silhouette.exchange/v0 \
 - Save the returned `orderId` to track the order or correlate it with delegated-order records later.
 
 **Related operations**: Use `listDelegatedOrders` to view your orders, and `getBalances` to check available funds.
+
+### cancelOrder
+
+Cancel an open order for the authenticated user. Currently only GTC limit orders support cancellation.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"cancelOrder"` |
+| orderId | string | Yes | The `orderId` returned by `createOrder` for the cancellable limit order. Must be a `0x`-prefixed 32-character hex string. |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "cancelOrder",
+    "orderId": "0x1234567890abcdef1234567890abcdef"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "cancelOrder",
+  "message": "Order canceled successfully.",
+  "orderId": "0x1234567890abcdef1234567890abcdef",
+  "responseMetadata": {
+    "timestamp": 1704067200000,
+    "requestId": "650e8400-e29b-41d4-a716-446655440001"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| message | string | Cancellation result message |
+| orderId | string | Cancelled order ID |
+
+**Error responses**:
+
+```json
+{
+  "operation": "cancelOrder",
+  "error": "Missing required field: orderId.",
+  "code": "VALIDATION_ERROR",
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+```json
+{
+  "operation": "cancelOrder",
+  "error": "Invalid orderId format. Expected a 0x-prefixed 32-character hex string.",
+  "code": "VALIDATION_ERROR",
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+```json
+{
+  "operation": "cancelOrder",
+  "error": "Failed to cancel order.",
+  "code": "ORDER_ERROR",
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+**Notes**:
+
+- `cancelOrder` is for cancellable GTC limit orders
+- Use the `orderId` returned by `createOrder`. Do not pass a delegated-order ID such as `dord_...`
+- IOC orders normally fill or cancel immediately and are not cancellable through this operation
+
+**Related operations**: Use `createOrder` to place orders and delegated-order operations to inspect delegated-order records.
 
 ### listDelegatedOrders
 
