@@ -21,7 +21,11 @@ The Silhouette API and SDK are in beta. We are actively adding new operations.
 
 This section provides detailed documentation for each available API operation. All operations use the same endpoint with different `operation` values in the request body. For an overview of how the API works, see the [API Overview](/api).
 
-## login
+## Public Operations
+
+Public operations do not require a bearer token. Use these operations to authenticate, check public service metadata, and discover supported tokens and markets.
+
+### login
 
 Authenticate with the Silhouette API using [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) to obtain a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750). This operation does not require an existing bearer token - it's the first step in using the API.
 
@@ -121,9 +125,197 @@ curl https://api.silhouette.exchange/v0 \
 - You can use the [login assistant](https://login.silhouette.exchange/) for a simplified authentication flow
 - **API wallet login**: If you provide a `primaryAddress`, the SIWE message must be signed by an API wallet authorized for that primary address. The returned JWT will contain the `primaryAddress`, so all downstream operations work the same as a direct login. See [Authentication](/api/authentication#api-wallet-login) for details.
 
-**Related operations**: This operation is prerequisite for all other operations except `login` itself.
+**Related operations**: This operation is prerequisite for private user-scoped operations such as `getBalances`, `createOrder`, and withdrawals.
 
-## getBalances
+### getTokens
+
+Retrieve metadata for all tokens currently supported by the API. This is a public discovery operation; use it instead of hardcoding token metadata in your integration.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Not required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"getTokens"` |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "getTokens"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "getTokens",
+  "tokens": [
+    {
+      "name": "USDC",
+      "fullName": null,
+      "index": 0,
+      "tokenId": "0x6d1e7cde53ba9467b783cb7c530ce054",
+      "szDecimals": 8,
+      "weiDecimals": 8,
+      "isCanonical": true,
+      "evmContract": {
+        "address": "0x6b9e773128f453f5c2c60935ee2de2cbc5390a24",
+        "evm_extra_wei_decimals": -2
+      }
+    },
+    {
+      "name": "HYPE",
+      "fullName": "Hyperliquid",
+      "index": 150,
+      "tokenId": "0x0d01dc56dcaaca66ad901c959b4011ec",
+      "szDecimals": 2,
+      "weiDecimals": 8,
+      "isCanonical": false,
+      "evmContract": null
+    }
+  ],
+  "responseMetadata": {
+    "timestamp": 1704067200000,
+    "requestId": "550e8400-e29b-41d4-a716-446655440000"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| tokens | array | Supported token metadata records |
+| tokens[].name | string | Token symbol used in API requests, balances, orders, and withdrawals |
+| tokens[].fullName | string \| null | Full token name, when available |
+| tokens[].index | number | Hyperliquid spot token index |
+| tokens[].tokenId | string | Hyperliquid token ID as a hex string |
+| tokens[].szDecimals | number | Decimal precision for order sizes |
+| tokens[].weiDecimals | number | Decimal precision for the token's smallest unit |
+| tokens[].isCanonical | boolean | Whether the token is canonical on Hyperliquid |
+| tokens[].evmContract | object \| null | EVM contract metadata, when available |
+| tokens[].evmContract.address | string | EVM contract address |
+| tokens[].evmContract.evm_extra_wei_decimals | number | Additional EVM decimal adjustment for the contract |
+
+**Error responses**:
+
+```json
+{
+  "operation": "getTokens",
+  "error": "Internal server error",
+  "code": "INTERNAL_ERROR",
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+**Notes**:
+
+- This operation is public; do not include an `Authorization` header unless your client adds one globally
+- The supported token set can vary by environment and may change over time
+- Use `name` as the token symbol for `baseToken`, `quoteToken`, and `tokenSymbol` fields
+- Use `getMarkets` to discover which token pairs are currently enabled for trading
+
+**Related operations**: Use `getMarkets` to discover supported trading pairs, `getBalances` to view your balances, and `createOrder` to trade supported tokens.
+
+### getMarkets
+
+Retrieve metadata for all trading pairs currently supported by the API. This is a public discovery operation; use it to validate `baseToken` and `quoteToken` values before creating orders.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Not required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"getMarkets"` |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -d '{
+    "operation": "getMarkets"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "getMarkets",
+  "markets": [
+    {
+      "name": "HYPE/USDC",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "baseTokenIndex": 150,
+      "quoteTokenIndex": 0
+    },
+    {
+      "name": "HYPE/USDH",
+      "baseToken": "HYPE",
+      "quoteToken": "USDH",
+      "baseTokenIndex": 150,
+      "quoteTokenIndex": 360
+    }
+  ],
+  "responseMetadata": {
+    "timestamp": 1704067200000,
+    "requestId": "650e8400-e29b-41d4-a716-446655440001"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| markets | array | Supported trading-pair metadata records |
+| markets[].name | string | Market pair name in `BASE/QUOTE` format |
+| markets[].baseToken | string | Base token symbol for the pair |
+| markets[].quoteToken | string | Quote token symbol for the pair |
+| markets[].baseTokenIndex | number | Hyperliquid spot token index for the base token |
+| markets[].quoteTokenIndex | number | Hyperliquid spot token index for the quote token |
+
+**Error responses**:
+
+```json
+{
+  "operation": "getMarkets",
+  "error": "Internal server error",
+  "code": "INTERNAL_ERROR",
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+**Notes**:
+
+- This operation is public; do not include an `Authorization` header unless your client adds one globally
+- The supported market set can vary by environment and may change over time
+- The `name` field is informational; pass `baseToken` and `quoteToken` separately when calling `createOrder`
+- Markets with unavailable token metadata are excluded from the response
+
+**Related operations**: Use `getTokens` for token-level metadata and `createOrder` to place an order on a supported market.
+
+## Authenticated Operations
+
+Authenticated operations require a bearer token in the `Authorization` header and return or modify state scoped to the authenticated user.
+
+### getBalances
 
 Retrieve your account balance information for all tokens. This shows your available balance (funds you can trade or withdraw), locked balance (funds tied up in open orders), and total balance.
 
@@ -218,7 +410,7 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `createOrder` to trade with your available balance, or `initiateWithdrawal` to withdraw available funds.
 
-## createOrder
+### createOrder
 
 Create a new spot order to buy or sell tokens. All orders require an explicit `price` and are submitted to Hyperliquid as IOC (Immediate or Cancel) orders.
 
@@ -338,7 +530,7 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `listDelegatedOrders` to view your orders, and `getBalances` to check available funds.
 
-## listDelegatedOrders
+### listDelegatedOrders
 
 Retrieve a paginated list of delegated orders for the authenticated user, optionally filtered by status, order type, or creation time. This is the primary way to enumerate orders placed on your behalf via `createOrder`.
 
@@ -430,7 +622,7 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `getDelegatedOrder` or `batchGetDelegatedOrders` to fetch full detail, and `createOrder` to place new orders.
 
-## getDelegatedOrder
+### getDelegatedOrder
 
 Retrieve full details for a single delegated order by its order ID.
 
@@ -529,7 +721,7 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `listDelegatedOrders` to enumerate orders, and `batchGetDelegatedOrders` to fetch multiple orders in one call.
 
-## batchGetDelegatedOrders
+### batchGetDelegatedOrders
 
 Retrieve full details for up to 100 delegated orders in a single request.
 
@@ -606,13 +798,13 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `listDelegatedOrders` to discover order IDs, and `getDelegatedOrder` to fetch a single order.
 
-## getUserOrders
+### getUserOrders
 
 :::danger Decommissioned
 `getUserOrders` has been fully decommissioned. Use the delegated-order operations instead: `listDelegatedOrders` to enumerate and paginate orders, `getDelegatedOrder` for a single order, or `batchGetDelegatedOrders` to fetch multiple orders in one call.
 :::
 
-## initiateWithdrawal
+### initiateWithdrawal
 
 Request a withdrawal of funds from your Silhouette account back to your HyperCore address. Withdrawals are processed asynchronously, and you'll receive a withdrawal ID to track the status.
 
@@ -713,7 +905,7 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `getWithdrawalStatus` to check withdrawal progress, `getUserWithdrawals` to view all your withdrawals, and `getBalances` to verify available funds.
 
-## getWithdrawalStatus
+### getWithdrawalStatus
 
 Check the status of a specific withdrawal using its withdrawal ID. This shows whether the withdrawal is still pending, has completed successfully, or has failed.
 
@@ -859,7 +1051,7 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `initiateWithdrawal` to request a withdrawal, and `getUserWithdrawals` to view all your withdrawals.
 
-## getUserWithdrawals
+### getUserWithdrawals
 
 Retrieve a list of all your withdrawal requests, including their current status. This provides a complete history of your withdrawals.
 
