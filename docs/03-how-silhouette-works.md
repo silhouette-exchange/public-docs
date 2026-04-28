@@ -27,7 +27,7 @@ Here's what happens when you trade on Silhouette, step by step:
 
 ## 1. Connect and Deposit
 
-You connect your wallet to Silhouette - the same wallet you use across Hyperliquid. When you deposit, your funds move into Silhouette's secure environment. The TEE manages your balance internally and executes trades on your behalf. Learn more in [Architecture Overview](/architecture/overview) and [TEE documentation](/architecture/tee).
+You connect your wallet to Silhouette - the same wallet you use across Hyperliquid. When you deposit, your funds move to Silhouette's delegated wallet. The TEE manages your balance internally and executes trades on your instruction.
 
 Deposits and withdrawals are visible onchain and attributable to the user's wallet. Everything in between - individual orders, fill prices, sizes, and balances inside Silhouette - is not attributable. Silhouette's delegated wallets trade on Hyperliquid, and those fills are publicly visible, but the mapping from any given fill back to an individual user is not. The more users routing through delegated wallets, the larger the anonymity set.
 

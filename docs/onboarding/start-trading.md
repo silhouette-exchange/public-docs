@@ -24,7 +24,7 @@ If using a wallet, you need:
 
 1. **An EVM wallet** - Rabby, MetaMask, WalletConnect, or Coinbase Wallet. If you do not have one, [Rabby](https://rabby.io/) is a good starting point. After downloading the browser extension, create a new wallet and store your seed phrase securely. Never share your private key with anyone.
 
-2. **Collateral** - USDC and ETH (for gas) on Arbitrum, or any asset supported by [Unit](https://hyperunit.xyz/) or [Bitfrost](https://bitfrost.xyz/).
+2. **Collateral** - USDC and ETH (for gas) on Arbitrum, or any asset supported by [Unit](https://hyperunit.xyz/)
 
 ## Onboarding Steps
 
