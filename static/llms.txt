@@ -176,6 +176,8 @@ Amounts in API responses come in two formats:
 
 When sending amounts in requests (createOrder, initiateWithdrawal), use human-readable decimal strings (e.g., `"100"` or `"100.5"`). Values are automatically scaled.
 
+Delegated-order detail responses (`getDelegatedOrder` and `batchGetDelegatedOrders`) return accounting-sensitive numeric fields as exact integer strings, not JavaScript numbers. Parse these fields as arbitrary-precision integers, such as JavaScript `BigInt`, and apply the documented scale when formatting values for display. `amount`, `filledAmount`, and `remainingAmount` are base-token amounts scaled by `10^baseToken.weiDecimals`; get `weiDecimals` from the public `getTokens` operation. `price` and `averageFillPrice` are price fields scaled by `10^8`; divide by `100,000,000` to convert to a decimal price. `amountFloat` and `priceFloat` are convenience strings for display. `filledPrice` is deprecated; use `averageFillPrice`.
+
 ### Supported Tokens
 
 Use `getTokens` and `getMarkets` to discover the live supported set. Current app-facing environments include USDC, USDH, and HYPE, with additional assets enabled in some deployments.

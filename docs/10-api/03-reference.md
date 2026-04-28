@@ -660,17 +660,17 @@ curl https://api.silhouette.exchange/v0 \
     "orderType": "limit",
     "baseToken": "HYPE",
     "quoteToken": "USDC",
-    "amount": "1000000",
-    "amountFloat": "0.01",
-    "price": "40000000",
+    "amount": "100000000",
+    "amountFloat": "1",
+    "price": "4000000000",
     "priceFloat": "40",
     "status": "filled",
     "expiry": 1704153600,
     "createdAt": 1704067200000,
     "updatedAt": 1704070800000,
-    "filledAmount": "1000000",
-    "filledPrice": "39500000",
+    "filledAmount": "100000000",
     "remainingAmount": "0",
+    "averageFillPrice": "4000000000",
     "clearingVenue": "hyperliquid"
   },
   "responseMetadata": {
@@ -688,17 +688,18 @@ curl https://api.silhouette.exchange/v0 \
 | order.orderType | string | Order type: `"limit"` or `"market"` |
 | order.baseToken | string | Base token symbol |
 | order.quoteToken | string | Quote token symbol |
-| order.amount | string | Order amount in the token's smallest unit |
-| order.amountFloat | string | Order amount as a human-readable decimal |
-| order.price | string | Order price in the smallest unit, for limit orders |
-| order.priceFloat | string | Order price as a human-readable decimal |
+| order.amount | string | Base-token order amount as an exact integer string, scaled by `10^baseToken.weiDecimals` |
+| order.amountFloat | string | Human-readable base-token order amount convenience string |
+| order.price | string | Limit price as an exact integer string, scaled by `10^8` |
+| order.priceFloat | string | Human-readable limit price convenience string |
 | order.status | string | Current order status |
 | order.expiry | number | Order expiry as a Unix timestamp (seconds) |
 | order.createdAt | number | Unix timestamp (milliseconds) when the order was created |
 | order.updatedAt | number | Unix timestamp (milliseconds) when the order was last updated |
-| order.filledAmount | string | Amount filled, for `filled` or `partially_filled` orders |
-| order.filledPrice | string | Execution price, for `filled` or `partially_filled` orders |
-| order.remainingAmount | string | Unfilled amount in the token's smallest unit |
+| order.filledAmount | string | Filled base-token amount as an exact integer string, scaled by `10^baseToken.weiDecimals` |
+| order.remainingAmount | string | Remaining unfilled base-token amount as an exact integer string, scaled by `10^baseToken.weiDecimals` |
+| order.averageFillPrice | string | Average execution price as an exact integer string, scaled by `10^8`. Present for `filled` or `partially_filled` orders. |
+| order.filledPrice | string | Deprecated legacy execution-price field. Use `averageFillPrice` instead. |
 | order.clearingVenue | string | Venue where the order is executed (currently always `"hyperliquid"`) |
 
 **Error responses**:
@@ -718,6 +719,12 @@ curl https://api.silhouette.exchange/v0 \
 
 - You can only retrieve delegated orders that belong to the authenticated user. Looking up another user's order returns `NOT_FOUND`
 - To retrieve several orders in a single request, use `batchGetDelegatedOrders`
+- Delegated-order amounts and prices are returned as exact integer strings to preserve precision. For accounting-sensitive logic, parse these fields as arbitrary-precision integers, such as JavaScript `BigInt`, and apply the documented scale when formatting values for display.
+- `amount`, `filledAmount`, and `remainingAmount` are base-token amounts scaled by `10^baseToken.weiDecimals`. Get `weiDecimals` from the public unauthenticated `getTokens` operation.
+- `price` and `averageFillPrice` are price fields scaled by `10^8`. To convert to a decimal price, divide by `100,000,000`.
+- `amountFloat` and `priceFloat` are convenience strings for display. Use the exact integer string fields for accounting-sensitive logic.
+- Example: If `baseToken = HYPE` and `HYPE.weiDecimals = 8`, then `filledAmount = "100000000"` means 1.0 HYPE, `remainingAmount = "50000000"` means 0.5 HYPE, and `averageFillPrice = "4000000000"` means 40.0 quote tokens per 1 base token.
+- `filledPrice` is deprecated in delegated-order detail responses. Use `averageFillPrice` instead.
 
 **Related operations**: Use `listDelegatedOrders` to enumerate orders, and `batchGetDelegatedOrders` to fetch multiple orders in one call.
 
@@ -763,15 +770,17 @@ curl https://api.silhouette.exchange/v0 \
       "orderType": "limit",
       "baseToken": "HYPE",
       "quoteToken": "USDC",
-      "amount": "1000000",
-      "amountFloat": "0.01",
-      "price": "40000000",
+      "amount": "100000000",
+      "amountFloat": "1",
+      "price": "4000000000",
       "priceFloat": "40",
-      "status": "open",
+      "status": "partially_filled",
       "expiry": 1704153600,
       "createdAt": 1704067200000,
       "updatedAt": 1704067200000,
-      "remainingAmount": "1000000",
+      "filledAmount": "50000000",
+      "remainingAmount": "50000000",
+      "averageFillPrice": "4000000000",
       "clearingVenue": "hyperliquid"
     }
   ],
@@ -795,6 +804,9 @@ curl https://api.silhouette.exchange/v0 \
 
 - Request up to 100 `orderIds` per call
 - Missing or foreign orders are reported through `notFound` rather than an error, so partial results are always returned when at least one ID resolves
+- Delegated-order amount and price fields in `orders` use the same exact integer string contract as `getDelegatedOrder`
+- `amountFloat` and `priceFloat` are convenience strings for display. Use the exact integer string fields for accounting-sensitive logic.
+- `filledPrice` is deprecated in delegated-order detail responses. Use `averageFillPrice` instead.
 
 **Related operations**: Use `listDelegatedOrders` to discover order IDs, and `getDelegatedOrder` to fetch a single order.
 
