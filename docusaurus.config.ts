@@ -81,8 +81,8 @@ const config: Config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
           routeBasePath: '/',
-          showLastUpdateTime: true,
-          showLastUpdateAuthor: true,
+          showLastUpdateTime: false,
+          showLastUpdateAuthor: false,
           exclude: ['plans/**'],
         },
         blog: {
@@ -202,8 +202,8 @@ const config: Config = {
         path: 'guides',
         routeBasePath: 'guides',
         sidebarPath: require.resolve('./guidesSidebars.ts'),
-        showLastUpdateTime: true,
-        showLastUpdateAuthor: true,
+        showLastUpdateTime: false,
+        showLastUpdateAuthor: false,
       },
     ],
     [
