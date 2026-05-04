@@ -28,16 +28,16 @@ const sidebars: SidebarsConfig = {
           items: [
             'trading/shielded/spot',
             {
-              type: 'doc',
-              id: 'trading/shielded/rfq',
+              type: 'link',
               label: 'Request for Quote (RFQ)',
-              className: 'sidebar-item-coming-soon',
+              href: '#',
+              className: 'sidebar-item-coming-soon sidebar-item-disabled',
             },
             {
-              type: 'doc',
-              id: 'trading/shielded/binary-outcomes',
+              type: 'link',
               label: 'Binary Outcomes (HIP-4)',
-              className: 'sidebar-item-coming-soon',
+              href: '#',
+              className: 'sidebar-item-coming-soon sidebar-item-disabled',
             },
           ],
         },

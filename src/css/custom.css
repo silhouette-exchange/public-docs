@@ -955,11 +955,13 @@ main[class*="docMainContainer"] {
   pointer-events: none;
   color: var(--text-tertiary);
   cursor: not-allowed;
+  opacity: 0.55;
 }
 
 .sidebar-item-disabled .menu__link:hover {
   background: transparent;
   color: var(--text-tertiary);
+  opacity: 0.55;
 }
 
 .sidebar-item-coming-soon .menu__link--sublist::before,
