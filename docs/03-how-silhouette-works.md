@@ -46,7 +46,7 @@ Mode can be changed on a per-trade basis. There is no lockup or minimum duration
 
 When you trade shielded, your order enters Silhouette's Trusted Execution Environment (TEE) - a secure, isolated computing environment. Data inside the enclave is not readable by anyone, including the Silhouette team.
 
-Inside the TEE, your order is processed and matched. When it is time to settle, the trade is executed on Hyperliquid's order book via delegated wallets. These wallets aggregate activity from multiple users, so individual trades cannot be traced back to you. The market sees volume, but not who is behind it. Your shielded balance is updated inside Silhouette's TEE.
+Inside the TEE, your order is processed and submitted to Hyperliquid's order book via delegated wallets. Matching and execution happen on Hyperliquid against live liquidity. The delegated wallets aggregate activity from multiple users, so individual trades cannot be traced back to you. The market sees volume, but not who is behind it. Your shielded balance is updated inside Silhouette's TEE.
 
 ## 4. Settlement
 
@@ -72,7 +72,7 @@ When trading shielded on Silhouette, the public ledger distinguishes between wha
 | Withdrawals from Silhouette | Balances inside Silhouette |
 | | Strategy and intent |
 
-Delegated-wallet fills are publicly visible on Hyperliquid. Silhouette's privacy model is unlinkability: the anonymity set is all Silhouette users routing through the same delegated wallets. As more users trade through Silhouette, the difficulty of attributing any given fill to any given user increases.
+Delegated-wallet fills are publicly visible on Hyperliquid, but the mapping from a given fill back to an individual user is not. The anonymity set is all Silhouette users routing through the same delegated wallets. As more users trade through Silhouette, the difficulty of attributing any given fill to any given user increases.
 
 ## Rationale
 

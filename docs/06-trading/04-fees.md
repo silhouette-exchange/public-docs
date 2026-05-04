@@ -20,21 +20,9 @@ keywords:
 
 Silhouette offers two trading modes with different fee structures:
 
-- **Naked** - Open, transparent trading through Silhouette's interface. Your transactions are visible on Hyperliquid like any standard trade. Silhouette applies a small fee via Hyperliquid's [builder code](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/builder-codes) system - a protocol-native mechanism that allows frontends built on Hyperliquid to charge a fee on fills. Naked fees are the same for all users as shown in the fee schedule below.
-
 - **Shielded** - Private trading executed inside Silhouette's Trusted Execution Environment (TEE). Your transactions are not publicly visible onchain. Fees are calculated dynamically - Silhouette passes 95% of its aggregate HL volume discount directly to you.
 
-## Naked Trading Fees
-
-Silhouette charges a small builder code fee on top of Hyperliquid's standard trading fees. **Your total cost = Hyperliquid's base fee (based on your HL tier) + the Silhouette builder code fee below.**
-
-### Silhouette Fixed Builder Code Fee
-
-| Tier | Spot | Perps |
-|------|------|-------|
-| All Tiers | 0.0600% | 0.0150% |
-
-These are fixed rates applied uniformly, no per-user dynamic calculation. Your Hyperliquid volume tier, HYPE staking discounts, and any other Hyperliquid-native fee reductions still apply to the base portion of your fee. See the [Hyperliquid fee tiers](#hyperliquid-fee-tiers-reference) reference below for the underlying rates.
+- **Naked** - Open, transparent trading through Silhouette's interface. Your transactions are visible on Hyperliquid like any standard trade. Silhouette applies a small fee via Hyperliquid's [builder code](https://hyperliquid.gitbook.io/hyperliquid-docs/trading/builder-codes) system - a protocol-native mechanism that allows frontends built on Hyperliquid to charge a fee on fills. Naked fees are the same for all users as shown in the fee schedule below.
 
 ## Shielded Trading Fees (Spot Only)
 
@@ -80,6 +68,18 @@ Assuming Silhouette's aggregated wallet is at HL Tier 3 (>$100M volume), and a n
 The user's discount is derived from the difference between their individual HL rate and Silhouette's aggregate HL rate. A larger spread produces a larger discount.
 
 *Effective rate depends on Silhouette's current HL tier. As aggregate volume grows, Silhouette qualifies for lower HL tiers and the shielded baseline decreases for all users routed through the aggregate wallet. HYPE staking discounts on Silhouette's wallet are planned in a future update.*
+
+## Naked Trading Fees
+
+Silhouette charges a small builder code fee on top of Hyperliquid's standard trading fees. **Your total cost = Hyperliquid's base fee (based on your HL tier) + the Silhouette builder code fee below.**
+
+### Silhouette Fixed Builder Code Fee
+
+| Tier | Spot | Perps |
+|------|------|-------|
+| All Tiers | 0.0600% | 0.0150% |
+
+These are fixed rates applied uniformly, no per-user dynamic calculation. Your Hyperliquid volume tier, HYPE staking discounts, and any other Hyperliquid-native fee reductions still apply to the base portion of your fee. See the [Hyperliquid fee tiers](#hyperliquid-fee-tiers-reference) reference below for the underlying rates.
 
 ## Hyperliquid Fee Tiers (Reference)
 
