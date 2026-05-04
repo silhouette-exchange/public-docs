@@ -20,7 +20,6 @@ keywords:
 ## What is shielded spot trading?
 
 Shielded spot trading routes orders through Silhouette's Trusted Execution Environment (TEE) and settles them on Hyperliquid through delegated wallets. Delegated-wallet fills are publicly visible, but the mapping from a given fill to an individual user's wallet is not exposed on the public ledger.
-the app through authenticated API responses and events. Trade data remains private to each user. Data inside the TEE is inaccessible to the Silhouette team.
 
 ## What Stays Private
 
@@ -77,7 +76,7 @@ Market orders are live in shielded mode. Hyperliquid has no native market-order 
 </figure>
 </div>
 
-### Resting Limit Orders (GTC)
+### Resting Limit Orders (GTC) - Coming Soon
 
 Shielded GTC (Good Till Cancelled) limit orders are in development. In the current flow, every shielded order is submitted as a delegated IoC, so nothing rests on the public book. Resting shielded limits will let you set your price and wait for the market to come to you, without revealing your intent. The mechanism for how GTC orders work inside the shielded execution model will be detailed closer to launch.
 

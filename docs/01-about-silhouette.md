@@ -41,7 +41,7 @@ Shielded spot is live today. Additional order types are planned, including TWAP,
 
 ## Core Team
 
-The Silhouette team brings together engineers and researchers from zero-knowledge cryptography, exchange infrastructure, and protocol design. Prior experience spans DeFi protocols cloud infrastructure, and centralised exchanges.
+The Silhouette team brings together engineers and researchers from zero-knowledge cryptography, exchange infrastructure, and protocol design. Prior experience spans DeFi protocols, cloud infrastructure, and centralised exchanges.
 
 <TechArticleSchema
   headline="Silhouette Exchange: Shielded Trading on Hyperliquid"

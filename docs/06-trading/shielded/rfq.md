@@ -23,7 +23,7 @@ Shielded RFQ is in development. This page describes the planned behaviour.
 
 RFQ will allow traders to request block-sized quotes from market makers within the shielded environment. This is designed for large orders where direct market execution would create significant impact.
 
-RFQ will be the first [KYC-gated](/compliance#kyc-gated-features) feature on Silhouette, ensuring verified counterparties on both sides.
+RFQ will be the first KYC-gated feature on Silhouette, ensuring verified counterparties on both sides.
 
 ## How it fits
 
