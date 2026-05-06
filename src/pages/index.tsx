@@ -23,11 +23,11 @@ export default function Home(): ReactNode {
         stats={[
           { label: 'Taker fee', value: '-95%' },
           { label: 'Order leakage', value: 'None' },
-          { label: 'Settlement', value: 'HyperCore' },
+          { label: 'Settlement', value: 'Hyper​Core' },
         ]}
         panelTitle="SLH/SYS"
         panelRows={[
-          { label: 'Settlement', value: 'HyperCore' },
+          { label: 'Settlement', value: 'Hyper​Core' },
           { label: 'Orderbook', value: 'Public' },
           { label: 'Order flow', value: 'Shielded', highlight: true },
           { label: 'Identity', value: 'Delegated' },
