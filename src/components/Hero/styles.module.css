@@ -362,19 +362,28 @@
 /* ---------- Stats strip ---------- */
 .stats {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(120px, auto));
-  gap: 32px;
-  padding-top: 41px;
+  grid-template-columns: repeat(auto-fit, minmax(0, 1fr));
+  gap: 16px;
+  padding-top: 32px;
   margin: 0;
   border-top: 1px solid rgba(255, 255, 255, 0.06);
   width: 100%;
   max-width: 580px;
 }
 
+@media (min-width: 640px) {
+  .stats {
+    grid-template-columns: repeat(auto-fit, minmax(120px, auto));
+    gap: 32px;
+    padding-top: 41px;
+  }
+}
+
 .stat {
   display: flex;
   flex-direction: column;
   gap: 3px;
+  min-width: 0;
 }
 
 .statLabel {
@@ -390,14 +399,15 @@
 
 .statValue {
   font-family: var(--font-display);
-  font-size: 22px;
+  font-size: clamp(16px, 5vw, 22px);
   font-weight: var(--fw-medium);
   letter-spacing: 0.44px;
-  line-height: 36px;
+  line-height: 1.55;
   color: var(--text-default);
   margin: 0;
   font-variant-numeric: tabular-nums;
   text-transform: uppercase;
+  overflow-wrap: anywhere;
 }
 
 /* ---------- Side data panel ---------- */
