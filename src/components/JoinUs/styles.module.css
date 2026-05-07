@@ -1,0 +1,148 @@
+/*
+ * JoinUs component styles.
+ *
+ * Article-page CTA at the bottom of legacy Silhouette blog posts.
+ * All values reference :root tokens in src/css/custom.css.
+ *
+ * Visual direction:
+ *   - Editorial, refined, not shouty. Subtitle in the same weight as
+ *     the page body text; the block reads as a sibling paragraph,
+ *     not a bright call-out card.
+ *   - Icons sit in 44x44 circular buttons (44px is the global touch-
+ *     target minimum the design system enforces).
+ *   - Hover uses a cyan tint + subtle lift + a low-opacity cyan glow.
+ *     Magenta is reserved for primary CTAs in the site's accent
+ *     language; cyan is the "interactive secondary" colour and is
+ *     the right fit here since these buttons are passive outreach
+ *     links, not the primary action on the page.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md is silent on
+ * this legacy CTA (it will be replaced by Phase 4's article-page
+ * swizzle eventually), so the decisions here are the designer's
+ * call, aligned to the rest of the docs site's token system.
+ */
+
+.joinUs {
+  margin-top: var(--space-16);
+  padding-top: var(--space-10);
+  border-top: 1px solid var(--border-soft-white);
+}
+
+.title {
+  margin: 0 0 var(--space-2) 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-xl);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+  color: var(--text-default);
+}
+
+.subtitle {
+  margin: 0 0 var(--space-6) 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-md);
+  line-height: var(--lh-relaxed);
+  color: var(--text-secondary);
+  max-width: 48ch;
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.item {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.iconButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  border: 1px solid var(--border-soft-white);
+  border-radius: var(--radius-full);
+  color: var(--text-muted);
+  background: transparent;
+  text-decoration: none;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    color var(--dur-base) var(--ease-out),
+    background var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+  /*
+   * isolation keeps the cyan box-shadow from bleeding under
+   * sibling buttons when several are rendered in a row at tight
+   * spacings. Without it, hover glow from button 1 can visually
+   * tint the idle border of button 2.
+   */
+  isolation: isolate;
+}
+
+.iconButton svg {
+  width: 18px;
+  height: 18px;
+  flex-shrink: 0;
+  display: block;
+}
+
+.iconButton:hover {
+  color: var(--silh-cyan-100);
+  /*
+   * Cyan-tinted border. No semantic token for cyan-alpha; raw rgba
+   * used with an inline comment. Matches the same pattern used in
+   * BlogCoverFallback, BlogByline, and BlogHero for their own
+   * cyan-alpha highlights.
+   */
+  border-color: rgba(0, 255, 242, 0.4);
+  background: rgba(0, 255, 242, 0.04);
+  transform: translateY(-1px);
+  box-shadow: 0 6px 22px rgba(0, 255, 242, 0.18);
+}
+
+.iconButton:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 10px rgba(0, 255, 242, 0.12);
+}
+
+.iconButton:focus-visible {
+  outline: 2px solid var(--silh-cyan-100);
+  outline-offset: 2px;
+  /*
+   * Show the hover colour on focus-visible too so keyboard users
+   * get the same visual feedback as mouse users without having to
+   * hover first.
+   */
+  color: var(--silh-cyan-100);
+  border-color: rgba(0, 255, 242, 0.4);
+}
+
+/*
+ * Respect user motion preferences: drop the lift + glow on reduced
+ * motion. Colour changes stay because they are meaningful
+ * interaction feedback, not decorative motion.
+ */
+@media (prefers-reduced-motion: reduce) {
+  .iconButton,
+  .iconButton:hover,
+  .iconButton:active {
+    transform: none;
+    transition: color var(--dur-base) var(--ease-out),
+      border-color var(--dur-base) var(--ease-out),
+      background var(--dur-base) var(--ease-out);
+  }
+
+  .iconButton:hover {
+    box-shadow: none;
+  }
+}

@@ -1,6 +1,6 @@
 # Dependencies
 /node_modules
-.pnpm-store/
+/.pnpm-store
 
 # Production
 /build
@@ -39,3 +39,5 @@ __vale_output.json
 
 # Temp
 CLAUDE.md
+.vercel
+.env*.local

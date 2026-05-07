@@ -1,11 +1,21 @@
 ---
 slug: hyperliquid
 title: Why We Chose Hyperliquid
-authors: [silhouette-team]
-tags: [article]
+authors:
+  - silhouette-team
+category: research
+description: 'Why Silhouette built on Hyperliquid: an EVM-compatible L1 with the speed, scale and matching engine depth to support shielded trading at institutional size.'
+keywords:
+  - Hyperliquid
+  - Silhouette Exchange
+  - shielded trading
+  - decentralized exchange
+  - HyperEVM
+  - DeFi liquidity
+image: ./images/hyperliquid.png
 ---
 
-![Test image](./images/hyperliquid.png)
+![Silhouette and Hyperliquid partnership banner showing stacked Silhouette and Hyperliquid wordmarks](./images/hyperliquid.png)
 
 ***TL;DR***
 
@@ -47,7 +57,4 @@ While we see ourselves as multi-chain in the future, our immediate focus is buil
 
 Users choose their trading venues for multiple reasons - the experience, the rewards, the community, and more. We want to enhance that experience and align with a chain that has a mission closely linked to ours - providing tools that make on-chain finance fairer and more valuable.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

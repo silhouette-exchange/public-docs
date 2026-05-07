@@ -1,11 +1,21 @@
 ---
 slug: why-dark-pool-havent-worked
 title: Why Dark Pools Haven’t Worked Onchain
-authors: [silhouette-team]
-tags: [article]
+authors:
+  - silhouette-team
+category: research
+description: Part three of the Silhouette shielded trading series. Onchain dark pools promised privacy and delivered liquidity deserts. Why they failed and how shielded trading fixes it.
+keywords:
+  - dark pools
+  - onchain dark pool
+  - DeFi privacy
+  - dark pool liquidity
+  - shielded trading
+  - Silhouette Exchange
+image: ./images/darkpoolsdontwork.png
 ---
 
-![Test image](./images/darkpoolsdontwork.png)
+![Why Dark Pools Haven’t Worked Onchain series header with a fragmented liquidity visual](./images/darkpoolsdontwork.png)
 
 *Part three in our series on shielded trading*
 
@@ -63,7 +73,7 @@ Privacy was often bolted on in ways that made usage painful. To trade, users had
 ### 3. The liquidity spiral
 Tight spreads attract flow. Flow attracts more liquidity. But when spreads are wide and depth is thin, users abandon ship. Dark pools struggled to bootstrap this cycle because the starting conditions were too constrained. Privacy was prioritised at the cost of usability.
 
-![Test image](./images/liquiditydifference.png)
+![Liquidity depth comparison chart showing thin onchain dark pool order books versus deep continuous liquidity on public venues](./images/liquiditydifference.png)
 
 The end result? Empty pools, despite good intentions.
 
@@ -101,7 +111,4 @@ Privacy, alone, is not a product. But usable, composable, shielded trading?
 
 That is a new foundation.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

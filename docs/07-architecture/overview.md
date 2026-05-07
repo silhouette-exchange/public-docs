@@ -2,7 +2,7 @@
 title: Architecture Overview
 sidebar_label: Overview
 pagination_label: Architecture Overview
-description: "Learn how Silhouette Exchange enables shielded trading on Hyperliquid."
+description: "Silhouette architecture overview: how the web app, TEE matching engine, delegated wallets, and Hyperliquid settlement layer work together to enable shielded trading."
 keywords:
   - Silhouette Exchange
   - architecture
@@ -14,6 +14,10 @@ keywords:
 ---
 
 # Architecture Overview
+
+<ShieldedCallout type="note" title="Under active development">
+  Silhouette is currently under active development. These docs and the information within them are subject to change.
+</ShieldedCallout>
 
 :::info For All Users
 This overview explains how Silhouette's components work together. Traders can skim the diagrams and design principles. Those conducting security due diligence should review all sections.
@@ -47,18 +51,27 @@ The TEE hosts Silhouette's matching engine and acts as the bridge between users 
 - Tracks shielded account balances and order state
 - Monitors HyperCore for deposit and withdrawal events
 
-The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the code runs confidentially. No one can access the data inside, not even the Silhouette team or AWS. For more details, see [Trusted Execution Environments](/architecture/tee).
+The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the code runs confidentially. Data inside the enclave is not readable by anyone, including the Silhouette team or AWS. For more details, see [Trusted Execution Environments](/architecture/tee).
 
 ## How They Work Together
 
-```
-┌─────────────┐     ┌─────────────────┐     ┌──────────────┐
-│             │     │                 │     │              │
-│   Your      │────▶│   Silhouette    │────▶│  Hyperliquid │
-│   Browser   │     │   TEE           │     │  Order Book  │
-│             │◀────│                 │◀────│              │
-└─────────────┘     └─────────────────┘     └──────────────┘
-```
+<div className="arch-flow">
+<div className="arch-node">
+<div className="arch-node-label">Your Browser</div>
+</div>
+<div className="arch-arrow">
+<span className="arch-arrow-line" />
+</div>
+<div className="arch-node arch-node--accent">
+<div className="arch-node-label">Silhouette TEE</div>
+</div>
+<div className="arch-arrow">
+<span className="arch-arrow-line" />
+</div>
+<div className="arch-node">
+<div className="arch-node-label">Hyperliquid Order Book</div>
+</div>
+</div>
 
 **Deposit flow:**
 1. You deposit funds from your wallet to the Silhouette address
@@ -78,4 +91,11 @@ The TEE runs in an AWS Nitro Enclave - a secure, isolated environment where the 
 
 ## Design Principles
 
-**Separated responsibilities.** The app handles authentication and UX and the TEE handles shielded execution and account state.
+**Separated responsibilities.** The app handles authentication and the user interface. The TEE handles shielded execution and account state.
+
+<TechArticleSchema
+  headline="Silhouette Architecture Overview"
+  description="Silhouette architecture overview: how the web app, TEE matching engine, delegated wallets, and Hyperliquid settlement layer work together to enable shielded trading."
+  proficiencyLevel="Intermediate"
+  keywords={['Silhouette Exchange', 'architecture', 'shielded trading', 'Hyperliquid', 'TEE', 'trusted execution environment']}
+/>

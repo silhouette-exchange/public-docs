@@ -1,0 +1,126 @@
+/*
+ * BlogLatestBand
+ *
+ * Labelled band wrapper around the 2-column BlogPostCard grid.
+ *
+ * Token choices vs spec (design doc section 4g):
+ *
+ *  - Header label: same Orbitron 13px uppercase letter-spacing
+ *    --tracking-widest pattern as BlogSeriesBand. Legitimate Orbitron
+ *    use (single-line all-caps band label, not a heading).
+ *  - Dividers: same 1px rgba(255, 255, 255, 0.08) rules as
+ *    BlogSeriesBand for visual parity between bands.
+ *  - Grid: 2 columns desktop (>=996px), 1 column mobile.
+ *  - Horizontal gap 40px (--space-10), vertical gap 64px (--space-16)
+ *    per spec.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4g
+ */
+
+.band {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-10);
+  width: 100%;
+  margin-top: var(--space-10);
+  /*
+   * Top-down stagger entrance on the blog listing. After the series
+   * band (240ms), so delay is 320ms. Shared fadeSlideUp keyframe
+   * lives in src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 320ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .band {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+/* ==================================================================
+   Header
+   ================================================================== */
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.dividerRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  width: 100%;
+}
+
+.divider {
+  flex: 1;
+  height: 1px;
+  /*
+   * Gradient dividers replace the old flat rgba(255, 255, 255, 0.08)
+   * bar. Each side fades from transparent at the viewport edge up to
+   * --border-soft-white at the label, framing the label as the focal
+   * point instead of reading as a 1997-era horizontal rule. The left
+   * divider brightens toward its right edge, the right divider
+   * brightens toward its left edge. Layout unchanged: still two
+   * flex-grow spans in a row.
+   */
+}
+
+.dividerRow .divider:first-child {
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-soft-white) 100%
+  );
+}
+
+.dividerRow .divider:last-child {
+  background: linear-gradient(
+    to left,
+    transparent,
+    var(--border-soft-white) 100%
+  );
+}
+
+.label {
+  /* Orbitron is the legit case here: a short all-caps band label, not
+     a heading. */
+  font-family: var(--font-display);
+  font-size: 13px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-default);
+  margin: 0;
+  white-space: nowrap;
+  /*
+   * Merest hint of cyan glow behind the label glyphs. Raw rgba
+   * because the codebase has no cyan alpha token at 0.15. Subtle
+   * enough to read as atmosphere rather than a neon sign. Disabled
+   * under prefers-reduced-motion is not strictly required since
+   * text-shadow is static, but we keep the label readable either way.
+   */
+  text-shadow: 0 0 12px rgba(0, 255, 242, 0.15);
+}
+
+/* ==================================================================
+   Card grid
+   ================================================================== */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: var(--space-10);
+}
+
+@media (min-width: 996px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+    column-gap: var(--space-10);
+    row-gap: var(--space-16);
+  }
+}

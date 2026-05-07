@@ -122,3 +122,10 @@ Silhouette does not charge fees on deposits or withdrawals. Standard Hyperliquid
 ## Referral Discounts
 
 Silhouette's [referral program](/referrals) provides additional fee savings. See [Referrals](/referrals) for details.
+
+<TechArticleSchema
+  headline="Silhouette Exchange Fees"
+  description="Silhouette Exchange fee structure for naked and shielded trading on Hyperliquid. Transparent builder code fees and dynamic shielded savings."
+  proficiencyLevel="Beginner"
+  keywords={['Silhouette Exchange', 'trading fees', 'Hyperliquid', 'builder code', 'maker fees', 'taker fees', 'shielded trading']}
+/>

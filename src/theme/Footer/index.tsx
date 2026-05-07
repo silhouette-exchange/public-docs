@@ -17,13 +17,21 @@ function Footer(): ReactNode {
   return (
     <footer className="footer" data-name="Footer">
       <div className="footer__container-wrapper">
-        {logo && (
-          <img
-            src={useBaseUrl(logo.src)}
-            alt={logo.alt}
-            className="footer__logo"
-          />
-        )}
+        <div className="footer__brand">
+          {logo && (
+            <img
+              src={useBaseUrl(logo.src)}
+              alt={logo.alt}
+              className="footer__logo"
+            />
+          )}
+          <Link
+            href="https://silhouette.exchange"
+            className="footer__launch-btn"
+          >
+            Launch App
+          </Link>
+        </div>
 
         {links && (
           <div className="footer__columns">

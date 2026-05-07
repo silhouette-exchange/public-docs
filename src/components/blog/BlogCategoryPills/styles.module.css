@@ -1,0 +1,75 @@
+/*
+ * BlogCategoryPills
+ *
+ * Horizontal row of filter pills for the /blog listing. Styled to match
+ * the dapp DS tab-group pattern: small, bordered, no full-radius pills.
+ *
+ * Spec: dapp-beta-design-system-guidelines.md §10b Tab Groups
+ */
+
+.toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  padding-top: 0;
+  padding-bottom: var(--space-6);
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 80ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toolbar {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.pill {
+  border: 1px solid var(--border-default);
+  background: transparent;
+  padding: 6px var(--space-3);
+  border-radius: var(--radius-sm);
+  font-family: var(--font-sans);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  line-height: 1;
+  color: var(--text-muted);
+  cursor: pointer;
+  white-space: nowrap;
+  transition:
+    border-color var(--dur-base) var(--ease-standard),
+    color var(--dur-base) var(--ease-standard),
+    background var(--dur-base) var(--ease-standard);
+}
+
+.pill:hover {
+  border-color: var(--border-strong);
+  color: var(--text-default);
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.pill:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+.pillActive {
+  background: rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
+  color: var(--text-default);
+}
+
+.pillActive:hover {
+  border-color: var(--border-strong);
+  color: var(--text-default);
+}
+
+@media (pointer: coarse) {
+  .pill {
+    min-height: 44px;
+    padding: var(--space-2) var(--space-4);
+    display: inline-flex;
+    align-items: center;
+  }
+}

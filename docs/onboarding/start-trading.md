@@ -24,7 +24,7 @@ If using a wallet, you need:
 
 1. **An EVM wallet** - Rabby, MetaMask, WalletConnect, or Coinbase Wallet. If you do not have one, [Rabby](https://rabby.io/) is a good starting point. After downloading the browser extension, create a new wallet and store your seed phrase securely. Never share your private key with anyone.
 
-2. **Collateral** - USDC and ETH (for gas) on Arbitrum, or any asset supported by [Unit](https://hyperunit.xyz/) or [Bitfrost](https://bitfrost.xyz/).
+2. **Collateral** - USDC and ETH (for gas) on Arbitrum, or any asset supported by [Unit](https://hyperunit.xyz/).
 
 ## Onboarding Steps
 
@@ -44,6 +44,19 @@ Spot markets are available in both [Naked](/trading/naked-trading) and [Shielded
 4. Use the slider or type in your desired size
 5. Click **Place Order**, then **Confirm** in the modal. Tick "Don't show this again" to skip confirmation on future orders.
 
+For precise entries, you can also use a limit order to set your exact price:
+
+<div className="screenshot-pair">
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/naked_SpotMarketOrder_BUY.png" alt="Spot market buy order on Silhouette" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Spot market order</figcaption>
+</figure>
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/naked_SpotLimitOrder_BUY.png" alt="Spot limit buy order on Silhouette" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Spot limit order</figcaption>
+</figure>
+</div>
+
 ## Trading Perpetuals
 
 Perpetual markets are live in **Naked** mode only. Shielded perpetuals are on the roadmap. Trades in naked mode are visible onchain and route directly to Hyperliquid via Builder Codes.
@@ -56,4 +69,22 @@ With perpetual contracts, you use USDC as collateral to go long or short on a to
 4. Set your position size - position size equals leverage multiplied by collateral
 5. Click **Place Order**, then **Confirm**
 
-For details on available order types, see [Order Types](/trading/order-types). To manage your funds, see [Deposits and Withdrawals](/onboarding/withdraw).
+<div className="screenshot-pair">
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/naked_MARGINMode_Select.png" alt="Margin mode selector for perpetuals trading" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Margin mode selector</figcaption>
+</figure>
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/naked_PerpsMarket_LONG.png" alt="Perpetuals market long order on Silhouette" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Perps market order</figcaption>
+</figure>
+</div>
+
+For details on available order types, see [Naked Trading](/trading/naked-trading) or [Shielded Trading](/trading/shielded-trading). To manage your funds, see [Deposits and Withdrawals](/onboarding/withdraw).
+
+<TechArticleSchema
+  headline="Start Trading on Silhouette"
+  description="Get started trading on Silhouette Exchange with shielded and naked modes. Connect your wallet, deposit funds, and trade on Hyperliquid privately."
+  proficiencyLevel="Beginner"
+  keywords={['Silhouette Exchange', 'shielded trading', 'Hyperliquid', 'crypto trading', 'private trading', 'DeFi privacy']}
+/>

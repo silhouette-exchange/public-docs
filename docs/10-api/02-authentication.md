@@ -226,3 +226,18 @@ Signs your token has expired:
 When this happens, simply go through the authentication flow again (using the login assistant or manual flow) to obtain a fresh token.
 
 For troubleshooting authentication issues, see the [Troubleshooting](/api/troubleshooting) page.
+
+<TechArticleSchema
+  headline="Silhouette API Authentication (SIWE)"
+  description="Authenticate with the Silhouette API using Sign-In With Ethereum (SIWE). Obtain bearer tokens for programmatic shielded trading."
+  proficiencyLevel="Advanced"
+  keywords={[
+    "SIWE authentication",
+    "Silhouette API",
+    "Hyperliquid API",
+    "trading API",
+    "shielded trading",
+    "programmatic trading",
+    "API reference",
+  ]}
+/>

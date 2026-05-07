@@ -1,11 +1,21 @@
 ---
 slug: shielded-spot-trading
 title: Shielded Spot Trading - Live on Hyperliquid
-authors: [silhouette-team]
-tags: [article]
+authors:
+  - silhouette-team
+category: product
+description: Shielded spot trading is live on Hyperliquid. Execute HYPE/USDC orders through a TEE-attested matching engine with zero strategy leakage and 95% passthrough on the HL fee discount.
+keywords:
+  - shielded spot trading
+  - Hyperliquid
+  - Silhouette Exchange
+  - TEE matching engine
+  - HYPE/USDC
+  - DeFi privacy
+image: ./images/shieldedspot.png
 ---
 
-![Shielded Spot Trading](./images/shieldedspot.png)
+![Cyberpunk illustration of a trader at a multi-monitor terminal executing shielded orders on Hyperliquid while a crowd watches in the background](./images/shieldedspot.png)
 
 Over the last few months, we’ve been working with a series of traders and users refining the shielded experience. Today, we go live in an open beta.
 
@@ -29,7 +39,7 @@ Silhouette's trading mechanism starts with users depositing funds into a contrac
 
 Trades are executed directly on the Hyperliquid orderbook using the Silhouette system. Once a trade is completed, user balances are encrypted within a smart contract. This smart contract will be essential for our upcoming Sovereign Withdrawal feature, which ensures access to funds even if the Silhouette system is unavailable.
 
-![Test image](./images/shieldedtradingdiagram.png)
+![Architecture diagram of the Silhouette shielded trading system: user wallet delegates to a TEE-attested execution module that places orders on Hyperliquid and encrypts balances inside a smart contract](./images/shieldedtradingdiagram.png)
 
 Silhouette supports policy engines as part of our plan to introduce compliance into our system. While we strongly advocate for open finance principles, we also recognise the need to make crypto markets more accessible to traditional financial participants. This is a nuanced and technical topic which deserves its own deep dive. If you represent a fund or any institutional entity interested in utilising this feature from its launch, please contact us through our public Telegram group to arrange access.
 
@@ -56,7 +66,7 @@ This is just the first phase. Here is what to expect next:
 - While supported on day one of our launch, we will share more details on our policy engines and how they enable more use cases on-chain.
 - Future releases will introduce deeper intent protection, more expressive order types, and fully confidential routing that still settles in public.
 
-![Test image](./images/q1-roadmap.png)
+![Silhouette Q1 roadmap graphic listing HIP-3 perps support, shielded TWAP and VWAP iceberg orders, RFQ and RFM infrastructure, and net settlement layer](./images/q1-roadmap.png)
 
 Trade now: https://app.silhouette.exchange
 

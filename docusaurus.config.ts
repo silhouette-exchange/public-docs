@@ -44,39 +44,32 @@ const config: Config = {
   },
   headTags: [
     {
-      tagName: "link",
+      tagName: 'meta',
       attributes: {
-        rel: "preconnect",
-        href: "https://fonts.googleapis.com",
+        name: 'viewport',
+        content: 'width=device-width, initial-scale=1.0, viewport-fit=cover',
       },
     },
     {
-      tagName: "link",
+      tagName: 'link',
       attributes: {
-        rel: "preconnect",
-        href: "https://fonts.gstatic.com",
-        crossorigin: "anonymous",
+        rel: 'preconnect',
+        href: 'https://fonts.googleapis.com',
       },
     },
     {
-      tagName: "link",
+      tagName: 'link',
       attributes: {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap",
+        rel: 'preconnect',
+        href: 'https://fonts.gstatic.com',
+        crossorigin: 'anonymous',
       },
     },
     {
-      tagName: "link",
+      tagName: 'link',
       attributes: {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=Orbitron:wght@400;600;700&display=swap",
-      },
-    },
-    {
-      tagName: "link",
-      attributes: {
-        rel: "stylesheet",
-        href: "https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@400;500&display=swap",
+        rel: 'stylesheet',
+        href: 'https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Orbitron:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap',
       },
     },
   ],
@@ -88,13 +81,100 @@ const config: Config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
           routeBasePath: '/',
+          showLastUpdateTime: false,
+          showLastUpdateAuthor: false,
+          exclude: ['plans/**'],
         },
         blog: {
           showReadingTime: true,
           routeBasePath: '/blog',
+          showLastUpdateTime: true,
+          showLastUpdateAuthor: true,
+          /*
+           * blogTitle flows into the `<title>` of /blog and into the
+           * og:title / twitter:title meta tags. Previously defaulted to
+           * "Blog" which the SEO audit flagged as a wasted keyword slot.
+           */
+          blogTitle: 'Shielded trading blog | Silhouette',
+          /*
+           * blogDescription flows into the meta description and og/twitter
+           * description of /blog. Previously missing entirely, so the
+           * listing page served a blank SERP snippet.
+           */
+          blogDescription:
+            'Research, guides and dispatches on shielded trading, TEE-attested execution, and building privacy-preserving markets on Hyperliquid.',
+          /*
+           * archiveBasePath: null disables the auto-generated /blog/archive
+           * page. The default Docusaurus archive is a thin list of every
+           * post grouped by month. The SEO audit flagged it as crawl-budget
+           * waste on a site where the real /blog listing is the authored
+           * entry point. Same story with authorsBasePath below.
+           */
+          archiveBasePath: null,
         },
         theme: {
           customCss: require.resolve('./src/css/custom.css'),
+        },
+        sitemap: {
+          changefreq: 'weekly',
+          priority: 0.5,
+          createSitemapItems: async (params) => {
+            const { defaultCreateSitemapItems, ...rest } = params;
+            const items = await defaultCreateSitemapItems(rest);
+            return items.map((item) => {
+              const path = new URL(item.url).pathname;
+              if (path === '/' || path === '/about-silhouette') {
+                return { ...item, priority: 0.9 };
+              }
+              if (
+                path === '/quickstart' ||
+                path === '/how-silhouette-works' ||
+                path.startsWith('/trading/') ||
+                path === '/faq'
+              ) {
+                return { ...item, priority: 0.8 };
+              }
+              if (
+                path.startsWith('/architecture/') ||
+                path.startsWith('/api/') ||
+                path === '/sdk' ||
+                path.startsWith('/blog/')
+              ) {
+                return { ...item, priority: 0.7 };
+              }
+              return { ...item, priority: 0.5 };
+            });
+          },
+          /*
+           * /plans/** are in-repo execution notes, excluded from public
+           * discovery. /blog/authors/** is a thin Docusaurus auto-generated
+           * author listing tree that the SEO audit flagged as crawl-budget
+           * waste (we only have one author today and no real author bios
+           * yet). /blog/archive is disabled at the plugin level via
+           * archiveBasePath: null.
+           */
+          ignorePatterns: [
+            '/plans/**',
+            '/blog/authors/**',
+            '/blog-preview',
+            '/search',
+            /*
+             * Phase 2 stub pages for guide sub-sections. Each contains a
+             * single ShieldedCallout with a link to the real content.
+             * Excluded from the sitemap to avoid thin-content crawl
+             * signals. Re-add when Phase 2 content ships.
+             */
+            '/guides/for-developers',
+            '/guides/for-developers/**',
+            '/guides/for-institutions',
+            '/guides/for-institutions/**',
+            '/guides/for-traders',
+            '/guides/for-traders/**',
+            '/guides/comparisons',
+            '/guides/comparisons/**',
+          ],
+          filename: 'sitemap.xml',
+          lastmod: 'date',
         },
       } satisfies Preset.Options,
     ],
@@ -115,15 +195,215 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
       },
     ],
+    [
+      '@docusaurus/plugin-content-docs',
+      {
+        id: 'guides',
+        path: 'guides',
+        routeBasePath: 'guides',
+        sidebarPath: require.resolve('./guidesSidebars.ts'),
+        showLastUpdateTime: false,
+        showLastUpdateAuthor: false,
+      },
+    ],
+    [
+      '@signalwire/docusaurus-plugin-llms-txt',
+      {
+        siteTitle: 'Silhouette',
+        siteDescription:
+          'Silhouette is a shielded trading platform on Hyperliquid. Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain.',
+        depth: 2,
+        enableDescriptions: true,
+        runOnPostBuild: true,
+        onRouteError: 'warn',
+        logLevel: 1,
+        content: {
+          enableMarkdownFiles: true,
+          enableLlmsFullTxt: true,
+          relativePaths: false,
+          includeBlog: true,
+          includePages: false,
+          includeDocs: true,
+          excludeRoutes: [
+            '/plans/**',
+            '/search',
+            /*
+             * Docusaurus auto-generated blog index pages. Thin and
+             * duplicate-y; SEO audit flagged as crawl budget waste. The
+             * archive page is also disabled at the blog plugin level via
+             * archiveBasePath: null; /blog/authors/** is excluded from
+             * the sitemap. These exclusions keep llms.txt clean too.
+             */
+            '/blog/authors/**',
+            '/blog-preview',
+            /*
+             * Phase 2 guide stub pages. Each is a single ShieldedCallout
+             * redirecting to real content. Excluded from llms.txt to
+             * avoid polluting AI context with placeholder pages.
+             */
+            '/guides/for-developers',
+            '/guides/for-developers/**',
+            '/guides/for-institutions',
+            '/guides/for-institutions/**',
+            '/guides/for-traders',
+            '/guides/for-traders/**',
+            '/guides/comparisons',
+            '/guides/comparisons/**',
+          ],
+        },
+        includeOrder: [
+          '/about-silhouette',
+          '/quickstart',
+          '/trading/**',
+          '/architecture/**',
+          '/api/**',
+          '/sdk',
+          '/guides/**',
+          '/glossary',
+          '/faq',
+        ],
+      },
+    ],
+    '@stackql/docusaurus-plugin-structured-data',
+    /*
+     * Local postBuild pass that repairs malformed BreadcrumbList JSON-LD
+     * emitted by @stackql/docusaurus-plugin-structured-data. The upstream
+     * plugin has a bug where routes like /api/authentication and
+     * /concepts/tee fall through the case-1 switch (which only handles
+     * `docs` and `blog` as ancestor tokens), leaving `pageName` undefined
+     * and `elementIndex` at its init value of 1. The result is a
+     * BreadcrumbList with two position-1 entries and one `name: "undefined"`,
+     * which Google's Rich Results Test rejects and AI citation scorers
+     * ignore. See src/plugins/structured-data-fix/index.js for detail.
+     *
+     * Registration order matters: this plugin must run AFTER the stackql
+     * plugin so its postBuild sees the stackql-written JSON-LD.
+     */
+    './src/plugins/structured-data-fix',
+    // Scalar API Explorer temporarily disabled for public docs launch.
+    // Re-enable by uncommenting the block below.
+    // [
+    //   '@scalar/docusaurus',
+    //   {
+    //     label: 'API Explorer',
+    //     route: '/api/explorer',
+    //     showNavLink: false,
+    //     configuration: {
+    //       sources: [
+    //         {
+    //           url:
+    //             process.env.VERCEL === '1'
+    //               ? '/openapi/v0.json'
+    //               : 'https://api.silhouette.exchange/v0/openapi.json',
+    //           title: 'v0 (current)',
+    //           slug: 'v0',
+    //           default: true,
+    //         },
+    //         {
+    //           url:
+    //             process.env.VERCEL === '1'
+    //               ? '/openapi/v1.json'
+    //               : 'https://api.silhouette.exchange/v1/openapi.json',
+    //           title: 'v1 (next)',
+    //           slug: 'v1',
+    //         },
+    //       ],
+    //       darkMode: true,
+    //       hideClientButton: false,
+    //       hideDarkModeToggle: true,
+    //       telemetry: false,
+    //       theme: 'none',
+    //       layout: 'modern',
+    //       hiddenClients: ['c', 'clojure', 'http', 'ocaml', 'powershell', 'objc', 'r'],
+    //       defaultHttpClient: {
+    //         targetKey: 'shell',
+    //         clientKey: 'curl',
+    //       },
+    //     },
+    //   },
+    // ],
   ],
 
   themeConfig: {
+    structuredData: {
+      excludedRoutes: [
+        '/search',
+        '/blog/authors',
+        '/blog/tags',
+        '/blog/archive',
+        '/blog',
+        '/api/explorer',
+      ],
+      verbose: false,
+      featuredImageDimensions: {
+        width: 1200,
+        height: 627,
+      },
+      authors: {
+        'Silhouette Team': {
+          authorId: 'silhouette-team',
+          url: 'https://silhouette.exchange',
+          imageUrl: 'https://github.com/silhouette-exchange.png',
+          sameAs: [
+            'https://x.com/silhouette_ex',
+            'https://github.com/silhouette-exchange',
+            'https://t.me/silhouette_exchange',
+          ],
+        },
+      },
+      organization: {
+        name: 'Silhouette Exchange',
+        legalName: 'Silhouette Exchange',
+        url: 'https://silhouette.exchange',
+        sameAs: [
+          'https://x.com/silhouette_ex',
+          'https://t.me/silhouette_exchange',
+          'https://github.com/silhouette-exchange',
+        ],
+        description:
+          'Silhouette is a shielded trading platform on Hyperliquid. Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain.',
+        logo: {
+          '@type': 'ImageObject',
+          inLanguage: 'en-US',
+          '@id': 'https://docs.silhouette.exchange/#logo',
+          url: 'https://docs.silhouette.exchange/img/silhouette-title-logo.svg',
+          contentUrl: 'https://docs.silhouette.exchange/img/silhouette-title-logo.svg',
+          width: 240,
+          height: 32,
+          caption: 'Silhouette Exchange',
+        },
+      },
+      website: {
+        inLanguage: 'en-US',
+      },
+      webpage: {
+        inLanguage: 'en-US',
+        datePublished: '2025-01-01',
+      },
+      breadcrumbLabelMap: {
+        'about-silhouette': 'About',
+        'quickstart': 'Quickstart',
+        'trading': 'Trading',
+        'architecture': 'Architecture',
+        'api': 'API',
+        'sdk': 'Python SDK',
+        'guides': 'Guides',
+        'glossary': 'Glossary',
+        'faq': 'FAQs',
+      },
+    },
     // Replace with social card
     colorMode: {
       defaultMode: 'dark',
       disableSwitch: true,
     },
     image: 'img/silhouette-social-card.png',
+    metadata: [
+      { name: 'theme-color', content: '#13161a' },
+      { name: 'og:site_name', content: 'Silhouette Docs' },
+      { name: 'twitter:card', content: 'summary_large_image' },
+      { name: 'twitter:site', content: '@silhouette_ex' },
+    ],
     navbar: {
       title: 'Silhouette',
       logo: {
@@ -131,7 +411,13 @@ const config: Config = {
         src: 'img/silhouette-title-logo.svg',
         height: 18,
       },
-      // items: [],
+      items: [
+        { to: '/about-silhouette', label: 'Docs', position: 'left' },
+        // Guides nav entry temporarily hidden for public launch; re-add when content is ready.
+        // { to: '/guides', label: 'Guides', position: 'left' },
+        { to: '/blog', label: 'Blog', position: 'left' },
+        { href: 'https://app.silhouette.exchange', label: 'Launch App', position: 'right' },
+      ],
     },
     footer: {
       logo: {
@@ -140,23 +426,19 @@ const config: Config = {
       },
       style: 'dark',
       links: [
-        // {
-        //   title: 'GitHub',
-        //   items: [
-        //     {
-        //       label: 'Contract',
-        //       href: '#',
-        //     },
-        //     {
-        //       label: 'Hyperliquid token IDs',
-        //       href: '#',
-        //     },
-        //     {
-        //       label: 'Deployment',
-        //       href: '#',
-        //     },
-        //   ],
-        // },
+        {
+          title: 'Documentation',
+          items: [
+            {
+              label: 'Docs',
+              href: '/about-silhouette',
+            },
+            {
+              label: 'API',
+              href: '/api',
+            },
+          ],
+        },
         {
           title: 'Ecosystem',
           items: [

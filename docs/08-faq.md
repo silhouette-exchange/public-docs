@@ -7,11 +7,11 @@ description: "Find answers to common questions about Silhouette - shielded tradi
 keywords:
   - FAQ
   - shielded trading
-  - Hyperliquid API
-  - Silhouette API
-  - DeFi API
-  - trading API
-  - SIWE authentication
+  - Silhouette Exchange
+  - Hyperliquid
+  - DeFi privacy
+  - shielded execution
+  - trading fees
 ---
 
 # Frequently Asked Questions
@@ -20,11 +20,11 @@ keywords:
 
 ### What Is Silhouette?
 
-Silhouette is shielded trading on Hyperliquid. We give you the ability to trade on Hyperliquid's order book without exposing your strategy, size, or intent. Your trades settle on the same order book, with the same liquidity - the difference is that no one sees you coming.
+Silhouette is shielded trading on Hyperliquid. Orders route through Silhouette's execution environment so strategy, size, and intent are not attributable to the user's wallet on the public orderbook. Trades settle on Hyperliquid against the same liquidity used by any other Hyperliquid frontend.
 
 ### Is Silhouette a Separate Exchange?
 
-No. Every trade on Silhouette settles on Hyperliquid. We are not a separate venue with separate liquidity. We are a shielded route to the same order book everyone else uses.
+No. Every trade on Silhouette settles on Hyperliquid. Silhouette is not a separate venue with separate liquidity; it is a shielded route to the Hyperliquid order book.
 
 ### Is Silhouette a Mixer?
 
@@ -90,3 +90,72 @@ If you clear your browser data, you may need to reconnect your wallet and re-aut
 ### How Do I Provide Feedback?
 
 Click the **FEEDBACK** button at the bottom right of the Silhouette app to report bugs or request features. You can also reach us on [Telegram](https://t.me/silhouette_exchange) or [X (Twitter)](https://x.com/silhouette_ex).
+
+<FAQSchema
+  questions={[
+    {
+      q: "What is Silhouette?",
+      a: "Silhouette is shielded trading on Hyperliquid. Orders route through Silhouette's execution environment so strategy, size, and intent are not attributable to the user's wallet on the public orderbook. Trades settle on Hyperliquid against the same liquidity used by any other Hyperliquid frontend.",
+    },
+    {
+      q: "Is Silhouette a separate exchange?",
+      a: "No. Every trade on Silhouette settles on Hyperliquid. Silhouette is not a separate venue with separate liquidity; it is a shielded route to the Hyperliquid order book.",
+    },
+    {
+      q: "Is Silhouette a mixer?",
+      a: "No. Mixers enable private transactions between two addresses to obfuscate the movement of funds. Silhouette only permits deposits and withdrawals from the same address. It hides order and balance data, while deposits and withdrawals remain visible on HyperCore.",
+    },
+    {
+      q: "Is Silhouette just an off-chain orderbook?",
+      a: "No. Silhouette is a matching and execution engine that leverages Hyperliquid for settlement. All trades execute against Hyperliquid's order book, providing deeper liquidity than a standalone off-chain orderbook could offer. Hyperliquid remains the settlement layer.",
+    },
+    {
+      q: "What is the difference between obfuscation and mixing?",
+      a: "Obfuscation hides trade and order data from outsiders. Mixing prevents traceability of funds by intertwining multiple users' funds. Silhouette is an obfuscation system that hides order and balance data while deposits and withdrawals remain open on HyperCore.",
+    },
+    {
+      q: "What trading modes are available on Silhouette?",
+      a: "Two modes: shielded and naked. Shielded routes orders through Silhouette's secure execution environment, hiding activity from the public ledger. Naked routes directly to Hyperliquid and is fully visible. You choose on every trade.",
+    },
+    {
+      q: "What markets are supported on Silhouette?",
+      a: "Shielded trading currently supports spot markets on Hyperliquid. Naked trading supports both spot and perpetuals. Shielded perpetuals are on the roadmap.",
+    },
+    {
+      q: "What order types are supported on Silhouette?",
+      a: "Market and limit orders are supported in naked mode. Market orders are supported in shielded mode. Shielded limit orders, TWAPs, VWAPs, and RFQs are on the roadmap.",
+    },
+    {
+      q: "How does Silhouette integrate with HyperCore?",
+      a: "Silhouette's system comprises delegated wallets on HyperCore and a Trusted Execution Environment. The TEE interacts with HyperCore for state management, deposits and withdrawals, and order settlement.",
+    },
+    {
+      q: "Can the Silhouette team see my trades?",
+      a: "No. Orders are processed inside a Trusted Execution Environment, a hardware-isolated computing environment that no one can access, including the Silhouette team. Strategy, size, and intent stay sealed inside the enclave.",
+    },
+    {
+      q: "What happens if Silhouette goes offline?",
+      a: "Funds are managed within Silhouette's secure environment on Hyperliquid. Trading activity and balances remain private and visible only to you. Deposits and withdrawals continue to flow through HyperCore when the system is available.",
+    },
+    {
+      q: "How can I verify the Silhouette TEE is running the correct code?",
+      a: "Silhouette's TEE runs in AWS Nitro Enclaves, which produce cryptographic attestation documents signed by the Nitro Hypervisor. These include a PCR0 hash that uniquely identifies the exact code running inside the enclave and can be verified against the open-sourced build.",
+    },
+    {
+      q: "Can someone front-run my shielded orders?",
+      a: "No. Shielded orders are processed inside the TEE, where they are invisible to everyone including copytrade bots and signaling watchers. The only point where a trade becomes visible is when it executes on Hyperliquid through a delegated wallet, at which point it is already filled.",
+    },
+    {
+      q: "Where are my funds held on Silhouette?",
+      a: "Funds are stored within Silhouette's secure environment on Hyperliquid. The Silhouette team cannot see balances or trading activity. Delegated wallets on HyperCore act as the settlement interface between the TEE and the order book.",
+    },
+    {
+      q: "How do I withdraw from Silhouette?",
+      a: "Initiate a withdrawal through the Silhouette UI. Funds return to your wallet on HyperCore with no waiting period and no approval process. Programmatic withdrawals are also available through the Silhouette API.",
+    },
+    {
+      q: "What happens if I clear my browser data?",
+      a: "If you clear browser data you may need to reconnect your wallet and re-authenticate your session. Your deposited balance is not affected by clearing local browser storage and will still be available when you sign back in.",
+    },
+  ]}
+/>

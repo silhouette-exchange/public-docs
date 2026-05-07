@@ -1,0 +1,277 @@
+.card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-8) var(--space-8) var(--space-6);
+  background: linear-gradient(
+    180deg,
+    rgba(30, 33, 38, 0.7) 0%,
+    rgba(24, 27, 32, 0.55) 100%
+  );
+  border: none;
+  border-radius: var(--radius-sm);
+  color: var(--text-default);
+  text-decoration: none !important;
+  min-height: 320px;
+  overflow: hidden;
+  isolation: isolate;
+  transition:
+    transform var(--dur-slow) var(--ease-emphasis),
+    border-color var(--dur-base) var(--ease-standard),
+    background var(--dur-base) var(--ease-standard),
+    box-shadow var(--dur-slow) var(--ease-emphasis);
+  backdrop-filter: blur(var(--blur-sm));
+  -webkit-backdrop-filter: blur(var(--blur-sm));
+}
+
+/* Top accent bar */
+.cardAccent {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 2px;
+  transform-origin: left center;
+  transition: transform var(--dur-slow) var(--ease-emphasis);
+}
+
+.card.developer .cardAccent {
+  background: linear-gradient(to right, var(--silh-cyan-100) 0%, transparent 80%);
+  box-shadow: 0 0 24px rgba(0, 255, 242, 0.5);
+}
+.card.institution .cardAccent {
+  background: linear-gradient(to right, var(--silh-magenta-100) 0%, transparent 80%);
+  box-shadow: 0 0 24px rgba(250, 0, 255, 0.5);
+}
+.card.trader .cardAccent {
+  background: linear-gradient(to right, var(--silh-lilac-100) 0%, transparent 80%);
+  box-shadow: 0 0 24px rgba(206, 127, 255, 0.5);
+}
+
+/* Corner brackets */
+.cardCorner {
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  pointer-events: none;
+}
+
+.cardCornerBL {
+  bottom: 0;
+  left: 0;
+}
+
+.cardCornerBR {
+  bottom: 0;
+  right: 0;
+}
+
+.cornerLine {
+  position: absolute;
+  background: var(--border-strong);
+  transition: background var(--dur-base) var(--ease-standard);
+}
+
+.cardCornerBL .cornerLine:nth-child(1) {
+  bottom: 0; left: 0;
+  width: 14px; height: 1px;
+}
+.cardCornerBL .cornerLine:nth-child(2) {
+  bottom: 0; left: 0;
+  width: 1px; height: 14px;
+}
+
+.cardCornerBR .cornerLine:nth-child(1) {
+  bottom: 0; right: 0;
+  width: 14px; height: 1px;
+}
+.cardCornerBR .cornerLine:nth-child(2) {
+  bottom: 0; right: 0;
+  width: 1px; height: 14px;
+}
+
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: radial-gradient(
+    ellipse at top right,
+    rgba(255, 255, 255, 0.05) 0%,
+    transparent 70%
+  );
+  opacity: 0;
+  transition: opacity var(--dur-slow) var(--ease-standard);
+}
+
+.card:hover {
+  transform: translateY(-4px);
+  text-decoration: none !important;
+  background: linear-gradient(
+    180deg,
+    rgba(28, 28, 32, 0.85) 0%,
+    rgba(22, 25, 30, 0.85) 100%
+  );
+}
+.card:active {
+  transform: translateY(-2px);
+}
+.card:hover::before { opacity: 1; }
+.card:hover .cardAccent { transform: scaleX(1.02); }
+
+.card.developer:hover {
+  box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+}
+.card.developer:hover .cornerLine { background: var(--silh-cyan-100); }
+
+.card.institution:hover {
+  box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+}
+.card.institution:hover .cornerLine { background: var(--silh-magenta-100); }
+
+.card.trader:hover {
+  box-shadow: 0 24px 64px -24px rgba(0, 0, 0, 0.8);
+}
+.card.trader:hover .cornerLine { background: var(--silh-lilac-100); }
+
+.header {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-bottom: var(--space-8);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-widest);
+}
+
+.index {
+  color: var(--text-tertiary);
+  font-variant-numeric: tabular-nums;
+}
+
+.kicker {
+  position: relative;
+  padding-left: var(--space-3);
+}
+
+.kicker::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+}
+
+.card.developer .kicker { color: var(--silh-cyan-tint-30); }
+.card.developer .kicker::before {
+  background: var(--silh-cyan-100);
+  box-shadow: 0 0 6px var(--silh-cyan-100);
+}
+
+.card.institution .kicker { color: var(--silh-magenta-tint-50); }
+.card.institution .kicker::before {
+  background: var(--silh-magenta-100);
+  box-shadow: 0 0 6px var(--silh-magenta-100);
+}
+
+.card.trader .kicker { color: var(--silh-lilac-100); }
+.card.trader .kicker::before {
+  background: var(--silh-lilac-100);
+  box-shadow: 0 0 6px var(--silh-lilac-100);
+}
+
+.title {
+  margin: 0 0 var(--space-3) !important;
+  padding: 0;
+  font-size: 0;
+  line-height: 0;
+}
+
+.titleInner {
+  display: block;
+  /* Inter, not Orbitron. RoleCard titles are mixed-case English
+     ("Developers", "Institutions", "Traders"). Mintlify-style:
+     20px (down from 22), semibold for card-level hierarchy, tight
+     line-height, slight negative tracking. Part of the Orbitron-
+     overuse cleanup Wayne flagged on 2026-04-09. */
+  font-family: var(--font-sans);
+  font-size: var(--fs-2xl);
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.01em;
+  color: var(--text-default);
+}
+
+.description {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  line-height: var(--lh-relaxed);
+  color: var(--text-secondary);
+  margin: 0 0 var(--space-6);
+  flex-grow: 1;
+}
+
+.meta {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: 4px var(--space-3) 4px 6px;
+  margin-bottom: var(--space-5);
+  background: rgba(255, 255, 255, 0.025);
+  border: 1px solid var(--border-default);
+  border-radius: var(--radius-full);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: var(--fw-semibold);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  align-self: flex-start;
+  font-variant-numeric: tabular-nums;
+}
+
+.metaDot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--silh-green);
+  box-shadow: 0 0 6px rgba(85, 255, 215, 0.7);
+}
+
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--border-subtle);
+  margin-top: auto;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+}
+
+.cta {
+  transition: color var(--dur-base) var(--ease-standard);
+}
+
+.card.developer .cta { color: var(--silh-cyan-tint-30); }
+.card.institution .cta { color: var(--silh-magenta-tint-50); }
+.card.trader .cta { color: var(--silh-lilac-100); }
+
+.ctaArrow {
+  display: inline-flex;
+  align-items: center;
+  transition: transform var(--dur-base) var(--ease-emphasis);
+}
+.card.developer .ctaArrow  { color: var(--silh-cyan-tint-30); }
+.card.institution .ctaArrow { color: var(--silh-magenta-tint-50); }
+.card.trader .ctaArrow     { color: var(--silh-lilac-100); }
+
+.card:hover .ctaArrow { transform: translateX(6px); }

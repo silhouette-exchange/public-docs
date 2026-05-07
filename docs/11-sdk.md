@@ -3,7 +3,7 @@ id: sdk
 title: Python SDK
 sidebar_label: Python SDK
 slug: /sdk
-description: "Official Python SDK for Silhouette - build trading bots and automate shielded trading on Hyperliquid."
+description: "Official Python SDK for the Silhouette API, providing programmatic access to shielded trading on Hyperliquid."
 keywords:
   - Python SDK
   - Silhouette API
@@ -18,7 +18,7 @@ keywords:
 The Silhouette API and SDK are in beta and under active development. More operations and features will be added.
 :::
 
-The official Python SDK lets you trade programmatically while keeping your strategy, size, and intent private. Build trading bots or automate strategies - all with shielded execution.
+The official Python SDK provides programmatic access to the Silhouette API. All requests route through shielded execution, so strategy, size, and intent are not attributable to the user's wallet on the public orderbook.
 
 ## Installation
 
@@ -66,3 +66,10 @@ print(f"Order placed: {order['orderId']}")
 - [Quick Start](/api/quick-start) - Set up prerequisites and make your first API call
 - [Troubleshooting](/api/troubleshooting) - Common errors and solutions
 - [OpenAPI Specification](/api/openapi) - Generate typed clients in other languages
+
+<TechArticleSchema
+  headline="Silhouette Python SDK"
+  description="Official Python SDK for Silhouette - build trading bots and automate shielded trading on Hyperliquid."
+  proficiencyLevel="Advanced"
+  keywords={['Python SDK', 'Silhouette API', 'Hyperliquid API', 'trading API', 'shielded trading']}
+/>

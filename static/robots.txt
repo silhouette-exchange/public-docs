@@ -1,0 +1,91 @@
+# robots.txt for docs.silhouette.exchange
+# Last updated: 2026-04-07
+# Policy: allow all AI crawlers. Docs exist to be cited.
+
+# ---------- Standard search ----------
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+User-agent: DuckDuckBot
+Allow: /
+
+# ---------- OpenAI / ChatGPT ----------
+User-agent: GPTBot
+Allow: /
+
+User-agent: OAI-SearchBot
+Allow: /
+
+User-agent: ChatGPT-User
+Allow: /
+
+# ---------- Anthropic / Claude ----------
+User-agent: ClaudeBot
+Allow: /
+
+User-agent: Claude-SearchBot
+Allow: /
+
+User-agent: Claude-User
+Allow: /
+
+User-agent: anthropic-ai
+Allow: /
+
+User-agent: Claude-Web
+Allow: /
+
+# ---------- Google Gemini / AI Overviews ----------
+User-agent: Google-Extended
+Allow: /
+
+# ---------- Perplexity ----------
+User-agent: PerplexityBot
+Allow: /
+
+User-agent: Perplexity-User
+Allow: /
+
+# ---------- Apple Intelligence ----------
+User-agent: Applebot
+Allow: /
+
+User-agent: Applebot-Extended
+Allow: /
+
+# ---------- Other serious AI players ----------
+User-agent: Amazonbot
+Allow: /
+
+User-agent: cohere-ai
+Allow: /
+
+User-agent: Meta-ExternalAgent
+Allow: /
+
+User-agent: Diffbot
+Allow: /
+
+User-agent: CCBot
+Allow: /
+
+# ---------- Block noisy scrapers with no citation value ----------
+User-agent: Bytespider
+Disallow: /
+
+User-agent: MJ12bot
+Disallow: /
+
+# ---------- Default ----------
+User-agent: *
+Allow: /
+
+# ---------- Sitemaps ----------
+Sitemap: https://docs.silhouette.exchange/sitemap.xml
+
+# ---------- LLM context files (not a robots standard, for humans/agents reading this) ----------
+# llms.txt: https://docs.silhouette.exchange/llms.txt
+# llms-full.txt: https://docs.silhouette.exchange/llms-full.txt

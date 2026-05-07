@@ -1,11 +1,21 @@
 ---
 slug: problemwithdefi
-title: The Problem with DeFi, Transparency as an Attack Surface
-authors: [silhouette-team]
-tags: [article]
+title: 'The Problem with DeFi, Transparency as an Attack Surface'
+authors:
+  - silhouette-team
+category: research
+description: 'Part one of the Silhouette shielded trading series. Why radical transparency in DeFi is an attack surface: strategy leakage, copytrade exposure, adverse selection.'
+keywords:
+  - DeFi transparency
+  - strategy leakage
+  - copytrade exposure
+  - adverse selection
+  - MEV
+  - shielded trading
+image: ./images/defi-problem-header.png
 ---
 
-![Test image](./images/defi-problem-header.png)
+![The Problem with DeFi series header showing transparency as an attack surface](./images/defi-problem-header.png)
 
 _Part one of a three-part series on the future of shielded trading._
 
@@ -77,7 +87,4 @@ The next article in this series will look at the failed privacy experiments that
 
 For now, just remember: in DeFi, transparency is a double-edged sword. And right now, it’s cutting the wrong side.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />
