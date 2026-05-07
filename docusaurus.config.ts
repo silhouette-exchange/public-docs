@@ -195,17 +195,27 @@ const config: Config = {
         highlightSearchTermsOnTargetPage: true,
       },
     ],
-    [
-      '@docusaurus/plugin-content-docs',
-      {
-        id: 'guides',
-        path: 'guides',
-        routeBasePath: 'guides',
-        sidebarPath: require.resolve('./guidesSidebars.ts'),
-        showLastUpdateTime: false,
-        showLastUpdateAuthor: false,
-      },
-    ],
+    /*
+     * Guides plugin disabled until Phase 2 content ships.
+     * The placeholder pages were appearing in the search index even
+     * though navbar, sitemap, and llms.txt already excluded them.
+     * Disabling the plugin entirely stops the routes from being built,
+     * which removes them from every public surface in one shot.
+     * To re-enable: uncomment this block. The sidebar file
+     * (guidesSidebars.ts) and content under guides/ are kept on disk
+     * and ready to ship.
+     */
+    // [
+    //   '@docusaurus/plugin-content-docs',
+    //   {
+    //     id: 'guides',
+    //     path: 'guides',
+    //     routeBasePath: 'guides',
+    //     sidebarPath: require.resolve('./guidesSidebars.ts'),
+    //     showLastUpdateTime: false,
+    //     showLastUpdateAuthor: false,
+    //   },
+    // ],
     [
       '@signalwire/docusaurus-plugin-llms-txt',
       {
