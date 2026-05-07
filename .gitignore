@@ -9,6 +9,9 @@
 .docusaurus
 .cache-loader
 
+# Vercel CLI link
+.vercel/
+
 # Misc
 .DS_Store
 .env.local
