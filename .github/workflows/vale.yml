@@ -5,12 +5,13 @@ on:
     branches:
       - main
       - develop
+  # Run on every PR. Branch protection lists this job as required, and a
+  # path-filtered workflow that does not trigger leaves the required check
+  # in a permanent "Expected, waiting for status" state, blocking merges
+  # for any PR that does not touch docs/. Vale itself only lints the files
+  # listed in the "Vale Linter" step (README.md and docs/), so running on
+  # a non-docs PR is fast and harmless.
   pull_request:
-    paths:
-      - 'docs/**'
-      - 'README.md'
-      - '.vale.ini'
-      - '.github/styles/**'
 
 jobs:
   vale:
