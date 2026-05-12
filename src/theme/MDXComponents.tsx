@@ -9,6 +9,7 @@ import JoinUs from '@site/src/components/JoinUs';
 import FAQSchema from '@site/src/components/FAQSchema';
 import TechArticleSchema from '@site/src/components/TechArticleSchema';
 import HowToSchema from '@site/src/components/HowToSchema';
+import DefinedTermSetSchema from '@site/src/components/DefinedTermSetSchema';
 
 export default {
   ...MDXComponents,
@@ -22,4 +23,5 @@ export default {
   FAQSchema,
   TechArticleSchema,
   HowToSchema,
+  DefinedTermSetSchema,
 };

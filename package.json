@@ -28,6 +28,7 @@
     "start": "docusaurus start",
     "prebuild": "tsx scripts/validate-blog-frontmatter.ts",
     "build": "docusaurus build",
+    "postbuild": "node scripts/fix-structured-data.mjs",
     "swizzle": "docusaurus swizzle",
     "deploy": "docusaurus deploy",
     "clear": "docusaurus clear",

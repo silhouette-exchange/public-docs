@@ -81,7 +81,15 @@ const config: Config = {
         docs: {
           sidebarPath: require.resolve('./sidebars.ts'),
           routeBasePath: '/',
-          showLastUpdateTime: false,
+          /*
+           * Show a "Last updated" footer on every doc page. Sources from
+           * git commit history of the source MD/MDX file. AI citation
+           * scorers and human readers both weight visible recency signals.
+           * Author is suppressed to avoid surfacing GitHub handles on a
+           * marketing-facing docs surface where the byline is always
+           * "Silhouette Team" in practice.
+           */
+          showLastUpdateTime: true,
           showLastUpdateAuthor: false,
           exclude: ['plans/**'],
         },
@@ -276,20 +284,22 @@ const config: Config = {
     ],
     '@stackql/docusaurus-plugin-structured-data',
     /*
-     * Local postBuild pass that repairs malformed BreadcrumbList JSON-LD
-     * emitted by @stackql/docusaurus-plugin-structured-data. The upstream
-     * plugin has a bug where routes like /api/authentication and
-     * /concepts/tee fall through the case-1 switch (which only handles
-     * `docs` and `blog` as ancestor tokens), leaving `pageName` undefined
-     * and `elementIndex` at its init value of 1. The result is a
-     * BreadcrumbList with two position-1 entries and one `name: "undefined"`,
-     * which Google's Rich Results Test rejects and AI citation scorers
-     * ignore. See src/plugins/structured-data-fix/index.js for detail.
+     * NOTE: the upstream @stackql plugin emits a malformed BreadcrumbList
+     * for any route whose ancestor token is not `docs` or `blog` (e.g.
+     * /api/*, /trading/*, /architecture/*). Its case-1 switch falls
+     * through with pageName undefined and elementIndex still at 1,
+     * producing two ListItems at position 1 and a name "undefined" entry.
+     * Google's Rich Results Test rejects this and AI citation scorers
+     * ignore it.
      *
-     * Registration order matters: this plugin must run AFTER the stackql
-     * plugin so its postBuild sees the stackql-written JSON-LD.
+     * We previously tried fixing this via a sibling Docusaurus plugin
+     * with a postBuild hook. Empirically, Docusaurus does NOT guarantee
+     * postBuild execution order, and stackql's postBuild was racing ours
+     * and overwriting the repaired output. The fix is now a standalone
+     * Node script wired to the npm `postbuild` lifecycle in package.json,
+     * which always runs after `docusaurus build` finishes. See
+     * scripts/fix-structured-data.mjs.
      */
-    './src/plugins/structured-data-fix',
     // Scalar API Explorer temporarily disabled for public docs launch.
     // Re-enable by uncommenting the block below.
     // [
