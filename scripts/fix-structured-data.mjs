@@ -86,7 +86,44 @@ function stripPrefix(segment) {
   return segment.replace(/^\d+-/, '');
 }
 
+/*
+ * Vercel checks out a shallow clone (depth 10 by default). With a shallow
+ * clone, `git log --diff-filter=A --follow` returns the most recent commit
+ * the clone can reach for a given file, not the original add event. The
+ * symptom is every page on prod gets the same datePublished value (the date
+ * of the merge that brought the shallow tip into existence). Local builds
+ * with full history work fine.
+ *
+ * Unshallowing on first call is idempotent and cheap (no-op if the clone
+ * is already complete). We swallow failures so the script still produces
+ * output in environments where unshallowing isn't possible (e.g. detached
+ * builds without origin configured) - the postbuild will then fall back
+ * to whatever git history is available.
+ */
+let unshallowAttempted = false;
+function ensureFullGitHistory() {
+  if (unshallowAttempted) return;
+  unshallowAttempted = true;
+  try {
+    const isShallow = execFileSync('git', ['rev-parse', '--is-shallow-repository'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore'],
+    }).trim();
+    if (isShallow !== 'true') return;
+    console.log('[fix-structured-data] shallow clone detected, unshallowing for accurate dates');
+    execFileSync('git', ['fetch', '--unshallow', '--quiet'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'pipe'],
+    });
+  } catch (e) {
+    console.log(
+      `[fix-structured-data] unshallow attempt failed (${e.message?.split('\n')[0] || e}), proceeding with whatever history is available`,
+    );
+  }
+}
+
 function gitFirstCommitISO(filePath) {
+  ensureFullGitHistory();
   try {
     // execFile not execSync: filePath is data, must not go through a shell.
     // `--` ensures filePath is interpreted as a pathspec even if it starts
