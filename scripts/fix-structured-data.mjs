@@ -128,9 +128,10 @@ function gitFirstCommitISO(filePath) {
     // execFile not execSync: filePath is data, must not go through a shell.
     // `--` ensures filePath is interpreted as a pathspec even if it starts
     // with a dash. `--follow` collapses renames; `--diff-filter=A` keeps
-    // only Add events. In the common single-add case we get one line; in
-    // the rare add->delete->re-add case the LAST line is the oldest add
-    // (git log is reverse-chronological), which is what we want.
+    // only Add events. In the common single-add case we get exactly one
+    // line. In the rare add->delete->re-add case `git log` returns events
+    // newest-first, so the LAST line is the oldest add - which is what we
+    // want for datePublished.
     const out = execFileSync(
       'git',
       ['log', '--diff-filter=A', '--follow', '--format=%aI', '--', filePath],
@@ -146,18 +147,43 @@ function gitFirstCommitISO(filePath) {
   }
 }
 
+/*
+ * Most recent commit touching the file. Used to patch dateModified per
+ * page, so a page that has not changed in months advertises an accurate
+ * last-modified date instead of build-time. AI citation scorers and
+ * human readers both weight content recency, so an honest dateModified
+ * is more useful than one that ticks on every deploy.
+ */
+function gitLastCommitISO(filePath) {
+  ensureFullGitHistory();
+  try {
+    const out = execFileSync(
+      'git',
+      ['log', '-1', '--follow', '--format=%aI', '--', filePath],
+      { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] },
+    ).trim();
+    return out || null;
+  } catch {
+    return null;
+  }
+}
+
 function deriveRouteFromSource(sourceAbsPath, baseDir, routePrefix) {
   const rel = relative(baseDir, sourceAbsPath).replace(/\\/g, '/');
   const ext = extname(rel);
   if (!['.md', '.mdx'].includes(ext)) return null;
 
-  // Read front matter for slug/id overrides.
+  // Read front matter for slug/id overrides + draft filter.
   let fm = {};
   try {
     fm = matter(readFileSync(sourceAbsPath, 'utf8')).data || {};
   } catch {
     fm = {};
   }
+
+  // Draft pages are not built, so they don't need an entry in the date
+  // map. Skip them to keep the map honest about what's actually shipped.
+  if (fm.draft === true) return null;
 
   const withoutExt = rel.slice(0, -ext.length);
   let parts = withoutExt.split('/').map(stripPrefix);
@@ -193,18 +219,32 @@ function walkSources(dir, out = []) {
   return out;
 }
 
+/*
+ * Build a map of { route -> { published, modified } } where both dates are
+ * ISO strings sourced from git history. published = first add commit,
+ * modified = most recent commit touching the file. Either may be null if
+ * git history is unavailable or the file lives outside version control.
+ */
 function buildPubDateMap() {
   const map = new Map();
+  const recordDates = (route, published, modified) => {
+    if (!published && !modified) return;
+    const existing = map.get(route) || {};
+    map.set(route, {
+      published: existing.published || published || null,
+      modified: existing.modified || modified || null,
+    });
+  };
+
   // docs/ is mounted at routeBasePath '/' (see docusaurus.config.ts presets.docs).
   for (const f of walkSources(DOCS_DIR)) {
     const route = deriveRouteFromSource(f, DOCS_DIR, '/');
     if (!route) continue;
-    const date = gitFirstCommitISO(f);
-    if (date) map.set(route, date);
+    recordDates(route, gitFirstCommitISO(f), gitLastCommitISO(f));
   }
   // src/pages/ holds non-markdown React routes (homepage, privacy, terms,
   // blog-preview). These never have markdown front-matter so route derivation
-  // is filename-only. They share the same git-first-commit fallback as docs.
+  // is filename-only. They share the same git-history source as docs.
   if (existsSync(PAGES_DIR)) {
     for (const entry of readdirSync(PAGES_DIR, { withFileTypes: true })) {
       if (!entry.isFile()) continue;
@@ -213,9 +253,9 @@ function buildPubDateMap() {
       const base = entry.name.slice(0, -ext.length);
       if (base.startsWith('_') || base.includes('.test')) continue;
       const route = base === 'index' ? '/' : `/${base}`;
+      if (map.has(route)) continue;
       const full = join(PAGES_DIR, entry.name);
-      const date = gitFirstCommitISO(full);
-      if (date && !map.has(route)) map.set(route, date);
+      recordDates(route, gitFirstCommitISO(full), gitLastCommitISO(full));
     }
   }
   // blog/ is mounted at routeBasePath '/blog'. Docusaurus generates per-post
@@ -231,6 +271,7 @@ function buildPubDateMap() {
     } catch {
       fm = {};
     }
+    if (fm.draft === true) continue;
     const base = basename(rel, ext);
     // Docusaurus blog default: strip leading YYYY-MM-DD- prefix from filename.
     const cleanedBase = base.replace(/^\d{4}-\d{2}-\d{2}-/, '');
@@ -238,11 +279,13 @@ function buildPubDateMap() {
       ? (fm.slug.startsWith('/') ? fm.slug.slice(1) : fm.slug)
       : cleanedBase;
     const route = `/blog/${slug}`;
-    const date =
+    // Blog posts have an authoritative `date` in front-matter; prefer it
+    // over git first-commit for the published date.
+    const published =
       (typeof fm.date === 'string' && fm.date) ||
       (fm.date instanceof Date && fm.date.toISOString()) ||
       gitFirstCommitISO(f);
-    if (date) map.set(route, date);
+    recordDates(route, published, gitLastCommitISO(f));
   }
   return map;
 }
@@ -355,34 +398,98 @@ function routeFromPath(rel) {
   return null;
 }
 
-function fixFile(filePath, pubDateMap) {
+/*
+ * Patch a single HTML file. Returns flags indicating which classes of
+ * mutation happened so the runner can count them globally.
+ *
+ * datePublished: only patched when the existing value matches the stub
+ *   placeholder ('2025-01-01'). Real per-page dates from authors are
+ *   never overwritten.
+ * dateModified: only patched when we have a real last-commit ISO AND
+ *   the existing value is either missing or older than the last-commit
+ *   timestamp. Newer build-stamped values are preserved because they
+ *   may legitimately reflect content rendered at build time (e.g.
+ *   dynamic include).
+ */
+function fixFile(filePath, pubDateMap, outDir = OUT_DIR) {
   const html = readFileSync(filePath, 'utf8');
-  if (!html.includes('application/ld+json')) return { breadcrumb: false, datePublished: false };
+  if (!html.includes('application/ld+json')) {
+    return { breadcrumb: false, datePublished: false, dateModified: false };
+  }
 
-  const rel = relative(OUT_DIR, filePath).replace(/\\/g, '/');
+  const rel = relative(outDir, filePath).replace(/\\/g, '/');
   const route = routeFromPath(rel);
-  if (!route) return { breadcrumb: false, datePublished: false };
+  if (!route) return { breadcrumb: false, datePublished: false, dateModified: false };
+
+  const dates = pubDateMap.get(route) || {};
+  const realPubDate = dates.published;
+  const realModDate = dates.modified;
 
   const needsBreadcrumbFix =
     html.includes('"name":"undefined"') || html.includes('"name": "undefined"');
-  const realPubDate = pubDateMap.get(route);
-  const needsDateFix = !!realPubDate && html.includes(`"datePublished":"${STUB_DATE_PUBLISHED}"`);
+  const needsPubFix = !!realPubDate && html.includes(`"datePublished":"${STUB_DATE_PUBLISHED}"`);
+  // Cheap probe: if the build emitted dateModified and we have a real
+  // last-commit ISO that's earlier, we'll want to replace it. The full
+  // comparison happens per-node below.
+  const needsModFix = !!realModDate && html.includes('"dateModified":');
 
-  if (!needsBreadcrumbFix && !needsDateFix) {
-    return { breadcrumb: false, datePublished: false };
+  if (!needsBreadcrumbFix && !needsPubFix && !needsModFix) {
+    return { breadcrumb: false, datePublished: false, dateModified: false };
   }
 
   let dom;
   try {
     dom = new JSDOM(html);
   } catch {
-    return { breadcrumb: false, datePublished: false };
+    return { breadcrumb: false, datePublished: false, dateModified: false };
   }
 
   const doc = dom.window.document;
   const scripts = Array.from(doc.querySelectorAll(LD_SELECTOR));
   let breadcrumbFixed = false;
-  let dateFixed = false;
+  let pubFixed = false;
+  let modFixed = false;
+
+  const patchNodeDates = (node) => {
+    let touched = false;
+    if (
+      realPubDate &&
+      node &&
+      typeof node === 'object' &&
+      node.datePublished === STUB_DATE_PUBLISHED
+    ) {
+      node.datePublished = realPubDate;
+      pubFixed = true;
+      touched = true;
+    }
+    if (
+      realModDate &&
+      node &&
+      typeof node === 'object' &&
+      typeof node.dateModified === 'string'
+    ) {
+      // Compare as ISO 8601 timestamps. Stackql emits a Z-suffix UTC value
+      // and git `--format=%aI` emits a fixed-offset value; normalising both
+      // through Date() removes the offset-string mismatch that would
+      // otherwise spuriously trip a lexicographic comparison.
+      const existingMs = Date.parse(node.dateModified);
+      const realMs = Date.parse(realModDate);
+      if (
+        Number.isFinite(existingMs) &&
+        Number.isFinite(realMs) &&
+        existingMs > realMs
+      ) {
+        // Existing dateModified is newer than the last source commit -
+        // it's the build-time stamp. Replace with the more honest
+        // last-commit value so a page that hasn't changed in months
+        // doesn't advertise today as its modification date.
+        node.dateModified = realModDate;
+        modFixed = true;
+        touched = true;
+      }
+    }
+    return touched;
+  };
 
   for (const script of scripts) {
     const raw = script.textContent;
@@ -409,21 +516,7 @@ function fixFile(filePath, pubDateMap) {
           breadcrumbFixed = true;
           mutated = true;
         }
-        // Patch any node carrying the stub datePublished placeholder.
-        // Today stackql only sets it on WebPage and we set it on TechArticle
-        // separately, but matching by value (not type) keeps us correct if
-        // upstream consolidates the graph or another schema component lands
-        // inside it later.
-        if (
-          realPubDate &&
-          node &&
-          typeof node === 'object' &&
-          node.datePublished === STUB_DATE_PUBLISHED
-        ) {
-          node.datePublished = realPubDate;
-          dateFixed = true;
-          mutated = true;
-        }
+        if (patchNodeDates(parsed['@graph'][i])) mutated = true;
       }
       if (mutated) {
         script.textContent = JSON.stringify(parsed);
@@ -443,22 +536,15 @@ function fixFile(filePath, pubDateMap) {
       breadcrumbFixed = true;
     }
 
-    if (
-      realPubDate &&
-      parsed &&
-      typeof parsed === 'object' &&
-      parsed.datePublished === STUB_DATE_PUBLISHED
-    ) {
-      parsed.datePublished = realPubDate;
+    if (patchNodeDates(parsed)) {
       script.textContent = JSON.stringify(parsed);
-      dateFixed = true;
     }
   }
 
-  if (breadcrumbFixed || dateFixed) {
+  if (breadcrumbFixed || pubFixed || modFixed) {
     writeFileSync(filePath, dom.serialize());
   }
-  return { breadcrumb: breadcrumbFixed, datePublished: dateFixed };
+  return { breadcrumb: breadcrumbFixed, datePublished: pubFixed, dateModified: modFixed };
 }
 
 function main() {
@@ -474,15 +560,17 @@ function main() {
 
   const files = walkHtmlFiles(OUT_DIR);
   let breadcrumbFixed = 0;
-  let dateFixed = 0;
+  let pubFixed = 0;
+  let modFixed = 0;
   for (const f of files) {
     const result = fixFile(f, pubDateMap);
     if (result.breadcrumb) breadcrumbFixed += 1;
-    if (result.datePublished) dateFixed += 1;
+    if (result.datePublished) pubFixed += 1;
+    if (result.dateModified) modFixed += 1;
   }
   console.log(
     `[fix-structured-data] repaired ${breadcrumbFixed} BreadcrumbList entries, ` +
-      `patched ${dateFixed} datePublished values from git history`,
+      `patched ${pubFixed} datePublished + ${modFixed} dateModified values from git history`,
   );
 }
 
