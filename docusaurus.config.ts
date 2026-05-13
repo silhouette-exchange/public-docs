@@ -423,6 +423,34 @@ const config: Config = {
       { name: 'og:site_name', content: 'Silhouette Docs' },
       { name: 'twitter:card', content: 'summary_large_image' },
       { name: 'twitter:site', content: '@silhouette_ex' },
+      /*
+       * Search console verification tags.
+       *
+       * To activate:
+       *  1. Claim https://docs.silhouette.exchange in Google Search Console
+       *     (subdomain property) and copy the verification code from the
+       *     "HTML tag" method (the value of the `content` attribute).
+       *  2. Claim the same property in Bing Webmaster Tools and copy the
+       *     `msvalidate.01` code.
+       *  3. Set GOOGLE_SITE_VERIFICATION and BING_SITE_VERIFICATION in the
+       *     Vercel project's Production environment variables. Trigger a
+       *     redeploy. Confirm verification in each console.
+       *
+       * Why env vars and not hardcoded values: the codes themselves are
+       * public (they end up in the rendered HTML, that's the point of
+       * meta-tag verification), but keeping them as env vars means we can
+       * rotate or revoke them without a commit, and dev/preview builds
+       * don't emit codes that point at the wrong property.
+       *
+       * When the env var is unset (local dev, preview), the entry is
+       * filtered out so we don't ship empty meta tags.
+       */
+      ...(process.env.GOOGLE_SITE_VERIFICATION
+        ? [{ name: 'google-site-verification', content: process.env.GOOGLE_SITE_VERIFICATION }]
+        : []),
+      ...(process.env.BING_SITE_VERIFICATION
+        ? [{ name: 'msvalidate.01', content: process.env.BING_SITE_VERIFICATION }]
+        : []),
     ],
     navbar: {
       title: 'Silhouette',
