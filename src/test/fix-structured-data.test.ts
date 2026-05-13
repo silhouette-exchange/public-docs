@@ -1,10 +1,19 @@
-import { describe, it, expect } from 'vitest';
+import { describe, it, expect, beforeAll, afterAll } from 'vitest';
+import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { tmpdir } from 'node:os';
+import { join } from 'node:path';
 // @ts-ignore: reaching across into a .mjs script; the script exposes its
 // pure helpers via the `__test` named export specifically for this test.
 import { __test } from '../../scripts/fix-structured-data.mjs';
 
-const { isBrokenBreadcrumb, buildBreadcrumb, humanizeToken, readWebPageName, routeFromPath } =
-  __test;
+const {
+  isBrokenBreadcrumb,
+  buildBreadcrumb,
+  humanizeToken,
+  readWebPageName,
+  routeFromPath,
+  deriveRouteFromSource,
+} = __test;
 
 describe('isBrokenBreadcrumb', () => {
   it('flags duplicate positions as broken', () => {
@@ -117,6 +126,71 @@ describe('readWebPageName', () => {
   it('returns null when no WebPage is present', () => {
     expect(readWebPageName([{ '@type': 'WebSite', name: 'Site' }])).toBe(null);
     expect(readWebPageName(null)).toBe(null);
+  });
+});
+
+describe('deriveRouteFromSource', () => {
+  // Set up a tmpdir mirroring the docs/ layout so the helper has real
+  // files to read frontmatter from.
+  let baseDir: string;
+
+  beforeAll(() => {
+    baseDir = mkdtempSync(join(tmpdir(), 'silh-derive-'));
+    mkdirSync(join(baseDir, '06-trading'), { recursive: true });
+    mkdirSync(join(baseDir, '08-onboarding'), { recursive: true });
+    writeFileSync(
+      join(baseDir, '08-faq.md'),
+      '---\ntitle: FAQs\nslug: /faq\n---\n# FAQs',
+    );
+    writeFileSync(
+      join(baseDir, '06-trading/04-fees.md'),
+      '---\ntitle: Fees\nslug: /trading/fees\n---\n# Fees',
+    );
+    writeFileSync(
+      join(baseDir, '06-trading/naked-trading.md'),
+      '---\ntitle: Naked\n---\n# Naked',
+    );
+    writeFileSync(
+      join(baseDir, '08-onboarding/start-trading.md'),
+      '---\ntitle: Start\nslug: relative-slug\n---\n# Start',
+    );
+    writeFileSync(
+      join(baseDir, '08-onboarding/index.md'),
+      '---\ntitle: Onboarding\n---\n# Onboarding',
+    );
+  });
+
+  afterAll(() => {
+    rmSync(baseDir, { recursive: true, force: true });
+  });
+
+  it('strips numeric prefixes from each path segment', () => {
+    const f = join(baseDir, '06-trading/naked-trading.md');
+    expect(deriveRouteFromSource(f, baseDir, '/')).toBe('/trading/naked-trading');
+  });
+
+  it('honours an absolute slug override, replacing the full path', () => {
+    const f = join(baseDir, '06-trading/04-fees.md');
+    expect(deriveRouteFromSource(f, baseDir, '/')).toBe('/trading/fees');
+  });
+
+  it('honours a leading-slash slug on a top-level page', () => {
+    const f = join(baseDir, '08-faq.md');
+    expect(deriveRouteFromSource(f, baseDir, '/')).toBe('/faq');
+  });
+
+  it('honours a relative slug by overriding only the leaf', () => {
+    const f = join(baseDir, '08-onboarding/start-trading.md');
+    expect(deriveRouteFromSource(f, baseDir, '/')).toBe('/onboarding/relative-slug');
+  });
+
+  it('treats index.md as the directory route, not /onboarding/index', () => {
+    const f = join(baseDir, '08-onboarding/index.md');
+    expect(deriveRouteFromSource(f, baseDir, '/')).toBe('/onboarding');
+  });
+
+  it('returns null for non-markdown files', () => {
+    expect(deriveRouteFromSource(join(baseDir, '08-faq.md.bak'), baseDir, '/')).toBe(null);
   });
 });
 

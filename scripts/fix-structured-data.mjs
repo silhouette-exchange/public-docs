@@ -33,7 +33,8 @@
 
 import { readFileSync, writeFileSync, readdirSync, existsSync, statSync } from 'node:fs';
 import { join, relative, resolve, basename, extname } from 'node:path';
-import { execSync } from 'node:child_process';
+import { pathToFileURL } from 'node:url';
+import { execFileSync } from 'node:child_process';
 import { JSDOM } from 'jsdom';
 import matter from 'gray-matter';
 
@@ -56,6 +57,14 @@ const LABEL_MAP = {
 };
 
 const LD_SELECTOR = 'script[type="application/ld+json"]';
+/*
+ * Sentinel value that the upstream @stackql plugin emits when no per-page
+ * datePublished is configured (themeConfig.structuredData.webpage.datePublished
+ * defaults to '2025-01-01' in docusaurus.config.ts). Our TechArticleSchema
+ * component mirrors this default. We only patch datePublished values that
+ * match this sentinel, never overwriting a real value the source has set.
+ */
+const STUB_DATE_PUBLISHED = '2025-01-01';
 const DOCS_DIR = resolve(process.cwd(), 'docs');
 const BLOG_DIR = resolve(process.cwd(), 'blog');
 const PAGES_DIR = resolve(process.cwd(), 'src/pages');
@@ -79,16 +88,21 @@ function stripPrefix(segment) {
 
 function gitFirstCommitISO(filePath) {
   try {
-    const out = execSync(
-      `git log --diff-filter=A --follow --format=%aI -- ${JSON.stringify(filePath)}`,
+    // execFile not execSync: filePath is data, must not go through a shell.
+    // `--` ensures filePath is interpreted as a pathspec even if it starts
+    // with a dash. `--follow` collapses renames; `--diff-filter=A` keeps
+    // only Add events. In the common single-add case we get one line; in
+    // the rare add->delete->re-add case the LAST line is the oldest add
+    // (git log is reverse-chronological), which is what we want.
+    const out = execFileSync(
+      'git',
+      ['log', '--diff-filter=A', '--follow', '--format=%aI', '--', filePath],
       { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] },
     )
       .trim()
       .split('\n')
       .filter(Boolean);
     if (out.length === 0) return null;
-    // First entry in the log is the most recent add-event of the path; the
-    // last entry is the original creation. --follow gives us renames too.
     return out[out.length - 1];
   } catch {
     return null;
@@ -315,7 +329,7 @@ function fixFile(filePath, pubDateMap) {
   const needsBreadcrumbFix =
     html.includes('"name":"undefined"') || html.includes('"name": "undefined"');
   const realPubDate = pubDateMap.get(route);
-  const needsDateFix = !!realPubDate && html.includes('"datePublished":"2025-01-01"');
+  const needsDateFix = !!realPubDate && html.includes(`"datePublished":"${STUB_DATE_PUBLISHED}"`);
 
   if (!needsBreadcrumbFix && !needsDateFix) {
     return { breadcrumb: false, datePublished: false };
@@ -358,11 +372,16 @@ function fixFile(filePath, pubDateMap) {
           breadcrumbFixed = true;
           mutated = true;
         }
+        // Patch any node carrying the stub datePublished placeholder.
+        // Today stackql only sets it on WebPage and we set it on TechArticle
+        // separately, but matching by value (not type) keeps us correct if
+        // upstream consolidates the graph or another schema component lands
+        // inside it later.
         if (
           realPubDate &&
           node &&
-          node['@type'] === 'WebPage' &&
-          node.datePublished === '2025-01-01'
+          typeof node === 'object' &&
+          node.datePublished === STUB_DATE_PUBLISHED
         ) {
           node.datePublished = realPubDate;
           dateFixed = true;
@@ -390,8 +409,8 @@ function fixFile(filePath, pubDateMap) {
     if (
       realPubDate &&
       parsed &&
-      parsed['@type'] === 'TechArticle' &&
-      parsed.datePublished === '2025-01-01'
+      typeof parsed === 'object' &&
+      parsed.datePublished === STUB_DATE_PUBLISHED
     ) {
       parsed.datePublished = realPubDate;
       script.textContent = JSON.stringify(parsed);
@@ -430,8 +449,13 @@ function main() {
   );
 }
 
-// Run only when invoked directly (not when imported by tests).
-const isMain = process.argv[1] && import.meta.url === `file://${process.argv[1]}`;
+// Run only when invoked directly (not when imported by tests). Use
+// pathToFileURL so a working-tree path containing spaces (or any other
+// URL-special character) round-trips correctly. The naive
+// `'file://' + process.argv[1]` comparison silently fails on those paths
+// because import.meta.url percent-encodes them.
+const isMain =
+  process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href;
 if (isMain) {
   main();
 }
@@ -441,6 +465,8 @@ export const __test = {
   isBrokenBreadcrumb,
   buildBreadcrumb,
   humanizeToken,
+  deriveRouteFromSource,
+  fixFile,
   readWebPageName,
   stripPrefix,
   routeFromPath,
