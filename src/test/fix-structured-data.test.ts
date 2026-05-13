@@ -1,5 +1,5 @@
 import { describe, it, expect, beforeAll, afterAll } from 'vitest';
-import { mkdtempSync, mkdirSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 // @ts-ignore: reaching across into a .mjs script; the script exposes its
@@ -191,6 +191,101 @@ describe('deriveRouteFromSource', () => {
 
   it('returns null for non-markdown files', () => {
     expect(deriveRouteFromSource(join(baseDir, '08-faq.md.bak'), baseDir, '/')).toBe(null);
+  });
+});
+
+describe('fixFile (HTML round-trip)', () => {
+  // End-to-end mutation test: build a fixture HTML with all three failure
+  // modes (broken @graph breadcrumb + stub datePublished + stale
+  // dateModified + standalone TechArticle with same), assert one fixFile
+  // call repairs everything and persists to disk.
+  let outDir: string;
+  let filePath: string;
+
+  beforeAll(() => {
+    outDir = mkdtempSync(join(tmpdir(), 'silh-fixfile-'));
+    mkdirSync(join(outDir, 'trading', 'fees'), { recursive: true });
+    filePath = join(outDir, 'trading', 'fees', 'index.html');
+    const broken = [
+      '<!doctype html><html><head><title>Fees</title>',
+      '<script type="application/ld+json">',
+      JSON.stringify({
+        '@context': 'https://schema.org',
+        '@graph': [
+          {
+            '@type': 'WebPage',
+            name: 'Fees',
+            datePublished: '2025-01-01',
+            dateModified: '2026-08-01T00:00:00.000Z',
+          },
+          {
+            '@type': 'BreadcrumbList',
+            '@id': 'https://x/trading/fees/#breadcrumb',
+            itemListElement: [
+              { '@type': 'ListItem', position: 1, name: 'Home', item: 'https://x/' },
+              { '@type': 'ListItem', position: 1, name: 'undefined' },
+            ],
+          },
+        ],
+      }),
+      '</script>',
+      '<script type="application/ld+json">',
+      JSON.stringify({
+        '@context': 'https://schema.org',
+        '@type': 'TechArticle',
+        headline: 'Fees',
+        datePublished: '2025-01-01',
+        dateModified: '2026-08-01T00:00:00.000Z',
+      }),
+      '</script>',
+      '</head><body>body</body></html>',
+    ].join('\n');
+    writeFileSync(filePath, broken);
+  });
+
+  afterAll(() => {
+    rmSync(outDir, { recursive: true, force: true });
+  });
+
+  it('repairs breadcrumb, patches datePublished, replaces stale dateModified', () => {
+    const pubDateMap = new Map([
+      [
+        '/trading/fees',
+        {
+          published: '2026-03-11T12:18:04+02:00',
+          modified: '2026-05-13T08:00:00+02:00',
+        },
+      ],
+    ]);
+
+    const result = __test.fixFile(filePath, pubDateMap, outDir);
+    expect(result).toEqual({ breadcrumb: true, datePublished: true, dateModified: true });
+
+    const out = readFileSync(filePath, 'utf8');
+    expect(out).not.toContain('"name":"undefined"');
+    expect(out).not.toContain('"datePublished":"2025-01-01"');
+    expect(out).not.toContain('"dateModified":"2026-08-01T00:00:00.000Z"');
+    expect(out).toContain('"datePublished":"2026-03-11T12:18:04+02:00"');
+    expect(out).toContain('"dateModified":"2026-05-13T08:00:00+02:00"');
+    // Three sequential ListItem positions (Home, Trading, Fees).
+    expect(out).toMatch(/"position":1[\s\S]*"position":2[\s\S]*"position":3/);
+    expect(out).toContain('"name":"Trading"');
+    expect(out).toContain('"name":"Fees"');
+  });
+
+  it('is idempotent: a second call mutates nothing', () => {
+    const pubDateMap = new Map([
+      [
+        '/trading/fees',
+        {
+          published: '2026-03-11T12:18:04+02:00',
+          modified: '2026-05-13T08:00:00+02:00',
+        },
+      ],
+    ]);
+
+    const second = __test.fixFile(filePath, pubDateMap, outDir);
+    expect(second).toEqual({ breadcrumb: false, datePublished: false, dateModified: false });
   });
 });
 
