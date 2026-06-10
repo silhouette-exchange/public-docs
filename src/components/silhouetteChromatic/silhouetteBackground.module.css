@@ -14,13 +14,13 @@
   width: 100%;
   transform: translateX(1px);
   z-index: 1;
-  color: #FA00FF;
+  color: var(--silh-magenta-100);
 }
 
 .layer2 {
   transform: translateX(calc(-50% + 1px)) translateY(-50%);
   z-index: 2;
-  color: #00FFF2;
+  color: var(--silh-cyan-100);
 }
 
 .blur{

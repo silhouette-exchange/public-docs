@@ -1,0 +1,87 @@
+/*
+ * src/theme/BlogListPage/styles.module.css
+ *
+ * Outer container for the Silhouette blog listing swizzle. Individual
+ * bands (BlogPublicationHeader, BlogCategoryPills, BlogHero, etc.)
+ * bring their own vertical rhythm and internal widths; this file
+ * only owns the outer <main> scroll container and the empty-state
+ * inline treatment.
+ *
+ * All values reference tokens in src/css/custom.css :root.
+ *
+ * Why a constrained max-width instead of full-bleed: the default
+ * BlogLayout wrap (src/theme/BlogLayout/index.tsx) drops the sidebar
+ * slot and gives main a col--9 col--offset-1 canvas, but our swizzle
+ * bypasses BlogLayout entirely and renders directly inside <Layout>.
+ * So we define our own container here. 1080px matches the design doc's
+ * reading-column width target (§4 layout) and prevents hero card
+ * subtitles from stretching into unreadable long lines on wide desktop.
+ */
+
+.main {
+  margin-inline: auto;
+  max-width: 1080px;
+  /*
+   * Top padding is deliberately tight. BlogPublicationHeader and
+   * BlogCategoryPills both sit flush against this padding (their
+   * own top padding is 0), so this single value is the only
+   * breathing room between the navbar and the H1. 40px at default,
+   * 56px on >=1024px. Previous values of 64 / 80 stacked with the
+   * header's internal 64px to produce 144px of dead space above
+   * the H1.
+   */
+  padding-block: var(--space-6) var(--space-16);
+  padding-inline: var(--space-5);
+}
+
+@media (min-width: 640px) {
+  .main {
+    padding-inline: var(--space-8);
+  }
+}
+
+@media (min-width: 1024px) {
+  .main {
+    padding-block: var(--space-8) var(--space-24);
+    padding-inline: var(--space-12);
+  }
+}
+
+/*
+ * Empty state for a filter that has no matching posts. Shown instead
+ * of the hero / latest / archive bands when activeFilter is non-null
+ * and filtered.length is 0. Kept as a single muted paragraph so the
+ * listing does not feel empty-by-design; the reset button links the
+ * user back to the full listing in one click.
+ */
+.emptyState {
+  margin: var(--space-16) 0 var(--space-10);
+  color: var(--text-secondary);
+  font-size: var(--fs-md);
+  line-height: 1.6;
+  text-align: center;
+}
+
+.emptyResetButton {
+  background: none;
+  border: none;
+  padding: var(--space-2) 0;
+  min-height: 44px;
+  color: var(--text-default);
+  font: inherit;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  cursor: pointer;
+  transition: color var(--dur-base) var(--ease-standard);
+}
+
+.emptyResetButton:hover,
+.emptyResetButton:focus-visible {
+  color: var(--silh-cyan-100);
+}
+
+.emptyResetButton:focus-visible {
+  outline: 2px solid var(--silh-cyan-100);
+  outline-offset: 2px;
+  border-radius: var(--radius-xs);
+}

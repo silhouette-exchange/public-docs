@@ -1,11 +1,21 @@
 ---
 slug: problemwithprivacy
 title: The Privacy Mirage - Why Complete Darkness Breaks DeFi
-authors: [silhouette-team]
-tags: [article]
+authors:
+  - silhouette-team
+category: research
+description: Part two of the Silhouette shielded trading series. Why full-darkness privacy solutions (mixers, shielded L1s, early dark pools) broke DeFi and what to build instead.
+keywords:
+  - DeFi privacy
+  - privacy mirage
+  - mixers
+  - shielded L1
+  - dark pools
+  - shielded trading
+image: ./images/problemwithprivacy.png
 ---
 
-![Test image](./images/problemwithprivacy.png)
+![The Privacy Mirage series header contrasting full darkness with shielded trading](./images/problemwithprivacy.png)
 
 *Part two of our three-part look at shielded trading.*
 
@@ -49,7 +59,4 @@ Markets do not need to see your plan before the trade gets filled. They do need 
 ## Up next
 Part three tests the hypothesis: keep intent secret, keep execution public. Trusted hardware makes that split possible. Same open ledger, zero alpha leak. Stay tuned.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

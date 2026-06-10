@@ -1,11 +1,21 @@
 ---
 slug: problemwithdefi
-title: The Problem with DeFi, Transparency as an Attack Surface
-authors: [silhouette-team]
-tags: [article]
+title: 'The Problem with DeFi, Transparency as an Attack Surface'
+authors:
+  - silhouette-team
+category: research
+description: 'Part one of the Silhouette shielded trading series. Why radical transparency in DeFi is an attack surface: strategy leakage, copytrade exposure, adverse selection.'
+keywords:
+  - DeFi transparency
+  - strategy leakage
+  - copytrade exposure
+  - adverse selection
+  - MEV
+  - shielded trading
+image: ./images/defi-problem-header.png
 ---
 
-![Test image](./images/defi-problem-header.png)
+![The Problem with DeFi series header showing transparency as an attack surface](./images/defi-problem-header.png)
 
 _Part one of a three-part series on the future of shielded trading._
 
@@ -15,7 +25,7 @@ And to be fair, it has delivered. DeFi protocols now hold over [$114 billion](ht
 
 But for all the technical achievement and excitement, DeFi is still stuck in a loop, haunted by the same issues that have plagued it for years.
 
-This article doesn't focus on solutions. It focuses on the rot at the foundation, the systemic trade-offs that make DeFi vulnerable, exploitable, and often unusable for the very people it's meant to empower. If you're looking for our solutions to some of these problems, read our article on [Silhouette's mission and vision for DeFi](/docs/blog/redefiningdefi).
+This article doesn't focus on solutions. It focuses on the rot at the foundation, the systemic trade-offs that make DeFi vulnerable, exploitable, and often unusable for the very people it's meant to empower. If you're looking for our solutions to some of these problems, read our article on [Silhouette's mission and vision for DeFi](/blog/redefiningdefi).
 <!-- truncate -->
 
 ## The Good: DeFi Has Product-Market Fit
@@ -77,7 +87,4 @@ The next article in this series will look at the failed privacy experiments that
 
 For now, just remember: in DeFi, transparency is a double-edged sword. And right now, it’s cutting the wrong side.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />

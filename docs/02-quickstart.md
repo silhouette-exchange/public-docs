@@ -1,31 +1,114 @@
 ---
 id: quickstart
 title: Quickstart
+sidebar_label: Quickstart
+pagination_label: Quickstart
+description: "Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and place shielded orders on Hyperliquid."
+keywords:
+  - Silhouette Exchange
+  - shielded trading
+  - Hyperliquid trading
+  - crypto trading
+  - decentralized exchange
+  - DeFi privacy
 ---
 
 # Quickstart
 
-## 1. Connect your EVM wallet to the Silhouette webapp
-Go to https://app.silhouette.exchange and click 'Connect Wallet'.
+Get trading on Silhouette in five steps. You will need an EVM wallet and funds on Hyperliquid.
 
-<img src="/img/flows/connect.png" alt="Connect" width="252" height="372" />
+## 1. Connect Your Wallet
 
-## 2. Switch from Naked to Shielded mode
-At the top of the page, toggle the switch from 'Naked' to 'Shielded'.
+Go to [app.silhouette.exchange](https://app.silhouette.exchange) and click **Connect Wallet**. Silhouette supports MetaMask, Rabby, WalletConnect, Coinbase Wallet, and email login.
 
-<img src="/img/flows/shielded.png" alt="Shielded" />
+<img src="/img/flows/connect.png" alt="Connect wallet" className="app-screenshot app-screenshot--sm" />
 
-## 3. Connect to Silhouette's Shielded Trading flow
-Once you have switched to 'Shielded' mode, you will be prompted to click the "Connect Shielded" button in the Accounts Dashboard. Do so to connect and sign in to Silhouette's Shielded Trading Flow.  
+## 2. Switch between Naked and Shielded Mode
 
-<img src="/img/flows/connect-shielded.png" alt="Connect Shielded" />
+At the top of the page, toggle the switch between **Naked** and **Shielded**. Shielded mode routes your orders through the secure execution environment. Naked mode routes directly to Hyperliquid. To understand the difference, see [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading).
 
-## 4. Deposit HYPE/USDC from Hypercore to Silhouette
-Provided that you have assets in Hypercore, you can deposit them to Silhouette by clicking the "To Silhouette" button in the Accounts Dashboard when in 'Naked' mode, OR by clicking the "Transfer to/from Silhouette" button in the Balances Section at any time. 
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/shield-naked-switch.gif" alt="Switching between Naked and Shielded mode" className="app-screenshot app-screenshot--lg" />
+<figcaption className="screenshot-caption">Toggle between Naked and Shielded mode in the top bar</figcaption>
+</figure>
 
-<img src="/img/flows/deposit-withdraw.png" alt="Deposit" />
+## 3. Connect to Shielded Trading
 
-## 5. Begin trading spot HYPE/USDC
-You are now set to begin trading.
+Once in Shielded mode, you will be prompted to click the **Connect Shielded** button in the Accounts Dashboard. This establishes your encrypted connection with Silhouette's TEE.
 
-For more information on trading spot HYPE/USDC, see the [Shielded Trading](/docs/trading/shielded-trading) section.
+<img src="/img/flows/connect-shielded.png" alt="Connect Shielded" className="app-screenshot app-screenshot--sm" />
+
+## 4. Deposit Funds
+
+There are two ways to get funds into Silhouette:
+
+**From HyperCore** - If you already have assets on Hyperliquid, click **To Silhouette** in the Accounts Dashboard or **Transfer to/from Silhouette** in the Balances section. This moves funds from your HyperCore balance into Silhouette's shielded environment.
+
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/transfer-modal.png" alt="Transfer funds from HyperCore to Silhouette" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Transfer from HyperCore to Silhouette</figcaption>
+</figure>
+
+**From any chain via Li.Fi** - Click **Deposit** in the app to open the cross-chain bridge. This deposits directly into your Silhouette account from Ethereum, Arbitrum, Base, or any supported chain - skipping the HyperCore transfer step entirely.
+
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/deposit-modal.png" alt="Deposit from any chain via Li.Fi bridge" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Cross-chain deposit via Li.Fi - funds go straight into Silhouette</figcaption>
+</figure>
+
+## 5. Start Trading
+
+You are ready to trade. Place shielded spot orders on any supported pair shown in the app. Orders are processed inside the TEE and settled on Hyperliquid; order details are not exposed on the public ledger.
+
+For more detail on how shielded trading works, see [Shielded Trading](/trading/shielded-trading).
+
+## Next Steps
+
+- [Start Trading](/onboarding/start-trading) - Detailed guide covering spot and perpetuals trading
+- [Shielded Trading](/trading/shielded-trading) and [Naked Trading](/trading/naked-trading) - Understand the two trading modes
+- [How Silhouette Works](/how-silhouette-works) - End-to-end walkthrough of the system
+
+<HowToSchema
+  name="How to Start Shielded Trading on Silhouette"
+  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and place shielded orders on Hyperliquid."
+  steps={[
+    {
+      name: "Connect Your Wallet",
+      text: "Go to app.silhouette.exchange and click Connect Wallet. Silhouette supports MetaMask, Rabby, WalletConnect, Coinbase Wallet, and email login.",
+      image: "/img/flows/connect.png"
+    },
+    {
+      name: "Switch to Shielded Mode",
+      text: "Toggle the switch at the top of the page between Naked and Shielded. Shielded mode routes your orders through Silhouette's secure execution environment.",
+      image: "/img/app-screenshots/shield-naked-switch.gif"
+    },
+    {
+      name: "Connect to Shielded Trading",
+      text: "In Shielded mode, click the Connect Shielded button in the Accounts Dashboard. This establishes your encrypted connection with Silhouette's TEE.",
+      image: "/img/flows/connect-shielded.png"
+    },
+    {
+      name: "Deposit Funds",
+      text: "Transfer funds from HyperCore to Silhouette via the Accounts Dashboard, or deposit from any chain via the Li.Fi cross-chain bridge.",
+      image: ["/img/app-screenshots/transfer-modal.png", "/img/app-screenshots/deposit-modal.png"]
+    },
+    {
+      name: "Start Trading",
+      text: "Place shielded spot orders on any supported pair. Orders are processed inside the TEE and settled on Hyperliquid; order details are not exposed on the public ledger."
+    }
+  ]}
+/>
+
+<TechArticleSchema
+  headline="Silhouette Quickstart: Start Shielded Trading in Five Steps"
+  description="Get started with shielded trading on Silhouette in five steps. Connect your wallet, deposit funds, and place shielded orders on Hyperliquid."
+  proficiencyLevel="Beginner"
+  keywords={[
+    "Silhouette Exchange",
+    "shielded trading",
+    "Hyperliquid trading",
+    "crypto trading",
+    "decentralized exchange",
+    "DeFi privacy",
+  ]}
+/>

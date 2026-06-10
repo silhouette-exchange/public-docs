@@ -1,0 +1,78 @@
+/*
+ * BlogPublicationHeader
+ *
+ * Pure presentational header for the /blog listing page top. Renders a
+ * large title in Inter (--font-sans) and an optional subtitle in IBM
+ * Plex Mono. All values reference :root tokens from src/css/custom.css.
+ * No hardcoded colours, no hardcoded fonts. Orbitron is not used here:
+ * per the design doc section 3, Orbitron is reserved for category
+ * pills, section labels, navbar, and footer headings only, never for
+ * article titles or body text.
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md sections 4a, 4b, 3
+ */
+
+/*
+ * Horizontal containment (max-width, centering, responsive side
+ * padding) is the parent's responsibility. The BlogListPage swizzle
+ * from Phase 3 Task 3.3 provides the 1080px max-width plus responsive
+ * horizontal padding.
+ *
+ * Vertical spacing is ALSO owned by the parent now. This header had
+ * its own padding-top / padding-bottom of 64px each, which stacked
+ * with the swizzle's main top padding and with BlogCategoryPills'
+ * own top padding to produce 144px + 96px of dead space between
+ * the navbar and the pills. Parent now owns the top gap via main's
+ * padding-block; the only local vertical rule is the 24px gap
+ * between the subtitle and whatever renders immediately below
+ * (the BlogCategoryPills row on the listing, a dashed section
+ * divider on the blog-preview harness).
+ */
+.header {
+  padding-top: 0;
+  padding-bottom: var(--space-6);
+  text-align: left;
+  /*
+   * Top-down stagger entrance on the blog listing. First in sequence
+   * so delay is 0ms. Keyframe is defined globally in custom.css so
+   * every listing component reuses the same motion primitive.
+   * transform+opacity only so layout does not shift post-reveal.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 0ms;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .header {
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+}
+
+.title {
+  margin: 0;
+  font-family: var(--font-sans);
+  font-size: var(--fs-3xl);
+  font-weight: var(--fw-semibold);
+  letter-spacing: var(--tracking-tighter);
+  line-height: var(--lh-tight);
+  color: var(--text-default);
+  text-wrap: balance;
+}
+
+@media screen and (max-width: 640px) {
+  .title {
+    font-size: clamp(1.5rem, 7vw, 2.25rem);
+  }
+}
+
+.subtitle {
+  margin: var(--space-3) 0 0 0;
+  max-width: 640px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-relaxed);
+  color: var(--text-muted);
+}

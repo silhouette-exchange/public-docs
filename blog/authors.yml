@@ -1,5 +1,81 @@
+# Silhouette blog authors registry.
+#
+# Sourced from https://silhouette.exchange/#about-section 2026-04-09.
+# Every entry has the author's name, title (role), and canonical URL
+# (their X profile). image_url is intentionally omitted on most
+# entries; BlogByline renders an initials avatar as a fallback, which
+# matches the rest of the site's monospace/Orbitron design language
+# without requiring per-author headshot assets.
+#
+# The silhouette-team fallback is kept for posts that are genuinely
+# collective (company announcements, multi-author reports, legacy
+# imports that predate this registry). Prefer a named author for any
+# new post.
+
 silhouette-team:
   name: Silhouette Team
   title: Building the future of private trading
   url: https://silhouette.exchange
   image_url: https://github.com/silhouette-exchange.png
+  page: false
+
+chandler:
+  name: Chandler
+  title: Co-Founder, Silhouette
+  url: https://x.com/chandlerdkk
+  page: false
+
+stenton:
+  name: Stenton
+  title: Co-Founder & Cryptographic Engineer, Silhouette
+  url: https://x.com/stentonian
+  page: false
+
+aidan:
+  name: Aidan
+  title: Head of Engineering, Silhouette
+  url: https://x.com/aidandeno
+  page: false
+
+ciaran:
+  name: Ciaran
+  title: Architect, Silhouette
+  url: https://x.com/cmacdev
+  page: false
+
+santiago:
+  name: Santiago
+  title: Engineer, Silhouette
+  url: https://x.com/san_lisa
+  page: false
+
+sydney:
+  name: Sydney
+  title: Product Design Lead, Silhouette
+  url: https://x.com/sydneyjade__
+  page: false
+
+rory:
+  name: Rory
+  title: Community Lead, Silhouette
+  url: https://x.com/RizzleSimms
+  page: false
+
+wayne:
+  name: Wayne
+  title: Growth Lead, Silhouette
+  url: https://x.com/WaynesWorldza
+  image_url: /img/authors/wayne.jpg
+  page: false
+
+shai:
+  name: Shai
+  title: Communications Lead, Silhouette
+  url: https://x.com/0x_Shai
+  page: false
+
+jason:
+  name: Jason
+  title: BD Lead, Silhouette
+  url: https://x.com/quasicypher1
+  page: false

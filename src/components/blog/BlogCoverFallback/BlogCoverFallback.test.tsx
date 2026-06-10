@@ -1,0 +1,56 @@
+import { render, screen } from '@testing-library/react';
+import { describe, it, expect } from 'vitest';
+import BlogCoverFallback from './index';
+
+describe('BlogCoverFallback', () => {
+  it('renders the post title text inside the card', () => {
+    // The title is rendered as a div, NOT a heading element. The
+    // parent role="img" + aria-label exposes the whole card as one
+    // labelled image to AT. Using a heading here would inject a
+    // duplicate heading into the document outline whenever a parent
+    // (e.g. BlogPostCard) ALSO renders the title in its own heading.
+    render(<BlogCoverFallback title="Information Asymmetry" />);
+    expect(screen.getByText('Information Asymmetry')).toBeInTheDocument();
+  });
+
+  it('renders the Silhouette wordmark in literal all caps', () => {
+    render(<BlogCoverFallback title="Test" />);
+    // The wordmark must be the literal string "SILHOUETTE" (Orbitron is
+    // all-caps only per brand rules). Matching exact case here, not /i.
+    expect(screen.getByText('SILHOUETTE')).toBeInTheDocument();
+  });
+
+  it('exposes role=img with an accessible name derived from the title', () => {
+    render(<BlogCoverFallback title="Dark Pools" />);
+    expect(
+      screen.getByRole('img', { name: /dark pools/i })
+    ).toBeInTheDocument();
+  });
+
+  it('applies the fallback class to the root element', () => {
+    const { container } = render(<BlogCoverFallback title="Test" />);
+    expect(container.firstChild).toHaveClass(/fallback/i);
+  });
+
+  it('passes through a custom className alongside the fallback class', () => {
+    const { container } = render(
+      <BlogCoverFallback title="Test" className="custom-class" />
+    );
+    const root = container.firstChild as HTMLElement;
+    expect(root).toHaveClass('custom-class');
+    expect(root.className).toMatch(/fallback/i);
+  });
+
+  it('hides decorative layers from AT while keeping the title visible', () => {
+    const { container } = render(<BlogCoverFallback title="Visible Title" />);
+    // At least one decorative layer is hidden from AT. Asserting ">= 1"
+    // instead of an exact count keeps the test robust if a future polish
+    // pass adds or removes a decorative layer (vignette, second noise
+    // pass, etc) without changing the component's a11y promise.
+    const ariaHiddenNodes = container.querySelectorAll('[aria-hidden="true"]');
+    expect(ariaHiddenNodes.length).toBeGreaterThanOrEqual(1);
+    // The visible title must NOT be inside an aria-hidden subtree.
+    const titleEl = screen.getByText('Visible Title');
+    expect(titleEl.closest('[aria-hidden="true"]')).toBeNull();
+  });
+});

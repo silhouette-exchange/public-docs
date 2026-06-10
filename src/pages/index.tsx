@@ -1,116 +1,85 @@
-import type { ReactNode } from "react";
-import Link from "@docusaurus/Link";
-import useDocusaurusContext from "@docusaurus/useDocusaurusContext";
-import Layout from "@theme/Layout";
-import Heading from "@theme/Heading";
-import styles from "./index.module.css";
-import { ArrowIcon } from "../icons/arrow.icon";
-import { InfoIcon } from "../icons/info.icon";
-import { QuestionMarkIcon } from "../icons/questionMark.icon";
-import { BookIcon } from "../icons/book.icon";
-import { XIcon } from "../icons/x.icon";
-import { TelegramIcon } from "../icons/telegram.icon";
-import { GithubIcon } from "../icons/github.icon";
-import Searchbar from "@theme/SearchBar";
-
-const featureCards = [
-  {
-    title: "What is Silhouette",
-    description:
-      "Learn about the core concepts of Silhouette and how to get started.",
-    link: "/docs/about-silhouette",
-    Icon: InfoIcon,
-  },
-  {
-    title: "Get Started",
-    description: "Connect your wallet, deposit your funds, and start trading privately.",
-    link: "/docs/quickstart",
-    Icon: BookIcon,
-  },
-  {
-    title: "FAQ",
-    description: "Read through our most common questions.",
-    link: "/docs/faq",
-    Icon: QuestionMarkIcon,
-  },
-];
-
-const socialLinks = [
-  {
-    title: "Telegram",
-    description: "Join our discussions on Telegram",
-    link: "https://t.me/silhouette_exchange",
-    Icon: TelegramIcon,
-  },
-  {
-    title: "GitHub",
-    description: "View our repositories",
-    link: "https://github.com/silhouette-exchange",
-    Icon: GithubIcon,
-  },
-  {
-    title: "Follow Us",
-    description: "See what we are getting up to on X",
-    link: "https://x.com/silhouette_ex",
-    Icon: XIcon,
-  },
-];
+import React, { type ReactNode } from 'react';
+import Layout from '@theme/Layout';
+import Hero from '@site/src/components/Hero';
+import RoleCard from '@site/src/components/RoleCard';
+import styles from './index.module.css';
 
 export default function Home(): ReactNode {
-  const { siteConfig } = useDocusaurusContext();
-
   return (
     <Layout
-      title={`Welcome to ${siteConfig.title}`}
-      description="Official documentation for Silhouette Exchange - Your comprehensive resource for guides, tutorials and references"
+      title="Shielded trading on Hyperliquid"
+      description="Silhouette is a shielded trading platform on Hyperliquid. Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain."
     >
-      <div className={styles.pageWrapper}>
-        <section className={styles.heroSection}>
-          <div className={styles.heroContent}>
-            <div className={styles.heroTextContainer}>
-              <Heading as="h1" className={styles.heroTitle}>
-                {`Welcome to `}
-                {`Silhouette Docs`}
-              </Heading>
-              <p className={styles.heroSubtitle}>
-                Learn how to trade privately on Hyperliquid.
-              </p>
-              <Searchbar />
-            </div>
-            <div className={styles.cardContainer}>
-              {featureCards.map((card, idx) => (
-                <Link to={card.link} className={styles.card} key={idx}>
-                  <div className={styles.cardHeader}>
-                    <card.Icon className={styles.cardIcon} />
-                    <ArrowIcon className={styles.linkIcon} />
-                  </div>
-                  <div>
-                    <h3 className={styles.cardTitle}>{card.title}</h3>
-                    <p className={styles.cardText}>{card.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </div>
-        </section>
+      <Hero
+        eyebrow="Shield Everything"
+        status="live"
+        headline="Shielded trading on Hyperliquid"
+        accentWord="Shielded"
+        sub="Trade without exposing your wallet, your strategy, or your size. The cheapest venue to accumulate assets onchain."
+        ctas={[
+          { label: 'Read the docs', href: '/about-silhouette', variant: 'primary' },
+          { label: 'Build on Silhouette', href: '/api', variant: 'secondary' },
+        ]}
+        stats={[
+          { label: 'Taker fee', value: '-95%' },
+          { label: 'Order leakage', value: 'None' },
+          { label: 'Settlement', value: 'Hyper​Core' },
+        ]}
+        panelTitle="SLH/SYS"
+        panelRows={[
+          { label: 'Settlement', value: 'Hyper​Core' },
+          { label: 'Orderbook', value: 'Public' },
+          { label: 'Order flow', value: 'Shielded', highlight: true },
+          { label: 'Identity', value: 'Delegated' },
+          { label: 'Leakage', value: 'None', highlight: true },
+        ]}
+      />
 
-        <main className="container">
-          {/* Social Links Section */}
-          <section className={styles.section}>
-            <div className={styles.socialContainer}>
-              {socialLinks.map((item, idx) => (
-                <Link to={item.link} className={styles.socialLink} key={idx}>
-                  <item.Icon className={styles.socialIcon} />
-                  <div>
-                    <strong>{item.title}</strong>
-                    <p style={{ marginBottom: 0 }}>{item.description}</p>
-                  </div>
-                </Link>
-              ))}
-            </div>
-          </section>
-        </main>
-      </div>
+      <section className={styles.roleSection}>
+        <header className={styles.roleHeader}>
+          <div className={styles.roleHeaderLeft}>
+            <span className={styles.roleKicker}>02 / Pick your path</span>
+            <h2 className={styles.roleTitle}>
+              <span className={styles.roleTitleInner}>
+                Three doors. One shielded venue.
+              </span>
+            </h2>
+          </div>
+        </header>
+
+        <div className={styles.roleGrid}>
+          <RoleCard
+            role="developer"
+            index="01"
+            kicker="Developer"
+            title="Developers"
+            description="Build bots, agents, and integrations against Silhouette's shielded API. OpenAPI spec, SDKs, rate limits, and a testnet quickstart."
+            meta="OpenAPI / Python SDK"
+            href="/api"
+            ctaLabel="API reference"
+          />
+          <RoleCard
+            role="institution"
+            index="02"
+            kicker="Institution"
+            title="Institutions"
+            description="Due-diligence the TEE threat model, attestation walkthrough, audit reports, reproducible builds, and custody model in one place."
+            meta="TEE attested / reproducible"
+            href="/architecture/overview"
+            ctaLabel="Security and architecture"
+          />
+          <RoleCard
+            role="trader"
+            index="03"
+            kicker="Trader"
+            title="Traders"
+            description="Place your first shielded trade in about three minutes. Quickstart, fees, naked vs shielded, and common mistakes."
+            meta="3 min setup"
+            href="/quickstart"
+            ctaLabel="Quickstart"
+          />
+        </div>
+      </section>
     </Layout>
   );
 }

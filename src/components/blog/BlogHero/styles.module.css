@@ -1,0 +1,338 @@
+/*
+ * BlogHero
+ *
+ * Featured hero card on the blog listing. Split layout (cover left
+ * 60%, copy right 40%) at >=996px, stacked vertically below 996px
+ * with cover on top. The whole hero is one <a>.
+ *
+ * Token choices vs spec (design doc section 4e):
+ *
+ *  - Card background: var(--bg-secondary). Same as BlogPostCard.
+ *  - Card border: raw rgba(255, 255, 255, 0.06) at rest. No
+ *    semantic token at this alpha. Same convention as BlogPostCard
+ *    and the cover components.
+ *  - Card radius: var(--radius-xl) (12px). Spec match.
+ *  - Copy area padding: var(--space-10) desktop / var(--space-6)
+ *    mobile. Spec calls for 40 / 24 which match exactly.
+ *  - Title size: 32px desktop / 26px mobile. Raw values; no exact
+ *    token (--fs-2xl is 28px, --fs-3xl is 36px). Same deviation
+ *    pattern BlogCoverFallback uses for its 24px title.
+ *  - Title weight: var(--fw-semibold) (600). Spec match.
+ *  - Title letter-spacing: -0.02em. Raw value per spec.
+ *  - Dek size: var(--fs-base) (16px). Spec match.
+ *  - Dek line-height: 1.55 raw. No exact token between --lh-snug
+ *    (1.3) and --lh-normal (1.45) and --lh-relaxed (1.6).
+ *  - Avatar size: 32px raw. No semantic 32px size token; same
+ *    convention as BlogByline's avatarSm.
+ *  - Magenta glow: raw rgba(250, 0, 255, 0.08) (the magenta side of
+ *    the brand gradient). The codebase does not expose
+ *    --accent-primary-rgb triplet, same constraint BlogPostCard hit.
+ *  - Hover translate: -2px on Y. Spec match. Suppressed under
+ *    prefers-reduced-motion.
+ *  - Transition: var(--dur-base) (200ms) with var(--ease-out).
+ *
+ * Spec: docs/plans/2026-04-09-blog-redesign-design.md section 4e
+ */
+
+.hero {
+  display: grid;
+  /* Mobile-first: stacked single column. The .split modifier flips to
+     two columns at the >=996px breakpoint. */
+  grid-template-columns: 1fr;
+  background: var(--bg-secondary);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  text-decoration: none;
+  color: inherit;
+  position: relative;
+  transition:
+    transform var(--dur-base) var(--ease-out),
+    border-color var(--dur-base) var(--ease-out),
+    box-shadow var(--dur-base) var(--ease-out);
+  /*
+   * Top-down stagger entrance on the blog listing. Third in sequence
+   * (header 0ms, pills 80ms, hero 160ms). Shared fadeSlideUp
+   * keyframe lives in src/css/custom.css.
+   */
+  animation: fadeSlideUp 480ms var(--ease-out) both;
+  animation-delay: 160ms;
+}
+
+.hero:hover,
+.hero:focus-visible {
+  /* Border brightens, card lifts slightly, accent glow appears.
+     prefers-reduced-motion handles the translate suppression below.
+     Alpha bumped from 0.08 to 0.22 on 2026-04-09 after the
+     frontend-design audit flagged the original as imperceptible on
+     #13161a. Matches BlogPostCard glow intensity. */
+  border-color: rgba(255, 255, 255, 0.08);
+  transform: translateY(-2px);
+  /* rgba(250, 0, 255, 0.22) is --silh-magenta-100 at 22% alpha. */
+  box-shadow: 0 0 64px rgba(250, 0, 255, 0.22);
+}
+
+.hero:active {
+  transform: translateY(-1px);
+}
+
+.hero:focus-visible {
+  outline: 2px solid var(--focus-ring-color);
+  outline-offset: 2px;
+}
+
+@media (min-width: 996px) {
+  /*
+   * Split layout: cover takes 60% (3fr) and copy takes 40% (2fr).
+   * The cover element fills the left column with a 1:1 aspect ratio
+   * via the .cover rule below.
+   */
+  .split {
+    grid-template-columns: 3fr 2fr;
+    overflow: hidden;
+  }
+}
+
+.cover {
+  /*
+   * Cover wrapper. On mobile (single column) the cover sits on top
+   * with a 16:9 aspect ratio. On desktop (split) the cover takes
+   * the full left column with a 1:1 aspect ratio.
+   */
+  position: relative;
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  overflow: hidden;
+}
+
+@media (min-width: 996px) {
+  .split .cover {
+    /* Was 1:1 (square) which made the hero ~650px tall on a 1080px
+       container. 4:3 brings it down to ~490px, leaving room for the
+       LATEST cards to peek above the fold on a 900px laptop viewport. */
+    aspect-ratio: 4 / 3;
+    height: 100%;
+    max-height: 420px;
+  }
+}
+
+/*
+ * Make the cover image fill the cover wrapper. BlogCoverImage owns
+ * its own border / radius internally; we strip those here so the
+ * card's outer border is the only visible frame.
+ */
+.cover > * {
+  width: 100%;
+  height: 100%;
+  border: none !important;
+  border-radius: 0 !important;
+}
+
+.cover img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.copy {
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-5);
+  justify-content: space-between;
+  gap: var(--space-4);
+}
+
+@media (min-width: 996px) {
+  .copy {
+    padding: var(--space-6) var(--space-8);
+  }
+}
+
+/* ==================================================================
+   Eyebrow row (hand-rolled, mirrors BlogEyebrow's typographic recipe)
+   ================================================================== */
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-family: var(--font-mono);
+  font-size: var(--fs-xs);
+  font-weight: var(--fw-medium);
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+  line-height: 1;
+  flex-wrap: wrap;
+  row-gap: var(--space-1);
+  margin-bottom: var(--space-4);
+}
+
+.category {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--space-2);
+  color: inherit;
+}
+
+.dot {
+  /* Bullet character sized down via font-size with a 1px optical lift
+     to align with the cap height of Plex Mono. */
+  font-size: 8px;
+  line-height: 0;
+  display: inline-block;
+  transform: translateY(-1px);
+}
+
+.sep {
+  /* Separator quieter than the surrounding tokens. */
+  color: var(--border-soft-white);
+}
+
+.readingTime {
+  color: inherit;
+}
+
+/* ==================================================================
+   Title and dek
+   ================================================================== */
+.title {
+  /* Inter, not Orbitron. Brand rule: Orbitron is H1 only. The hero
+     title is an H2 at large size and the natural mixed case must
+     use Inter. */
+  font-family: var(--font-sans);
+  font-size: 22px;
+  font-weight: var(--fw-semibold);
+  line-height: var(--lh-tight);
+  letter-spacing: -0.02em;
+  color: var(--text-default);
+  margin: 0;
+  text-wrap: balance;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  /* Flex safety so a long unbroken title can wrap inside the column. */
+  min-width: 0;
+  max-width: 100%;
+  overflow-wrap: anywhere;
+}
+
+@media (min-width: 996px) {
+  .title {
+    font-size: 26px;
+  }
+}
+
+.dek {
+  font-family: var(--font-sans);
+  font-size: var(--fs-base);
+  font-weight: var(--fw-regular);
+  line-height: 1.55;
+  color: var(--text-muted);
+  margin: var(--space-4) 0 0;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  min-width: 0;
+  max-width: 100%;
+}
+
+/* ==================================================================
+   Footer (hand-rolled: avatar + name + date inline)
+   ================================================================== */
+.footer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: auto;
+  flex-wrap: wrap;
+  row-gap: var(--space-2);
+}
+
+.avatar {
+  /* 32px circular avatar. Raw size value; no semantic 32px token.
+     Same convention as BlogByline's avatarSm. */
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  /* Same border alpha as BlogByline avatars for visual parity. */
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  object-fit: cover;
+  flex-shrink: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.initials {
+  /*
+   * Initials fallback. Magenta-cyan gradient background with a single
+   * Orbitron glyph centered on top. Mirrors BlogByline's initials
+   * pattern.
+   */
+  background: linear-gradient(
+    135deg,
+    var(--silh-magenta-alpha-20),
+    /* No semantic --accent-secondary-alpha-20 token; raw rgba. Same
+       TODO pattern as BlogByline / BlogCoverFallback. */
+      rgba(0, 255, 242, 0.2)
+  );
+  /* Orbitron is the legitimate use case here: single-character all-caps
+     glyph. Wide tracking keeps the letter visually anchored. */
+  font-family: var(--font-display);
+  font-weight: var(--fw-semibold);
+  font-size: 13px;
+  letter-spacing: var(--tracking-widest);
+  color: var(--text-default);
+  text-transform: uppercase;
+}
+
+.authorName {
+  font-family: var(--font-sans);
+  /* Spec calls for 14px. --fs-sm is exactly 14px. */
+  font-size: var(--fs-sm);
+  font-weight: var(--fw-medium);
+  color: var(--text-default);
+  /* Allow the name to wrap on narrow widths without pushing the date
+     off the row. */
+  min-width: 0;
+}
+
+.footerSep {
+  color: var(--border-soft-white);
+  font-family: var(--font-sans);
+}
+
+.date {
+  font-family: var(--font-mono);
+  /* Spec calls for 11px Plex Mono uppercase. No 11px token; raw. Same
+     convention used in BlogPostCard's footer date. */
+  font-size: 11px;
+  text-transform: uppercase;
+  letter-spacing: var(--tracking-wider);
+  color: var(--text-muted);
+}
+
+/* ==================================================================
+   Reduced motion
+   ================================================================== */
+@media (prefers-reduced-motion: reduce) {
+  .hero {
+    transition:
+      border-color var(--dur-base) var(--ease-out),
+      box-shadow var(--dur-base) var(--ease-out);
+    /*
+     * Entrance animation suppressed. Hero still appears; it just
+     * skips the translate + fade.
+     */
+    animation: none;
+    opacity: 1;
+    transform: none;
+  }
+  .hero:hover,
+  .hero:focus-visible {
+    transform: none;
+  }
+}

@@ -1,11 +1,21 @@
 ---
 slug: redefiningdefi
 title: Redefining DeFi with Silhouette
-authors: [silhouette-team]
-tags: [article]
+authors:
+  - silhouette-team
+category: announcements
+description: Silhouette closes a seed round led by RockawayX to build shielded trading on Hyperliquid. Strategies stay private, the orderbook stays public, the execution stays fast.
+keywords:
+  - Silhouette Exchange
+  - seed round
+  - RockawayX
+  - shielded trading
+  - Hyperliquid
+  - DeFi funding
+image: ./images/raise-announcement-banner.png
 ---
 
-![Test image](./images/raise-announcement-banner.png)
+![Silhouette seed round announcement banner with RockawayX, Amber Group and HiveMind logos](./images/raise-announcement-banner.png)
 
 Decentralised Finance has come a long way since the DeFi Summer of 2020. What began as a movement for open, permissionless transactions has now matured into a high-speed, scalable ecosystem. But it is all out in the open – every move is completely visible to anyone watching.
 
@@ -19,7 +29,7 @@ Silhouette shields your Hyperliquid trades from prying eyes, allowing you to mov
 
 We use Trusted Execution Environments (TEE) to provide order flow matching and settlement on Hyperliquid. TEEs enable us to offer a sense of speed and scale while also providing assurances that no one can view or tamper with your orders.
 
-![Test image](./images/diagram.png)
+![Diagram of the Silhouette TEE-based order flow: encrypted orders route through a Trusted Execution Environment that settles against the public Hyperliquid orderbook](./images/diagram.png)
 
 By offering users the choice to protect strategic trade information, we enable a sense of freedom in an ever-increasing industrial bot ecosystem looking to extract every ounce of value. If information is freely available, it will be exploited. Silhouette ensures that your actions, from placing orders to developing your overall strategy, remain protected.
 
@@ -39,11 +49,8 @@ This approach upholds market integrity and fairness by retaining public market k
 ## Backed by the best, who share our vision
 Our industry fixed the speed and scale problem; Silhouette solves the privacy problem. The vision of Silhouette is to be the catalyst for the rest of the finance to come on-chain. Enabling users to express their views freely, in open and permissionless markets.
 
-![Test image](./images/raise-banner.png)
+![Silhouette seed round investor lineup banner featuring RockawayX, Amber Group, HiveMind, No Limit Holdings and Protagonist](./images/raise-banner.png)
 
 Silhouette is backed by a $3 million pre-seed round led by [RockawayX](https://www.rockawayx.com/), which includes investors such as [Amber Group](https://www.ambergroup.io/), [HiveMind](https://www.hivemind.capital/), [No Limit Holdings](https://nolimitholdings.xyz/), and [Protagonist](https://www.protagonist.co/). We are also extremely thankful for our angels from HyperActive.
 
-### Join Us
-Follow our journey and stay informed.
-
-[X](https://x.com/silhouette_ex) | [Website](https://silhouette.exchange/)  | [Blog](https://docs.silhouette.exchange/blog) | [Telegram](https://t.me/silhouette_exchange)
+<JoinUs />
