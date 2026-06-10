@@ -312,7 +312,7 @@ curl https://api.silhouette.exchange/v0 \
 - **Insufficient balance**: The order will fail if you don't have sufficient available balance of the required token
 - Save the returned `orderId` to cancel or track the order later
 
-**Related operations**: Use `getUserOrders` to view your orders, `cancelOrder` to cancel an open order, and `getBalances` to check available funds.
+**Related operations**: Use `listDelegatedOrders` to view your orders, `cancelOrder` to cancel an open order, and `getBalances` to check available funds.
 
 ## cancelOrder
 
@@ -388,11 +388,11 @@ curl https://api.silhouette.exchange/v0 \
 - The `orderId` is returned when you create an order using `createOrder`
 - Cancelling an order that doesn't exist or doesn't belong to you will return a `CANCELLATION_ERROR`
 
-**Related operations**: Use `getUserOrders` to find orders to cancel, and `getBalances` to see your freed balance after cancellation.
+**Related operations**: Use `listDelegatedOrders` to find orders to cancel, and `getBalances` to see your freed balance after cancellation.
 
-## getUserOrders
+## listDelegatedOrders
 
-Retrieve a list of your orders, optionally filtered by status. This shows all order details including amounts, prices, and current status.
+Retrieve a paginated list of your orders, optionally filtered by status, type, or creation time. Each entry is a summary—use `getDelegatedOrder` to fetch full details for a single order.
 
 **Endpoint**: `POST https://api.silhouette.exchange/v0`
 
@@ -402,8 +402,13 @@ Retrieve a list of your orders, optionally filtered by status. This shows all or
 
 | Parameter | Type | Required | Description |
 |-----------|------|----------|-------------|
-| operation | string | Yes | Must be `"getUserOrders"` |
-| status | string | No | Filter orders by status: `"pending"`, `"open"`, `"filled"`, `"partially_filled"`, `"cancelled"`, `"expired"`, or `"failed"`. Omit to get all orders. |
+| operation | string | Yes | Must be `"listDelegatedOrders"` |
+| status | string | No | Filter by status: `"pending"`, `"open"`, `"filled"`, `"partially_filled"`, `"cancelled"`, `"expired"`, or `"failed"`. Omit to get all. |
+| orderType | string | No | Filter by type: `"limit"` or `"market"` |
+| createdAfter | number | No | Unix timestamp (milliseconds). Only return orders created after this time. |
+| createdBefore | number | No | Unix timestamp (milliseconds). Only return orders created before this time. |
+| limit | number | No | Maximum number of orders to return (1–100) |
+| cursor | string | No | Pagination cursor from a previous response's `pagination.nextCursor` |
 
 **Example request (all orders)**:
 
@@ -412,19 +417,20 @@ curl https://api.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
-    "operation": "getUserOrders"
+    "operation": "listDelegatedOrders"
   }'
 ```
 
-**Example request (filtered by status)**:
+**Example request (filtered and paginated)**:
 
 ```bash
 curl https://api.silhouette.exchange/v0 \
   -H "Content-Type: application/json" \
   -H "Authorization: Bearer YOUR_TOKEN_HERE" \
   -d '{
-    "operation": "getUserOrders",
-    "status": "open"
+    "operation": "listDelegatedOrders",
+    "status": "open",
+    "limit": 10
   }'
 ```
 
@@ -435,35 +441,112 @@ curl https://api.silhouette.exchange/v0 \
   "data": {
     "orders": [
       {
-        "orderId": "550e8400-e29b-41d4-a716-446655440000",
+        "orderId": "dord_1234567890abcdef",
+        "clientOrderId": "client_abc123",
         "side": "buy",
         "orderType": "limit",
         "baseToken": "HYPE",
-        "quoteToken": "USDC",
-        "amount": "100000000",
-        "amountFloat": "100.0",
-        "price": "1250000",
-        "priceFloat": "1.25",
         "status": "open",
-        "createdAt": 1705313400000,
-        "updatedAt": 1705313400000
-      },
-      {
-        "orderId": "650e8400-e29b-41d4-a716-446655440001",
-        "side": "sell",
-        "orderType": "market",
-        "baseToken": "HYPE",
-        "quoteToken": "USDC",
-        "amount": "50000000",
-        "amountFloat": "50.0",
-        "status": "filled",
-        "createdAt": 1705313200000,
-        "updatedAt": 1705313250000
+        "createdAt": 1705313400000
       }
-    ]
+    ],
+    "pagination": {
+      "nextCursor": "eyJpZCI6ImRvcmRfMTIzNDU2Nzg5MGFiY2RlZiJ9"
+    }
   },
   "responseMetadata": {
     "timestamp": 1705313400,
+    "requestId": "750e8400-e29b-41d4-a716-446655440002"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| orderId | string | Unique identifier for the order |
+| clientOrderId | string | The cloid Silhouette forwards to Hyperliquid for the order |
+| side | string | Order side: `"buy"` or `"sell"` |
+| orderType | string | Order type: `"limit"` or `"market"` |
+| baseToken | string | The token being traded |
+| status | string | Current order status |
+| createdAt | number | Unix timestamp (milliseconds) when the order was created |
+| pagination.nextCursor | string | Cursor for fetching the next page. Absent on the last page. |
+
+**Order status values**:
+
+- `"pending"`: Order created but not yet processed
+- `"open"`: Order is active and can be filled
+- `"filled"`: Order has been completely executed
+- `"partially_filled"`: Order has been partially executed
+- `"cancelled"`: Order was cancelled by the user
+- `"expired"`: Order expired before being filled
+- `"failed"`: Order failed to process
+
+**Notes**:
+
+- Orders are returned in reverse chronological order (newest first)
+- If you have no orders, the `orders` array will be empty
+- Entries are summaries; call `getDelegatedOrder` (or `batchGetDelegatedOrders`) for full details such as price, amounts, and fill information
+- To page through results, pass the previous response's `pagination.nextCursor` as the `cursor` parameter. When `nextCursor` is absent, you've reached the last page.
+
+**Related operations**: Use `getDelegatedOrder` or `batchGetDelegatedOrders` for full order details, `listFills` to see individual executions, and `cancelOrder` to cancel an open order.
+
+## getDelegatedOrder
+
+Retrieve the full details of a single order by its ID, including fill information for executed orders.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"getDelegatedOrder"` |
+| orderId | string | Yes | The unique identifier of the order to retrieve |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "getDelegatedOrder",
+    "orderId": "dord_1234567890abcdef"
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "data": {
+    "order": {
+      "orderId": "dord_1234567890abcdef",
+      "side": "buy",
+      "orderType": "limit",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "amount": "50000000",
+      "amountFloat": "0.5",
+      "price": "4000000000",
+      "priceFloat": "40.0",
+      "status": "filled",
+      "expiry": 1705320000,
+      "createdAt": 1705313400000,
+      "updatedAt": 1705317000000,
+      "filledAmount": "50000000",
+      "averageFillPrice": "3985000000",
+      "remainingAmount": "0",
+      "clearingVenue": "hyperliquid"
+    }
+  },
+  "responseMetadata": {
+    "timestamp": 1705317000,
     "requestId": "750e8400-e29b-41d4-a716-446655440002"
   }
 }
@@ -480,29 +563,24 @@ curl https://api.silhouette.exchange/v0 \
 | quoteToken | string | The token used for pricing |
 | amount | string | Order amount in the token's smallest unit |
 | amountFloat | string | Order amount as a human-readable decimal |
-| price | string | Order price (for limit orders) in scaled format |
+| price | string | Order price (for limit orders) in the token's smallest unit |
 | priceFloat | string | Order price as a human-readable decimal (for limit orders) |
 | status | string | Current order status |
+| expiry | number | Order expiry as a Unix timestamp (seconds) |
 | createdAt | number | Unix timestamp (milliseconds) when the order was created |
 | updatedAt | number | Unix timestamp (milliseconds) when the order was last updated |
-
-**Order status values**:
-
-- `"pending"`: Order created but not yet processed
-- `"open"`: Order is active and can be filled
-- `"filled"`: Order has been completely executed
-- `"partially_filled"`: Order has been partially executed
-- `"cancelled"`: Order was cancelled by the user
-- `"expired"`: Order expired before being filled
-- `"failed"`: Order failed to process
+| filledAmount | string | Amount filled, in the token's smallest unit (for `filled`/`partially_filled` orders) |
+| averageFillPrice | string | Size-weighted average execution price across all fills, as a raw integer scaled by 1e8. Omitted when the order has no fills. |
+| remainingAmount | string | Remaining unfilled amount in the token's smallest unit |
+| clearingVenue | string | Venue where the order is executed: `"hyperliquid"` |
 
 **Error responses**:
 
 ```json
 {
-  "operation": "getUserOrders",
-  "error": "Invalid status filter.",
-  "code": "VALIDATION_ERROR",
+  "operation": "getDelegatedOrder",
+  "error": "Order not found.",
+  "code": "NOT_FOUND",
   "responseMetadata": {
     "timestamp": 1705313400
   }
@@ -511,13 +589,195 @@ curl https://api.silhouette.exchange/v0 \
 
 **Notes**:
 
-- Orders are returned in reverse chronological order (newest first)
-- If you have no orders, the `orders` array will be empty
-- Both raw and float representations are provided for amounts and prices
-- Use the `status` filter to find specific orders (e.g., only open orders you can cancel)
-- The `orderId` can be used with `cancelOrder` to cancel an open order
+- You can only retrieve your own orders
+- `averageFillPrice` is present only once the order has at least one fill, and is a raw integer scaled by 1e8 (the same convention as `price` on `listFills`)
+- For per-fill detail (one row per execution), use `listFills`
 
-**Related operations**: Use `cancelOrder` to cancel an open order, and `createOrder` to place new orders.
+**Related operations**: Use `listDelegatedOrders` to find order IDs, `batchGetDelegatedOrders` to fetch several orders at once, and `listFills` for individual executions.
+
+## batchGetDelegatedOrders
+
+Retrieve the full details of multiple orders in a single request (up to 100). The response separates orders that were found from IDs that were not.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"batchGetDelegatedOrders"` |
+| orderIds | string[] | Yes | Array of order IDs to retrieve (1–100) |
+
+**Example request**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "batchGetDelegatedOrders",
+    "orderIds": ["dord_1234567890abcdef", "dord_fedcba0987654321"]
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "data": {
+    "orders": [
+      {
+        "orderId": "dord_1234567890abcdef",
+        "side": "buy",
+        "orderType": "limit",
+        "baseToken": "HYPE",
+        "quoteToken": "USDC",
+        "amount": "50000000",
+        "amountFloat": "0.5",
+        "price": "4000000000",
+        "priceFloat": "40.0",
+        "status": "open",
+        "expiry": 1705320000,
+        "createdAt": 1705313400000,
+        "updatedAt": 1705313400000,
+        "remainingAmount": "50000000",
+        "clearingVenue": "hyperliquid"
+      }
+    ],
+    "notFound": ["dord_fedcba0987654321"]
+  },
+  "responseMetadata": {
+    "timestamp": 1705313400,
+    "requestId": "750e8400-e29b-41d4-a716-446655440002"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| orders | object[] | Full order objects for every ID that was found, with the same fields as `getDelegatedOrder` |
+| notFound | string[] | Order IDs that were not found for the authenticated user |
+
+**Notes**:
+
+- You can request up to 100 order IDs per call
+- Each entry in `orders` has the same shape as the `getDelegatedOrder` response
+- IDs that don't exist or belong to another user are returned in `notFound` rather than causing an error
+
+**Related operations**: Use `listDelegatedOrders` to discover order IDs, `getDelegatedOrder` for a single order, and `listFills` for individual executions.
+
+## listFills
+
+List the individual fills across your orders, newest first. Limit orders produce one row per Hyperliquid fill (a partially-filled limit order has multiple rows); market orders produce a single aggregate row per filled order.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"listFills"` |
+| orderId | string | No | Return only fills for one order. Accepts either the canonical `orderId` or the `clientOrderId` (cloid) from an order response. Omit to return all of your fills. |
+| limit | number | No | Maximum number of fills to return (1–100). Default 50. |
+| cursor | string | No | Pagination cursor from a previous response's `pagination.nextCursor` |
+
+**Example request (fills for one order)**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "listFills",
+    "orderId": "dord_1234567890abcdef"
+  }'
+```
+
+**Example request (all fills)**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "listFills",
+    "limit": 25
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "data": {
+    "fills": [
+      {
+        "orderId": "dord_1234567890abcdef",
+        "clientOrderId": "client_abc123",
+        "orderType": "limit",
+        "side": "buy",
+        "baseToken": "HYPE",
+        "quoteToken": "USDC",
+        "price": "3985000000",
+        "amount": "50000000",
+        "fee": "0.00598",
+        "fillTime": 1705317000000
+      },
+      {
+        "orderId": "dord_fedcba0987654321",
+        "clientOrderId": "client_xyz789",
+        "orderType": "market",
+        "side": "sell",
+        "baseToken": "HYPE",
+        "quoteToken": "USDC",
+        "price": "4010000000",
+        "amount": "100000000",
+        "fee": null,
+        "fillTime": 1705313400000
+      }
+    ],
+    "pagination": {
+      "nextCursor": "eyJmaWxsVGltZSI6MTcwNTMxMzQwMDAwMH0="
+    }
+  },
+  "responseMetadata": {
+    "timestamp": 1705317000,
+    "requestId": "750e8400-e29b-41d4-a716-446655440002"
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| orderId | string | Canonical identifier of the parent order |
+| clientOrderId | string | The cloid Silhouette forwarded to Hyperliquid for the parent order |
+| orderType | string | Order type of the parent order: `"limit"` or `"market"` |
+| side | string | Side of the parent order: `"buy"` or `"sell"` |
+| baseToken | string | Symbol of the base token traded in this fill |
+| quoteToken | string | Symbol of the quote token traded in this fill |
+| price | string | Execution price as a raw integer scaled by 1e8 |
+| amount | string | Filled size as a raw integer scaled by the base token's wei decimals |
+| fee | string \| null | Hyperliquid fee for this fill, as a human-readable decimal in fee-token units. Populated for limit fills; `null` for market fills. |
+| fillTime | number | Unix timestamp (milliseconds) when the fill occurred on Hyperliquid |
+| pagination.nextCursor | string | Cursor for fetching the next page. Absent on the last page. |
+
+**Notes**:
+
+- Fills are returned in reverse chronological order (newest first)
+- Limit orders produce one row per Hyperliquid fill; market orders produce a single aggregate row per filled order
+- `price` and `amount` are raw integers—`price` is scaled by 1e8, and `amount` is scaled by the base token's wei decimals
+- `fee` is populated for limit fills and is `null` for market fills
+- To page through results, pass the previous response's `pagination.nextCursor` as the `cursor` parameter
+
+**Related operations**: Use `listDelegatedOrders` to find orders and `getDelegatedOrder` for an order's aggregate fill summary, including `averageFillPrice`.
 
 ## initiateWithdrawal
 

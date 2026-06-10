@@ -184,7 +184,7 @@ Causes:
 Solutions:
 
 - Verify the order ID is correct
-- Use `getUserOrders` to check your current orders
+- Use `listDelegatedOrders` to check your current orders
 - Ensure the order is in an `"open"` state before attempting to cancel
 
 ### Withdrawal not found
