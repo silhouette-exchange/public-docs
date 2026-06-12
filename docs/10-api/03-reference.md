@@ -976,6 +976,113 @@ curl https://api.silhouette.exchange/v0 \
 
 **Related operations**: Use `listDelegatedOrders` to discover order IDs, and `getDelegatedOrder` to fetch a single order.
 
+### listFills
+
+List the individual fills across your orders, newest first. Limit orders produce one row per Hyperliquid fill, so a partially-filled limit order has multiple rows. Market orders produce a single aggregate row per filled order.
+
+**Endpoint**: `POST https://api.silhouette.exchange/v0`
+
+**Authentication**: Required
+
+**Request parameters**:
+
+| Parameter | Type | Required | Description |
+|-----------|------|----------|-------------|
+| operation | string | Yes | Must be `"listFills"` |
+| orderId | string | No | Return only fills for one order. Accepts either the canonical `orderId` or the `clientOrderId` from an order response. Omit to return all of your fills. |
+| limit | number | No | Maximum fills to return, from 1 to 100. Defaults to 50. |
+| cursor | string | No | Pagination cursor returned by a previous response |
+
+**Example request (fills for one order)**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "listFills",
+    "orderId": "dord_1234567890abcdef"
+  }'
+```
+
+**Example request (all fills)**:
+
+```bash
+curl https://api.silhouette.exchange/v0 \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_TOKEN_HERE" \
+  -d '{
+    "operation": "listFills",
+    "limit": 25
+  }'
+```
+
+**Success response**:
+
+```json
+{
+  "operation": "listFills",
+  "fills": [
+    {
+      "orderId": "dord_1234567890abcdef",
+      "clientOrderId": "client_abc123",
+      "orderType": "limit",
+      "side": "buy",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "price": "3985000000",
+      "amount": "50000000",
+      "fee": "0.00598",
+      "fillTime": 1704067200000
+    },
+    {
+      "orderId": "dord_fedcba0987654321",
+      "clientOrderId": "client_xyz789",
+      "orderType": "market",
+      "side": "sell",
+      "baseToken": "HYPE",
+      "quoteToken": "USDC",
+      "price": "4010000000",
+      "amount": "100000000",
+      "fee": null,
+      "fillTime": 1704067100000
+    }
+  ],
+  "pagination": {
+    "nextCursor": "eyJmaWxsVGltZSI6MTcwNDA2NzEwMDAwMH0="
+  },
+  "responseMetadata": {
+    "timestamp": 1704067200000
+  }
+}
+```
+
+**Response fields**:
+
+| Field | Type | Description |
+|-------|------|-------------|
+| fills | array | Individual fills for the current page |
+| fills[].orderId | string | Canonical identifier of the parent order, prefixed with `dord_` |
+| fills[].clientOrderId | string | Client order identifier for the parent order |
+| fills[].orderType | string | Parent order type: `"limit"` or `"market"` |
+| fills[].side | string | Parent order side: `"buy"` or `"sell"` |
+| fills[].baseToken | string | Base token symbol traded in this fill |
+| fills[].quoteToken | string | Quote token symbol traded in this fill |
+| fills[].price | string | Execution price as an exact integer string, scaled by `10^8` |
+| fills[].amount | string | Filled base-token amount as an exact integer string, scaled by `10^baseToken.weiDecimals` |
+| fills[].fee | string \| null | Hyperliquid fee for this fill as a decimal string in fee-token units. Populated for limit fills; `null` for market fills. |
+| fills[].fillTime | number | Unix timestamp (milliseconds) when the fill occurred on Hyperliquid |
+| pagination.nextCursor | string | Cursor to pass as `cursor` on the next request to fetch the following page. Absent on the final page. |
+
+**Notes**:
+
+- Fills are returned in reverse chronological order (newest first)
+- Limit orders produce one row per Hyperliquid fill; market orders produce a single aggregate row per filled order
+- `price` is scaled by `10^8`; `amount` is scaled by `10^baseToken.weiDecimals`. Get `weiDecimals` from the public `getTokens` operation.
+- `fee` is populated for limit fills and is `null` for market fills
+
+**Related operations**: Use `listDelegatedOrders` to discover orders, and `getDelegatedOrder` for an order's aggregate fill summary, including `averageFillPrice`.
+
 ### getUserOrders
 
 :::danger Decommissioned
