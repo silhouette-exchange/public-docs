@@ -7,6 +7,7 @@ description: "Shielded spot trading keeps your orders, identity, and strategy pr
 keywords:
   - shielded spot trading
   - shielded trading
+  - shielded limit order
   - Silhouette Exchange
   - DeFi privacy
   - private trading
@@ -76,9 +77,20 @@ Market orders are live in shielded mode. Hyperliquid has no native market-order 
 </figure>
 </div>
 
-### Resting Limit Orders (GTC) - Coming Soon
+### Limit Orders
 
-Shielded GTC (Good Till Cancelled) limit orders are in development. In the current flow, every shielded order is submitted as a delegated IoC, so nothing rests on the public book. Resting shielded limits will let you set your price and wait for the market to come to you, without revealing your intent. The mechanism for how GTC orders work inside the shielded execution model will be detailed closer to launch.
+A limit order executes at your specified price or better. You set the asset, size, and the price you are willing to pay or receive, and the order rests until it fills at that price or better, or until you cancel it. Because execution runs through delegated wallets, your price and intent stay private while the order waits on the book.
+
+<div className="screenshot-pair">
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/shielded_SpotLimitOrder_BUY.png" alt="Shielded spot limit buy order" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Shielded spot limit buy</figcaption>
+</figure>
+<figure className="screenshot-figure">
+<img src="/img/app-screenshots/shielded_SpotLimitOrder_SELL.png" alt="Shielded spot limit sell order" className="app-screenshot app-screenshot--sm" />
+<figcaption className="screenshot-caption">Shielded spot limit sell</figcaption>
+</figure>
+</div>
 
 ### Advanced Orders - Coming Soon
 
