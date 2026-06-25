@@ -25,7 +25,7 @@ You place an order through the Silhouette UI in shielded mode - selecting your a
 
 At this point, no order information has been written to the public ledger.
 
-Hyperliquid has no native market-order primitive. A "market" order in the UI is a limit order with a slippage-derived price cap and an IoC (Immediate or Cancel) time-in-force. Shielded currently submits every order as a delegated IoC. Resting GTC limit orders for shielded are on the roadmap.
+Hyperliquid has no native market-order primitive. A "market" order in the UI is a limit order with a slippage-derived price cap and an IoC (Immediate or Cancel) time-in-force. A shielded market order submits as a delegated IoC; a shielded limit order rests as a delegated GTC order until filled or cancelled.
 
 ### 2. Processing
 

@@ -50,7 +50,7 @@ Shielded trading currently supports **spot markets** on Hyperliquid. Naked tradi
 
 ### What Order Types Are Supported?
 
-Market and limit orders are supported in naked mode, and market orders are supported in shielded mode. Shielded limit orders, TWAPs, VWAPs, and RFQs are on the roadmap.
+Market and limit orders are supported in both naked and shielded mode. Shielded TWAPs, VWAPs, and RFQs are on the roadmap.
 
 
 ## Security and Trust
@@ -123,7 +123,7 @@ Click the **FEEDBACK** button at the bottom right of the Silhouette app to repor
     },
     {
       q: "What order types are supported on Silhouette?",
-      a: "Market and limit orders are supported in naked mode. Market orders are supported in shielded mode. Shielded limit orders, TWAPs, VWAPs, and RFQs are on the roadmap.",
+      a: "Market and limit orders are supported in both naked and shielded mode. Shielded TWAPs, VWAPs, and RFQs are on the roadmap.",
     },
     {
       q: "How does Silhouette integrate with HyperCore?",
