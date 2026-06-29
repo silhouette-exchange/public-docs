@@ -110,22 +110,12 @@ const sidebars: SidebarsConfig = {
         {
           type: 'doc',
           id: 'api/spec/authentication',
-          label: 'HMAC authentication',
-        },
-        {
-          type: 'doc',
-          id: 'api/spec/auth-flow',
-          label: 'Auth flow example',
+          label: 'Authentication',
         },
         {
           type: 'doc',
           id: 'api/spec/reference',
           label: 'Endpoint index',
-        },
-        {
-          type: 'doc',
-          id: 'api/spec/auth',
-          label: 'Auth',
         },
         {
           type: 'doc',

@@ -28,7 +28,7 @@ https://api.silhouette.exchange
 
 | Section | Description | Operations |
 |---------|-------------|------------|
-| [Auth](/api/spec/auth) | SIWE login and HMAC credential issuance. | 5 |
+| [Authentication](/api/spec/authentication) | SIWE login, HMAC signing, and API key management. | 5 |
 | [Instruments](/api/spec/instruments) | Public instrument metadata. | 1 |
 | [Balances](/api/spec/balances) | Private account balance state. | 2 |
 | [RFQ](/api/spec/rfq) | RFQ taker request, quote-read, and acceptance operations. | 7 |
@@ -37,7 +37,7 @@ https://api.silhouette.exchange
 
 ## Authentication model
 
-Public endpoints are unauthenticated. Private endpoints use HMAC-signed requests with credentials minted through SIWE login. See [HMAC authentication](/api/spec/authentication) and the [E2E auth flow](/api/spec/auth-flow).
+Public endpoints are unauthenticated. Private endpoints use HMAC-signed requests with credentials minted through SIWE login. See [RFQ API authentication](/api/spec/authentication).
 
 ## Schemas
 

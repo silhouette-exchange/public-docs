@@ -14,11 +14,11 @@ This index links to the generated endpoint reference pages for every operation i
 
 | Area | Endpoint | Operation ID | Summary | Auth |
 |------|----------|--------------|---------|------|
-| Auth | [`POST /v1/auth/challenge`](/api/spec/auth#post-v1-auth-challenge) | `authChallenge` | Request a login challenge. | None |
-| Auth | [`POST /v1/auth/api-keys`](/api/spec/auth#post-v1-auth-api-keys) | `siweLogin` | SIWE login - mint an HMAC credential pair. | None |
-| Auth | [`GET /v1/auth/api-keys`](/api/spec/auth#get-v1-auth-api-keys) | `listApiKeys` | List the caller's API keys. | HMAC |
-| Auth | [`DELETE /v1/auth/api-keys`](/api/spec/auth#delete-v1-auth-api-keys) | `revokeAllApiKeys` | Revoke all the caller's API keys. | HMAC |
-| Auth | [`DELETE /v1/auth/api-keys/{accessKey}`](/api/spec/auth#delete-v1-auth-api-keys-accesskey) | `revokeApiKey` | Revoke one API key. | HMAC |
+| Auth | [`POST /v1/auth/challenge`](/api/spec/authentication#post-v1-auth-challenge) | `authChallenge` | Request a login challenge. | None |
+| Auth | [`POST /v1/auth/api-keys`](/api/spec/authentication#post-v1-auth-api-keys) | `siweLogin` | SIWE login - mint an HMAC credential pair. | None |
+| Auth | [`GET /v1/auth/api-keys`](/api/spec/authentication#get-v1-auth-api-keys) | `listApiKeys` | List the caller's API keys. | HMAC |
+| Auth | [`DELETE /v1/auth/api-keys`](/api/spec/authentication#delete-v1-auth-api-keys) | `revokeAllApiKeys` | Revoke all the caller's API keys. | HMAC |
+| Auth | [`DELETE /v1/auth/api-keys/{accessKey}`](/api/spec/authentication#delete-v1-auth-api-keys-accesskey) | `revokeApiKey` | Revoke one API key. | HMAC |
 | Instruments | [`GET /v1/rfq/instruments`](/api/spec/instruments#get-v1-rfq-instruments) | `listInstruments` | List supported instruments. | None |
 | Balances | [`GET /v1/rfq/balances`](/api/spec/balances#get-v1-rfq-balances) | `getBalances` | Get balances. | HMAC |
 | Balances | [`GET /v1/rfq/ledger`](/api/spec/balances#get-v1-rfq-ledger) | `getLedger` | Get the account ledger. | HMAC |
