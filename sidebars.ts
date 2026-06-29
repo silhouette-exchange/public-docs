@@ -29,12 +29,6 @@ const sidebars: SidebarsConfig = {
             'trading/shielded/spot',
             {
               type: 'link',
-              label: 'Request for Quote (RFQ)',
-              href: '#',
-              className: 'sidebar-item-coming-soon sidebar-item-disabled',
-            },
-            {
-              type: 'link',
               label: 'Binary Outcomes (HIP-4)',
               href: '#',
               className: 'sidebar-item-coming-soon sidebar-item-disabled',
@@ -44,6 +38,19 @@ const sidebars: SidebarsConfig = {
         'trading/naked-trading',
         'trading/order-lifecycle',
         'trading/fees',
+      ],
+    },
+
+    {
+      type: 'category',
+      label: 'RFQ',
+      collapsed: true,
+      items: [
+        {
+          type: 'doc',
+          id: 'rfq/overview',
+          label: 'Overview',
+        },
       ],
     },
 
@@ -89,6 +96,69 @@ const sidebars: SidebarsConfig = {
       ],
     },
     { type: 'doc', id: 'sdk', label: 'Python SDK' },
+
+    {
+      type: 'category',
+      label: 'RFQ API Spec',
+      collapsed: true,
+      items: [
+        {
+          type: 'doc',
+          id: 'api/spec/index',
+          label: 'Overview',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/authentication',
+          label: 'HMAC authentication',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/auth-flow',
+          label: 'Auth flow example',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/reference',
+          label: 'Endpoint index',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/auth',
+          label: 'Auth',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/instruments',
+          label: 'Instruments',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/balances',
+          label: 'Balances',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/rfq',
+          label: 'RFQ',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/maker',
+          label: 'Maker',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/funding',
+          label: 'Funding',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/schemas',
+          label: 'Schemas',
+        },
+      ],
+    },
 
     { type: 'html', value: '<div class="sidebar-divider"></div>' },
     {

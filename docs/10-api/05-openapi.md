@@ -17,15 +17,24 @@ keywords:
 The Silhouette API and SDK are in beta. We are actively adding new operations.
 :::
 
-## Overview
+## Spec Sources
 
-An OpenAPI specification is published for generating strongly-typed client integrations. The spec is available at:
+Silhouette publishes OpenAPI specifications for generating strongly-typed client integrations.
 
-```text
-https://api.silhouette.exchange/v0/openapi.json
-```
+| API | Spec URL | Notes |
+|-----|----------|-------|
+| REST API v1/RFQ | [`/api/rfq-openapi.yaml`](/api/rfq-openapi.yaml) | OpenAPI source for the generated [RFQ API Spec](/api/spec) section |
+| `/v0` operation API | `https://api.silhouette.exchange/v0/openapi.json` | Live OpenAPI JSON for the operation-style API |
 
-You can use this specification with code generation tools to automatically create type-safe client libraries in your preferred programming language. For a ready-to-use client, see the [Python SDK](/sdk).
+The REST API v1 spec also has a dedicated docs section:
+
+- [RFQ API Spec overview](/api/spec)
+- [HMAC authentication](/api/spec/authentication)
+- [Auth flow example](/api/spec/auth-flow)
+- [Endpoint index](/api/spec/reference)
+- [Schema catalog](/api/spec/schemas)
+
+For a ready-to-use client for the existing operation API, see the [Python SDK](/sdk).
 
 ## Using the OpenAPI Specification
 
@@ -37,6 +46,8 @@ OpenAPI (formerly known as Swagger) is a standard specification format for descr
 
 You can use the [OpenAPI Generator](https://openapi-generator.tech/) tool to automatically generate client SDKs in your preferred programming language.
 
+The examples below use the REST API v1/RFQ spec. To generate a client for the existing `/v0` operation API instead, replace the input URL with `https://api.silhouette.exchange/v0/openapi.json`.
+
 **Example: Generate a TypeScript Client**
 
 ```bash
@@ -45,7 +56,7 @@ npm install @openapitools/openapi-generator-cli -g
 
 # Generate a TypeScript Axios client
 openapi-generator-cli generate \
-  -i https://api.silhouette.exchange/v0/openapi.json \
+  -i https://docs.silhouette.exchange/api/rfq-openapi.yaml \
   -g typescript-axios \
   -o ./generated-client
 ```
@@ -54,7 +65,7 @@ openapi-generator-cli generate \
 
 ```bash
 openapi-generator-cli generate \
-  -i https://api.silhouette.exchange/v0/openapi.json \
+  -i https://docs.silhouette.exchange/api/rfq-openapi.yaml \
   -g python \
   -o ./generated-client
 ```
@@ -76,7 +87,7 @@ You can also use the OpenAPI specification with [Swagger UI](https://swagger.io/
 ```bash
 # Using Docker
 docker run -p 8080:8080 \
-  -e SWAGGER_JSON_URL=https://api.silhouette.exchange/v0/openapi.json \
+  -e SWAGGER_JSON_URL=https://docs.silhouette.exchange/api/rfq-openapi.yaml \
   swaggerapi/swagger-ui
 ```
 
@@ -88,5 +99,6 @@ Then visit `http://localhost:8080` to explore the API interactively.
 - [OpenAPI Generator](https://openapi-generator.tech/) - Generate client SDKs, server stubs, and API documentation
 - [OpenAPI Generator Generators List](https://openapi-generator.tech/docs/generators) - See all supported languages
 - [Swagger UI](https://swagger.io/tools/swagger-ui/) - Interactive API documentation
+- [RFQ API Spec](/api/spec) - REST API v1/RFQ endpoint documentation
 - [Silhouette API Reference](/api/reference) - Complete operation documentation
 - [Silhouette API Quick Start](/api/quick-start) - Get started with your first API call

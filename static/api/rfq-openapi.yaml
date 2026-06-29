@@ -1,0 +1,1825 @@
+openapi: 3.1.0
+info:
+  title: Silhouette REST API v1
+  description: |-
+    Public REST API for Silhouette Exchange.
+
+    Authentication. A SIWE login (`POST /v1/auth/challenge`, then `POST /v1/auth/api-keys`) authenticates a wallet and autonomously mints a short-lived HMAC credential pair: a public access key and a base64 secret, the secret returned once at login and never again, bound server-side to the authenticated account. Every private request is then signed — it carries `Authorization: Bearer <access-key>`, a `Silhouette-API-Timestamp` (Unix milliseconds), and a base64 `Silhouette-API-Signature`: the HMAC-SHA256, under the secret, of the canonical string `"{timestamp}\n{METHOD}\n{path}?{query}\n{body}"` (the body empty for a GET), verified within a 30-second window. The WebSocket handshake is signed the same way. Public market-data endpoints are unauthenticated. This signing model gives each request integrity and replay protection, and keeps the secret off the wire — only the public access key and a per-request signature are ever sent.
+  license:
+    name: ''
+  version: 1.0.0
+servers:
+- url: https://api.silhouette.exchange
+  description: Production
+paths:
+  /v1/auth/challenge:
+    post:
+      tags:
+      - auth
+      summary: Request a login challenge.
+      description: |-
+        Issues a single-use nonce to embed in the SIWE (EIP-4361) login message. The
+        nonce expires shortly. Unauthenticated.
+      operationId: authChallenge
+      responses:
+        '200':
+          description: A single-use login challenge nonce.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ChallengeResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /v1/auth/api-keys:
+    post:
+      tags:
+      - auth
+      summary: SIWE login — mint an HMAC credential pair.
+      description: |-
+        Verifies a SIWE (EIP-4361) message signed by the wallet — embedding the
+        challenge nonce, this gateway's domain, and its chain id — and on success
+        autonomously mints a short-lived HMAC credential pair: a public access key
+        and a base64 secret. The secret is returned once here and never again; sign
+        every later request with it (see the `hmac` security scheme). Unauthenticated.
+      operationId: siweLogin
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/LoginRequest'
+        required: true
+      responses:
+        '200':
+          description: The minted credential pair, bound to the authenticated account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LoginResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          description: 'SIWE verification failed: bad signature, domain, chain id, or an unknown/consumed nonce.'
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+    get:
+      tags:
+      - auth
+      summary: List the caller's API keys.
+      description: |-
+        Returns the account's live credentials — those neither revoked nor past
+        their expiry — newest first. Metadata only: the secret leaves the server
+        once at issuance and is never returned again. Use this to audit which keys
+        are outstanding before revoking one with `DELETE /v1/auth/api-keys/{accessKey}`.
+      operationId: listApiKeys
+      responses:
+        '200':
+          description: The caller's live API keys, newest first.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ApiKeysResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+    delete:
+      tags:
+      - auth
+      summary: Revoke all the caller's API keys.
+      description: |-
+        Retires every live key for the caller's account — a sign-out-everywhere. The
+        explicit `all=true` query flag is required; a bare `DELETE` on the collection
+        is rejected `400`, so an accidental request cannot wipe an account's
+        credentials. The revoked keys stop authenticating immediately.
+      operationId: revokeAllApiKeys
+      parameters:
+      - name: all
+        in: query
+        description: Must be `true`; guards the collection-wide revoke against an accidental bare DELETE.
+        required: true
+        schema:
+          type: boolean
+        example: true
+      responses:
+        '204':
+          description: Every live key for the account was revoked.
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/auth/api-keys/{accessKey}:
+    delete:
+      tags:
+      - auth
+      summary: Revoke one API key.
+      description: |-
+        Retires a single one of the caller's keys by its access key, scoped to the
+        caller's account: a key that does not exist or belongs to another account is
+        a `404`. The revoked key stops authenticating immediately — the containment
+        action for a leaked secret.
+      operationId: revokeApiKey
+      parameters:
+      - name: accessKey
+        in: path
+        description: The public access key to revoke.
+        required: true
+        schema:
+          type: string
+        example: sil_a1b2c3d4
+      responses:
+        '204':
+          description: The key was revoked.
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/balances:
+    get:
+      tags:
+      - balances
+      summary: Get balances.
+      description: Returns the signed account's token balances.
+      operationId: getBalances
+      responses:
+        '200':
+          description: Balances for the signed account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetBalancesResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/ledger:
+    get:
+      tags:
+      - balances
+      summary: Get the account ledger.
+      description: |-
+        Returns the signed account's recent ledger entries — the append-only audit
+        rows behind every balance change (deposit, fill, withdrawal, adjustment),
+        newest first. A reconciliation surface for auditing balance movements.
+      operationId: getLedger
+      responses:
+        '200':
+          description: The account's recent ledger entries.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/GetLedgerResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/deposits:
+    get:
+      tags:
+      - funding
+      summary: List deposits.
+      description: Returns deposits observed and credited by Silhouette for the signed account.
+      operationId: listDeposits
+      parameters:
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      responses:
+        '200':
+          description: Deposits page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DepositsPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/deposits/{depositId}:
+    get:
+      tags:
+      - funding
+      summary: Get a deposit.
+      description: |-
+        Returns a single deposit owned by the signed account. A chain transaction
+        can carry several deposits, so the lookup is by stable deposit ID.
+      operationId: getDeposit
+      parameters:
+      - name: depositId
+        in: path
+        description: Stable Silhouette deposit ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Deposit detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Deposit'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Deposit belongs to another account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/instruments:
+    get:
+      tags:
+      - instruments
+      summary: List supported instruments.
+      description: |-
+        Returns the instruments currently tradable through Silhouette, sorted by `instrumentId`
+        ascending.
+      operationId: listInstruments
+      responses:
+        '200':
+          description: Supported instruments.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ListInstrumentsResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+  /v1/rfq/requests:
+    post:
+      tags:
+      - rfq
+      summary: Submit an RFQ request.
+      description: |-
+        Accepts an RFQ request for orchestration. The request is written `Pending`
+        and the engine settles it asynchronously; poll `GET /v1/rfq/requests/{id}`
+        or the WebSocket for the outcome. Not idempotent.
+      operationId: createRfqRequest
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateRfqRequestInput'
+        required: true
+      responses:
+        '202':
+          description: Accepted for orchestration.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateRfqRequestResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Insufficient balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+        '503':
+          description: Solvency-locked.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+      security:
+      - hmac: []
+    get:
+      tags:
+      - rfq
+      summary: List RFQ requests.
+      description: |-
+        Returns the signed account's RFQ requests in every lifecycle state, most
+        recent first.
+      operationId: listRfqRequests
+      parameters:
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      - name: status
+        in: query
+        description: 'Filter by one or more lifecycle statuses. Repeat the key for multiple, e.g. `?status=QUOTED&status=SETTLED`.'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/RfqStatus'
+      responses:
+        '200':
+          description: RFQ requests page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RfqsPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/rfqs:
+    get:
+      tags:
+      - rfq
+      summary: List settled RFQs (trades).
+      description: |-
+        Returns the signed account's settled RFQs — the executed trades — newest
+        first. A trade is an RFQ in the `SETTLED` state carrying its settlement
+        transaction hash and `settledAt`. This is the reconciliation surface for
+        completed trades, distinct from `GET /v1/rfq/requests`, which lists requests
+        in every lifecycle state.
+      operationId: listSettledRfqs
+      parameters:
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      responses:
+        '200':
+          description: Settled RFQs page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/RfqsPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/quotes:
+    post:
+      tags:
+      - maker
+      summary: Submit a quote.
+      description: |-
+        Submits a quote for an open RFQ. The quote competes with every other
+        maker's quote for the same RFQ and wins on best price (rfq.md §7); the
+        engine selects a winner at the RFQ deadline, so this is accepted
+        asynchronously (`202`). Requires a maker-scoped credential.
+      operationId: createMakerQuote
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateMakerQuoteRequest'
+        required: true
+      responses:
+        '202':
+          description: Quote accepted; stored as `SUBMITTED`.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateMakerQuoteResponse'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Credential is not maker-scoped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+    get:
+      tags:
+      - maker
+      summary: List the maker's quotes.
+      description: |-
+        Returns the authenticated maker's own quotes, cursor-paginated and
+        optionally filtered by `status`. A maker polls this to learn outcomes: a
+        `SELECTED` quote carries the engine-signed Permit2 authorisation it relays to
+        settle on-chain. Requires a maker-scoped credential.
+      operationId: listMakerQuotes
+      parameters:
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      - name: status
+        in: query
+        description: 'Filter by one or more quote statuses. Repeat the key for multiple, e.g. `?status=SELECTED&status=SETTLED`.'
+        required: false
+        style: form
+        explode: true
+        schema:
+          type: array
+          items:
+            $ref: '#/components/schemas/QuoteStatus'
+      responses:
+        '200':
+          description: The maker's quotes (`SELECTED` ones carry their permit).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MakerQuotesPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Credential is not maker-scoped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/quotes/{quoteId}/cancel:
+    post:
+      tags:
+      - maker
+      summary: Cancel a quote.
+      description: |-
+        Retracts one of the maker's own still-`SUBMITTED` quotes before the RFQ's
+        auction selects a winner — and so before the maker holds any signed permit.
+        The quote is marked `CANCELLED` and drops out of the auction, and both the
+        maker (`quoteStatus`) and the RFQ owner (`quotes`) are notified; the
+        response carries the `CANCELLED` quote. To re-price instead, submit a fresh
+        quote for the same RFQ, which replaces the prior terms. Requires a
+        maker-scoped credential.
+      operationId: cancelMakerQuote
+      parameters:
+      - name: quoteId
+        in: path
+        description: The quote to cancel.
+        required: true
+        schema:
+          type: string
+          format: uuid
+      responses:
+        '200':
+          description: Quote cancelled; dropped from the auction.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/MakerQuote'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Quote belongs to another maker, or the credential is not maker-scoped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: Quote is no longer open to cancel (already selected, settled, expired, or cancelled).
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/requests/open:
+    get:
+      tags:
+      - maker
+      summary: List open RFQs to quote.
+      description: |-
+        Returns the open RFQs (`Pending` requests) on the pairs the authenticated
+        maker is approved for, cursor-paginated. A maker polls this at its own
+        cadence, then submits quotes for the ones it wants. Requires a maker-scoped
+        credential.
+      operationId: listMakerRequests
+      parameters:
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      responses:
+        '200':
+          description: Open RFQs the maker may quote.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/OpenRfqsPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Credential is not maker-scoped.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/requests/{id}:
+    get:
+      tags:
+      - rfq
+      summary: Get an RFQ request.
+      description: |-
+        Returns a single RFQ request owned by the signed account, in any lifecycle
+        state.
+      operationId: getRfqRequest
+      parameters:
+      - name: id
+        in: path
+        description: RFQ request ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Request detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rfq'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Request belongs to another account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/requests/{id}/accept:
+    post:
+      tags:
+      - rfq
+      summary: Accept a quote.
+      description: |-
+        Explicitly accepts one quote on an RFQ the taker submitted with
+        `autoAccept: false`. Acceptance locks the taker's funds and commits to that
+        quote, so the trade can settle before the RFQ deadline ("early"). It is
+        valid only while the request is `Pending` and the chosen quote is still
+        `Submitted` and unexpired. The maker retains the option not to deliver, in
+        which case the trade fails (cascading to another maker where one exists).
+      operationId: acceptRfqQuote
+      parameters:
+      - name: id
+        in: path
+        description: RFQ request ID.
+        required: true
+        schema:
+          type: string
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/AcceptRfqQuoteRequest'
+        required: true
+      responses:
+        '202':
+          description: Quote accepted; settlement proceeds.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rfq'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Request belongs to another account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          description: Request or quote not found.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '409':
+          description: Request is not Pending, the quote is no longer acceptable, or the funds are insufficient.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/requests/{id}/cancel:
+    post:
+      tags:
+      - rfq
+      summary: Cancel an RFQ request.
+      description: |-
+        Cancels the signed account's own still-open RFQ before its deadline and
+        releases any funds locked for it — the safety affordance for a taker who
+        submitted in error or saw the market move. An RFQ that is already settled,
+        failed, cancelled, or past its deadline cannot be cancelled.
+      operationId: cancelRfqRequest
+      parameters:
+      - name: id
+        in: path
+        description: RFQ request ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: The cancelled RFQ.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Rfq'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Request belongs to another account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '409':
+          description: The RFQ is no longer open and cannot be cancelled.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/requests/{id}/quotes:
+    get:
+      tags:
+      - rfq
+      summary: List the quotes on an RFQ request.
+      description: |-
+        Returns the competing quotes on the taker's own RFQ, for the taker to choose
+        one to accept (`autoAccept: false`). The view carries no Permit2
+        authorisation — that is the winning maker's settlement secret.
+      operationId: listRfqRequestQuotes
+      parameters:
+      - name: id
+        in: path
+        description: RFQ request ID.
+        required: true
+        schema:
+          type: string
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      responses:
+        '200':
+          description: Quotes on the request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/QuotesPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Request belongs to another account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/withdrawals:
+    get:
+      tags:
+      - funding
+      summary: List withdrawals.
+      description: Returns withdrawals for the signed account.
+      operationId: listWithdrawals
+      parameters:
+      - $ref: '#/components/parameters/PaginationLimitParam'
+      - $ref: '#/components/parameters/PaginationCursorParam'
+      responses:
+        '200':
+          description: Withdrawals page.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/WithdrawalsPage'
+        '400':
+          $ref: '#/components/responses/BadRequest'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+    post:
+      tags:
+      - funding
+      summary: Create a withdrawal.
+      description: |-
+        Reserves the funds and queues an asynchronous on-chain withdrawal to the
+        account's registered address; the caller cannot specify a destination. Not
+        idempotent.
+      operationId: createWithdrawal
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/CreateWithdrawalRequest'
+        required: true
+      responses:
+        '202':
+          description: Withdrawal accepted for processing.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/CreateWithdrawalResponse'
+        '400':
+          description: Invalid request.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          $ref: '#/components/responses/Forbidden'
+        '409':
+          description: Insufficient balance.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+  /v1/rfq/withdrawals/{withdrawalId}:
+    get:
+      tags:
+      - funding
+      summary: Get a withdrawal.
+      description: Returns a single withdrawal owned by the signed account.
+      operationId: getWithdrawal
+      parameters:
+      - name: withdrawalId
+        in: path
+        description: Silhouette withdrawal ID.
+        required: true
+        schema:
+          type: string
+      responses:
+        '200':
+          description: Withdrawal detail.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Withdrawal'
+        '401':
+          $ref: '#/components/responses/Unauthorized'
+        '403':
+          description: Withdrawal belongs to another account.
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ErrorResponse'
+        '404':
+          $ref: '#/components/responses/NotFound'
+        '500':
+          $ref: '#/components/responses/InternalError'
+      security:
+      - hmac: []
+components:
+  schemas:
+    ChallengeResponse:
+      type: object
+      description: A single-use SIWE login challenge.
+      required:
+      - nonce
+      properties:
+        nonce:
+          type: string
+          format: uuid
+          description: Single-use nonce to embed in the SIWE login message; expires shortly.
+    LoginRequest:
+      type: object
+      description: A SIWE login, exchanged at `POST /v1/auth/api-keys` for an HMAC credential pair.
+      required:
+      - message
+      - signature
+      properties:
+        message:
+          type: string
+          description: The SIWE (EIP-4361) message, embedding the challenge nonce and this gateway's domain and chain id.
+        signature:
+          type: string
+          description: The wallet's signature over `message`, as a 0x-prefixed hex string.
+          pattern: ^0x[0-9a-fA-F]+$
+        expiresInSecs:
+          type:
+          - integer
+          - 'null'
+          format: int64
+          description: Requested credential lifetime in seconds. Omit for the two-week default; capped at three months (90 days), beyond which the request is rejected.
+    LoginResponse:
+      type: object
+      description: The credential pair minted by a SIWE login, bound to the authenticated account. The secret is returned only here.
+      required:
+      - userId
+      - account
+      - accessKey
+      - secret
+      - expiresAt
+      properties:
+        userId:
+          type: string
+          format: uuid
+        account:
+          $ref: '#/components/schemas/EvmAddress'
+        accessKey:
+          type: string
+          description: 'Public access key, sent on every request as `Authorization: Bearer <access-key>`.'
+        secret:
+          type: string
+          description: Base64 secret — returned once. Sign requests with it; never send it on the wire.
+        expiresAt:
+          $ref: '#/components/schemas/UnixMillis'
+          description: Credential expiry.
+        makerId:
+          type:
+          - string
+          - 'null'
+          description: Present when the account is a registered active market maker, so the client knows to expose the maker surface.
+    ApiKeyView:
+      type: object
+      description: |-
+        One of the caller's live API keys, as returned by the listing. The secret is
+        absent by construction — returned once at issuance and never again — so the
+        listing exposes only the public access key and its lifetime.
+      required:
+      - accessKey
+      - createdAtMs
+      - expiresAtMs
+      properties:
+        accessKey:
+          type: string
+          description: 'Public access key — the `Authorization: Bearer` token for this credential.'
+        createdAtMs:
+          $ref: '#/components/schemas/UnixMillis'
+          description: When the key was minted.
+        expiresAtMs:
+          $ref: '#/components/schemas/UnixMillis'
+          description: When the key expires.
+    ApiKeysResponse:
+      type: object
+      description: The caller's live API keys.
+      required:
+      - keys
+      properties:
+        keys:
+          type: array
+          items:
+            $ref: '#/components/schemas/ApiKeyView'
+          description: The caller's live keys, newest first.
+    LedgerView:
+      type: object
+      description: One ledger entry — the append-only audit row behind a balance change.
+      required:
+      - ledgerId
+      - token
+      - delta
+      - source
+      - createdAt
+      properties:
+        ledgerId:
+          type: string
+          format: uuid
+        token:
+          $ref: '#/components/schemas/TokenSymbol'
+        delta:
+          type: string
+          description: The signed change applied to the balance — positive for a credit, negative for a debit (e.g. `-100`).
+          pattern: ^-?(0|[1-9][0-9]*)(\.[0-9]+)?$
+        source:
+          type: string
+          description: What produced the entry.
+          enum:
+          - deposit
+          - fill
+          - withdrawal
+          - adjustment
+        createdAt:
+          $ref: '#/components/schemas/UnixMillis'
+    GetLedgerResponse:
+      type: object
+      description: The account's recent ledger entries, newest first.
+      required:
+      - entries
+      properties:
+        entries:
+          type: array
+          items:
+            $ref: '#/components/schemas/LedgerView'
+    AcceptRfqQuoteRequest:
+      type: object
+      description: |-
+        Body of `POST /v1/rfq/requests/{id}/accept`: the quote the taker is
+        accepting, chosen from `GET /v1/rfq/requests/{id}/quotes`.
+      required:
+      - quoteId
+      properties:
+        quoteId:
+          $ref: '#/components/schemas/QuoteId'
+    ApiError:
+      type: object
+      required:
+      - code
+      - message
+      properties:
+        code:
+          type: string
+          description: |-
+            Stable machine-readable error code, e.g. `INVALID_REQUEST`,
+            `INSUFFICIENT_BALANCE`, `NOT_FOUND`. Open set — new codes are additive.
+        details:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/ErrorDetails'
+            description: Optional validation/diagnostic context.
+        message:
+          type: string
+          description: Human-readable message. Not a stable machine contract.
+    Balance:
+      type: object
+      description: |-
+        One token's balance: available + locked, plus their `total` for
+        convenience. Amounts are canonical decimal strings.
+      required:
+      - token
+      - available
+      - locked
+      - total
+      properties:
+        available:
+          $ref: '#/components/schemas/DecimalString'
+        locked:
+          $ref: '#/components/schemas/DecimalString'
+        token:
+          $ref: '#/components/schemas/TokenSymbol'
+        total:
+          $ref: '#/components/schemas/DecimalString'
+    DecimalString:
+      type: string
+      description: Exact non-negative canonical decimal string in human-readable units. Responses use canonical formatting with no scientific notation, separators, leading plus sign, unnecessary leading zeros, trailing fractional zeros, or decimal point for integer values. Request parsing accepts and normalises semantically equivalent trailing fractional zeros such as `1.0` or `0.000`; leading plus signs, unnecessary leading zeros, whitespace, scientific notation, missing integer digits, and missing fractional digits are rejected.
+      maxLength: 64
+      pattern: ^(0|[1-9][0-9]*)(\.[0-9]+)?$
+    DepositId:
+      type: string
+      description: Opaque resource identifier, prefixed `dep_` (the remainder is the id in hex).
+      maxLength: 128
+      minLength: 1
+    DepositStatus:
+      type: string
+      description: |-
+        Public deposit lifecycle. Our model observes an on-chain transfer and then
+        credits it; a deposit only appears in the API once credited, so it maps to
+        `Completed`. `Pending` / `Failed` round out the contract's shape for clients
+        branching on status. Wire form is `SCREAMING_SNAKE_CASE`; there is no DB enum
+        (deposits carry no status column — the status is derived).
+      enum:
+      - PENDING
+      - COMPLETED
+      - FAILED
+    Deposit:
+      type: object
+      description: |-
+        A taker-facing view of a deposit. A deposit appears here once observed
+        on-chain; `status` is `COMPLETED` once credited, `PENDING` until then.
+      required:
+      - depositId
+      - token
+      - amount
+      - txHash
+      - status
+      - createdAt
+      - updatedAt
+      properties:
+        amount:
+          $ref: '#/components/schemas/DecimalString'
+        createdAt:
+          $ref: '#/components/schemas/UnixMillis'
+        depositId:
+          $ref: '#/components/schemas/DepositId'
+        status:
+          $ref: '#/components/schemas/DepositStatus'
+        token:
+          $ref: '#/components/schemas/TokenSymbol'
+        txHash:
+          $ref: '#/components/schemas/TxHash'
+        updatedAt:
+          $ref: '#/components/schemas/UnixMillis'
+    DepositsPage:
+      type: object
+      description: A cursor-paginated page of deposits.
+      required:
+      - items
+      - hasMore
+      properties:
+        hasMore:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Deposit'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+    ErrorDetails:
+      type: object
+      properties:
+        errors:
+          type: array
+          items:
+            $ref: '#/components/schemas/ValidationErrorDetail'
+          description: Field-level validation errors; present for `INVALID_REQUEST`.
+    ErrorResponse:
+      type: object
+      description: |-
+        Nested error envelope: `{ "error": { "code", "message", "details"? } }`.
+        `code` is a stable, machine-branchable identifier (an open, additive set);
+        `message` is human-readable and not a stable contract.
+      required:
+      - error
+      properties:
+        error:
+          $ref: '#/components/schemas/ApiError'
+    EvmAddress:
+      type: string
+      description: EVM address, 0x-hex (EIP-55 checksummed on output).
+      pattern: ^0x[0-9a-fA-F]{40}$
+    GetBalancesResponse:
+      type: object
+      description: '`GET /v1/rfq/balances` response: the account''s RFQ balances, one entry per token.'
+      required:
+      - balances
+      properties:
+        balances:
+          type: array
+          items:
+            $ref: '#/components/schemas/Balance'
+    ListInstrumentsResponse:
+      type: object
+      description: Response body for `GET /v1/rfq/instruments`.
+      required:
+      - instruments
+      properties:
+        instruments:
+          type: array
+          items:
+            $ref: '#/components/schemas/Instrument'
+    Instrument:
+      type: object
+      description: An instrument tradable through Silhouette.
+      required:
+      - instrumentId
+      - base
+      - quote
+      - type
+      properties:
+        base:
+          $ref: '#/components/schemas/TokenSymbol'
+          description: Canonical base-token symbol.
+        type:
+          $ref: '#/components/schemas/InstrumentType'
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+          description: Canonical instrument identifier (`BASE-QUOTE-TYPE`, uppercase).
+        quote:
+          $ref: '#/components/schemas/TokenSymbol'
+          description: Canonical quote-token symbol.
+    InstrumentType:
+      type: string
+      description: The instrument type. `SPOT` in v1; further types are added when they ship.
+      enum:
+      - SPOT
+    OpenRfqsPage:
+      type: object
+      description: A page of open RFQs, cursor-paginated like every other v1 list.
+      required:
+      - items
+      - hasMore
+      properties:
+        hasMore:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/OpenRfq'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+    InstrumentId:
+      type: string
+      description: Canonical instrument identifier, `BASE-QUOTE-TYPE` uppercase (e.g. `XTSLA-USDC-SPOT`).
+      maxLength: 128
+      pattern: ^[A-Z0-9]+-[A-Z0-9]+-SPOT$
+    PositiveDecimalString:
+      type: string
+      description: Exact positive decimal string in human-readable units for action request fields. Zero and zero-equivalent values such as `0.0` are invalid for these fields.
+      maxLength: 64
+      pattern: ^([1-9][0-9]*(\.[0-9]+)?|0\.[0-9]*[1-9][0-9]*)$
+    QuoteId:
+      type: string
+      description: Opaque resource identifier, prefixed `qt_` (the remainder is the id in hex).
+      maxLength: 128
+      minLength: 1
+    QuoteStatus:
+      type: string
+      description: |-
+        Lifecycle of an RFQ quote from the maker's view. Stored on arrival as
+        `SUBMITTED`; at the deadline selection marks one `SELECTED` and the rest
+        `NOT_SELECTED`, or `EXPIRED` when the window closes with no winner. A
+        `SELECTED` quote then settles: `SETTLED` on success, `FAILED` if settlement
+        does not complete. A maker may also retract a still-`SUBMITTED` quote
+        before selection, taking it to `CANCELLED`. Wire form is
+        `SCREAMING_SNAKE_CASE`.
+      enum:
+      - SUBMITTED
+      - SELECTED
+      - NOT_SELECTED
+      - EXPIRED
+      - SETTLED
+      - FAILED
+      - CANCELLED
+    MakerQuote:
+      type: object
+      description: |-
+        One of the maker's quotes. The Permit2 `spender` and `permitSignature` are
+        present only once the quote is selected; that is the authorisation the maker
+        relays to settle on its wrapper.
+      required:
+      - rfqId
+      - quoteId
+      - instrumentId
+      - side
+      - status
+      - makerPays
+      - makerReceives
+      - expiryMs
+      - receivedAt
+      properties:
+        rfqId:
+          $ref: '#/components/schemas/RfqId'
+        quoteId:
+          $ref: '#/components/schemas/QuoteId'
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+        side:
+          $ref: '#/components/schemas/Side'
+        status:
+          $ref: '#/components/schemas/QuoteStatus'
+        makerPays:
+          $ref: '#/components/schemas/QuoteLeg'
+        makerReceives:
+          $ref: '#/components/schemas/QuoteLeg'
+        expiryMs:
+          $ref: '#/components/schemas/UnixMillis'
+          description: The quote's expiry; on a win the engine uses it, converted to seconds, as the Permit2 deadline.
+        receivedAt:
+          $ref: '#/components/schemas/UnixMillis'
+        permitSignature:
+          type:
+          - string
+          - 'null'
+          description: Engine-signed Permit2 signature (0x-hex), to relay on-chain. Present only when selected.
+        spender:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/EvmAddress'
+          description: Permit2 spender (the maker's wrapper). Present only when selected.
+    MakerQuotesPage:
+      type: object
+      description: A page of the maker's quotes, cursor-paginated.
+      required:
+      - items
+      - hasMore
+      properties:
+        hasMore:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/MakerQuote'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+    Quote:
+      type: object
+      description: |-
+        A competing quote on the taker's own RFQ, as the taker sees it when choosing
+        one to accept. It carries no Permit2 authorisation; the engine-signed permit
+        is the winning maker's settlement secret and is never exposed to the taker.
+      required:
+      - quoteId
+      - instrumentId
+      - side
+      - status
+      - makerPays
+      - makerReceives
+      - expiryMs
+      - receivedAt
+      properties:
+        quoteId:
+          $ref: '#/components/schemas/QuoteId'
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+        side:
+          $ref: '#/components/schemas/Side'
+        status:
+          $ref: '#/components/schemas/QuoteStatus'
+        makerPays:
+          $ref: '#/components/schemas/QuoteLeg'
+        makerReceives:
+          $ref: '#/components/schemas/QuoteLeg'
+        expiryMs:
+          $ref: '#/components/schemas/UnixMillis'
+          description: The quote's expiry, beyond which it can't be accepted.
+        receivedAt:
+          $ref: '#/components/schemas/UnixMillis'
+    QuotesPage:
+      type: object
+      description: A page of the competing quotes on a taker's RFQ, cursor-paginated.
+      required:
+      - items
+      - hasMore
+      properties:
+        hasMore:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Quote'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+    OpenRfq:
+      type: object
+      description: One open RFQ a maker may quote.
+      required:
+      - id
+      - instrumentId
+      - side
+      - baseQty
+      - createdAt
+      - expiresAt
+      properties:
+        baseQty:
+          $ref: '#/components/schemas/DecimalString'
+        createdAt:
+          $ref: '#/components/schemas/UnixMillis'
+        expiresAt:
+          $ref: '#/components/schemas/UnixMillis'
+          description: Auction deadline; the maker must quote before this.
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+        id:
+          $ref: '#/components/schemas/RfqId'
+        side:
+          $ref: '#/components/schemas/Side'
+    QuoteLeg:
+      type: object
+      description: One side of a quote's swap, a token and an exact amount.
+      required:
+      - token
+      - amount
+      properties:
+        token:
+          $ref: '#/components/schemas/TokenSymbol'
+        amount:
+          $ref: '#/components/schemas/PositiveDecimalString'
+    Side:
+      type: string
+      enum:
+      - BUY
+      - SELL
+    XchangeBundle:
+      type: object
+      description: |-
+        xchange-mode settlement bundle, for makers that settle via an external
+        adapter; omit for inventory-mode makers. Silhouette routes by `adapter` and
+        relays the typed `settlement` to the adapter's wrapper. The settlement payload
+        is a concrete, validated shape — the engine checks it at quote time and
+        rejects a malformed bundle synchronously, rather than discovering the failure
+        on-chain at settlement.
+      required:
+      - adapter
+      - settlement
+      properties:
+        adapter:
+          type: string
+          description: Settlement adapter the bundle targets, for example `BACKED`.
+        settlement:
+          $ref: '#/components/schemas/XchangeSettlement'
+    XchangeSettlement:
+      type: object
+      description: |-
+        Typed xchange settlement payload. Carries the adapter-signed swap message the
+        wrapper relays into its `executeSwap`, plus the adapter's signature over it.
+      required:
+      - swapMessage
+      - backedSignature
+      properties:
+        swapMessage:
+          $ref: '#/components/schemas/SwapMessage'
+        backedSignature:
+          type: string
+          description: The adapter's signature over `swapMessage`, as a 0x-prefixed 65-byte hex string.
+          pattern: ^0x[0-9a-fA-F]{130}$
+    SwapMessage:
+      type: object
+      description: The adapter swap typed-data the wrapper relays on settlement.
+      required:
+      - quoteId
+      - expiration
+      - incomingTransfer
+      - outgoingTransfer
+      properties:
+        quoteId:
+          $ref: '#/components/schemas/QuoteId'
+        expiration:
+          type: string
+          description: Unix seconds, as a string; equals the quote's `expiryMs` converted to seconds.
+        incomingTransfer:
+          $ref: '#/components/schemas/SwapTransfer'
+        outgoingTransfer:
+          $ref: '#/components/schemas/SwapTransfer'
+    SwapTransfer:
+      type: object
+      description: One leg of a swap message — a single token transfer.
+      required:
+      - token
+      - from
+      - to
+      - amount
+      properties:
+        token:
+          $ref: '#/components/schemas/EvmAddress'
+        from:
+          $ref: '#/components/schemas/EvmAddress'
+        to:
+          $ref: '#/components/schemas/EvmAddress'
+        amount:
+          type: string
+          description: Raw token amount (base units), as a decimal string.
+    CreateMakerQuoteRequest:
+      type: object
+      description: |-
+        A maker's quote on an open RFQ; the same shape as the MM WebSocket `quote`
+        frame, over REST. `makerPays` and `makerReceives` are from the maker's side
+        and must be consistent with the RFQ's instrument and side; the engine
+        validates this and rejects inconsistent quotes.
+      required:
+      - rfqId
+      - instrumentId
+      - side
+      - makerPays
+      - makerReceives
+      - expiryMs
+      properties:
+        rfqId:
+          $ref: '#/components/schemas/RfqId'
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+        side:
+          $ref: '#/components/schemas/Side'
+        makerPays:
+          $ref: '#/components/schemas/QuoteLeg'
+        makerReceives:
+          $ref: '#/components/schemas/QuoteLeg'
+        expiryMs:
+          $ref: '#/components/schemas/UnixMillis'
+          description: The quote's expiry; the engine converts it to seconds for the on-chain Permit2 deadline.
+        xchange:
+          description: xchange-mode settlement bundle; omit for inventory-mode makers.
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/XchangeBundle'
+    CreateRfqRequestInput:
+      type: object
+      required:
+      - instrumentId
+      - side
+      - baseQty
+      - quoteLimit
+      properties:
+        autoAccept:
+          type: boolean
+          description: |-
+            Quote-selection mode. When `false` (the default) the taker reads the
+            competing quotes and explicitly accepts one with
+            `POST /v1/rfq/requests/{id}/accept` before the deadline (the three-round
+            flow); funds lock at acceptance. When `true` the engine auto-accepts the
+            best conforming quote at the deadline (the two-round flow); funds lock at
+            submission.
+          default: false
+        baseQty:
+          $ref: '#/components/schemas/PositiveDecimalString'
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+          description: Canonical instrument identifier (e.g. `XTSLA-USDC-SPOT`).
+        quoteLimit:
+          $ref: '#/components/schemas/PositiveDecimalString'
+          description: BUY = max we'll pay; SELL = min we'll accept.
+        side:
+          $ref: '#/components/schemas/Side'
+        windowSecs:
+          type: integer
+          format: int64
+          minimum: 1
+          description: |-
+            How long the RFQ stays open for quotes, in seconds — the taker's lever on
+            the speed/price-discovery tradeoff: a short window settles a time-sensitive
+            order quickly; a longer one gathers more competitive quotes. Clamped
+            server-side to `[1, operator-max]`, where the operator-configured default
+            window is the max; omit it to use that default. The bound is coupled to the
+            maximum quote lifetime (`windowSecs + settlement_headroom ≤
+            max_quote_lifetime`), so a quote stays acceptable for the entire window.
+    CreateRfqRequestResponse:
+      type: object
+      required:
+      - rfqId
+      - status
+      - expiresAt
+      properties:
+        status:
+          $ref: '#/components/schemas/RfqStatus'
+        rfqId:
+          $ref: '#/components/schemas/RfqId'
+        expiresAt:
+          $ref: '#/components/schemas/UnixMillis'
+          description: |-
+            The server-selected auction deadline, derived from the requested (clamped)
+            `windowSecs`. Quotes are gathered until this time; with `autoAccept` the
+            engine selects the winner here. Returned so the client knows the effective
+            expiry without re-deriving it.
+    CreateMakerQuoteResponse:
+      type: object
+      required:
+      - quoteId
+      - status
+      properties:
+        status:
+          $ref: '#/components/schemas/QuoteStatus'
+        quoteId:
+          $ref: '#/components/schemas/QuoteId'
+    TokenSymbol:
+      type: string
+      description: Canonical uppercase token symbol, e.g. `USDC`.
+      maxLength: 32
+      pattern: ^[A-Z0-9]+$
+    RfqId:
+      type: string
+      description: Opaque resource identifier, prefixed `rfq_` (the remainder is the id in hex).
+      maxLength: 128
+      minLength: 1
+    RfqStatus:
+      type: string
+      description: |-
+        RFQ lifecycle state.
+        - `PENDING`: auction open; quotes may be arriving. A taker-driven RFQ awaits the taker's acceptance; an auto-accept RFQ awaits selection at the deadline.
+        - `QUOTED`: a winning quote has been committed (accepted or auto-selected); settlement is in progress.
+        - `SETTLED`: settled on-chain, with the settlement transaction hash set. Terminal; this is a trade.
+        - `FAILED`: a committed RFQ could not complete (no fillable quote under auto-accept, or the winning maker did not deliver by the deadline); any locked funds are released. Terminal.
+        - `CANCELLED`: the auction reached its deadline with nothing committed (a taker-driven RFQ with no acceptance); no funds moved. Terminal.
+      enum:
+      - PENDING
+      - QUOTED
+      - SETTLED
+      - FAILED
+      - CANCELLED
+    Rfq:
+      type: object
+      description: |-
+        A taker-facing view of one RFQ, across its whole lifecycle. Amounts are
+        canonical decimal strings; timestamps are epoch-ms; the id carries its `rfq_`
+        prefix. A trade is an RFQ in the SETTLED state carrying the settlement
+        transaction hash.
+      required:
+      - id
+      - instrumentId
+      - side
+      - baseQty
+      - quoteLimit
+      - status
+      - createdAt
+      - expiresAt
+      properties:
+        baseQty:
+          $ref: '#/components/schemas/DecimalString'
+        createdAt:
+          $ref: '#/components/schemas/UnixMillis'
+        expiresAt:
+          $ref: '#/components/schemas/UnixMillis'
+          description: Auction deadline.
+        failureReason:
+          type:
+          - string
+          - 'null'
+        instrumentId:
+          $ref: '#/components/schemas/InstrumentId'
+        quoteLimit:
+          $ref: '#/components/schemas/DecimalString'
+        quotedAt:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/UnixMillis'
+        settledAt:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/UnixMillis'
+        side:
+          $ref: '#/components/schemas/Side'
+        status:
+          $ref: '#/components/schemas/RfqStatus'
+        id:
+          $ref: '#/components/schemas/RfqId'
+        txHash:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/TxHash'
+    RfqsPage:
+      type: object
+      description: A cursor-paginated page of RFQs.
+      required:
+      - items
+      - hasMore
+      properties:
+        hasMore:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Rfq'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+          description: Present only when `hasMore` is true; pass as `cursor` for the next page.
+    TxHash:
+      type: string
+      description: EVM transaction hash, lowercase 0x-hex.
+      pattern: ^0x[0-9a-f]{64}$
+    UnixMillis:
+      type: integer
+      format: int64
+      description: Unix timestamp in milliseconds.
+      minimum: 0
+    ValidationErrorDetail:
+      type: object
+      required:
+      - field
+      - reason
+      properties:
+        field:
+          type: string
+          description: Field path using dot/bracket notation, e.g. `orderIds[3]`.
+        message:
+          type:
+          - string
+          - 'null'
+        reason:
+          type: string
+          description: Stable validation reason.
+    CreateWithdrawalResponse:
+      type: object
+      required:
+      - withdrawalId
+      - status
+      properties:
+        status:
+          $ref: '#/components/schemas/WithdrawalStatus'
+        withdrawalId:
+          $ref: '#/components/schemas/WithdrawalId'
+    WithdrawalId:
+      type: string
+      description: Opaque resource identifier, prefixed `wd_` (the remainder is the id in hex).
+      maxLength: 128
+      minLength: 1
+    CreateWithdrawalRequest:
+      type: object
+      required:
+      - token
+      - amount
+      properties:
+        amount:
+          $ref: '#/components/schemas/PositiveDecimalString'
+        token:
+          $ref: '#/components/schemas/TokenSymbol'
+    WithdrawalStatus:
+      type: string
+      description: |-
+        Public withdrawal state. The gateway maps the internal processor states onto this set.
+        - `PENDING`: requested and funds locked; awaiting operator approval.
+        - `APPROVED`: operator-authorised for payout, not yet broadcast on-chain.
+        - `PROCESSING`: the settlement transaction is broadcast on-chain and its receipt is pending.
+        - `COMPLETED`: sent on-chain, with the settlement transaction hash set; locked funds debited. Terminal.
+        - `FAILED`: definitely failed; locked funds released. Terminal.
+        - `UNRESOLVED`: on-chain outcome indeterminate (submitted but unconfirmed); funds stay locked pending operator resolution, not auto-released.
+
+        `APPROVED` and `PROCESSING` are kept distinct on purpose: `APPROVED` is the operator-authorised, not-yet-broadcast gate, and `PROCESSING` is in-flight on-chain. Collapsing them would let the processor re-pick an in-flight withdrawal and double-submit it.
+      enum:
+      - PENDING
+      - APPROVED
+      - PROCESSING
+      - COMPLETED
+      - FAILED
+      - UNRESOLVED
+    Withdrawal:
+      type: object
+      description: A taker-facing view of a withdrawal across its lifecycle.
+      required:
+      - withdrawalId
+      - token
+      - amount
+      - toAddress
+      - status
+      - createdAt
+      - updatedAt
+      properties:
+        amount:
+          $ref: '#/components/schemas/DecimalString'
+        createdAt:
+          $ref: '#/components/schemas/UnixMillis'
+        failureReason:
+          type:
+          - string
+          - 'null'
+        status:
+          $ref: '#/components/schemas/WithdrawalStatus'
+        toAddress:
+          $ref: '#/components/schemas/EvmAddress'
+        token:
+          $ref: '#/components/schemas/TokenSymbol'
+        txHash:
+          oneOf:
+          - type: 'null'
+          - $ref: '#/components/schemas/TxHash'
+        updatedAt:
+          $ref: '#/components/schemas/UnixMillis'
+        withdrawalId:
+          $ref: '#/components/schemas/WithdrawalId'
+    WithdrawalsPage:
+      type: object
+      description: A cursor-paginated page of withdrawals.
+      required:
+      - items
+      - hasMore
+      properties:
+        hasMore:
+          type: boolean
+        items:
+          type: array
+          items:
+            $ref: '#/components/schemas/Withdrawal'
+        nextCursor:
+          type:
+          - string
+          - 'null'
+  responses:
+    BadRequest:
+      description: 'Invalid request: the body or query parameters failed validation. The error `code` is `INVALID_REQUEST`; `details.errors` carries the field-level reasons.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Unauthorized:
+      description: 'Unauthorized: missing or expired credentials, or an unknown access key.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    Forbidden:
+      description: 'Forbidden: the access key is recognised but the request signature does not match the HMAC the gateway recomputes over the received request.'
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    NotFound:
+      description: Not found.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+    InternalError:
+      description: Internal server error.
+      content:
+        application/json:
+          schema:
+            $ref: '#/components/schemas/ErrorResponse'
+  parameters:
+    PaginationLimitParam:
+      name: limit
+      in: query
+      description: Page size. Defaults to 50, maximum 100.
+      required: false
+      schema:
+        type: integer
+        format: int32
+        minimum: 1
+        maximum: 100
+        default: 50
+    PaginationCursorParam:
+      name: cursor
+      in: query
+      description: |-
+        Opaque pagination cursor from a previous page's `nextCursor`. Clients
+        must not parse or construct it.
+      required: false
+      schema:
+        type: string
+  securitySchemes:
+    hmac:
+      type: apiKey
+      in: header
+      name: Authorization
+      description: |-
+        HMAC-SHA256 per-request signature, required on every private endpoint. A SIWE login (`POST /v1/auth/api-keys`) mints a credential pair — a public access key and a base64 secret (returned once). Each request carries the access key as `Authorization: Bearer <access-key>`, the signing time in `Silhouette-API-Timestamp` (Unix milliseconds), and a base64 `Silhouette-API-Signature`: the HMAC-SHA256, under the secret, of the canonical string `"{timestamp}\n{METHOD}\n{path}?{query}\n{body}"` (the body empty for a GET). The gateway requires the timestamp fresh within 30 seconds, recomputes the MAC over the received bytes, and resolves the access key to the account it acts for; a missing, expired, or mismatched signature is rejected. Credentials are short-lived (a two-week default, three-month maximum) and rotated by re-login. The `Silhouette-API-Timestamp` and `Silhouette-API-Signature` headers accompany the `Authorization` header on every private request.
+
+tags:
+- name: auth
+  description: SIWE login and HMAC credential issuance.
+- name: instruments
+  description: Public instrument metadata.
+- name: balances
+  description: Private account balance state.
+- name: rfq
+  description: RFQ taker request, quote-read, and acceptance operations.
+- name: maker
+  description: Maker-side RFQ operations (maker-scoped).
+- name: funding
+  description: Deposits and withdrawals.

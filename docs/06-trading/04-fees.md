@@ -62,6 +62,10 @@ The spread between your rate and Silhouette's rate is where your saving comes fr
 
 *Actual savings depend on Silhouette's current HL volume tier and HYPE staking tier. The Silhouette wallet is staked at Platinum (>100k HYPE) for a 30% baseline discount on its HL fees. As aggregate volume grows and unlocks better HL volume tiers, the spread widens and all shielded users benefit automatically.*
 
+## RFQ Fees
+
+RFQ fees are currently being modelled and will be updated shortly
+
 ## Hyperliquid Fee Tiers (Reference)
 
 These are the underlying Hyperliquid rates used to calculate both naked base fees and shielded savings. HL tiers are based on your **14-day rolling volume** (spot volume counts double).

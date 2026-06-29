@@ -1,0 +1,9 @@
+{
+  "label": "RFQ API Spec",
+  "collapsible": true,
+  "collapsed": false,
+  "link": {
+    "type": "doc",
+    "id": "api/spec/index"
+  }
+}
