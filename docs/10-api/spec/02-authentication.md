@@ -20,6 +20,8 @@ The REST API v1 uses SIWE to authenticate a wallet, then mints a short-lived HMA
 
 The HMAC secret is returned once at login and is never returned again. Rotate credentials by repeating the SIWE login flow.
 
+For a full multi-key lifecycle example, see the [E2E auth flow](/docs/api/spec/auth-flow).
+
 ## Required headers
 
 Every private endpoint requires these headers:
@@ -63,3 +65,5 @@ All other endpoints in the v1 spec require HMAC authentication.
 | `GET` | `/v1/auth/api-keys` | List live API keys for the caller |
 | `DELETE` | `/v1/auth/api-keys` | Revoke all live API keys when `all=true` is present |
 | `DELETE` | `/v1/auth/api-keys/{accessKey}` | Revoke one API key |
+
+Multiple live keys can belong to the same account at the same time. This allows clients to rotate credentials gradually: mint a new key, move traffic to it, then revoke the old key. A revoke-all request invalidates the signing key used for that request too, so the next signed request should fail with `401`.

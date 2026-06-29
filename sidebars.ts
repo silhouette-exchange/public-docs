@@ -184,6 +184,11 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
+          id: 'api/spec/auth-flow',
+          label: 'Auth flow example',
+        },
+        {
+          type: 'doc',
           id: 'api/spec/reference',
           label: 'Endpoint index',
         },

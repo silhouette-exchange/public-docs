@@ -37,7 +37,7 @@ https://api.silhouette.exchange
 
 ## Authentication model
 
-Public endpoints are unauthenticated. Private endpoints use HMAC-signed requests with credentials minted through SIWE login. See [HMAC authentication](/docs/api/spec/authentication).
+Public endpoints are unauthenticated. Private endpoints use HMAC-signed requests with credentials minted through SIWE login. See [HMAC authentication](/docs/api/spec/authentication) and the [E2E auth flow](/docs/api/spec/auth-flow).
 
 ## Schemas
 
