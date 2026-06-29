@@ -29,8 +29,7 @@ Silhouette publishes OpenAPI specifications for generating strongly-typed client
 The REST API v1 spec also has a dedicated docs section:
 
 - [RFQ API Spec overview](/api/spec)
-- [HMAC authentication](/api/spec/authentication)
-- [Auth flow example](/api/spec/auth-flow)
+- [RFQ API authentication](/api/spec/authentication)
 - [Endpoint index](/api/spec/reference)
 - [Schema catalog](/api/spec/schemas)
 
