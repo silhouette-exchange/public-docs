@@ -124,11 +124,6 @@ const sidebars: SidebarsConfig = {
         },
         {
           type: 'doc',
-          id: 'api/spec/balances',
-          label: 'Balances',
-        },
-        {
-          type: 'doc',
           id: 'api/spec/rfq',
           label: 'RFQ',
         },
@@ -136,6 +131,11 @@ const sidebars: SidebarsConfig = {
           type: 'doc',
           id: 'api/spec/maker',
           label: 'Maker',
+        },
+        {
+          type: 'doc',
+          id: 'api/spec/balances',
+          label: 'Balances',
         },
         {
           type: 'doc',

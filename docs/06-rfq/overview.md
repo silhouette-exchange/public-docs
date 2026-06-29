@@ -8,6 +8,10 @@ slug: /rfq/overview
 The Silhouette RFQ flow is in beta and may change as RFQ workflows evolve.
 :::
 
+:::tip[Building on RFQ?]
+This page explains the concepts. For endpoints, request fields, responses, and schemas, go to the [RFQ API Spec](/api/spec).
+:::
+
 An RFQ, or request for quote, is a trading workflow where a taker asks makers for executable prices on a specific instrument. The system is designed to work across HyperEVM and HyperCore, giving traders one universal flow to execute against all the available instruments on Hyperliquid.
 
 The flow is built to span instruments such as:
