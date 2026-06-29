@@ -31,7 +31,7 @@ RFQ taker request, quote-read, and acceptance operations.
 | Operation ID | `createRfqRequest` |
 | Authentication | HMAC |
 
-Accepts an RFQ request for orchestration. The request is written `Pending`
+Accepts an RFQ request for orchestration. The request is written `PENDING`
 and the engine settles it asynchronously; poll `GET /v1/rfq/requests/{id}`
 or the WebSocket for the outcome. Not idempotent.
 
@@ -180,8 +180,8 @@ None.
 Explicitly accepts one quote on an RFQ the taker submitted with
 `autoAccept: false`. Acceptance locks the taker's funds and commits to that
 quote, so the trade can settle before the RFQ deadline ("early"). It is
-valid only while the request is `Pending` and the chosen quote is still
-`Submitted` and unexpired. The maker retains the option not to deliver, in
+valid only while the request is `PENDING` and the chosen quote is still
+`SUBMITTED` and unexpired. The maker retains the option not to deliver, in
 which case the trade fails (cascading to another maker where one exists).
 
 ### Parameters
@@ -209,7 +209,7 @@ Schema: [AcceptRfqQuoteRequest](/api/spec/schemas#acceptrfqquoterequest)
 | `401` | Unauthorized: missing or expired credentials, or an unknown access key. | [ErrorResponse](/api/spec/schemas#errorresponse) |
 | `403` | Request belongs to another account. | [ErrorResponse](/api/spec/schemas#errorresponse) |
 | `404` | Request or quote not found. | [ErrorResponse](/api/spec/schemas#errorresponse) |
-| `409` | Request is not Pending, the quote is no longer acceptable, or the funds are insufficient. | [ErrorResponse](/api/spec/schemas#errorresponse) |
+| `409` | Request is not `PENDING`, the quote is no longer acceptable, or the funds are insufficient. | [ErrorResponse](/api/spec/schemas#errorresponse) |
 | `500` | Internal server error. | [ErrorResponse](/api/spec/schemas#errorresponse) |
 
 ## Cancel an RFQ request {#post-v1-rfq-requests-id-cancel}

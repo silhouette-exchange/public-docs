@@ -146,7 +146,7 @@ None.
 | Operation ID | `listMakerRequests` |
 | Authentication | HMAC |
 
-Returns the open RFQs (`Pending` requests) on the pairs the authenticated
+Returns the open RFQs (`PENDING` requests) on the pairs the authenticated
 maker is approved for, cursor-paginated. A maker polls this at its own
 cadence, then submits quotes for the ones it wants. Requires a maker-scoped
 credential.
