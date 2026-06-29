@@ -4,10 +4,6 @@ sidebar_label: Instruments
 slug: /api/spec/instruments
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 Public instrument metadata.
 
 ## Operations

@@ -4,10 +4,6 @@ sidebar_label: Funding
 slug: /api/spec/funding
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 Deposits and withdrawals.
 
 ## Operations

@@ -4,10 +4,6 @@ sidebar_label: Authentication
 slug: /api/spec/authentication
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 The RFQ API uses wallet-based SIWE login to mint API credentials, then HMAC signatures for private REST requests. Public auth endpoints issue the challenge and credential pair. All private RFQ, maker, funding, balance, and key-management endpoints require HMAC headers.
 
 ## Flow

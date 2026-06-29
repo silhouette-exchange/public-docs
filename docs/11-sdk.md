@@ -14,10 +14,6 @@ keywords:
   - DeFi API
 ---
 
-:::warning
-The Silhouette API and SDK are in beta and under active development. More operations and features will be added.
-:::
-
 The official Python SDK provides programmatic access to the Silhouette API. All requests route through shielded execution, so strategy, size, and intent are not attributable to the user's wallet on the public orderbook.
 
 ## Installation

@@ -4,10 +4,6 @@ sidebar_label: Overview
 slug: /api/spec
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 This section is generated from the OpenAPI 3.1 specification for the Silhouette REST API v1 RFQ surface. It is separate from the older `/v0` operation-style API guides.
 
 For a plain-language explanation of how RFQs work, see the top-level [RFQ overview](/rfq/overview).

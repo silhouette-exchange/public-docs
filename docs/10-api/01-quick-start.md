@@ -13,10 +13,6 @@ keywords:
   - SIWE authentication
 ---
 
-:::warning
-The Silhouette API and SDK are in beta. We are actively adding new operations.
-:::
-
 This guide covers prerequisites, obtaining a bearer token, and making an initial API call to check account balance.
 
 ## Prerequisites

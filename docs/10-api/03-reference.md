@@ -15,10 +15,6 @@ keywords:
   - SIWE authentication
 ---
 
-:::warning
-The Silhouette API and SDK are in beta. We are actively adding new operations.
-:::
-
 This section provides detailed documentation for each available API operation. All operations use the same endpoint with different `operation` values in the request body. For an overview of how the API works, see the [API Overview](/api).
 
 ## Public Operations
