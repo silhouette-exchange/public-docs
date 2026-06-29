@@ -1,6 +1,6 @@
 ---
-title: OpenAPI specification
-sidebar_label: OpenAPI specification
+title: OpenAPI tools
+sidebar_label: OpenAPI tools
 slug: /api/openapi
 ---
 
@@ -8,17 +8,25 @@ slug: /api/openapi
 The Silhouette API and SDK is currently in beta and under active development. More operations and features will be added soon.
 :::
 
-## Overview
+## Spec sources
 
-For developers who want to build strongly-typed integrations, we provide an OpenAPI specification for the Silhouette API. The spec is available at:
+For developers who want to build strongly-typed integrations, Silhouette provides OpenAPI specifications for the available API surfaces.
 
-```text
-https://api.silhouette.exchange/swagger/v0/json
-```
+| API | Spec URL | Notes |
+|-----|----------|-------|
+| REST API v1/RFQ | [`/api/rfq-openapi.yaml`](/api/rfq-openapi.yaml) | OpenAPI source for the generated RFQ API Spec section |
+| `/v0` operation API | `https://api.silhouette.exchange/swagger/v0/json` | Live Swagger JSON for the operation-style API |
 
-You can use this specification with code generation tools to automatically create type-safe client libraries in your preferred programming language.
+The REST API v1 spec also has a dedicated docs section:
 
-## Using the OpenAPI specification
+- [RFQ API Spec overview](/docs/api/spec)
+- [HMAC authentication](/docs/api/spec/authentication)
+- [Endpoint index](/docs/api/spec/reference)
+- [Schema catalog](/docs/api/spec/schemas)
+
+## Using OpenAPI specs
+
+You can use these specifications with code generation tools to automatically create type-safe client libraries in your preferred programming language.
 
 ### What is OpenAPI?
 
@@ -36,7 +44,7 @@ npm install @openapitools/openapi-generator-cli -g
 
 # Generate a TypeScript Axios client
 openapi-generator-cli generate \
-  -i https://api.silhouette.exchange/swagger/v0/json \
+  -i https://docs.silhouette.exchange/api/rfq-openapi.yaml \
   -g typescript-axios \
   -o ./generated-client
 ```
@@ -45,7 +53,7 @@ openapi-generator-cli generate \
 
 ```bash
 openapi-generator-cli generate \
-  -i https://api.silhouette.exchange/swagger/v0/json \
+  -i https://docs.silhouette.exchange/api/rfq-openapi.yaml \
   -g python \
   -o ./generated-client
 ```
@@ -67,7 +75,7 @@ You can also use the OpenAPI specification with [Swagger UI](https://swagger.io/
 ```bash
 # Using Docker
 docker run -p 8080:8080 \
-  -e SWAGGER_JSON_URL=https://api.silhouette.exchange/swagger/v0/json \
+  -e SWAGGER_JSON_URL=https://docs.silhouette.exchange/api/rfq-openapi.yaml \
   swaggerapi/swagger-ui
 ```
 

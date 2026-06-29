@@ -33,3 +33,7 @@ title: Fees
 | > $500M to $2B | 0.135% | 0.00% |
 | > $2B to $7B | 0.13% | 0.00% |
 | > $7B | 0.125% | 0.00% |
+
+## RFQ Fee
+
+RFQ fees are currently being modelled and will be updated shortly

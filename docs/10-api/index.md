@@ -15,9 +15,14 @@ The Silhouette API provides programmatic access to the Silhouette shielded excha
 The Silhouette API is available at `https://api.silhouette.exchange/` for mainnet and `https://api-testnet.silhouette.exchange/` for testnet.
 :::
 
-All API requests are `POST` requests sent to the same URL. Rather than having separate endpoints for each operation (like `/orders` or `/balances`), the API uses a discriminated union pattern where you specify the operation in the `operation` field of your request body. This approach simplifies integration and provides a consistent request structure across all operations.
+The API docs currently cover two API surfaces:
 
-Authentication is handled through wallet signing using [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/), which uses your Ethereum wallet to prove your identity. Once authenticated, you receive a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750) that you include in all subsequent API requests.
+- The existing `/v0` operation API, documented in the quick start, authentication, reference, troubleshooting, and SDK pages.
+- The REST API v1/RFQ API, documented from the bundled OpenAPI source in a separate [RFQ API Spec](/docs/api/spec) section.
+
+For the `/v0` operation API, all API requests are `POST` requests sent to the same URL. Rather than having separate endpoints for each operation (like `/orders` or `/balances`), the API uses a discriminated union pattern where you specify the operation in the `operation` field of your request body. This approach simplifies integration and provides a consistent request structure across all operations.
+
+Authentication for the `/v0` operation API is handled through wallet signing using [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/), which uses your Ethereum wallet to prove your identity. Once authenticated, you receive a [bearer token](https://datatracker.ietf.org/doc/html/rfc6750) that you include in all subsequent API requests.
 
 ## Sections
 
@@ -25,5 +30,6 @@ Authentication is handled through wallet signing using [Sign-In With Ethereum (S
 2. [Authentication](/docs/api/authentication) – Detailed information about the SIWE authentication flow
 3. [Reference](/docs/api/reference) – Complete documentation for all available API operations
 4. [Troubleshooting](/docs/api/troubleshooting) – Common errors and solutions
-5. [OpenAPI specification](/docs/api/openapi) – Generate strongly-typed client libraries from our OpenAPI spec
-6. [Python SDK](/docs/api/sdk) – Official Python SDK for interacting with the Silhouette API
+5. [RFQ API Spec](/docs/api/spec) – Generated REST API v1/RFQ endpoint reference, schemas, and HMAC authentication details
+6. [OpenAPI tools](/docs/api/openapi) – Generate strongly-typed client libraries from our OpenAPI specs
+7. [Python SDK](/docs/api/sdk) – Official Python SDK for interacting with the Silhouette API
