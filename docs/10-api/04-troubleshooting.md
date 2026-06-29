@@ -14,10 +14,6 @@ keywords:
   - shielded trading
 ---
 
-:::warning
-The Silhouette API and SDK are in beta. We are actively adding new operations.
-:::
-
 This section covers common errors you may encounter when using the Silhouette API and how to resolve them.
 
 ## Common Errors

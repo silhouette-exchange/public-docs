@@ -13,10 +13,6 @@ keywords:
   - API reference
 ---
 
-:::warning
-The Silhouette API and SDK are in beta. We are actively adding new operations.
-:::
-
 The Silhouette API uses [Sign-In With Ethereum (SIWE)](https://docs.login.xyz/) for authentication, which allows you to prove your identity using your Ethereum wallet without requiring traditional API keys or passwords.
 
 ## Overview of SIWE

@@ -4,10 +4,6 @@ sidebar_label: Endpoint index
 slug: /api/spec/reference
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 This index links to the generated endpoint reference pages for every operation in the OpenAPI spec.
 
 ## Endpoints
