@@ -41,3 +41,4 @@ __vale_output.json
 CLAUDE.md
 .vercel
 .env*.local
+.gstack/

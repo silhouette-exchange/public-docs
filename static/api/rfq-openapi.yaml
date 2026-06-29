@@ -288,7 +288,7 @@ paths:
       - rfq
       summary: Submit an RFQ request.
       description: |-
-        Accepts an RFQ request for orchestration. The request is written `Pending`
+        Accepts an RFQ request for orchestration. The request is written `PENDING`
         and the engine settles it asynchronously; poll `GET /v1/rfq/requests/{id}`
         or the WebSocket for the outcome. Not idempotent.
       operationId: createRfqRequest
@@ -534,7 +534,7 @@ paths:
       - maker
       summary: List open RFQs to quote.
       description: |-
-        Returns the open RFQs (`Pending` requests) on the pairs the authenticated
+        Returns the open RFQs (`PENDING` requests) on the pairs the authenticated
         maker is approved for, cursor-paginated. A maker polls this at its own
         cadence, then submits quotes for the ones it wants. Requires a maker-scoped
         credential.
@@ -609,8 +609,8 @@ paths:
         Explicitly accepts one quote on an RFQ the taker submitted with
         `autoAccept: false`. Acceptance locks the taker's funds and commits to that
         quote, so the trade can settle before the RFQ deadline ("early"). It is
-        valid only while the request is `Pending` and the chosen quote is still
-        `Submitted` and unexpired. The maker retains the option not to deliver, in
+        valid only while the request is `PENDING` and the chosen quote is still
+        `SUBMITTED` and unexpired. The maker retains the option not to deliver, in
         which case the trade fails (cascading to another maker where one exists).
       operationId: acceptRfqQuote
       parameters:
@@ -650,7 +650,7 @@ paths:
               schema:
                 $ref: '#/components/schemas/ErrorResponse'
         '409':
-          description: Request is not Pending, the quote is no longer acceptable, or the funds are insufficient.
+          description: Request is not `PENDING`, the quote is no longer acceptable, or the funds are insufficient.
           content:
             application/json:
               schema:
