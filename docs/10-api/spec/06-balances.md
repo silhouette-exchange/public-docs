@@ -4,10 +4,6 @@ sidebar_label: Balances
 slug: /api/spec/balances
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 Private account balance state.
 
 ## Operations

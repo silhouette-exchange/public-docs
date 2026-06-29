@@ -13,10 +13,6 @@ keywords:
   - DeFi API
 ---
 
-:::warning
-The Silhouette API and SDK are in beta. We are actively adding new operations.
-:::
-
 ## Spec Sources
 
 Silhouette publishes OpenAPI specifications for generating strongly-typed client integrations.

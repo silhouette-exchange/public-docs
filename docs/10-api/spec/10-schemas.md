@@ -4,10 +4,6 @@ sidebar_label: Schemas
 slug: /api/spec/schemas
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 Component schemas from the OpenAPI specification.
 
 ## ChallengeResponse

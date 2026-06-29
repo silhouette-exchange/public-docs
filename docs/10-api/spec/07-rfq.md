@@ -4,10 +4,6 @@ sidebar_label: RFQ
 slug: /api/spec/rfq
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 RFQ taker request, quote-read, and acceptance operations.
 
 ## Operations

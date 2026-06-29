@@ -4,10 +4,6 @@ sidebar_label: Maker
 slug: /api/spec/maker
 ---
 
-:::warning
-The Silhouette REST API v1 spec is in beta and may change as RFQ workflows evolve.
-:::
-
 Maker-side RFQ operations (maker-scoped).
 
 ## Operations

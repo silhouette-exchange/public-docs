@@ -4,10 +4,6 @@ sidebar_label: Overview
 slug: /rfq/overview
 ---
 
-:::warning
-The Silhouette RFQ flow is in beta and may change as RFQ workflows evolve.
-:::
-
 :::tip[Building on RFQ?]
 This page explains the concepts. For endpoints, request fields, responses, and schemas, go to the [RFQ API Spec](/api/spec).
 :::
