@@ -10,6 +10,7 @@ import FAQSchema from '@site/src/components/FAQSchema';
 import TechArticleSchema from '@site/src/components/TechArticleSchema';
 import HowToSchema from '@site/src/components/HowToSchema';
 import DefinedTermSetSchema from '@site/src/components/DefinedTermSetSchema';
+import TradeLifecycle from '@site/src/components/TradeLifecycle';
 
 export default {
   ...MDXComponents,
@@ -24,4 +25,5 @@ export default {
   TechArticleSchema,
   HowToSchema,
   DefinedTermSetSchema,
+  TradeLifecycle,
 };
