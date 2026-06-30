@@ -35,7 +35,7 @@ Whitespace and line breaks are part of the SIWE payload, so sign exactly the mes
 {domain} wants you to sign in with your Ethereum account:
 {address}
 
-Silhouette /ws session
+Create Silhouette API key
 
 URI: https://{domain}/
 Version: 1
