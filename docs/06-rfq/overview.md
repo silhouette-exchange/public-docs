@@ -77,17 +77,7 @@ When a quote is selected, the maker reads it back through [`listMakerQuotes`](/a
 
 ## Trade lifecycle
 
-```mermaid
-flowchart TD
-  A(["Taker submits RFQ"]) --> B["PENDING<br/>quote window open"]
-  B --> C["Makers submit quotes"]
-  C --> D{"Quote committed<br/>before deadline?"}
-  D -- yes --> E["QUOTED<br/>settlement in progress"]
-  D -- no --> F(["FAILED / CANCELLED<br/>funds released"])
-  E --> G{"Settles<br/>on-chain?"}
-  G -- yes --> H(["SETTLED<br/>trade complete"])
-  G -- no --> I(["FAILED<br/>funds released"])
-```
+<TradeLifecycle />
 
 Each branch resolves to one of the lifecycle states below. The no-commit branch splits by mode: an auto-accept RFQ with no fillable quote ends `FAILED`, while a manual RFQ that hits its deadline with nothing accepted ends `CANCELLED`. Status values are returned in `SCREAMING_SNAKE_CASE`; see [RfqStatus](/api/spec/schemas#rfqstatus) for the authoritative list.
 

@@ -1,0 +1,203 @@
+/*
+ * Trade lifecycle diagram. Self-contained, theme-aware.
+ * Every selector is scoped under .tradeLifecycleChart so the generic SVG
+ * class names (.edge, .node, .flow, ...) never leak to the rest of the site.
+ * Palette tracks Docusaurus's [data-theme] instead of the standalone page's
+ * inverted default.
+ */
+
+/* Dark palette (base) */
+.tradeLifecycleChart {
+  --tl-line: #23262d;
+  --tl-text: #e8ebf0;
+  --tl-text-dim: #8a8f98;
+  --tl-text-mute: #5a5f68;
+  --tl-cyan: #51d2cc;
+  --tl-pink: #fea6ff;
+  --tl-cyan-tint: rgba(148, 255, 249, 0.1);
+  --tl-pink-tint: rgba(254, 166, 255, 0.1);
+  --tl-cyan-line: rgba(81, 210, 204, 0.55);
+  --tl-pink-line: rgba(254, 166, 255, 0.5);
+  --tl-edge: #3c424c;
+  --tl-arrow: #727a85;
+  --tl-node-fill: #16181d;
+  --tl-node-stroke: #2d3138;
+  --tl-chip-fill: #13161a;
+  --tl-shadow: none;
+
+  margin: 2rem 0;
+  padding: 28px 32px 22px;
+  background: var(--tl-node-fill);
+  border: 1px solid var(--tl-line);
+  border-radius: 14px;
+  font-feature-settings: 'tnum' 1, 'zero' 1;
+}
+
+/* Light palette */
+html[data-theme='light'] .tradeLifecycleChart {
+  --tl-line: #d8dce2;
+  --tl-text: #13161a;
+  --tl-text-dim: #5a6069;
+  --tl-text-mute: #878d96;
+  --tl-cyan: #00857a;
+  --tl-pink: #b5179e;
+  --tl-cyan-tint: rgba(0, 133, 122, 0.1);
+  --tl-pink-tint: rgba(181, 23, 158, 0.07);
+  --tl-cyan-line: rgba(0, 133, 122, 0.55);
+  --tl-pink-line: rgba(181, 23, 158, 0.45);
+  --tl-edge: #aab0b9;
+  --tl-arrow: #8b929c;
+  --tl-node-fill: #ffffff;
+  --tl-node-stroke: #d8dce2;
+  --tl-chip-fill: #ffffff;
+  --tl-shadow: 0 1px 2px rgba(20, 22, 30, 0.1);
+}
+
+/* Legend */
+.tradeLifecycleChart .tlLegend {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px 26px;
+  margin-bottom: 8px;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--tl-text-mute);
+}
+.tradeLifecycleChart .tlLegend span {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.tradeLifecycleChart .tlDot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+}
+.tradeLifecycleChart .tlDot.cyan { background: var(--tl-cyan); }
+.tradeLifecycleChart .tlDot.pink { background: var(--tl-pink); }
+.tradeLifecycleChart .tlDot.neutral { background: var(--tl-text-mute); }
+
+/* Chart */
+.tradeLifecycleChart .tlChart {
+  width: 100%;
+}
+.tradeLifecycleChart svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  overflow: visible;
+}
+
+.tradeLifecycleChart .edge {
+  stroke: var(--tl-edge);
+  stroke-width: 1.7;
+  fill: none;
+  animation: tlFadeIn 0.5s ease both;
+  animation-delay: var(--d, 0s);
+}
+.tradeLifecycleChart .arrow-fill { fill: var(--tl-arrow); }
+
+.tradeLifecycleChart .flow {
+  stroke: var(--tl-cyan);
+  stroke-width: 1.8;
+  fill: none;
+  stroke-linecap: round;
+  stroke-dasharray: 0.14 1;
+  opacity: 0;
+  filter: drop-shadow(0 0 3px var(--tl-cyan));
+  animation: tlFlowIn 1s ease 1.5s forwards,
+    tlGlide 3.6s ease-in-out var(--gd, 1.6s) infinite;
+}
+
+.tradeLifecycleChart .node-in {
+  animation: tlRiseIn 0.55s cubic-bezier(0.22, 0.61, 0.36, 1) both;
+  animation-delay: var(--d, 0s);
+}
+.tradeLifecycleChart .shape {
+  transition: stroke 0.25s ease, filter 0.25s ease;
+}
+.tradeLifecycleChart .node {
+  fill: var(--tl-node-fill);
+  stroke: var(--tl-node-stroke);
+  stroke-width: 1.5;
+  filter: var(--tl-shadow);
+}
+.tradeLifecycleChart .decision {
+  fill: var(--tl-cyan-tint);
+  stroke: var(--tl-cyan);
+  stroke-width: 1.8;
+  filter: var(--tl-shadow);
+}
+.tradeLifecycleChart .state-active {
+  fill: var(--tl-node-fill);
+  stroke: var(--tl-cyan-line);
+  stroke-width: 1.6;
+  filter: var(--tl-shadow);
+}
+.tradeLifecycleChart .state-cyan {
+  fill: var(--tl-cyan-tint);
+  stroke: var(--tl-cyan-line);
+  stroke-width: 1.6;
+  filter: var(--tl-shadow);
+}
+.tradeLifecycleChart .state-pink {
+  fill: var(--tl-pink-tint);
+  stroke: var(--tl-pink-line);
+  stroke-width: 1.6;
+  filter: var(--tl-shadow);
+}
+.tradeLifecycleChart .chip { fill: var(--tl-chip-fill); }
+.tradeLifecycleChart .chip-cyan { stroke: var(--tl-cyan-line); stroke-width: 1; }
+.tradeLifecycleChart .chip-pink { stroke: var(--tl-pink-line); stroke-width: 1; }
+.tradeLifecycleChart .pulse-dot { animation: tlPulse 2.8s ease-in-out 1.4s infinite; }
+
+.tradeLifecycleChart svg text { font-feature-settings: 'tnum' 1, 'zero' 1; }
+.tradeLifecycleChart .t-default { fill: var(--tl-text); }
+.tradeLifecycleChart .t-dim { fill: var(--tl-text-dim); }
+.tradeLifecycleChart .t-cyan { fill: var(--tl-cyan); }
+.tradeLifecycleChart .t-pink { fill: var(--tl-pink); }
+.tradeLifecycleChart .label { font-weight: 600; }
+.tradeLifecycleChart .d-cyan { fill: var(--tl-cyan); }
+.tradeLifecycleChart .d-pink { fill: var(--tl-pink); }
+
+.tradeLifecycleChart .node-in:hover .node,
+.tradeLifecycleChart .node-in:hover .state-active,
+.tradeLifecycleChart .node-in:hover .state-cyan { stroke: var(--tl-cyan); }
+.tradeLifecycleChart .node-in:hover .state-pink { stroke: var(--tl-pink); }
+
+@keyframes tlRiseIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes tlFadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+@keyframes tlFlowIn {
+  from { opacity: 0; }
+  to { opacity: 0.45; }
+}
+@keyframes tlGlide {
+  from { stroke-dashoffset: 0; }
+  to { stroke-dashoffset: -1.14; }
+}
+@keyframes tlPulse {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0.4; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tradeLifecycleChart .flow {
+    animation: none !important;
+    opacity: 0 !important;
+  }
+  .tradeLifecycleChart .edge,
+  .tradeLifecycleChart .node-in,
+  .tradeLifecycleChart .pulse-dot {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}
