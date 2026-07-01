@@ -25,7 +25,7 @@ Maker-side RFQ operations (maker-scoped).
 | Authentication | HMAC |
 
 Submits a quote for an open RFQ. The quote competes with every other
-maker's quote for the same RFQ and wins on best price (rfq.md 7); the
+maker's quote for the same RFQ and wins on best price; the
 engine selects a winner at the RFQ deadline, so this is accepted
 asynchronously (`202`). Requires a maker-scoped credential.
 
@@ -142,7 +142,7 @@ None.
 | Operation ID | `listMakerRequests` |
 | Authentication | HMAC |
 
-Returns the open RFQs (`PENDING` requests) on the pairs the authenticated
+Returns the open RFQs (`PENDING` requests) on the instruments the authenticated
 maker is approved for, cursor-paginated. A maker polls this at its own
 cadence, then submits quotes for the ones it wants. Requires a maker-scoped
 credential.

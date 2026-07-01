@@ -12,9 +12,9 @@ An RFQ, or request for quote, is a trading workflow where a taker asks makers fo
 
 The flow is built to span instruments such as:
 
-- Tokenized assets issued on EVM
+- Tokenized instruments issued on EVM
 - Larger perp positions on HyperCore or through HIP-3 deployers
-- Spot assets on HyperCore or HyperEVM
+- Spot instruments on HyperCore or HyperEVM
 
 ## Main actors
 
@@ -24,32 +24,32 @@ The taker is the account requesting liquidity. A taker creates the RFQ, reviews 
 
 ### Makers
 
-The maker is a liquidity provider. A maker watches for open RFQs on supported instruments and submits quotes. As with takers, maker funds are abstracted away from the chain: the maker responds to an RFQ and settlement handles the chain abstraction.
+The maker is the market maker that prices an instrument and fills the trade. A maker watches for open RFQs on supported instruments and submits quotes. As with takers, maker funds are abstracted away from the chain: the maker responds to an RFQ and settlement handles the chain abstraction.
 
 Makers gain capital efficiency from how settlement is authorized. A maker can quote against inventory that is currently working elsewhere — an **inventory-mode** maker settles from its own balance, while an **xchange-mode** maker settles through an external venue by attaching a settlement bundle to the quote (see [`createMakerQuote`](/api/spec/maker#post-v1-rfq-quotes)). Each quote carries an expiry, and the engine binds that expiry to an on-chain [Permit2](https://github.com/Uniswap/permit2) deadline, so a maker commits to deliver the asset only within a bounded window. The objective is to let makers quote more competitively without parking idle inventory.
 
 ### Silhouette
 
-Silhouette is the coordinator that sits between takers and makers and runs the RFQ lifecycle. It matches the taker's request, receives maker quotes, selects or records an accepted quote, locks and releases balances as needed, exposes the final trade status, and uses the CoreWriter contracts to manage cross-chain transfers. Takers and makers never interact directly — every step passes through Silhouette.
+Silhouette is the coordinator that sits between takers and makers and runs the RFQ lifecycle. It coordinates the taker's request, collects maker quotes, selects or records an accepted quote, locks and releases balances as needed, exposes the final trade status, and uses the CoreWriter contracts to manage cross-chain transfers. Takers and makers never interact directly — every step passes through Silhouette.
 
 ## Instruments
 
 Each RFQ is for one instrument, such as `XTSLA-USDC-SPOT`. The canonical instrument ID has the form `BASE-QUOTE-TYPE` and identifies the base token, the quote token, and the product type (for example `SPOT`). See [InstrumentId](/api/spec/schemas#instrumentid) for the exact format.
 
-Today the RFQ surface models tokenized instruments. The `TYPE` segment is what lets the same flow generalize, and the roadmap extends instrument coverage to HyperCore perps and spot assets so takers and makers reach them through the same RFQ workflow described here. Until then, expect the supported instrument set to grow rather than the workflow to change.
+Today the RFQ surface models tokenized instruments. The `TYPE` segment is what lets the same flow generalize, and the roadmap extends coverage to HyperCore perps and spot instruments so takers and makers reach them through the same RFQ workflow described here. Until then, expect the supported instrument set to grow rather than the workflow to change.
 
 The taker sends a `side`:
 
-- `BUY` means the taker wants to buy the base asset and is setting the maximum quote amount they will pay.
-- `SELL` means the taker wants to sell the base asset and is setting the minimum quote amount they will accept.
+- `BUY` means the taker wants to buy the base token and is setting the maximum quote amount they will pay.
+- `SELL` means the taker wants to sell the base token and is setting the minimum quote amount they will accept.
 
-The taker also sends `baseQty`, the amount of base asset to trade, and `quoteLimit`, the taker's price boundary.
+The taker also sends `baseQty`, the amount of the base token to trade, and `quoteLimit`, the taker's price boundary.
 
 ## Quote window
 
 Every RFQ has a quote window. During this window, makers can submit competing quotes. A short window favors faster execution. A longer window gives more makers time to respond and can improve price discovery.
 
-If the taker omits `windowSecs`, Silhouette uses the operator-configured default. The server clamps the value to the allowed range, and the bound is coupled to the maximum quote lifetime so a quote stays acceptable for the entire window.
+If the taker omits `windowSecs`, Silhouette uses the operator-configured default. The engine clamps the value to the allowed range, and the bound is coupled to the maximum quote lifetime so a quote stays acceptable for the entire window.
 
 ## Auto-acceptance (two-round flow)
 
@@ -69,7 +69,7 @@ Manual acceptance is useful when the taker wants to inspect quotes before commit
 
 ## Maker quoting
 
-Makers discover open RFQs through [`listMakerRequests`](/api/spec/maker#get-v1-rfq-requests-open), which returns the open RFQs on the pairs the maker is approved to quote. A maker submits a quote with [`createMakerQuote`](/api/spec/maker#post-v1-rfq-quotes).
+Makers discover open RFQs through [`listMakerRequests`](/api/spec/maker#get-v1-rfq-requests-open), which returns the open RFQs on the instruments the maker is approved to quote. A maker submits a quote with [`createMakerQuote`](/api/spec/maker#post-v1-rfq-quotes).
 
 A quote describes what the maker pays and what the maker receives. Quotes start as `SUBMITTED`. Before selection, a maker can cancel a still-submitted quote with [`cancelMakerQuote`](/api/spec/maker#post-v1-rfq-quotes-quoteid-cancel); to re-price, the maker submits a fresh quote for the same RFQ. At the deadline, selection marks one quote `SELECTED` and the rest `NOT_SELECTED` (or `EXPIRED` if the window closes with no winner).
 
@@ -93,9 +93,9 @@ Each branch resolves to one of the lifecycle states below. The no-commit branch 
 
 The RFQ surface exposes balances and a ledger so integrators can reconcile account state.
 
-Balances show available, locked, and total amounts by token. The ledger is an append-only audit trail for balance changes such as deposits, fills, withdrawals, and adjustments. See the [Balances](/api/spec/balances) reference.
+Balances show available, locked, and total amounts by token. The ledger is an append-only audit trail for balance changes such as deposits, settlements, withdrawals, and adjustments. See the [Balances](/api/spec/balances) reference.
 
-Deposits and withdrawals are separate funding operations. Withdrawals are asynchronous and use the account's registered destination; the caller does not provide a destination address in the withdrawal request. See the [Funding](/api/spec/funding) reference.
+Deposits and withdrawals are separate funding operations. Withdrawals are asynchronous and use the account's registered address; the caller cannot specify a destination. See the [Funding](/api/spec/funding) reference.
 
 ## Developer reference
 

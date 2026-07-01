@@ -48,7 +48,7 @@ Schema: [CreateRfqRequestInput](/api/spec/schemas#createrfqrequestinput)
 | `instrumentId` | [InstrumentId](/api/spec/schemas#instrumentid) | Yes | Canonical instrument identifier (e.g. `XTSLA-USDC-SPOT`). |
 | `quoteLimit` | [PositiveDecimalString](/api/spec/schemas#positivedecimalstring) | Yes | BUY = max we'll pay; SELL = min we'll accept. |
 | `side` | [Side](/api/spec/schemas#side) | Yes |  |
-| `windowSecs` | integer (int64) | No | How long the RFQ stays open for quotes, in seconds - the taker's lever on the speed/price-discovery tradeoff: a short window settles a time-sensitive order quickly; a longer one gathers more competitive quotes. Clamped server-side to `[1, operator-max]`, where the operator-configured default window is the max; omit it to use that default. The bound is coupled to the maximum quote lifetime (`windowSecs + settlement_headroom <= max_quote_lifetime`), so a quote stays acceptable for the entire window. |
+| `windowSecs` | integer (int64) | No | How long the RFQ stays open for quotes, in seconds - the taker's lever on the speed/price-discovery tradeoff: a short window settles a time-sensitive order quickly; a longer one gathers more competitive quotes. Clamped by the engine to `[1, operator-max]`, where the operator-configured default window is the max; omit it to use that default. The bound is coupled to the maximum quote lifetime (`windowSecs + settlement_headroom <= max_quote_lifetime`), so a quote stays acceptable for the entire window. |
 
 ### Responses
 
@@ -178,7 +178,7 @@ Explicitly accepts one quote on an RFQ the taker submitted with
 quote, so the trade can settle before the RFQ deadline ("early"). It is
 valid only while the request is `PENDING` and the chosen quote is still
 `SUBMITTED` and unexpired. The maker retains the option not to deliver, in
-which case the trade fails (cascading to another maker where one exists).
+which case the trade fails; another maker's quote may then be selected where one exists.
 
 ### Parameters
 
