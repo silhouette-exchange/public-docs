@@ -182,7 +182,7 @@ paths:
       summary: Get the account ledger.
       description: |-
         Returns the signed account's recent ledger entries — the append-only audit
-        rows behind every balance change (deposit, fill, withdrawal, adjustment),
+        rows behind every balance change (deposit, settlement, withdrawal, adjustment),
         newest first. A reconciliation surface for auditing balance movements.
       operationId: getLedger
       responses:
@@ -233,13 +233,14 @@ paths:
       - funding
       summary: Get a deposit.
       description: |-
-        Returns a single deposit owned by the signed account. A chain transaction
-        can carry several deposits, so the lookup is by stable deposit ID.
+        Returns a single deposit owned by the signed account. A deposit is identified
+        publicly by its chain transaction hash; because one transaction can carry
+        several deposits, this endpoint looks a single deposit up by its deposit ID.
       operationId: getDeposit
       parameters:
       - name: depositId
         in: path
-        description: Stable Silhouette deposit ID.
+        description: Deposit ID.
         required: true
         schema:
           type: string
@@ -404,7 +405,7 @@ paths:
       summary: Submit a quote.
       description: |-
         Submits a quote for an open RFQ. The quote competes with every other
-        maker's quote for the same RFQ and wins on best price (rfq.md §7); the
+        maker's quote for the same RFQ and wins on best price; the
         engine selects a winner at the RFQ deadline, so this is accepted
         asynchronously (`202`). Requires a maker-scoped credential.
       operationId: createMakerQuote
@@ -534,7 +535,7 @@ paths:
       - maker
       summary: List open RFQs to quote.
       description: |-
-        Returns the open RFQs (`PENDING` requests) on the pairs the authenticated
+        Returns the open RFQs (`PENDING` requests) on the instruments the authenticated
         maker is approved for, cursor-paginated. A maker polls this at its own
         cadence, then submits quotes for the ones it wants. Requires a maker-scoped
         credential.
@@ -611,7 +612,7 @@ paths:
         quote, so the trade can settle before the RFQ deadline ("early"). It is
         valid only while the request is `PENDING` and the chosen quote is still
         `SUBMITTED` and unexpired. The maker retains the option not to deliver, in
-        which case the trade fails (cascading to another maker where one exists).
+        which case the trade fails; another maker's quote may then be selected where one exists.
       operationId: acceptRfqQuote
       parameters:
       - name: id
@@ -1505,7 +1506,7 @@ components:
             How long the RFQ stays open for quotes, in seconds — the taker's lever on
             the speed/price-discovery tradeoff: a short window settles a time-sensitive
             order quickly; a longer one gathers more competitive quotes. Clamped
-            server-side to `[1, operator-max]`, where the operator-configured default
+            by the engine to `[1, operator-max]`, where the operator-configured default
             window is the max; omit it to use that default. The bound is coupled to the
             maximum quote lifetime (`windowSecs + settlement_headroom ≤
             max_quote_lifetime`), so a quote stays acceptable for the entire window.
@@ -1523,7 +1524,7 @@ components:
         expiresAt:
           $ref: '#/components/schemas/UnixMillis'
           description: |-
-            The server-selected auction deadline, derived from the requested (clamped)
+            The engine-selected auction deadline, derived from the requested (clamped)
             `windowSecs`. Quotes are gathered until this time; with `autoAccept` the
             engine selects the winner here. Returned so the client knows the effective
             expiry without re-deriving it.

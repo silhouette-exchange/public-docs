@@ -51,7 +51,7 @@ None.
 | Authentication | HMAC |
 
 Returns the signed account's recent ledger entries - the append-only audit
-rows behind every balance change (deposit, fill, withdrawal, adjustment),
+rows behind every balance change (deposit, settlement, withdrawal, adjustment),
 newest first. A reconciliation surface for auditing balance movements.
 
 ### Parameters

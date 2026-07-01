@@ -407,7 +407,7 @@ validates this and rejects inconsistent quotes.
 | `instrumentId` | [InstrumentId](/api/spec/schemas#instrumentid) | Yes | Canonical instrument identifier (e.g. `XTSLA-USDC-SPOT`). |
 | `quoteLimit` | [PositiveDecimalString](/api/spec/schemas#positivedecimalstring) | Yes | BUY = max we'll pay; SELL = min we'll accept. |
 | `side` | [Side](/api/spec/schemas#side) | Yes |  |
-| `windowSecs` | integer (int64) | No | How long the RFQ stays open for quotes, in seconds - the taker's lever on the speed/price-discovery tradeoff: a short window settles a time-sensitive order quickly; a longer one gathers more competitive quotes. Clamped server-side to `[1, operator-max]`, where the operator-configured default window is the max; omit it to use that default. The bound is coupled to the maximum quote lifetime (`windowSecs + settlement_headroom <= max_quote_lifetime`), so a quote stays acceptable for the entire window. |
+| `windowSecs` | integer (int64) | No | How long the RFQ stays open for quotes, in seconds - the taker's lever on the speed/price-discovery tradeoff: a short window settles a time-sensitive order quickly; a longer one gathers more competitive quotes. Clamped by the engine to `[1, operator-max]`, where the operator-configured default window is the max; omit it to use that default. The bound is coupled to the maximum quote lifetime (`windowSecs + settlement_headroom <= max_quote_lifetime`), so a quote stays acceptable for the entire window. |
 
 ## CreateRfqRequestResponse
 
@@ -416,7 +416,7 @@ validates this and rejects inconsistent quotes.
 |-------|------|----------|-------------|
 | `status` | [RfqStatus](/api/spec/schemas#rfqstatus) | Yes |  |
 | `rfqId` | [RfqId](/api/spec/schemas#rfqid) | Yes |  |
-| `expiresAt` | [UnixMillis](/api/spec/schemas#unixmillis) | Yes | The server-selected auction deadline, derived from the requested (clamped) `windowSecs`. Quotes are gathered until this time; with `autoAccept` the engine selects the winner here. Returned so the client knows the effective expiry without re-deriving it. |
+| `expiresAt` | [UnixMillis](/api/spec/schemas#unixmillis) | Yes | The engine-selected auction deadline, derived from the requested (clamped) `windowSecs`. Quotes are gathered until this time; with `autoAccept` the engine selects the winner here. Returned so the client knows the effective expiry without re-deriving it. |
 
 ## CreateMakerQuoteResponse
 

@@ -57,14 +57,15 @@ None.
 | Operation ID | `getDeposit` |
 | Authentication | HMAC |
 
-Returns a single deposit owned by the signed account. A chain transaction
-can carry several deposits, so the lookup is by stable deposit ID.
+Returns a single deposit owned by the signed account. A deposit is identified
+publicly by its chain transaction hash; because one transaction can carry
+several deposits, this endpoint looks a single deposit up by its deposit ID.
 
 ### Parameters
 
 | Name | In | Required | Type | Description |
 |------|----|----------|------|-------------|
-| `depositId` | path | Yes | string | Stable Silhouette deposit ID. |
+| `depositId` | path | Yes | string | Deposit ID. |
 
 ### Request body
 
